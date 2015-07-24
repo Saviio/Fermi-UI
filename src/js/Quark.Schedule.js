@@ -1,11 +1,10 @@
 ;(function(angular){
 
-    var schedule= angular.module('Quark.shedule',[])
+    var schedule= angular.module('Quark.schedule',[])
 
-    schedule.filter('range', function() {
-        return function(input, total) {
-            total = parseInt(total)
-            for (var i=0; i<total; i++)
+    schedule.filter('range', () => {
+        return (input, total) => {
+            for (var i = 0, total = parseInt(total); i<total; i++)
                 input.push(i)
             return input
         }
