@@ -5,7 +5,7 @@ UI components library based on angular.js.
 1. Compiler:Babel
 2. Lang:ES6
 3. Dependencies:Angular.js
-4. Pack tool:Gulp
+4. Pack Tool:Gulp
 
 -------------------
 ###Components list:
