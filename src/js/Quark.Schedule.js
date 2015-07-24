@@ -18,7 +18,8 @@
                 head:'@',
                 degree:'@',
                 start:'@',
-                tag:'@'
+                tag:'@',
+                update:'@'
             },
             transclude:true,
             template:`
@@ -51,16 +52,16 @@
                                             {{time}}
                                         </div>
                                     </td>
-                                    <td ng-repeat="day in [] | range:hebdomThead.length" >
+                                    <td ng-repeat="day in [] | range:hebdomThead.length" ng-init="parentIndex=$index">
                                         <div ng-repeat="evt in [] | range:period.length" class="schedule-grid">
-                                            <div class="schedule-event" style={{calculateHeight(hebdom[$parent.$index][$index])}} ng-show="hebdom[{{$parent.$index}}] && hebdom[{{$parent.$index}}][{{$index}}].title!=undefined">
-                                                <div class="schedule-event-tag" style={{calculateColor(hebdom[$parent.$index][$index])}} ></div>
+                                            <div class="schedule-event" style={{calculateHeight(hebdom[parentIndex][$index])}} ng-if="hebdom[parentIndex] && hebdom[parentIndex][$index].title!=undefined">
+                                                <div class="schedule-event-tag" style={{calculateColor(hebdom[parentIndex][$index])}} ></div>
                                                 <div class="schedule-event-content">
                                                     <div>
-                                                        {{hebdom[$parent.$index][$index].title}}
+                                                        {{ hebdom[parentIndex][$index].title }}
                                                     </div>
                                                     <div>
-                                                        {{hebdom[$parent.$index][$index].comment}}
+                                                        {{ hebdom[parentIndex][$index].comment }}
                                                     </div>
                                                 </div>
                                             </div>
