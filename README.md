@@ -1,1 +1,4 @@
-# Angular-weekly-schedule
+# Quark.UI
+
+UI components based on angular
+
