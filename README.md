@@ -2,18 +2,18 @@
 
 UI components library based on angular.js.
 
-Compiler:Babel
-Lang:ES6
-Dependencies:Angular.js
-Pack tool:Gulp
+1. Compiler:Babel
+2. Lang:ES6
+3. Dependencies:Angular.js
+4. Pack tool:Gulp
 
 -------------------
 ###Components list:
-1.schedule 日程表
-2.
-3.
-4.
-5.
+1. schedule 日程表
+2. 
+3. 
+4. 
+5. 
 
 ###Compile && Run:
 ```
