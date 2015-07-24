@@ -21,8 +21,8 @@
 .schedule-head{
     height: 45px;
     border:#ccc 1px solid;
-    border-bottom: none;
     background: rgba(248, 249, 251, 1);
+    border-bottom: none;
 }
 
 .schedule-wrapper{
@@ -33,8 +33,9 @@
 }
 
 .schedule-main{
-    border:#ccc 1px solid;
+    border:#C8C8C8 1px solid;
 }
+
 .schedule-grid{
     position: relative;
     height: 35px;

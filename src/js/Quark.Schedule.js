@@ -72,7 +72,7 @@
                     </div>
                 </div>
             `,
-            controller:['$scope',function($scope){
+            controller:['$scope','$attrs',function($scope,$attrs){
 
                 var hashCode = function(str) {
                     var hash = 0, i, chr, len;
@@ -167,7 +167,7 @@
                 }.bind(this)
 
             }],
-            preLink:function($scope,element,attrs,ctrl){
+            link:function($scope,element,attrs,ctrl){
                 var alias = attrs.alias || 'events'
                 $scope.$parent[alias+'Update']=ctrl.update
                 $scope.$parent[alias+'Refresh']=ctrl.refresh
