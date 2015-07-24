@@ -75,9 +75,6 @@
             `,
             controller:['$scope',function($scope){
 
-                //"border-color:"+evt.color+
-                //";"+"height:"+(evt.duration/60*100).toString()+"%"
-
                 var hashCode = function(str) {
                     var hash = 0, i, chr, len;
                     if (str.length == 0) return hash;
@@ -105,19 +102,6 @@
                 $scope.hashKey=$scope.hebdomThead.map((e)=>hashCode(e.toLowerCase()))
 
                 $scope.hebdom={}
-
-                var tmp=[
-                    [{title:'XXX',duration:180,color:"#0089C5",starttime:'2015-07-23T10:00:00',minutes:45},{title:'XXX',duration:180,color:"#0089C5",starttime:'2015-07-23T14:00:00'},{title:'XXX',duration:180,color:"#0089C5",starttime:"2015-07-23T20:00:00"}]
-                ]
-
-                var patchEventList=function(set){
-                    var ret={}
-                    for(var i=0;i<set.length;i++){
-                        var t=(set[i])._hours-start
-                        ret[t]=set[i]
-                    }
-                    return ret
-                }
 
                 var transform=function(set,key){
                     var re=/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\+\d{2}:(0|3)0/
