@@ -167,7 +167,7 @@
                 }.bind(this)
 
             }],
-            link:function($scope,element,attrs,ctrl){
+            preLink:function($scope,element,attrs,ctrl){
                 var alias = attrs.alias || 'events'
                 $scope.$parent[alias+'Update']=ctrl.update
                 $scope.$parent[alias+'Refresh']=ctrl.refresh
