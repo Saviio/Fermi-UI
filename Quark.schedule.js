@@ -1,6 +1,6 @@
 ;(function(angular){
 
-    var schedule= angular.module('weekly.shedule',[])
+    var schedule= angular.module('Quark.shedule',[])
 
     schedule.filter('range', function() {
         return function(input, total) {
@@ -11,7 +11,7 @@
         }
     })
 
-    schedule.directive('schedule', [function(){
+    schedule.directive('quarkSchedule', [function(){
         return {
             restrict:'EA',
             replace:true,
