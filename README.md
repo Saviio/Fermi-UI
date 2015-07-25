@@ -1,4 +1,4 @@
-# Quark.UI
+# Fermi.UI
 
 UI components library based on angular.js.
 
