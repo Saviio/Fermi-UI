@@ -146,9 +146,9 @@
 
                     var skew=0,height=null
                     if(evt._minutes)
-                        skew=Math.round(evt._minutes/15)
-                    height=(evt.duration/60*100)
-                    return `;height:${height}%;top:${skew*25}%;`
+                        skew=evt._minutes/60
+                    height=(evt.duration/60)
+                    return `;height:${height*100}%;top:${skew*100}%;`
                 }
 
 
@@ -162,10 +162,13 @@
                     }
                 }
 
+                var self=this;
                 this.refresh=function(set,key){
                     $scope.hebdom={}
-                    this.update(set,key)
-                }.bind(this)
+                    //$timeout(function(){
+                        self.update(set,key)
+                    //},1000)
+                }
 
                 $scope.alias={
                     update:this.update,
