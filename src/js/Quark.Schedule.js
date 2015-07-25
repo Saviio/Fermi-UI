@@ -19,7 +19,7 @@
                 degree:'@',
                 start:'@',
                 tag:'@',
-                update:'@'
+                alias:'='
             },
             transclude:true,
             template:`
@@ -167,12 +167,12 @@
                     this.update(set,key)
                 }.bind(this)
 
-            }],
-            link:function($scope,element,attrs,ctrl){
-                var alias = attrs.alias || 'events'
-                $scope.$parent[alias+'Update']=ctrl.update
-                $scope.$parent[alias+'Refresh']=ctrl.refresh
-            }
+                $scope.alias={
+                    update:this.update,
+                    refresh:this.refresh
+                }
+
+            }]
         }
     }])
 
