@@ -17,7 +17,7 @@
             scope:{
                 head:'=',
                 degree:'=',
-                start:'=',
+                start:'@',
                 tag:'@',
                 alias:'='
             },
@@ -77,7 +77,7 @@
 
                 var self=this
 
-                var hashCode = function(str) {
+                /*var hashCode = function(str) {
                     var hash = 0, i, chr, len;
                     if (str.length == 0) return hash;
                     for (i = 0, len = str.length; i < len; i++) {
@@ -87,7 +87,7 @@
                     }
 
                     return hash;
-                }
+                }*/
 
                 $scope.hebdomThead= $scope.head || [
                     'Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'
@@ -101,7 +101,7 @@
                     return $scope.start == null ? parseInt($scope.period[0].match(/\d{1,2}/)[0]) : $scope.start
                 })()
 
-                $scope.hashKey=$scope.hebdomThead.map((e)=>hashCode(e.toLowerCase()))
+                $scope.thKey=$scope.hebdomThead.map((e)=>e.toLowerCase())
 
                 $scope.hebdom={}
 
@@ -112,8 +112,9 @@
                     var ret={}
 
                     set.forEach((k,i)=>{
-                        var isGMT = re.test(k[key])
-                        var time  = (new Date(k[key]))
+                        var
+                             isGMT = re.test(k[key])
+                            ,time  = (new Date(k[key]))
 
                         if(isGMT){
                             k._hours=time.getHours()
@@ -155,24 +156,29 @@
                 }
 
 
-                this.update=function(set,key){
-                    for(var i in set){
-                        if(set.hasOwnProperty(i)){
-                            var index=$scope.hashKey.indexOf(hashCode(i.toLowerCase()))
-                            if(index>-1)
-                                $scope.hebdom[index]=transform(set[i],key)
-                        }
-                    }
+                /*this.update=function(set,key){
+
                 }
 
                 this.refresh=function(set,key){
                     $scope.hebdom={}
                     self.update(set,key)
-                }
+                }*/
 
                 $scope.alias={
-                    update:this.update,
-                    refresh:this.refresh
+                    update:function(set,key){
+                        for(var i in set){
+                            if(set.hasOwnProperty(i)){
+                                var index=$scope.thKey.indexOf(i.toLowerCase())
+                                if(index>-1)
+                                    $scope.hebdom[index]=transform(set[i],key)
+                            }
+                        }
+                    },
+                    refresh:function(set,key){
+                        $scope.hebdom={}
+                        this.update(set,key)
+                    }
                 }
 
             }]
