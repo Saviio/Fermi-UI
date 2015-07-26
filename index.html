@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-    <html ng-app="quark">
+    <html ng-app="Fermi">
     <head>
         <meta charset="utf-8"/>
         <title>Quark.UI</title>
         <meta name="keywords" content=""/>
         <meta name="description" content=""/>
         <meta name="viewport" content="width=device-width"/>
-        <link rel="stylesheet" href="build/quarkUI.min.css"/>
+        <link rel="stylesheet" href="build/fermiUI.min.css"/>
         <link rel="stylesheet" href="animated.css">
         <style>
 
@@ -33,16 +33,16 @@
     </head>
 <body>
     <div ng-controller="main">
-        <Quark:schedule alias="events" ></Quark:schedule>
+        <Fermi:schedule alias="events" ></Fermi:schedule>
     </div>
 
 </body>
 <script type="text/javascript" src="http://cdn.staticfile.org/angular.js/1.3.0-beta.13/angular.min.js"></script>
 <script src="http://cdn.staticfile.org/angular-animate/1.2.16/angular-animate.min.js"></script>
-<script type="text/javascript" src="build/quarkUI.min.js"></script>
+<script type="text/javascript" src="build/fermiUI.min.js"></script>
 <script type="text/javascript">
 
-    var app=angular.module('quark',['Quark.schedule','ngAnimate'])
+    var app=angular.module('Fermi',['Fermi.schedule','ngAnimate'])
     app.controller('main',function($scope,$timeout){
 
 

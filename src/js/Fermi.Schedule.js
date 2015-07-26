@@ -1,6 +1,6 @@
 ;(function(angular){
 
-    var schedule= angular.module('Quark.schedule',[])
+    var schedule= angular.module('Fermi.schedule',[])
 
     schedule.filter('range', () => {
         return (input, total) => {
@@ -10,14 +10,14 @@
         }
     })
 
-    schedule.directive('quarkSchedule', [function(){
+    schedule.directive('fermiSchedule', [function(){
         return {
             restrict:'EA',
             replace:true,
             scope:{
-                head:'@',
-                degree:'@',
-                start:'@',
+                head:'=',
+                degree:'=',
+                start:'=',
                 tag:'@',
                 alias:'='
             },
@@ -75,6 +75,8 @@
             `,
             controller:['$scope','$attrs',function($scope,$attrs){
 
+                var self=this
+
                 var hashCode = function(str) {
                     var hash = 0, i, chr, len;
                     if (str.length == 0) return hash;
@@ -122,6 +124,7 @@
                         }
 
                         var t=k._hours-start
+                        k._idx=t
                         ret[t]=k
                     })
 
@@ -162,12 +165,9 @@
                     }
                 }
 
-                var self=this;
                 this.refresh=function(set,key){
                     $scope.hebdom={}
-                    //$timeout(function(){
-                        self.update(set,key)
-                    //},1000)
+                    self.update(set,key)
                 }
 
                 $scope.alias={

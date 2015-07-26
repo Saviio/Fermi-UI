@@ -15,14 +15,14 @@ gulp.task('compile',function(){
     return gulp.src('src/js/*.js')
         .pipe(babel())
         .pipe(uglify())
-        .pipe(rename('quarkUI.min.js'))
+        .pipe(rename('fermiUI.min.js'))
         .pipe(gulp.dest('build'))
 })
 
 gulp.task('minify', function() {
     return gulp.src('src/css/*.css')
         .pipe(minifyCss())
-        .pipe(rename('quarkUI.min.css'))
+        .pipe(rename('fermiUI.min.css'))
         .pipe(gulp.dest('build'));
 })
 
