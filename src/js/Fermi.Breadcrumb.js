@@ -20,13 +20,14 @@
                         <span class="breadcrumb-link" ng-if="!item.label">
                             {{item}}
                         </span>
-                        <a  class="breadcrumb-link" ng-if="item.label" href={{item.href}}>
+                        <a  class="breadcrumb-link" ng-if="item.label" href={{item.href?item.href:'javascript:;'}}>
                             {{item.label}}
                         </a>
                         <span class="breadcrumb-slash">
                             /
                         </span>
                     </span>
+                    <div class="breadcrumb-decoration"></div>
                 </div>
             `,
             controller:[function(){}]
