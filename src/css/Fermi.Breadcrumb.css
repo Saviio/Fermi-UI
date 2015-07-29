@@ -23,8 +23,8 @@
     color: #0167AE;
 }
 
-.breadcrumb-slash{
-    margin: 0 8;
+.breadcrumb .breadcrumb-slash{
+    margin: 0 8px;
     color:#d9d9d9;
 }
 
