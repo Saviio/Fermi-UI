@@ -2,25 +2,29 @@
 
 ;(function(angular){
 
-    var checkbox= angular.module('Fermi.checkbox',[])
+    var switchs= angular.module('Fermi.switch',[])
 
-    checkbox.directive('fermiCheckbox',['$parse',function($parse){
+    switchs.directive('fermiSwitch',['$parse',function($parse){
         return{
             restrict:'EA',
             replace:true,
             require: '^ngModel',
             scope:{
-                ngModel: '='
+                ngModel: '=',
+                event:'='
             },
             transclude:true,
             template:`
-                <div class="checkbox" ng-click="ngModel=!ngModel" >
+                <div class="switch" ng-click="exec()" >
                     <input type="checkbox" ng-model="ngModel"></input>
                     <span></span>
                 </div>
             `,
             controller:['$scope',function($scope){
-                $scope.ngModel=$scope.ngModel || false
+                $scope.exec=function(){
+                    $scope.ngModel=!$scope.ngModel
+                    $scope.event()
+                }
             }],
             link: function (scope, element, attrs) {
                 if (attrs.ngModel && attrs.value)
