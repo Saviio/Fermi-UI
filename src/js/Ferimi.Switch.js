@@ -11,20 +11,20 @@
             require: '^ngModel',
             scope:{
                 ngModel: '=',
-                event:'='
+                //event:'='
             },
             transclude:true,
             template:`
-                <div class="switch" ng-click="exec()" >
+                <div class="switch" ng-click="ngModel=!ngModel" >
                     <input type="checkbox" ng-model="ngModel"></input>
                     <span></span>
                 </div>
             `,
             controller:['$scope',function($scope){
-                $scope.exec=function(){
+                /*$scope.exec=function(){
                     $scope.ngModel=!$scope.ngModel
                     $scope.event()
-                }
+                }*/
             }],
             link: function (scope, element, attrs) {
                 if (attrs.ngModel && attrs.value)
