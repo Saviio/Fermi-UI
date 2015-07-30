@@ -27,7 +27,7 @@
                             /
                         </span>
                     </span>
-                    <div class="breadcrumb-decoration"></div>
+                    <!--<div class="breadcrumb-decoration"></div>-->
                 </div>
             `,
             controller:[function(){}]
