@@ -14,6 +14,10 @@
     -webkit-user-select:none;
 }
 
+.checkbox:hover{
+    cursor: pointer;
+}
+
 .checkbox input{
     opacity: 0;
     position: absolute;
