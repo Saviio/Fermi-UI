@@ -11,27 +11,33 @@
             require: '^ngModel',
             scope:{
                 ngModel: '=',
-                //event:'='
+                label:"@"
             },
             transclude:true,
             template:`
-                <div class="switch" ng-click="ngModel=!ngModel" >
+                <div class="switch" ng-click=";ngModel=!ngModel" >
+                    <label for="{{label}}">
                     <input type="checkbox" ng-model="ngModel"></input>
                     <span></span>
+                    </label>
                 </div>
             `,
-            controller:['$scope',function($scope){
-                /*$scope.exec=function(){
-                    $scope.ngModel=!$scope.ngModel
-                    $scope.event()
-                }*/
-            }],
-            link: function (scope, element, attrs) {
-                if (attrs.ngModel && attrs.value)
-                    $parse(attrs.ngModel).assign(scope, attrs.value);
-            }
+
         }
     }])
+    .directive('fermiDefault', function() {
+        return {
+            restrict: 'A',
+            require: '^ngModel',
+            controller: ['$scope','$attrs', '$parse',
+                function($scope, $attrs, $parse) {
+                    var val = !!$attrs.fermiDefault || !!$attrs.value
+                    if(val!==undefined)
+                        $parse($attrs.ngModel).assign($scope,val)
+                }
+            ]
+        }
+    })
 
 
 })(angular)
