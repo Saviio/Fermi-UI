@@ -12,8 +12,8 @@ UI components library based on angular.js.
 -------------------
 ###Components list:
 1. schedule 日程表
-2. 
-3. 
+2. breadcrumb 面包屑导航
+3. checkbox 复选框
 4. 
 5. 
 
