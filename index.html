@@ -35,7 +35,7 @@
     <div ng-controller="main">
         <Fermi:schedule alias="events" ></Fermi:schedule>
         <Fermi:breadcrumb items="['test','check']"></Fermi:breadcrumb>
-        <Fermi:checkbox boolean="true"></Fermi:checkbox>
+        <Fermi:checkbox ng-model="item" value="true"></Fermi:checkbox>
     </div>
 
 
@@ -47,6 +47,8 @@
 
     var app=angular.module('Fermi',['Fermi.schedule','ngAnimate','Fermi.checkbox','Fermi.breadcrumb'])
     app.controller('main',function($scope,$timeout){
+
+        $scope.test=false;
 
 
         var tmp={
