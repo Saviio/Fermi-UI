@@ -30,6 +30,10 @@
     background-color: #1bb933;
 }
 
+.switch input:checked + span:hover{
+    cursor: pointer;
+}
+
 .switch input:checked + span:after{
     /*right: 1px;*/
     /*transform: translateX(200%);*/
