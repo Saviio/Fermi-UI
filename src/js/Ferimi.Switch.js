@@ -15,10 +15,10 @@
             },
             transclude:true,
             template:`
-                <div class="switch" ng-click=";ngModel=!ngModel" >
-                    <label for="{{label}}">
-                    <input type="checkbox" ng-model="ngModel"></input>
-                    <span></span>
+                <div class="switch"  >
+                    <label for={{label+"_switcher"}}>
+                    <input type="checkbox" ng-model="ngModel" ng-attr-name={{label+"_switcher"}}></input>
+                    <span ng-click=";ngModel=!ngModel"></span>
                     </label>
                 </div>
             `,
@@ -31,9 +31,11 @@
             require: '^ngModel',
             controller: ['$scope','$attrs', '$parse',
                 function($scope, $attrs, $parse) {
-                    var val = !!$attrs.fermiDefault || !!$attrs.value
+                    var val = $attrs.fermiDefault;
+                    if(val===undefined)
+                        val=$attrs.value;
                     if(val!==undefined)
-                        $parse($attrs.ngModel).assign($scope,val)
+                        $parse($attrs.ngModel).assign($scope,JSON.parse(val))
                 }
             ]
         }

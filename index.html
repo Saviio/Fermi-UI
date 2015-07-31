@@ -36,6 +36,7 @@
         <Fermi:schedule alias="events" ></Fermi:schedule>
         <Fermi:breadcrumb items="['test','check']"></Fermi:breadcrumb>
         <Fermi:switch ng-model="item" ng-click="test(item)" fermi-default="true"></Fermi:switch>
+        <Fermi:switch ng-model="item2" ng-click="test(item)" fermi-default="false"></Fermi:switch>
     </div>
 
 
@@ -49,7 +50,7 @@
     app.controller('main',function($scope,$timeout){
 
         $scope.test=function(item){
-            alert($scope.item)
+            console.log(item)
         };
 
 
