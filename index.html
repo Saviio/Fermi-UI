@@ -86,25 +86,7 @@
             $scope.events.refresh(tmp2)
         },3000)
 
-        var getCoords = function(el){
-            var box = el.getBoundingClientRect(),
-            doc = el.ownerDocument,
-            body = doc.body,
-            html = doc.documentElement,
-            clientTop = html.clientTop || body.clientTop || 0,
-            clientLeft = html.clientLeft || body.clientLeft || 0,
-            top = box.top + (self.pageYOffset || html.scrollTop || body.scrollTop ) - clientTop,
-            left = box.left + (self.pageXOffset || html.scrollLeft || body.scrollLeft) - clientLeft
-            return { 'top': top, 'left': left };
-        };
 
-        $scope.kk=function(){
-            alert('fck')
-        }
-
-        $scope.cv=function($e){
-            console.log(getCoords($e.currentTarget || $e.srcElement))
-        }
 
 
 
