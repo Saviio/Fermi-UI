@@ -14,9 +14,9 @@ UI components library based on angular.js.
 1. schedule 日程表
 2. breadcrumb 面包屑导航
 3. switch 开关
-4. dragable uploader 上传组件 <waiting>
+4. dragable uploader 上传组件 <pending>
 5. popover 气泡式卡片 <coding>
-6. tooltip 提示 <coding>
+6. tooltip 提示
 
 ###Compile && Run:
 ```
