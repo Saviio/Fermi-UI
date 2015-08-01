@@ -45,7 +45,7 @@
                 }
 
                 var setLocationStyle=function(){
-                    var offset=$scope.offset || 5
+                    var offset=$scope.offset || 6
                     var tooltip=getContainer()
                     if(typeof style!=='object'){
                         var {left,top}=utils.coords(parent)
@@ -59,18 +59,18 @@
                         switch(placement){
                             case 'top':style={
                                 left:`${(left+width/2)-tp_width/2}px`,
-                                top:`${top-tp_height-offset}px`
+                                top:`${top-tp_height-offset-9}px`
                             };break;
                             case 'bottom':style={
                                 left:`${(left+width/2)-tp_width/2}px`,
                                 top:`${top+height+offset}px`
                             };break;
                             case 'left':style={
-                                left:`${left-offset-tp_width}px`,
+                                left:`${left-tp_width-offset-4}px`,
                                 top:`${(top+height/2)-tp_height/2}px`
                             };break;
                             case 'right':style={
-                                left:`${left+width+offset}px`,
+                                left:`${left+width}px`,
                                 top:`${(top+height/2)-tp_height/2}px`
                             };break;
                         }

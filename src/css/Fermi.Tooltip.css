@@ -40,13 +40,13 @@
   padding: 0px 0 9px 0;
 }
 .tooltip-right {
-  padding: 0 5px 0 9px;
+  padding: 0 0px 0 9px;
 }
 .tooltip-bottom {
   padding: 9px 0 0px 0;
 }
 .tooltip-left {
-  padding: 0 9px 0 5px;
+  padding: 0 9px 0 0px;
 }
 
 .tooltip-left .tooltip-arrow{
