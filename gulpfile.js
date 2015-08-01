@@ -15,7 +15,7 @@ gulp.task('compile',function(){
     return gulp.src('src/js/*.js')
         .pipe(concat('fermiUI.min.js'),{newLine:';'})
         .pipe(babel())
-        //.pipe(uglify())
+        .pipe(uglify())
         //.pipe(rename('fermiUI.min.js'))
         .pipe(gulp.dest('build'))
 })
