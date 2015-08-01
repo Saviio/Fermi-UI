@@ -40,21 +40,21 @@
                         container=angular.element(container)
                         container.html(tooltip_tmpl)
                         container.addClass('tooltip tooltip-hidden')
-                        //container.addClass('tooltip')
                     }
                     return container
                 }
 
-                var getLocationStyle=function(tp){
+                var setLocationStyle=function(){
                     var offset=$scope.offset || 5
+                    var tooltip=getContainer()
                     if(typeof style!=='object'){
                         var {left,top}=utils.coords(parent)
                         var height=utils.style(parent,'height')
                         var width=utils.style(parent,'width')
 
-                        tp=tp[0]
-                        var tp_height=parseInt(utils.style(tp,'height').replace(/px/,''))
-                        var tp_width=parseInt(utils.style(tp,'width').replace(/px/,''))
+                        var elem=tooltip[0]
+                        var tp_height=parseInt(utils.style(elem,'height').replace(/px/,''))
+                        var tp_width=parseInt(utils.style(elem,'width').replace(/px/,''))
 
                         switch(placement){
                             case 'top':style={
@@ -75,21 +75,21 @@
                             };break;
                         }
                     }
-                    return style
+
+                    tooltip.css('left',style.left)
+                    tooltip.css('top',style.top)
                 }
 
 
 
                 $scope.mouseenter=function($event){
                     var elem = $event.currentTarget || $event.srcElement
-                    if(!parent)
-                        parent = elem
+                    if(!parent) parent = elem
                     var tooltip=getContainer()
-                    tooltip.removeClass('tooltip-hidden')
                     tooltip.addClass(`tooltip-${placement}`)
-                    var {left,top}=getLocationStyle(tooltip)
-                    tooltip.css('left',left)
-                    tooltip.css('top',top)
+                    setLocationStyle()
+                    tooltip.removeClass('tooltip-hidden')
+
                 }
 
                 $scope.mouseleave=function($event){
