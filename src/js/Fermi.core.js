@@ -1,4 +1,4 @@
-;(function(angular){
+;(function(angular,undefined){
 
     var core= angular.module('Fermi.core',[])
 

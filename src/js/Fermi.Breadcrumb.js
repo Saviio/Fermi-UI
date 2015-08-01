@@ -1,7 +1,7 @@
 
 
 
-;(function(angular){
+;(function(angular,undefined){
 
     var breadcrumb=angular.module('Fermi.breadcrumb',[])
 

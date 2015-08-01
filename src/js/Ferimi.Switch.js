@@ -1,6 +1,6 @@
 
 
-;(function(angular){
+;(function(angular,undefined){
 
     var switchs= angular.module('Fermi.switch',[])
 

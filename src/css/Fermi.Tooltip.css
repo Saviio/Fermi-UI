@@ -1,0 +1,38 @@
+
+.tooltip *{
+    box-sizing: border-box;
+}
+
+
+.tooltip-arrow{
+    position:absolute;
+    width: 0;
+    height: 0;
+    border-color:transparent;
+    border-style:solid;
+}
+
+.tooltip-arrow-left{
+    top:50%;
+    right:4px;
+    margin-top:-5px;
+    border-width:5px 0 5px 5px;
+    border-left-color:#373737;
+}
+
+.tooltip-arrow-top{
+    bottom:4px;
+    left:50%;
+    margin-left:-5px;
+    border-width:5px 5px 0;
+    border-top-color:#373737;
+}
+
+
+.tooltip-arrow-right{
+    top:50%;
+    left:4px;
+    margin-top:-5px;
+    border-width:5px 5px 5px 0;
+    border-right-color:#373737;
+}

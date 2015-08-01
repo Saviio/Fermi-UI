@@ -1,4 +1,4 @@
-;(function(angular){
+;(function(angular,undefined){
 
     var schedule= angular.module('Fermi.schedule',[])
 
