@@ -9,7 +9,10 @@
         <link rel="stylesheet" href="build/fermiUI.min.css"/>
         <link rel="stylesheet" href="animated.css">
         <style>
-
+            html,body{
+                margin: 0px;
+                padding: 0px;
+            }
             .schedule-event{
                 -webkit-animation-duration: 1s;
                  animation-duration: 1s;
@@ -37,14 +40,14 @@
         <Fermi:breadcrumb items="['test','check']"></Fermi:breadcrumb>
         <Fermi:switch ng-model="item" ng-click="test(item)" fermi-default="true"></Fermi:switch>
         <Fermi:switch ng-model="item2" ng-click="test(item)" fermi-default="false"></Fermi:switch>
+        <Fermi:tooltip content="Hello, my name is baymax" placement="top">
+            <span>鼠标移上即有指示</span>
+        </Fermi:tooltip>
+
     </div>
 
-    <div style="margin-top:20px;" class="tooltip tooltip-left">
-        <div class="tooltip-arrow tooltip-arrow"></div>
-        <div class="tooltip-content">
-            <span>我是一个小提示</span>
-        </div>
-    </div>
+
+
 
 </body>
 <script type="text/javascript" src="http://cdn.staticfile.org/angular.js/1.3.0-beta.13/angular.min.js"></script>
@@ -83,9 +86,27 @@
             $scope.events.refresh(tmp2)
         },3000)
 
+        var getCoords = function(el){
+            var box = el.getBoundingClientRect(),
+            doc = el.ownerDocument,
+            body = doc.body,
+            html = doc.documentElement,
+            clientTop = html.clientTop || body.clientTop || 0,
+            clientLeft = html.clientLeft || body.clientLeft || 0,
+            top = box.top + (self.pageYOffset || html.scrollTop || body.scrollTop ) - clientTop,
+            left = box.left + (self.pageXOffset || html.scrollLeft || body.scrollLeft) - clientLeft
+            return { 'top': top, 'left': left };
+        };
+
         $scope.kk=function(){
             alert('fck')
         }
+
+        $scope.cv=function($e){
+            console.log(getCoords($e.currentTarget || $e.srcElement))
+        }
+
+
 
     })
 </script>

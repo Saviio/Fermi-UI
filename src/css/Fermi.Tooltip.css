@@ -25,16 +25,24 @@
     font-size: 12px;
     line-height: 1.5;
     opacity: 0.9;
+    visibility:visible;
+    transition: all 400ms ease;
+}
+
+.tooltip.tooltip-hidden{
+    /*display: none;*/
+    visibility: hidden;
+    opacity: 0;
 }
 
 .tooltip-top {
-  padding: 5px 0 9px 0;
+  padding: 0px 0 9px 0;
 }
 .tooltip-right {
   padding: 0 5px 0 9px;
 }
 .tooltip-bottom {
-  padding: 9px 0 5px 0;
+  padding: 9px 0 0px 0;
 }
 .tooltip-left {
   padding: 0 9px 0 5px;
