@@ -46,7 +46,7 @@
                 ctrl.setLocationStyle=function(){
                     var offset=scope.offset || 6
                     var tooltip=ctrl.getContainer()
-                    if(typeof ctrl.style!=='object'){
+                    //if(typeof ctrl.style!=='object'){
 
                         var {left,top}=utils.coords(elem[0])
                         var height=utils.style(elem[0],'height')
@@ -75,7 +75,7 @@
                                 top:`${(top+height/2)-tp_height/2}px`
                             };break;
                         }
-                    }
+                    //}
 
                     tooltip.css('left',ctrl.style.left)
                     tooltip.css('top',ctrl.style.top)
@@ -83,10 +83,10 @@
 
                 Object.defineProperty(ctrl, 'tooltip', {
                     get: function() {
-                        if(!isInit){
+                        //if(!isInit){
                             ctrl.setLocationStyle()
-                            isInit=true
-                        }
+                        //    isInit=true
+                        //}
                         return ctrl.getContainer()
                     },
                     enumerable: true,
