@@ -3,8 +3,11 @@
 
     popover.directive('fermiPopover',[function(){
         return {
-            
+            restrict:'EA',
+            replace:true,
+            transclude:true,
+
         }
     }])
 
-}(angular)
+})(angular)
