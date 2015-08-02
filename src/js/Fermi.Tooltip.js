@@ -2,7 +2,7 @@
     //var elem = $event.currentTarget || $event.srcElement
     var tooltip= angular.module('Fermi.tooltip',['Fermi.core'])
 
-    tooltip.directive('fermiTooltip',[function(){
+    tooltip.directive('fermiTooltip',['fermi.Utils',function(utils){
         return {
             restrict:'EA',
             replace:true,
@@ -13,90 +13,94 @@
                 offset:'@'
             },
             template:`
-                <span ng-transclude ng-mouseenter="mouseenter($event)" ng-mouseleave="mouseleave($event)">
-                </span>
+                <span ng-transclude> </span>
             `,
-            controller:['$scope','fermi.Utils',function($scope,utils){
-                // tooltip-top
-                //<div class="tooltip tooltip-on">
+            controller:['$scope',function($scope){}],
+            link:function(scope,elem,attr,ctrl){
 
-                var
-                    container=null,
-                    parent=null,
-                    tooltip_tmpl=`
+                ctrl.container=null
+                ctrl.parent=null
+                ctrl.tooltip_tmpl=`
+                        <div class="tooltip-arrow tooltip-arrow"></div>
+                        <div class="tooltip-content">
+                            <span>${scope.content}</span>
+                        </div>
+                `
+                ctrl.style=undefined
+                ctrl.placement=scope.placement || 'top'
 
-                            <div class="tooltip-arrow tooltip-arrow"></div>
-                            <div class="tooltip-content">
-                                <span>${$scope.content}</span>
-                            </div>
-                    `,
-                    style=undefined,
-                    placement=$scope.placement || 'top'
+                var isInit=false
 
-                var getContainer=function(){
-                    if(!container){
-                        container=document.createElement('div')
-                        document.body.appendChild(container)
-                        container=angular.element(container)
-                        container.html(tooltip_tmpl)
-                        container.addClass('tooltip tooltip-hidden')
+
+                ctrl.getContainer=function(){
+                    if(!ctrl.container){
+                        ctrl.container=document.createElement('div')
+                        document.body.appendChild(ctrl.container)
+                        ctrl.container=angular.element(ctrl.container)
+                        ctrl.container.html(ctrl.tooltip_tmpl)
+                        ctrl.container.addClass(`tooltip tooltip-hidden tooltip-${ctrl.placement}`)
                     }
-                    return container
+                    return ctrl.container
                 }
 
-                var setLocationStyle=function(){
-                    var offset=$scope.offset || 6
-                    var tooltip=getContainer()
-                    if(typeof style!=='object'){
-                        var {left,top}=utils.coords(parent)
-                        var height=utils.style(parent,'height')
-                        var width=utils.style(parent,'width')
+                ctrl.setLocationStyle=function(){
+                    var offset=scope.offset || 6
+                    var tooltip=ctrl.getContainer()
+                    if(typeof ctrl.style!=='object'){
 
-                        var elem=tooltip[0]
-                        var tp_height=parseInt(utils.style(elem,'height').replace(/px/,''))
-                        var tp_width=parseInt(utils.style(elem,'width').replace(/px/,''))
+                        var {left,top}=utils.coords(elem[0])
+                        var height=utils.style(elem[0],'height')
+                        var width=utils.style(elem[0],'width')
 
-                        switch(placement){
-                            case 'top':style={
+
+                        var tooltip_element=tooltip[0]
+                        var tp_height=parseInt(utils.style(tooltip_element,'height').replace(/px/,''))
+                        var tp_width=parseInt(utils.style(tooltip_element,'width').replace(/px/,''))
+
+                        switch(scope.placement){
+                            case 'top':ctrl.style={
                                 left:`${(left+width/2)-tp_width/2}px`,
                                 top:`${top-tp_height-offset-9}px`
                             };break;
-                            case 'bottom':style={
+                            case 'bottom':ctrl.style={
                                 left:`${(left+width/2)-tp_width/2}px`,
                                 top:`${top+height+offset}px`
                             };break;
-                            case 'left':style={
+                            case 'left':ctrl.style={
                                 left:`${left-tp_width-offset-4}px`,
                                 top:`${(top+height/2)-tp_height/2}px`
                             };break;
-                            case 'right':style={
+                            case 'right':ctrl.style={
                                 left:`${left+width}px`,
                                 top:`${(top+height/2)-tp_height/2}px`
                             };break;
                         }
                     }
 
-                    tooltip.css('left',style.left)
-                    tooltip.css('top',style.top)
+                    tooltip.css('left',ctrl.style.left)
+                    tooltip.css('top',ctrl.style.top)
                 }
 
+                Object.defineProperty(ctrl, 'tooltip', {
+                    get: function() {
+                        if(!isInit){
+                            ctrl.setLocationStyle()
+                            isInit=true
+                        }
+                        return ctrl.getContainer()
+                    },
+                    enumerable: true,
+                    configurable: true
+                })
 
+                elem.bind('mouseover',function(){
+                    ctrl.tooltip.removeClass('tooltip-hidden')
+                })
 
-                $scope.mouseenter=function($event){
-                    var elem = $event.currentTarget || $event.srcElement
-                    if(!parent) parent = elem
-                    var tooltip=getContainer()
-                    tooltip.addClass(`tooltip-${placement}`)
-                    setLocationStyle()
-                    tooltip.removeClass('tooltip-hidden')
-
-                }
-
-                $scope.mouseleave=function($event){
-                    var tooltip=getContainer()
-                    tooltip.addClass('tooltip-hidden')
-                }
-            }]
+                elem.bind('mouseout',function(){
+                    ctrl.tooltip.addClass('tooltip-hidden')
+                })
+            }
         }
     }])
 

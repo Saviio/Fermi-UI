@@ -32,6 +32,10 @@
                 -webkit-backface-visibility: visible !important;
                 backface-visibility: visible !important;
             }
+
+            #cs span{
+                margin-right: 20px;
+            }
         </style>
     </head>
 <body>
@@ -40,8 +44,8 @@
         <Fermi:breadcrumb items="['test','check']"></Fermi:breadcrumb>
         <Fermi:switch ng-model="item" ng-click="test(item)" fermi-default="true"></Fermi:switch>
         <Fermi:switch ng-model="item2" ng-click="test(item)" fermi-default="false"></Fermi:switch>
-        <div style="margin-left:100px;">
-            <Fermi:tooltip content="上铺你说呢" placement="bottom">
+        <div id="cs" style="margin-left:100px;">
+            <Fermi:tooltip content="上铺你说呢" placement="bottom" >
                 <a href="http://www.baidu.com">下铺你干嘛呢</a>
             </Fermi:tooltip>
             <Fermi:tooltip content="右边兄弟你说呢" placement="top">
@@ -52,6 +56,14 @@
             </Fermi:tooltip>
             <Fermi:tooltip content="抽他丫的" placement="right">
                 <a href="http://www.baidu.com">右边你瞅啥</a>
+            </Fermi:tooltip>
+        </div>
+
+        <div id="kk">
+            <Fermi:tooltip content="上铺你说呢" placement="top" >
+                <div style="display:inline-block;">
+                    鼠标移上来哟
+                </div>
             </Fermi:tooltip>
         </div>
     </div>
