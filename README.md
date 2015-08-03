@@ -17,6 +17,7 @@ UI components library based on angular.js.
 4. dragable uploader 上传组件 (pending)
 5. popover 气泡式卡片 (coding)
 6. tooltip 提示
+7. select 选择器 (pending)
 
 ###Compile && Run:
 ```
