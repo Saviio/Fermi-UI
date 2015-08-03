@@ -18,6 +18,11 @@ UI components library based on angular.js.
 5. popover 气泡式卡片 (coding)
 6. tooltip 提示
 7. select 选择器 (pending)
+8. dropdown 下拉菜单(pending)
+9. pagination 分页器(pending)
+10. progress 进度条(pending)
+11. Alert 消息提示(pending)
+
 
 ###Compile && Run:
 ```
