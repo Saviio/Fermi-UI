@@ -1,14 +1,6 @@
 ;(function(angular,undefined){
 
-    var schedule= angular.module('Fermi.schedule',[])
-
-    schedule.filter('range', () => {
-        return (input, total) => {
-            for (var i = 0, total = parseInt(total); i<total; i++)
-                input.push(i)
-            return input
-        }
-    })
+    var schedule= angular.module('Fermi.schedule',['Fermi.core'])
 
     schedule.directive('fermiSchedule', [function(){
         return {

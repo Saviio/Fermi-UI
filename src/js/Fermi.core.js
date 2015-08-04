@@ -21,6 +21,14 @@
         }
     })
 
+    core.filter('range', () => {
+        return (input, total) => {
+            for (var i = 0, total = parseInt(total); i<total; i++)
+                input.push(i)
+            return input
+        }
+    })
+
     core.factory('fermi.Utils',function(){
 
         var getCoords = function(elem){
