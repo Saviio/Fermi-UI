@@ -3,7 +3,7 @@
 UI components library based on angular.js.
 
 1. Compiler: Babel
-2. Lang: ES6
+2. Lang: ES6 && LESS
 3. Dependencies: Angular.js
 4. Pack Tool: Gulp
 
@@ -21,7 +21,7 @@ UI components library based on angular.js.
 8. dropdown 下拉菜单(pending)
 9. pagination 分页器(pending)
 10. progress 进度条(pending)
-11. Alert 消息提示(pending)
+11. alert 消息提示(pending)
 
 
 ###Compile && Run:
