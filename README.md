@@ -13,7 +13,7 @@ UI components library based on angular.js.
 ###Components list:
 1. schedule 日程表
 2. breadcrumb 面包屑导航
-3. switch 开关
+3. switcher 开关
 4. dragable uploader 上传组件 (pending)
 5. popover 气泡式卡片 (coding)
 6. tooltip 提示
@@ -22,7 +22,7 @@ UI components library based on angular.js.
 9. pagination 分页器(pending)
 10. progress 进度条(pending)
 11. alert 消息提示(pending)
-
+12. Crop 修剪器 (pending)
 
 ###Compile && Run:
 ```
@@ -30,7 +30,7 @@ UI components library based on angular.js.
     gulp
 ```
 
-项目结束后我会着手整理组件，暂时只有schedule
+项目结束后我会着手整理组件，暂时只有schedule,tooltips,switcher等组件
 
 ---------
 Thank you for your watching and using, Enjoy.
