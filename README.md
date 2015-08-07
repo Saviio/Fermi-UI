@@ -22,7 +22,8 @@ UI components library based on angular.js.
 9. pagination 分页器(pending)
 10. progress 进度条(pending)
 11. alert 消息提示(pending)
-12. Crop 修剪器 (pending)
+12. crop 修剪器 (pending)
+13. step 步骤提示(pending)
 
 ###Compile && Run:
 ```
