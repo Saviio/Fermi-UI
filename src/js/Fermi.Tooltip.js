@@ -28,6 +28,7 @@
                 `
                 ctrl.style=undefined
                 ctrl.placement=scope.placement || 'top'
+                ctrl.isExpend=false
 
                 var isInit=false
 
@@ -83,10 +84,12 @@
 
                 Object.defineProperty(ctrl, 'tooltip', {
                     get: function() {
-                        //if(!isInit){
+                        if(!ctrl.isExpend){
                             ctrl.setLocationStyle()
-                        //    isInit=true
-                        //}
+                            ctrl.isExpend=true
+                        } else {
+                            ctrl.isExpend=false
+                        }
                         return ctrl.getContainer()
                     },
                     enumerable: true,
