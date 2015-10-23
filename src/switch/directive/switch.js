@@ -14,9 +14,16 @@ export default class SwitchDirective {
             <div class="switch">
                 <label for={{label+"_switcher"}}>
                 <input type="checkbox" ng-model="ngModel" ng-attr-name={{label+"_switcher"}}></input>
-                <span ng-click=";ngModel=!ngModel"></span>
+                <span ></span>
                 </label>
             </div>
         `
+    }
+
+    link(scope,elem,attr,ctrl){
+        elem.children()
+            .find('span')
+            .bind('click',()=>
+                scope.ngModel=!scope.ngModel)
     }
 }
