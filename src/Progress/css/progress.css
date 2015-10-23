@@ -1,5 +1,9 @@
-.progress-success{
+.progress-line{
+    position:relative;
+}
 
+.progress-success .progress-line-padding{
+    background-color:#77B91B;
 }
 
 
@@ -9,11 +13,26 @@
 
 
 .progress-line-padding{
-    height: 10px;
+    height: 7px;
     border-radius:100px;
     background-color:#2db7f5;
+    transition: all 300ms cubic-bezier(0.08, 0.82, 0.17, 1);
 }
 
-.progress-line-inner > input{
-    
+.progress-line-inner > input {
+    display:none;
+}
+
+.progress-line-text{
+    text-align:left;
+    width:35px;
+    margin-left:10px;
+    font-size:1em;
+    position:absolute;
+    bottom:0;
+    right:0;
+}
+
+.progress-line-wrap{
+    margin-right:45px;
 }

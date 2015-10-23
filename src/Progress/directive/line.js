@@ -17,26 +17,21 @@ export default class{
     }
 
     controller($scope){
-
-
-        $scope.update=function(percent){
-            $scope.ngModel+=percent
+        $scope.check=function(){
             if($scope.ngModel>100)
                 $scope.ngModel=100
-            if($scope.ngModel<0)
+            else if($scope.ngModel<0)
                 $scope.ngModel=0
-        }
-
-        $scope.test=function(){
-            console.log($scope.ngModel)
-        }
-
-        $scope.success=function(){
-            $scope.update(100)
         }
     }
 
-    link(scope, element, attrs){
-        
+    link(scope, element, attrs, ctrl){
+        scope.$watch('ngModel',(newValue,oldValue) => {
+            scope.check()
+            if(newValue>=100)
+                element.addClass('progress-success')
+            else
+                element.removeClass('progress-success')
+        })
     }
 }

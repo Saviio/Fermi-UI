@@ -25,6 +25,10 @@
     left:0;
 }
 
+.switch span:hover{
+    cursor:pointer;
+}
+
 .switch input:checked + span {
     border: 1px solid #17a82d;
     background-color: #1bb933;
