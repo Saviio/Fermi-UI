@@ -86,12 +86,10 @@ export default class TooltipsDirective {
 
         Object.defineProperty(ctrl, 'tooltip', {
             get: () => {
-                if(!ctrl.isExpend){
+                if(!ctrl.isExpend)
                     ctrl.setLocationStyle()
-                    ctrl.isExpend=true
-                } else {
-                    ctrl.isExpend=false
-                }
+                    
+                ctrl.isExpend=!ctrl.isExpend
                 return ctrl.getContainer()
             },
             enumerable: true,

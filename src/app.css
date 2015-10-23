@@ -1,6 +1,7 @@
 html,body{
     margin: 0px;
     padding: 0px;
+    font-size: 12px;
 }
 .schedule-event{
     -webkit-animation-duration: 1s;
@@ -22,6 +23,7 @@ html,body{
     backface-visibility: visible !important;
 }
 
-#cs span{
-    margin-right: 20px;
+.main > div {
+    margin-bottom: 30px;
+    margin-top: 30px;
 }

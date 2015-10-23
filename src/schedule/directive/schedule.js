@@ -46,15 +46,15 @@ export default class ScheduleDirective{
                     ,time  = (new Date(k[key]))
 
                 if(isGMT){
-                    k._hours=time.getHours()
-                    k._minutes=time.getMinutes()
+                    k.$hours=time.getHours()
+                    k.$minutes=time.getMinutes()
                 } else {
-                    k._hours=time.getUTCHours()
-                    k._minutes=time.getUTCMinutes()
+                    k.$hours=time.getUTCHours()
+                    k.$minutes=time.getUTCMinutes()
                 }
 
-                var t=k._hours-start
-                k._idx=t
+                var t=k.$hours-start
+                k.$scheduleIndex=t
                 ret[t]=k
             })
 
@@ -77,9 +77,13 @@ export default class ScheduleDirective{
         $scope.calculateHeight=(evt)=>{
             if(evt==null) return
 
-            var skew=0,height=null
-            if(evt._minutes)
-                skew=evt._minutes/60
+            var
+                skew   = 0
+               ,height = null
+
+            if(evt.$minutes)
+                skew=evt.$minutes/60
+                
             height=(evt.duration/60)
             return `;height:${height*100}%;top:${skew*100}%;`
         }

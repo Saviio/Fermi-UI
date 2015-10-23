@@ -6,17 +6,29 @@
   <base href="/">
 </head>
 <body>
-    <div> Hello, World </div>
-    <div ng-controller="main">
+    <div> Hello, Fermi </div>
+    <div class="main" ng-controller="main">
 
-        <Fermi:breadcrumb items="['test','check']"></Fermi:breadcrumb>
+        <div id="breadcrumb">
+            <p>面包屑导航</p>
+            <Fermi:breadcrumb items="['深夜面包房','法式长棍','巧克力可颂']"></Fermi:breadcrumb>
+        </div>
 
-        <Fermi:schedule alias="events" ></Fermi:schedule>
-        <Fermi:switch ng-model="item" ng-click="test(item)" fermi-default="true"></Fermi:switch>
-        <Fermi:switch ng-model="item2" ng-click="test(item)" fermi-default="false"></Fermi:switch>
+        <div id="fermischedule">
+            <p>日程表</p>
+            <Fermi:schedule alias="events" ></Fermi:schedule>
+        </div>
 
 
-        <div id="cs" style="margin-left:100px;">
+        <div id="fermiswitch">
+            <p>开关器</p>
+            <Fermi:switch ng-model="item" ng-click="test(item)" fermi-default="true"></Fermi:switch>
+            <Fermi:switch ng-model="item2" ng-click="test(item)" fermi-default="false"></Fermi:switch>
+        </div>
+
+
+        <div id="fermiTooltips" style="width:700px;margin:0 auto">
+            <p>工具提示</p>
             <Fermi:tooltip content="上铺你说呢" placement="bottom" >
                 <a href="http://www.baidu.com">下铺你干嘛呢</a>
             </Fermi:tooltip>
