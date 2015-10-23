@@ -8,21 +8,27 @@ export default class{
         this.restrict='EA'
         this.template=template
         this.controller.$inject=['$scope']
+        this.require='^ngModel'
         this.scope={
-            percent:'='
+            percent:'=',
+            ngModel:'=',
+            label:'@'
         }
     }
 
     controller($scope){
 
-        $scope.percent=$scope.percent || 0
 
         $scope.update=function(percent){
-            $scope.percent+=percent
-            if($scope.percent>100)
-                $scope.percent=100
-            if($scope.percent<0)
-                $scope.percent=0
+            $scope.ngModel+=percent
+            if($scope.ngModel>100)
+                $scope.ngModel=100
+            if($scope.ngModel<0)
+                $scope.ngModel=0
+        }
+
+        $scope.test=function(){
+            console.log($scope.ngModel)
         }
 
         $scope.success=function(){
@@ -31,6 +37,6 @@ export default class{
     }
 
     link(scope, element, attrs){
-
+        
     }
 }

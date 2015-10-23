@@ -26,7 +26,6 @@
             <Fermi:switch ng-model="item2" ng-click="test(item2)" fermi-default="false"></Fermi:switch>
         </div>
 
-
         <div id="fermiTooltips" >
             <p>工具提示</p>
             <div style="width:700px;margin:0 auto">
@@ -47,7 +46,9 @@
 
         <div id="fermiProgress">
             <p>Progress bar</p>
-            <Fermi:Lineprogress percent="20"></Fermi:Lineprogress>
+            <div style="width:500px">
+                <Fermi:LineProgress ng-model="entity1" fermi-default="30"></Fermi:LineProgress>
+            </div>
         </div>
     </div>
 </body>

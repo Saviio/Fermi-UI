@@ -17,8 +17,6 @@ app.controller('main',function($scope,$timeout){
         console.log(item)
     };
 
-    
-
 
     var tmp={
         Monday:[ {title:'IELTS',duration:120,comment:'Duration:120 Mins',starttime:'2015-07-24T13:00:00'} ],
@@ -42,6 +40,9 @@ app.controller('main',function($scope,$timeout){
     $timeout(function(){
         $scope.events.refresh(tmp2)
     },3000)
+
+    $timeout(()=> console.log($scope.entity1),3000)
+    $timeout(()=> $scope.entity1=80,4000)
 })
 
 console.log('Fermi loaded')
