@@ -9,7 +9,7 @@
             controller: ['$scope','$attrs', '$parse',
                 function($scope, $attrs, $parse) {
                     var val = $attrs.ngModel
-                    
+
                     if(val===undefined){
                         val = $attrs.fermiDefault;
                         if(val === undefined)
@@ -17,7 +17,7 @@
                         if(val !== undefined)
                             $parse($attrs.ngModel).assign($scope,JSON.parse(val))
                     }
-  
+
                 }
             ]
         }
@@ -60,7 +60,6 @@
             coords:getCoords,
             style:getStyle
         }
-
     })
 
 })(angular)

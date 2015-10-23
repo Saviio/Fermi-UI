@@ -1,0 +1,27 @@
+html,body{
+    margin: 0px;
+    padding: 0px;
+}
+.schedule-event{
+    -webkit-animation-duration: 1s;
+     animation-duration: 1s;
+     -webkit-animation-fill-mode: both;
+     animation-fill-mode: both;
+}
+.schedule-event.ng-enter{
+    -webkit-backface-visibility: visible !important;
+    backface-visibility: visible !important;
+    -webkit-animation-name: flipInX;
+    animation-name: flipInX;
+}
+
+.schedule-event.ng-leave{
+    -webkit-animation-name: flipOutX;
+    animation-name: flipOutX;
+    -webkit-backface-visibility: visible !important;
+    backface-visibility: visible !important;
+}
+
+#cs span{
+    margin-right: 20px;
+}

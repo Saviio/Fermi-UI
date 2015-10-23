@@ -6,7 +6,6 @@
             restrict:'EA',
             replace:true,
             transclude:true,
-
         }
     }])
 

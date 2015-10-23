@@ -11,7 +11,7 @@
                     <input type="file" />
                 </div>
             `,
-            controller['$scope',function($scope){
+            controller:['$scope',function($scope){
 
             }],
             link:function(scope,element,attr,ctrl){

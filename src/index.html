@@ -1,0 +1,35 @@
+<!doctype html>
+<html ng-app="app" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fermi Components</title>
+  <base href="/">
+</head>
+<body>
+    <div> Hello, World </div>
+    <div ng-controller="main">
+
+        <Fermi:breadcrumb items="['test','check']"></Fermi:breadcrumb>
+
+        <Fermi:schedule alias="events" ></Fermi:schedule>
+        <Fermi:switch ng-model="item" ng-click="test(item)" fermi-default="true"></Fermi:switch>
+        <Fermi:switch ng-model="item2" ng-click="test(item)" fermi-default="false"></Fermi:switch>
+
+
+        <div id="cs" style="margin-left:100px;">
+            <Fermi:tooltip content="上铺你说呢" placement="bottom" >
+                <a href="http://www.baidu.com">下铺你干嘛呢</a>
+            </Fermi:tooltip>
+            <Fermi:tooltip content="右边兄弟你说呢" placement="top">
+                <a href="http://www.baidu.com">上铺你别闹腾了行不</a>
+            </Fermi:tooltip>
+            <Fermi:tooltip content="老大，怎么整" placement="left">
+                <a href="http://www.baidu.com">左边你瞅啥</a>
+            </Fermi:tooltip>
+            <Fermi:tooltip content="抽他丫的" placement="right">
+                <a href="http://www.baidu.com">右边你瞅啥</a>
+            </Fermi:tooltip>
+        </div>
+    </div>
+</body>
+</html>
