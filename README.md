@@ -28,7 +28,7 @@ UI components library based on angular.js.
 ###Compile && Run:
 ```
     npm install
-    gulp
+    npm run dev
 ```
 
 项目结束后我会着手整理组件，暂时只有schedule,tooltips,switcher等组件
