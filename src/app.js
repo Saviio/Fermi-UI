@@ -1,9 +1,9 @@
 import angular from 'angular';
 
-import './switch/index.js'
-import './schedule/index.js'
-import './tooltips/index.js'
-import './breadcrumb/index.js'
+import './Switch/index.js'
+import './Schedule/index.js'
+import './Tooltips/index.js'
+import './Breadcrumb/index.js'
 import './app.css'
 
 var app=angular.module('app', ['Fermi.switch','Fermi.schedule','Fermi.tooltip','Fermi.breadcrumb']);
