@@ -2,10 +2,10 @@
 
 UI components library based on angular.js.
 
-1. Compiler: Babel
-2. Lang: ES6 && LESS
-3. Dependencies: Angular.js
-4. Pack Tool: Gulp
+
+1. Lang: ES6 
+2. Dependencies: Angular.js
+3. Pack Tool: Webpack
 
 > The reason of "Fermi" is that when I create this library, NASA just found the kepler-452b. That remind me Fermi raised a paradox long time ago: if we’re not alone in the universe but where are they.
 
