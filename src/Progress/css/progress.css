@@ -1,0 +1,15 @@
+.progress-success{
+
+}
+
+
+.progress-loading{
+
+}
+
+
+.progress-line-padding{
+    height: 10px;
+    border-radius:100px;
+    background-color:#2db7f5;
+}

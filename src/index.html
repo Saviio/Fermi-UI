@@ -23,24 +23,31 @@
         <div id="fermiswitch">
             <p>开关器</p>
             <Fermi:switch ng-model="item" ng-click="test(item)" fermi-default="true"></Fermi:switch>
-            <Fermi:switch ng-model="item2" ng-click="test(item)" fermi-default="false"></Fermi:switch>
+            <Fermi:switch ng-model="item2" ng-click="test(item2)" fermi-default="false"></Fermi:switch>
         </div>
 
 
-        <div id="fermiTooltips" style="width:700px;margin:0 auto">
+        <div id="fermiTooltips" >
             <p>工具提示</p>
-            <Fermi:tooltip content="上铺你说呢" placement="bottom" >
-                <a href="http://www.baidu.com">下铺你干嘛呢</a>
-            </Fermi:tooltip>
-            <Fermi:tooltip content="右边兄弟你说呢" placement="top">
-                <a href="http://www.baidu.com">上铺你别闹腾了行不</a>
-            </Fermi:tooltip>
-            <Fermi:tooltip content="老大，怎么整" placement="left">
-                <a href="http://www.baidu.com">左边你瞅啥</a>
-            </Fermi:tooltip>
-            <Fermi:tooltip content="抽他丫的" placement="right">
-                <a href="http://www.baidu.com">右边你瞅啥</a>
-            </Fermi:tooltip>
+            <div style="width:700px;margin:0 auto">
+                <Fermi:tooltip content="上铺你说呢" placement="bottom" >
+                    <a href="http://www.baidu.com">下铺你干嘛呢</a>
+                </Fermi:tooltip>
+                <Fermi:tooltip content="右边兄弟你说呢" placement="top">
+                    <a href="http://www.baidu.com">上铺你别闹腾了行不</a>
+                </Fermi:tooltip>
+                <Fermi:tooltip content="老大，怎么整" placement="left">
+                    <a href="http://www.baidu.com">左边你瞅啥</a>
+                </Fermi:tooltip>
+                <Fermi:tooltip content="抽他丫的" placement="right">
+                    <a href="http://www.baidu.com">右边你瞅啥</a>
+                </Fermi:tooltip>
+            </div>
+        </div>
+
+        <div id="fermiProgress">
+            <p>Progress bar</p>
+            <Fermi:Lineprogress percent="20"></Fermi:Lineprogress>
         </div>
     </div>
 </body>
