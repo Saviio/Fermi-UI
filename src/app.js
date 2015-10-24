@@ -6,7 +6,9 @@ import './Tooltips/index.js'
 import './Breadcrumb/index.js'
 import './Progress/index.js'
 
+import './global.scss'
 import './app.css'
+
 
 var app=angular.module('app', ['Fermi.switch','Fermi.schedule','Fermi.tooltip','Fermi.breadcrumb','Fermi.progress']);
 

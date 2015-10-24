@@ -109,6 +109,9 @@ module.exports = function makeWebpackConfig (options) {
       // Allow loading html through js
       test: /\.html$/,
       loader: 'raw'
+    }, {
+      test: /\.scss$/,
+      loaders: ["style", "css", "sass"]
     }]
   };
 
