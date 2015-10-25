@@ -1,13 +1,4 @@
 
-*{
-    -webkit-font-smoothing:antialiased;
-    text-rendering:optimizeLegibility;
-}
-
-.tooltip *{
-    box-sizing: border-box;
-}
-
 
 .tooltip-arrow{
     position:absolute;
@@ -31,7 +22,6 @@
 }
 
 .tooltip.tooltip-hidden{
-    /*display: none;*/
     visibility: hidden;
     transform: scale(0.1);
     opacity: 0;

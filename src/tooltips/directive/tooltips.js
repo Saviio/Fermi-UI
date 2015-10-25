@@ -1,5 +1,5 @@
 
-
+//Todo: 实现disable 功能
 export default class TooltipsDirective {
     constructor(utils){
         this.restrict="EA"
@@ -88,7 +88,7 @@ export default class TooltipsDirective {
             get: () => {
                 if(!ctrl.isExpend)
                     ctrl.setLocationStyle()
-                    
+
                 ctrl.isExpend=!ctrl.isExpend
                 return ctrl.getContainer()
             },

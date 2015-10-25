@@ -44,8 +44,15 @@ app.controller('main',function($scope,$timeout){
         $scope.events.refresh(tmp2)
     },3000)
 
-    $timeout(()=> console.log($scope.entity1),3000)
-    $timeout(()=> $scope.entity1=80,4000)
+
+    function rec(){
+        if($scope.entity1>=100)
+            $scope.entity1=-1
+        $scope.entity1+=1
+        $timeout(rec,100)
+    }
+
+    $timeout(rec,1000)
 })
 
 console.log('Fermi loaded')

@@ -10,7 +10,7 @@ export default class{
         this.controller.$inject=['$scope']
         this.require='^ngModel'
         this.scope={
-            percent:'=',
+            success:'=',
             ngModel:'=',
             label:'@'
         }
@@ -28,10 +28,12 @@ export default class{
     link(scope, element, attrs, ctrl){
         scope.$watch('ngModel',(newValue,oldValue) => {
             scope.check()
-            if(newValue>=100)
+            if(newValue>=100){
                 element.addClass('progress-success')
-            else
+                scope.success && scope.success()
+            } else {
                 element.removeClass('progress-success')
+            }
         })
     }
 }
