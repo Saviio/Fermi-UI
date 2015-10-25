@@ -34,27 +34,32 @@ export default class ScheduleDirective{
 
         $scope.hebdom={}
 
-        var transform=(set,key) => {
-            var re=/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\+\d{2}:(0|3)0/
-            var key=key||'starttime'
+        var transform=(set,key)=>{
+            var re  = {
+                    UTC:/^\d{4}-\d{2}-\d{2}(T)\d{2}:\d{2}:\d{2}$/,
+                    STR:/\/Date\((\d+)\)\//g,
+                    TIMESTAMPT:/^\d{1,}$/
+                },
+                ret = {}
 
-            var ret={}
+            key = key || 'starttime'
 
             set.forEach((k,i)=>{
-                var
-                     isGMT = re.test(k[key])
-                    ,time  = (new Date(k[key]))
 
-                if(isGMT){
-                    k.$hours=time.getHours()
-                    k.$minutes=time.getMinutes()
-                } else {
-                    k.$hours=time.getUTCHours()
-                    k.$minutes=time.getUTCMinutes()
-                }
+                var time=undefined
+
+                if(re.UTC.test(k[key]))
+                    time=new Date(k[key].replace('T',' '))
+                else if(re.STR.test(k[key]))
+                    time=new Date(k[key].match(re.STR)[1])
+                else if(re.TIMESTAMPT.test(k[key]))
+                    time=new Date(parseInt(k[key]))
+
+                k.$hours=time.getHours()
+                k.$minutes=time.getMinutes()
 
                 var t=k.$hours-start
-                k.$scheduleIndex=t
+                k.$idx=t
                 ret[t]=k
             })
 
@@ -77,32 +82,28 @@ export default class ScheduleDirective{
         $scope.calculateHeight=(evt)=>{
             if(evt==null) return
 
-            var
-                skew   = 0
-               ,height = null
-
+            var skew=0,height=null
             if(evt.$minutes)
                 skew=evt.$minutes/60
-                
             height=(evt.duration/60)
             return `;height:${height*100}%;top:${skew*100}%;`
         }
 
 
         $scope.alias={
-            update:function(set,key){
-                for(var i in set){
-                    if(set.hasOwnProperty(i)){
-                        var index=$scope.thKey.indexOf(i.toLowerCase())
-                        if(index>-1)
-                            $scope.hebdom[index]=transform(set[i],key)
-                    }
-                }
-            },
-            refresh:function(set,key){
-                $scope.hebdom={}
-                this.update(set,key)
-            }
-        }
+              update:function(set,key){
+                  for(var i in set){
+                      if(set.hasOwnProperty(i)){
+                          var index=$scope.thKey.indexOf(i.toLowerCase())
+                          if(index>-1)
+                              $scope.hebdom[index]=transform(set[i],key)
+                      }
+                  }
+              },
+              refresh:function(set,key){
+                  $scope.hebdom={}
+                  this.update(set,key)
+              }
+          }
     }
 }

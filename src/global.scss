@@ -1,7 +1,11 @@
 *{
     -webkit-font-smoothing:antialiased;
     text-rendering:optimizeLegibility;
+    box-sizing:border-box;
+    font-family: "Helvetica Neue",Helvetica,"Hiragino Sans GB","STHeitiSC-Light","Microsoft YaHei","微软雅黑",Arial,sans-serif;
 }
+
+
 
 .clearfix {
   zoom: 1;

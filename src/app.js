@@ -35,6 +35,7 @@ app.controller('main',function($scope,$timeout){
         Wednesday:[{title:'TOF',duration:120,comment:'Duration:60 Mins',starttime:'2015-07-24T17:00:00'},{title:'IELTS',duration:120,comment:'Duration:120 Mins',starttime:'2015-07-24T09:05:00'}]
     }
 
+
     $timeout(function(){
         $scope.events.update(tmp)
     },1000)

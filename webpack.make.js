@@ -109,9 +109,11 @@ module.exports = function makeWebpackConfig (options) {
       // Allow loading html through js
       test: /\.html$/,
       loader: 'raw'
-    }, {
-      test: /\.scss$/,
-      loaders: ["style", "css", "sass"]
+    },{
+        test: /\.scss$/,
+        loader: ExtractTextPlugin.extract(
+          "style",
+          "css?sourceMap!postcss!sass?sourceMap&sourceMapContents")
     }]
   };
 
@@ -145,6 +147,7 @@ module.exports = function makeWebpackConfig (options) {
     // Use style-loader in development for hot-loading
     loader: ExtractTextPlugin.extract('style', 'css?sourceMap!postcss')
   };
+
 
   // Skip loading css in test mode
   if (TEST) {
