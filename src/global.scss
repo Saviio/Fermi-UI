@@ -2,6 +2,7 @@
   box-sizing: border-box;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
+
 *:before,
 *:after {
   box-sizing: border-box;
@@ -19,7 +20,7 @@ body {
 }
 
 body {
-  font-family: "Helvetica Neue",Helvetica,"Hiragino Sans GB","Microsoft YaHei","å¾®è½¯é›…é»‘",SimSun,sans-serif;
+  font-family: "Helvetica Neue",Helvetica,"Hiragino Sans GB","Microsoft YaHei",SimSun,sans-serif;
   line-height: 1.5;
   color: #777;
   font-size: 14px;
