@@ -8,6 +8,14 @@
     font-family: Arial, sans-serif;
 }
 
+.schedule-container table tr > td:first-child{
+    width: 60px;
+}
+
+.schedule-container table{
+    table-layout:fixed;
+}
+
 .schedule-thead{
     text-align: center;
 }

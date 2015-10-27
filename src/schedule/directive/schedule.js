@@ -30,11 +30,12 @@ export default class ScheduleDirective{
 
         var start=(() => $scope.start == null ? parseInt($scope.period[0].match(/\d{1,2}/)[0]) : $scope.start )()
 
-        $scope.thKey=$scope.hebdomThead.map((e)=>e.toLowerCase())
+        $scope.thKey=$scope.hebdomThead.map(e=>e.toLowerCase())
 
         $scope.hebdom={}
 
         var transform=(set,key)=>{
+
             var re  = {
                     STR:/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})/,
                     DATE:/\/Date\((\d+)\)\//g,
@@ -78,23 +79,27 @@ export default class ScheduleDirective{
             if(evt){
                 var defaultCSS='#0089C5'
                 if(evt.color)
-                    return `;background-color:${evt.color};`
+                    return {'background-color':`${evt.color}`}
                 else if($scope.tag)
-                    return `;background-color:${$scope.tag};`
+                    return {'background-color':`${$scope.tag}`}
                 else
-                    return `;background-color:${defaultCSS};`
+                    return {'background-color':`${defaultCSS}`}
             }
         }
 
-
         $scope.calculateHeight=(evt)=>{
-            if(evt==null) return
+            if(evt==null)
+                return
 
             var skew=0,height=null
             if(evt.$minutes)
                 skew=evt.$minutes/60
             height=(evt.duration/60)
-            return `;height:${height*100}%;top:${skew*100}%;`
+
+            return {
+                height:`${height*100}%`,
+                top:`${skew*100}%;`
+            }
         }
 
 
