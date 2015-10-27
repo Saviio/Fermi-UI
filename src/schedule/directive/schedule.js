@@ -36,8 +36,8 @@ export default class ScheduleDirective{
 
         var transform=(set,key)=>{
             var re  = {
-                    UTC:/^\d{4}-\d{2}-\d{2}(T)\d{2}:\d{2}:\d{2}$/,
-                    STR:/\/Date\((\d+)\)\//g,
+                    STR:/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})/,
+                    DATE:/\/Date\((\d+)\)\//g,
                     TIMESTAMPT:/^\d{1,}$/
                 },
                 ret = {}
@@ -48,12 +48,20 @@ export default class ScheduleDirective{
 
                 var time=undefined
 
-                if(re.UTC.test(k[key]))
-                    time=new Date(k[key].replace('T',' '))
-                else if(re.STR.test(k[key]))
+                if(re.STR.test(k[key])){
+                    time=new Date(0)
+                    var info=k[key].match(re.STR)
+                    time.setYear(info[1])
+                    time.setMonth(info[2]-1)
+                    time.setDate(info[3])
+                    time.setHours(info[4])
+                    time.setMinutes(info[5])
+                    time.setSeconds(info[6])
+                } else if (re.DATE.test(k[key])){
                     time=new Date(k[key].match(re.STR)[1])
-                else if(re.TIMESTAMPT.test(k[key]))
+                } else if (re.TIMESTAMPT.test(k[key])){
                     time=new Date(parseInt(k[key]))
+                }
 
                 k.$hours=time.getHours()
                 k.$minutes=time.getMinutes()

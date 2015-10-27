@@ -14,7 +14,7 @@ var app=angular.module('app', ['Fermi.switch','Fermi.schedule','Fermi.tooltip','
 
 app.controller('main',function($scope,$timeout){
 
-
+    console.info('Fermi Components were loaded.')
     $scope.test=function(item){
         console.log(item)
     };
