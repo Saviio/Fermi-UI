@@ -57,7 +57,7 @@ export default class TooltipsDirective {
                 case 'top':
                     ctrl.style={
                         left:`${(left+width/2)-tp_width/2}px`,
-                        top:`${top-tp_height-offset-9}px`
+                        top:`${top-tp_height-offset-7}px`
                     }
                 break
                 case 'bottom':

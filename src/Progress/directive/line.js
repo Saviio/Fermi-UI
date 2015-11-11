@@ -30,7 +30,8 @@ export default class{
             scope.check()
             if(newValue>=100){
                 element.addClass('progress-success')
-                scope.success && scope.success()
+                if(scope.success && typeof scope.success==='function')
+                    scope.success()
             } else {
                 element.removeClass('progress-success')
             }

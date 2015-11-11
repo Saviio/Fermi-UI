@@ -42,14 +42,14 @@
 
 .tooltip-left .tooltip-arrow{
     top:50%;
-    right:4px;
+    right:5px;
     margin-top:-5px;
     border-width:5px 0 5px 5px;
     border-left-color:#373737;
 }
 
 .tooltip-top .tooltip-arrow{
-    bottom:4px;
+    bottom:5px;
     left:50%;
     margin-left:-5px;
     border-width:5px 5px 0;
@@ -59,14 +59,14 @@
 
 .tooltip-right .tooltip-arrow{
     top:50%;
-    left:4px;
+    left:5px;
     margin-top:-5px;
     border-width:5px 5px 5px 0;
     border-right-color:#373737;
 }
 
 .tooltip-bottom .tooltip-arrow{
-    top:4px;
+    top:5px;
     left:50%;
     margin-left:-5px;
     border-width:0px 5px 5px;

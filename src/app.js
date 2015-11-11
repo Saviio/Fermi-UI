@@ -5,12 +5,13 @@ import './Schedule/index.js'
 import './Tooltips/index.js'
 import './Breadcrumb/index.js'
 import './Progress/index.js'
+import './Tab/index.js'
 
 import './global.scss'
 import './app.css'
 
 
-var app=angular.module('app', ['Fermi.switch','Fermi.schedule','Fermi.tooltip','Fermi.breadcrumb','Fermi.progress']);
+var app=angular.module('app', ['Fermi.switch','Fermi.schedule','Fermi.tooltip','Fermi.breadcrumb','Fermi.progress','Fermi.Tab']);
 
 app.controller('main',function($scope,$timeout){
 

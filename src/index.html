@@ -4,6 +4,11 @@
   <meta charset="UTF-8">
   <title>Fermi Components</title>
   <base href="/">
+  <style>
+    #fermiTooltips > div > *{
+        margin-right: 30px;
+    }
+  </style>
 </head>
 <body>
     <div class="clearfix"> Hello, Fermi </div>
@@ -29,17 +34,17 @@
         <div id="fermiTooltips" >
             <p>工具提示</p>
             <div style="width:700px;margin:0 auto">
-                <Fermi:tooltip content="上铺你说呢" placement="bottom" >
-                    <a href="http://www.baidu.com">下铺你干嘛呢</a>
+                <Fermi:tooltip content="Bottom" placement="bottom" >
+                    <a href="http://www.baidu.com">向下看</a>
                 </Fermi:tooltip>
-                <Fermi:tooltip content="右边兄弟你说呢" placement="top">
-                    <a href="http://www.baidu.com">上铺你别闹腾了行不</a>
+                <Fermi:tooltip content="Top" placement="top">
+                    <a href="http://www.baidu.com">向上看</a>
                 </Fermi:tooltip>
-                <Fermi:tooltip content="老大，怎么整" placement="left">
-                    <a href="http://www.baidu.com">左边你瞅啥</a>
+                <Fermi:tooltip content="Left" placement="left">
+                    <a href="http://www.baidu.com">向左看</a>
                 </Fermi:tooltip>
-                <Fermi:tooltip content="抽他丫的" placement="right">
-                    <a href="http://www.baidu.com">右边你瞅啥</a>
+                <Fermi:tooltip content="Right" placement="right">
+                    <a href="http://www.baidu.com">向右看</a>
                 </Fermi:tooltip>
             </div>
         </div>
@@ -49,6 +54,14 @@
             <div style="width:500px">
                 <Fermi:LineProgress ng-model="entity1" fermi-default="0"></Fermi:LineProgress>
             </div>
+        </div>
+
+        <div id="fermiTab">
+            <p>Tab</p>
+            <Fermi:Tabs>
+                <Fermi:Tab header="Tab1">
+                </Fermi:Tab>
+            </Fermi:Tabs>
         </div>
     </div>
 </body>
