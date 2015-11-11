@@ -13,7 +13,7 @@ export class Tabs{
 
     controller($scope){
         $scope.headers=[]
-        $scope.addHeader= (header) => $scope.headers=[...$scope.headers,header]
+        $scope.addHeader= (header) => $scope.headers.push(header)
         console.log($scope)
     }
 
@@ -30,7 +30,7 @@ export class Tab{
     }
 
     controller($scope){
-        console.log(typeof $scope.$parent.addHeader)
+
     }
 
     link(scope,element,attrs,parentCtrl){

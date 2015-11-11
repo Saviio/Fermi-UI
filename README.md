@@ -3,7 +3,7 @@
 UI components library based on angular.js.
 
 
-1. Lang: ES6 
+1. Lang: ES6
 2. Dependencies: Angular.js
 3. Pack Tool: Webpack
 
@@ -24,6 +24,7 @@ UI components library based on angular.js.
 11. alert 消息提示(pending)
 12. crop 修剪器 (pending)
 13. step 步骤提示(pending)
+14. Tab 标签页(pending)
 
 ###Compile && Run:
 ```
