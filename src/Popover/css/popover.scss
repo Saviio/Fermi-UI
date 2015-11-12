@@ -1,6 +1,13 @@
 
 $offset: 8px;
 
+@mixin pseudo-block{
+    content:'';
+    display:block;
+    width:0;
+    height:0;
+}
+
 .popover{
     max-width: 500px;
     min-width: 150px;
@@ -52,7 +59,8 @@ $offset: 8px;
 }
 
 .popover-top .popover-arrow{
-    bottom:-$offset+1px;
+    //bottom:-$offset+1px;
+    bottom:1px;
     left:50%;
     margin-left:-#{$offset};
     border-width:#{$offset} #{$offset} 0;
@@ -79,24 +87,19 @@ $offset: 8px;
 .popover-arrow{
     //content:'';display:block;width:0;height:0;border-color:rgba(204,204,204,0);border-left:7.5px solid transparent;border-right:7.5px solid transparent;border-bottom:7px solid #f6f6f6;position:absolute;left:14px;margin-top:-6px
     &:after{
-        content:' ';
-        display:block;
-        width: 0;
-        height: 0;
+        @include pseudo-block
         border-color:rgba(204,204,204,0);
-        border-left-width:$offset+(-0.5px);
-        border-right-width:$offset+(-0.5px);
-        border-bottom-width:$offset+(-1px);
-        border-left:solid transparent;
-        border-right:solid transparent;
-        border-bottom:solid transparent;
+        border-left:$offset+(-0.5px) solid transparent;
+        border-right:$offset+(-0.5px) solid transparent;
+        border-bottom:$offset+(-1px) solid #f6f6f6;
+        left:50%;
+        margin-left:-$offset;
+        position: absolute;
+        margin-top: -6px;
     }
     //content:'';display:block;width:0;height:0;border-color:rgba(204,204,204,0);border-left:7.5px solid transparent;border-right:7.5px solid transparent;border-bottom:7px solid #bbb;left:14px;margin-top:-7px
     &:before{
-        content:'';
-        display:block;
-        width:0;
-        height:0;
+        @include pseudo-block
         border-color:rgba(204,204,204,0);
         border-left:$offset+(-0.5px) solid transparent;
         border-right:$offset+(-0.5px) solid transparent;
