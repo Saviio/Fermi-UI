@@ -13,7 +13,7 @@ import './app.css'
 
 var app=angular.module('app', ['Fermi.switch','Fermi.schedule','Fermi.tooltip','Fermi.breadcrumb','Fermi.progress','Fermi.Tab']);
 
-app.controller('main',function($scope,$timeout){
+app.controller('main',['$scope','$timeout',function($scope,$timeout){
 
     console.info('Fermi Components were loaded.')
     $scope.test=function(item){
@@ -53,4 +53,4 @@ app.controller('main',function($scope,$timeout){
     }
 
     $timeout(rec,1000)
-})
+}])

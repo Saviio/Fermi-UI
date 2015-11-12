@@ -12,12 +12,40 @@ export class Tabs{
     }
 
     controller($scope){
-        $scope.headers=[]
-        $scope.addHeader= (header) => $scope.headers.push(header)
-        console.log($scope)
+        $scope.items=[]
+        $scope.activedItem=null
+
+        $scope.addItem= (item) => {
+            if(item.actived){
+                $scope.items.forEach(e=>e.actived=false)
+            }
+
+            if($scope.items.length===0){
+                item.actived=true
+            }
+
+            $scope.items.push(item)
+        }
+
+        $scope.switchState=(index)=>{
+            if($scope.items[index].disable)
+                return
+            $scope.activedItem=$scope.items[index]
+            $scope.items.forEach((e,i)=>e.actived=i===index)
+        }
     }
 
-    link(scope, elem, attrs, ctrl){}
+    link(scope, elem, attrs, ctrl){
+        var ul=elem.find('ul')
+        ul.bind('click',(evt)=>{
+            var target=evt.target
+            if(target.tagName==='A'){
+                var node=angular.element(evt.target)
+                var index=~~node.attr('data-index')
+                scope.switchState(index)
+            }
+        })
+    }
 }
 
 export class Tab{
@@ -27,6 +55,7 @@ export class Tab{
         this.replace=true
         this.template=tab
         this.controller.$inject=['$scope']
+        this.transclude=true
     }
 
     controller($scope){
@@ -35,6 +64,50 @@ export class Tab{
 
     link(scope,element,attrs,parentCtrl){
         var header=attrs.header
-        scope.$parent.addHeader(header)
+        var disable=null
+        var actived=null
+
+        var item={
+            display:null,
+            disable:false,
+            content:element
+        }
+
+        Object.defineProperty(item,'actived',{
+            get:() => {
+                return actived
+            },
+            set:(nv) => {
+                if(nv)
+                    element.removeClass('hide').addClass('show')
+                else
+                    element.removeClass('show').addClass('hide')
+                actived=nv
+            },
+            enumerable: true,
+            configurable: true
+        })
+
+        if(attrs.disable==undefined){
+            disable=false
+        } else if(attrs.disable==="") {
+            disable=true
+        } else {
+            disable=!!attrs.disable
+        }
+
+        if(attrs.actived==undefined){
+            item.actived=false
+        } else if(attrs.actived===""){
+            item.actived=true
+        } else {
+            item.actived=!!attrs.actived
+        }
+
+        item.display=header
+        item.disable=disable
+
+        var parent=scope.$parent
+        parent.addItem(item)
     }
 }

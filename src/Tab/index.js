@@ -1,7 +1,7 @@
 import factory from '../utils/directives'
 import {Tabs,Tab} from './directive/Tab'
 
-import './css/Tab.css'
+import './css/Tab.scss'
 
 
 const component = {
