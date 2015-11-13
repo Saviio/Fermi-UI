@@ -1,11 +1,87 @@
 
 $offset: 8px;
 
-@mixin pseudo-block{
+@function unary-direction($dire){
+    @if $dire=="top" {
+        @return "bottom"
+    } @else if $dire=="bottom" {
+        @return "top"
+    } @else if $dire=="left"{
+        @return "right"
+    } @else if $dire=="right"{
+        @return "left"
+    }
+}
+
+@mixin arrow-pseudo-block{
     content:'';
     display:block;
     width:0;
     height:0;
+    border-color:rgba(204,204,204,0);
+}
+
+
+@mixin arrow-direction($dire:"top",$ftBg:#f6f6f6,$bkBg:#bbb){
+    &:before,&:after{
+        @include arrow-pseudo-block;
+    }
+
+    @if $dire=="top" or $dire=="bottom"{
+        border-top: none;
+        border-bottom: none;
+        border-left:none;
+        border-right:none;
+        left:50%;
+        #{unary-direction($dire)}:0px;
+
+        &:before,&:after{
+            border-left:$offset+(-0.5px) solid transparent;
+            border-right:$offset+(-0.5px) solid transparent;
+            border-#{$dire}:$offset+(-1px) solid;
+            margin-left:-$offset/2;
+            position: absolute;
+        }
+
+        &:before{
+            border-#{$dire}-color:$bkBg;
+            margin-#{unary-direction($dire)}:-$offset;
+            #{unary-direction($dire)}:0px;
+        }
+
+        &:after{
+            border-#{$dire}-color:$ftBg;
+            #{unary-direction($dire)}:-$offset+1px;
+        }
+
+    }
+    @else if $dire=="left" or $dire=="right"{
+        border-left: none;
+        border-right: none;
+        border-top: none;
+        border-bottom: none;
+        top:50%;
+        #{unary-direction($dire)}:0px;
+
+        &:before,&:after{
+            border-top:$offset+(-0.5px) solid transparent;
+            border-bottom:$offset+(-0.5px) solid transparent;
+            border-#{$dire}:$offset+(-1px) solid;
+            top:0px;
+            margin-top:-$offset/2;
+            position: absolute;
+        }
+
+        &:before{
+            border-#{$dire}-color:$bkBg;
+            #{unary-direction($dire)}:-$offset;
+        }
+
+        &:after{
+            border-#{$dire}-color:$ftBg;
+            #{unary-direction($dire)}:-$offset+1px;
+        }
+    }
 }
 
 .popover{
@@ -16,6 +92,8 @@ $offset: 8px;
     border:1px solid #ccc;
     border-radius: 3px;
     box-shadow: 0 1px 3px rgba(200,200,200,0.7);
+    margin-top: $offset;
+    box-sizing: border-box;
 
     .popover-title{
         padding:5px 14px;
@@ -23,88 +101,37 @@ $offset: 8px;
         font-size: 12px;
     }
 
-    .popover-content{
+    .popover-content > *{
         padding:14px 14px;
+    }
+
+    .popover-content{
+        overflow-x: hidden;
+    }
+}
+
+.popover-btn{
+    button{
+        padding:5px;
     }
 }
 
 .popover-arrow{
     position:absolute;
-    width: 0;
-    height: 0;
-    border-color:transparent;
-    border-style:solid;
-}
-
-.popover-top {
-  padding: 0px 0 9px 0;
-}
-.popover-right {
-  padding: 0 0px 0 9px;
-}
-.popover-bottom {
-  padding: 9px 0 0px 0;
-}
-.popover-left {
-  padding: 0 9px 0 0px;
-}
-
-
-.popover-left .popover-arrow{
-    top:50%;
-    right:5px;
-    margin-top:-5px;
-    border-width:5px 0 5px 5px;
-    border-left-color:#373737;
 }
 
 .popover-top .popover-arrow{
-    //bottom:-$offset+1px;
-    bottom:1px;
-    left:50%;
-    margin-left:-#{$offset};
-    border-width:#{$offset} #{$offset} 0;
-    border-top-color:#fff;
-}
-
-
-.popover-right .popover-arrow{
-    top:50%;
-    left:5px;
-    margin-top:-5px;
-    border-width:5px 5px 5px 0;
-    border-right-color:#373737;
+    @include arrow-direction("top")
 }
 
 .popover-bottom .popover-arrow{
-    top:5px;
-    left:50%;
-    margin-left:-5px;
-    border-width:0px 5px 5px;
-    border-bottom-color:#373737;
+    @include arrow-direction("bottom")
 }
 
-.popover-arrow{
-    //content:'';display:block;width:0;height:0;border-color:rgba(204,204,204,0);border-left:7.5px solid transparent;border-right:7.5px solid transparent;border-bottom:7px solid #f6f6f6;position:absolute;left:14px;margin-top:-6px
-    &:after{
-        @include pseudo-block
-        border-color:rgba(204,204,204,0);
-        border-left:$offset+(-0.5px) solid transparent;
-        border-right:$offset+(-0.5px) solid transparent;
-        border-bottom:$offset+(-1px) solid #f6f6f6;
-        left:50%;
-        margin-left:-$offset;
-        position: absolute;
-        margin-top: -6px;
-    }
-    //content:'';display:block;width:0;height:0;border-color:rgba(204,204,204,0);border-left:7.5px solid transparent;border-right:7.5px solid transparent;border-bottom:7px solid #bbb;left:14px;margin-top:-7px
-    &:before{
-        @include pseudo-block
-        border-color:rgba(204,204,204,0);
-        border-left:$offset+(-0.5px) solid transparent;
-        border-right:$offset+(-0.5px) solid transparent;
-        border-bottom:$offset+(-1px) solid #bbb;
-        left:50%;
-        margin-left:-$offset;
-    }
+.popover-left .popover-arrow{
+    @include arrow-direction("left")
+}
+
+.popover-right .popover-arrow{
+    @include arrow-direction("right")
 }

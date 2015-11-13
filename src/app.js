@@ -1,5 +1,10 @@
-import angular from 'angular';
+//import global
+import angular from 'angular'
+import './global.scss'
+import './app.css'
 
+
+//import Fermi.components
 import './Switch/index.js'
 import './Schedule/index.js'
 import './Tooltips/index.js'
@@ -8,8 +13,7 @@ import './Progress/index.js'
 import './Tab/index.js'
 import './Popover/index.js'
 
-import './global.scss'
-import './app.css'
+
 
 
 var app=angular.module('app', ['Fermi.switch','Fermi.schedule','Fermi.tooltip','Fermi.breadcrumb','Fermi.progress','Fermi.tab','Fermi.popover']);
