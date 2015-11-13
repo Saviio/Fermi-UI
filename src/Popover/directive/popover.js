@@ -23,17 +23,16 @@ export default class Popover{
     link(scope,elem,attr,ctrl,transcludeFn){
         var linkedClone = transcludeFn()
         console.log(linkedClone)
-        //console.log(elem.children[0].clone())
-        //var a=elem.find('div')[0].children
-
+        for(var i=linkedClone.length-1;i>=0;i--){
+            var node=linkedClone[i]
+            console.log(node)
+        }
         ctrl.placement=scope.placement || 'top'
+        console.log(scope)
 
         let tmpl=popoverTmpl.replace(/#{dire}/,ctrl.placement)
-        //elem.append(tmpl);
-        //debugger
         let content=this.$compile(tmpl,transcludeFn)(scope)
         elem.append(content)
-        //console.log(content)
 
         const show = () =>{}
         const hide = () =>{}
