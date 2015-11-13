@@ -20,7 +20,10 @@ export default class Popover{
 
     }
 
-    link(scope,elem,attr,ctrl,transcludeFn){
+    /*link(scope,elem,attr,ctrl,transcludeFn){
+         //筛选所有非自定义的HTML元素
+         //强行mixin所有rootscope上的元素 （？）
+
         var linkedClone = transcludeFn()
         console.log(linkedClone)
         for(var i=linkedClone.length-1;i>=0;i--){
@@ -31,14 +34,27 @@ export default class Popover{
         console.log(scope)
 
         let tmpl=popoverTmpl.replace(/#{dire}/,ctrl.placement)
-        let content=this.$compile(tmpl,transcludeFn)(scope)
-        elem.append(content)
+        let content=this.$compile(tmpl,transcludeFn)
+        elem.append(content(scope))
 
         const show = () =>{}
         const hide = () =>{}
 
         console.log(content)
-        //*/
+
+    }*/
+    compile(tElement, tAttrs, transclude){
+        var self=this
+        return {
+          pre: function(scope, iElem, iAttrs){
+            console.log(scope)
+            console.log(transclude)
+            console.log(iElem)
+            let tmpl=popoverTmpl.replace(/#{dire}/,scope.placement)
+            let content=self.$compile(tmpl,transclude)(scope)
+            tElement.append(content)
+          }
+        }
     }
 }
 
