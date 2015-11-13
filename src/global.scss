@@ -94,3 +94,9 @@ section {
 .show{
     display: block;
 }
+
+.disappear-animation{
+    visibility:hideen !important;
+    opacity:0 !important;
+    transform:scale(0);
+}

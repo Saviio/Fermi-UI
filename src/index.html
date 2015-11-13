@@ -67,7 +67,6 @@
                         　　<p>白发渔樵江渚上，惯看秋月春风。</p>
                         　　<p>一壶浊酒喜相逢，</p>
                         　　<p>古今多少事，都付笑谈中。</p>
-
                     </div>
                 </Fermi:Tab>
                 <Fermi:Tab header="飞鸟集">
@@ -87,10 +86,23 @@
 
         <div id="fermiPopover" style="margin-left:30px;">
             <p>Popover</p>
-            <Fermi:Popover title="POPOVER" placement="top">
-                <Fermi:LineProgress ng-model="entity1" fermi-default="0"></Fermi:LineProgress>
-                <div style="background-color:#eaf5ff;width:500px;">DEMODEMODEMODEMO</div>
-            </Fermi:Popover>
+            <div style="padding-left:300px;">
+                <Fermi:Popover title="POPOVER" placement="top" button="TOP" hide=auto>
+                    <div style="background-color:#eaf5ff;width:500px;">TOP</div>
+                </Fermi:Popover>
+                <Fermi:Popover title="POPOVER" placement="bottom" button="BOTTOM" hide=auto>
+                    <div style="background-color:#eaf5ff;width:500px;">BOTTOM</div>
+                </Fermi:Popover>
+                <Fermi:Popover title="POPOVER" placement="left" button="LEFT" hide=auto>
+                    <div style="background-color:#eaf5ff;width:500px;">LEFT</div>
+                </Fermi:Popover>
+                <Fermi:Popover title="POPOVER" placement="right" button="RIGHT" hide=auto>
+                    <div style="background-color:#eaf5ff;width:500px;">RIGHT</div>
+                </Fermi:Popover>
+                <Fermi:Popover placement="right" button="NO TITLE" hide=auto>
+                    <div style="background-color:#eaf5ff;width:500px;">NO TITLE</div>
+                </Fermi:Popover>
+            </div>
         </div>
     </div>
 </body>

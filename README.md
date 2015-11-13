@@ -13,9 +13,9 @@ UI components library based on angular.js.
 ###Components list:
 1. schedule 日程表(90%)
 2. breadcrumb 面包屑导航(90%)
-3. switcher 开关 (90%)
+3. switch 开关 (90%)
 4. dragable uploader 上传组件 (pending)
-5. popover 气泡式卡片 (coding)
+5. popover 气泡式卡片 (75%)
 6. tooltip 提示
 7. select 选择器 (pending)
 8. dropdown 下拉菜单(pending)

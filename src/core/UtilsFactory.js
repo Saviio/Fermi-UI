@@ -11,7 +11,7 @@ export default function(){
         return { top: (box.top + (self.pageYOffset || html.scrollTop || body.scrollTop ) - clientTop), left: (box.left + (self.pageXOffset || html.scrollLeft || body.scrollLeft) - clientLeft) };
     }
 
-    function getStyle(elem, name) {
+    function getStyle(elem, name, removeUnit="") {
         var style=window.getComputedStyle ? window.getComputedStyle(elem, null)[name] : elem.currentStyle[name]
 
         if( (name==='width' || name==='height') && style==='auto'){
@@ -20,6 +20,10 @@ export default function(){
             else if(name=='height')
                 style=elem.offsetHeight
         }
+
+        if(removeUnit!=="")
+            style=~~style.replace(new RegExp(removeUnit),"")
+
         return style
     }
 
