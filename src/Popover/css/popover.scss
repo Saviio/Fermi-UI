@@ -39,15 +39,16 @@ $offset: 8px;
         &:before,&:after{
             border-left:$offset+(-0.5px) solid transparent;
             border-right:$offset+(-0.5px) solid transparent;
-            border-#{$dire}:$offset+(-1px) solid;
+            border-#{$dire}:$offset solid;
             margin-left:-$offset;
             position: absolute;
+            z-index:1100;
         }
 
         &:before{
             border-#{$dire}-color:$bkBg;
-            margin-#{unary-direction($dire)}:-$offset;
-            #{unary-direction($dire)}:0px;
+            //margin-#{unary-direction($dire)}:-$offset;
+            #{unary-direction($dire)}:-$offset;
         }
 
         &:after{
@@ -67,7 +68,7 @@ $offset: 8px;
         &:before,&:after{
             border-top:$offset+(-0.5px) solid transparent;
             border-bottom:$offset+(-0.5px) solid transparent;
-            border-#{$dire}:$offset+(-1px) solid;
+            border-#{$dire}:$offset solid;
             top:0px;
             margin-top:-($offset+1)/2;
             position: absolute;
