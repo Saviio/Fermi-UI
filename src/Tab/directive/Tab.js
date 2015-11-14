@@ -49,13 +49,14 @@ export class Tabs{
 }
 
 export class Tab{
-    constructor(){
+    constructor(utils){
         this.restrict='EA'
         this.require='^fermiTab'
         this.replace=true
         this.template=tab
         this.controller.$inject=['$scope']
         this.transclude=true
+        this.utils=utils
     }
 
     controller($scope){
@@ -64,8 +65,8 @@ export class Tab{
 
     link(scope,element,attrs,parentCtrl){
         var header=attrs.header
-        var disable=null
-        var actived=null
+        var disable=this.utils.DOMState(attrs,'disable')
+        var actived=this.utils.DOMState(attrs,'actived')
 
         var item={
             display:null,
@@ -77,32 +78,16 @@ export class Tab{
             get:() => {
                 return actived
             },
-            set:(nv) => {
-                if(nv)
+            set:(newValue) => {
+                if(newValue)
                     element.removeClass('hide').addClass('show')
                 else
                     element.removeClass('show').addClass('hide')
-                actived=nv
+                actived=newValue
             },
             enumerable: true,
             configurable: true
         })
-
-        if(attrs.disable==undefined){
-            disable=false
-        } else if(attrs.disable==="") {
-            disable=true
-        } else {
-            disable=!!attrs.disable
-        }
-
-        if(attrs.actived==undefined){
-            item.actived=false
-        } else if(attrs.actived===""){
-            item.actived=true
-        } else {
-            item.actived=!!attrs.actived
-        }
 
         item.display=header
         item.disable=disable
@@ -111,3 +96,5 @@ export class Tab{
         parent.addItem(item)
     }
 }
+
+Tab.$inject=["fermi.Utils"]

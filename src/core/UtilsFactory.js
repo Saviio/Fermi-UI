@@ -27,8 +27,28 @@ export default function(){
         return style
     }
 
+    function getDOMState(attrs, key){
+        var state=null
+        if(attrs[key]==undefined){
+            state=false
+        } else if(attrs[key]==="") {
+            state=true
+        } else {
+            let v=attrs[key]
+            if(/true|false/i.test(v))
+                state=!!v
+            else if(/^\d{1,}$/.test(v))
+                state=~~v
+            else
+                state=v
+        }
+        return state
+    }
+
+
     return {
         coords:getCoords,
-        style:getStyle
+        style:getStyle,
+        DOMState:getDOMState
     }
 }

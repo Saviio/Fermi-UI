@@ -25,6 +25,7 @@ UI components library based on angular.js.
 12. crop 修剪器 (pending)
 13. step 步骤提示(pending)
 14. Tab 标签页(80%)
+15. stateButton 异步按钮(pending)
 
 ###Compile && Run:
 ```

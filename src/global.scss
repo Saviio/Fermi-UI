@@ -96,7 +96,7 @@ section {
 }
 
 .disappear-animation{
-    visibility:hideen !important;
-    opacity:0 !important;
+    //visibility:hideen !important;
+    opacity:0.3 !important;
     transform:scale(0);
 }

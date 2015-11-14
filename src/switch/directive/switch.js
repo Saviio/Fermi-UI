@@ -1,6 +1,6 @@
+import template from '../template/template.html'
 
-
-export default class SwitchDirective {
+export default class Switch {
     constructor(){
         this.restrict='EA'
         this.replace=true
@@ -10,14 +10,7 @@ export default class SwitchDirective {
             label:'@'
         }
         this.transclude=true
-        this.template=`
-            <div class="switch">
-                <label for={{label+"_switcher"}}>
-                <input type="checkbox" ng-model="ngModel" ng-attr-name={{label+"_switcher"}}></input>
-                <span ></span>
-                </label>
-            </div>
-        `
+        this.template=template
     }
 
     link(scope,elem,attr,ctrl){

@@ -1,6 +1,4 @@
-
-//Todo: 实现disable 功能
-export default class TooltipsDirective {
+export default class Tooltips{
     constructor(utils){
         this.restrict="EA"
         this.transclude=true
@@ -18,7 +16,7 @@ export default class TooltipsDirective {
     link(scope,elem,attr,ctrl){
 
         ctrl.container=null,ctrl.parent=null
-        ctrl.tooltip_tmpl=`
+        ctrl.tooltipTmpl=`
                 <div class="tooltip-arrow tooltip-arrow"></div>
                 <div class="tooltip-content">
                     <span>${scope.content}</span>
@@ -34,24 +32,24 @@ export default class TooltipsDirective {
                 ctrl.container=document.createElement('div')
                 document.body.appendChild(ctrl.container)
                 ctrl.container=angular.element(ctrl.container)
-                ctrl.container.html(ctrl.tooltip_tmpl)
+                ctrl.container.html(ctrl.tooltipTmpl)
                 ctrl.container.addClass(`tooltip tooltip-hidden tooltip-${ctrl.placement}`)
             }
             return ctrl.container
         }
 
         ctrl.setLocationStyle=() => {
-            const offset=scope.offset || 6
-            const tooltip=ctrl.getContainer()
+            let offset=scope.offset || 6
+            let tooltip=ctrl.getContainer()
 
-            const {left,top}=this.utils.coords(elem[0])
-            const height=this.utils.style(elem[0],'height')
-            const width=this.utils.style(elem[0],'width')
+            let {left,top}=this.utils.coords(elem[0])
+            let height=this.utils.style(elem[0],'height')
+            let width=this.utils.style(elem[0],'width')
 
 
-            const tooltip_element=tooltip[0]
-            const tp_height=parseInt(this.utils.style(tooltip_element,'height').replace(/px/,''))
-            const tp_width=parseInt(this.utils.style(tooltip_element,'width').replace(/px/,''))
+            let tooltip_element=tooltip[0]
+            let tp_height=parseInt(this.utils.style(tooltip_element,'height').replace(/px/,''))
+            let tp_width=parseInt(this.utils.style(tooltip_element,'width').replace(/px/,''))
 
             switch(scope.placement){
                 case 'top':
@@ -92,6 +90,7 @@ export default class TooltipsDirective {
                 ctrl.isExpend=!ctrl.isExpend
                 return ctrl.getContainer()
             },
+            set: () => {},
             enumerable: true,
             configurable: true
         })
@@ -102,4 +101,4 @@ export default class TooltipsDirective {
 }
 
 
-TooltipsDirective.$inject=["fermi.Utils"]
+Tooltips.$inject=["fermi.Utils"]

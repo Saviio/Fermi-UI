@@ -1,7 +1,7 @@
 import template from '../template/template.html'
 
 //add track-by 优化
-export default class ScheduleDirective{
+export default class Schedule{
     constructor(){
         this.restrict='EA'
         this.replace=true
