@@ -25,7 +25,7 @@ app.controller('main',['$scope','$timeout',function($scope,$timeout){
         console.log(item)
     };
 
-
+    $scope.message="test"
     var tmp={
         Monday:[ {title:'IELTS',duration:120,comment:'Duration:120 Mins',starttime:'2015-07-24T13:00:00'} ],
         Saturday:[ {title:'IELTS',duration:180,comment:'Duration:120 Mins',starttime:'2015-07-24T12:30:00'} ],

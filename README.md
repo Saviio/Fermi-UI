@@ -26,6 +26,7 @@ UI components library based on angular.js.
 13. step 步骤提示(pending)
 14. Tab 标签页(80%)
 15. stateButton 异步按钮(pending)
+16. dialog 模态对话框(pending)
 
 ###Compile && Run:
 ```

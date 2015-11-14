@@ -8,6 +8,10 @@
     #fermiTooltips > div > *{
         margin-right: 30px;
     }
+
+    #fermiPopover > div > *{
+        display: inline-block;
+    }
   </style>
 </head>
 <body>
@@ -87,13 +91,15 @@
         <div id="fermiPopover" style="margin-left:30px;">
             <p>Popover</p>
             <div style="padding-left:300px;">
-                <Fermi:Popover title="POPOVER" placement="top" button="TOP" hide=auto>
-                    <div style="background-color:#eaf5ff;width:500px;">TOP</div>
+                <Fermi:Popover title="POPOVER" placement="top" hide=auto trigger="#btn" actived>
+                    <button id="btn" style="padding:5px">TOP</button>
+                    <div>TOP</div>
                 </Fermi:Popover>
-                <Fermi:Popover title="POPOVER" placement="bottom" button="BOTTOM" hide=auto>
+                <Fermi:Popover title="POPOVER" placement="bottom" button="BOTTOM" hide=auto trigger="#btn2">
+                    <button id="btn2" style="padding:5px">TEST</button>
                     <div style="background-color:#eaf5ff;width:500px;">BOTTOM</div>
                 </Fermi:Popover>
-                <Fermi:Popover title="POPOVER" placement="left" button="LEFT" hide=auto>
+                <!--<Fermi:Popover title="POPOVER" placement="left" button="LEFT" hide=auto>
                     <div style="background-color:#eaf5ff;width:500px;">LEFT</div>
                 </Fermi:Popover>
                 <Fermi:Popover title="POPOVER" placement="right" button="RIGHT" hide=auto open >
@@ -101,7 +107,7 @@
                 </Fermi:Popover>
                 <Fermi:Popover placement="left" button="NO TITLE" hide=auto>
                     <div style="background-color:#eaf5ff;">NO TITLE</div>
-                </Fermi:Popover>
+                </Fermi:Popover>-->
             </div>
         </div>
     </div>
