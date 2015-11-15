@@ -89,21 +89,6 @@ export class Tab{
             configurable: true
         })
 
-        /*if(attrs.disable==undefined){
-            disable=false
-        } else if(attrs.disable==="") {
-            disable=true
-        } else {
-            disable=!!attrs.disable
-        }
-
-        if(attrs.actived==undefined){
-            item.actived=false
-        } else if(attrs.actived===""){
-            item.actived=true
-        } else {
-            item.actived=!!attrs.actived
-        }*/
         item.actived=actived
         item.display=header
         item.disable=disable

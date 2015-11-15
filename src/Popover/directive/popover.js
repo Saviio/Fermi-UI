@@ -109,11 +109,17 @@ export default class Popover{
 
         let initState=this.utils.DOMState(attr,'actived')
         let initOffset=this.utils.DOMState(attr,'offset')
+        let initCloseBtn=this.utils.DOMState(attr,'close')
 
         scope.offset= /^\d{1,}$/.test(initOffset) ? initOffset : 5
 
         if(!initState)
             scope.close(true)
+
+        if(initCloseBtn){
+            var closeBtn=componentDOMRoot.querySelector('.popover > .close')
+            angular.element(closeBtn).bind('click',()=>scope.close(true))
+        }
 
         scope.isOpen=initState
         let arrowColor=attr.arrow || null
@@ -127,7 +133,11 @@ export default class Popover{
         let dire=(tAttrs.placement || "top").toLowerCase()
         if(["top","bottom","left","right"].indexOf(dire)===-1)
             throw Error("Popover direction not in announced list(top,bottom,left,right).")
+
+        let showCloseBtn=this.utils.DOMState(tAttrs,'close')
         let tmpl=popoverTmpl.replace(/#{dire}/, dire)
+        if(!showCloseBtn)
+            tmpl=tmpl.replace(/<button class="close" >×<\/button>/,"")
         tElement.append(tmpl)
 
         if(tAttrs.trigger==undefined){
