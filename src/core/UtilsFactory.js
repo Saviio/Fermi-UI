@@ -55,11 +55,39 @@ export default function(){
         return state
     }
 
+    function addClass (el, cls) {
+        if (el.classList) {
+            el.classList.add(cls)
+        } else {
+            var cur = ' ' + (el.getAttribute('class') || '') + ' '
+            if (cur.indexOf(' ' + cls + ' ') < 0) {
+                el.setAttribute('class', (cur + cls).trim())
+            }
+        }
+    }
+
+    function removeClass (el, cls) {
+        if (el.classList) {
+            el.classList.remove(cls)
+        } else {
+            var cur = ' ' + (el.getAttribute('class') || '') + ' '
+            var tar = ' ' + cls + ' '
+            while (cur.indexOf(tar) >= 0) {
+                cur = cur.replace(tar, ' ')
+            }
+            el.setAttribute('class', cur.trim())
+        }
+        if (!el.className) {
+            el.removeAttribute('class')
+        }
+    }
 
     return {
         coords:getCoords,
         style:getStyle,
         DOMState:getDOMState,
-        escapeHTML
+        escapeHTML,
+        addClass,
+        removeClass
     }
 }

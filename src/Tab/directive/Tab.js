@@ -16,6 +16,7 @@ export class Tabs{
         $scope.activedItem=null
 
         $scope.addItem= (item) => {
+            console.log($scope.headers)
             if(item.actived){
                 $scope.items.forEach(e=>e.actived=false)
             }
@@ -27,22 +28,27 @@ export class Tabs{
             $scope.items.push(item)
         }
 
-        $scope.switchState=(index)=>{
+        $scope.switchState=(index,tabHeaders)=>{
             if($scope.items[index].disable)
-                return
-            $scope.activedItem=$scope.items[index]
-            $scope.items.forEach((e,i)=>e.actived=i===index)
+                return;
+
+            $scope.$apply(()=>{
+                $scope.activedItem=$scope.items[index]
+                $scope.items.forEach((e,i)=>e.actived=i===index)
+            })
         }
     }
 
     link(scope, elem, attrs, ctrl){
         var ul=elem.find('ul')
+
         ul.bind('click',(evt)=>{
             var target=evt.target
+            var children=ul.children()
             if(target.tagName==='A'){
                 var node=angular.element(evt.target)
                 var index=~~node.attr('data-index')
-                scope.switchState(index)
+                scope.switchState(index,children)
             }
         })
     }
@@ -59,9 +65,7 @@ export class Tab{
         this.utils=utils
     }
 
-    controller($scope){
-
-    }
+    controller($scope){}
 
     link(scope,element,attrs,parentCtrl){
         var header=attrs.header
@@ -79,6 +83,8 @@ export class Tab{
                 return actived
             },
             set:(newValue) => {
+                if(actived===newValue)
+                    return;
                 if(newValue)
                     element.removeClass('hide').addClass('show')
                 else
