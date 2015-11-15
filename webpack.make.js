@@ -114,9 +114,6 @@ module.exports = function makeWebpackConfig (options) {
         loader: ExtractTextPlugin.extract(
           "style",
           "css?sourceMap!postcss!sass?sourceMap&sourceMapContents")
-    },{
-        test:/\.json$/,
-        loader:'json'
     }]
   };
 

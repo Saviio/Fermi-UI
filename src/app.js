@@ -12,14 +12,13 @@ import './Breadcrumb/index.js'
 import './Progress/index.js'
 import './Tab/index.js'
 import './Popover/index.js'
-import './Button/index.js'
 
 
-import scheduleItems from './scheduleItems.json'
+
 
 var app=angular.module('app', ['Fermi.switch','Fermi.schedule','Fermi.tooltip','Fermi.breadcrumb','Fermi.progress','Fermi.tab','Fermi.popover']);
 
-app.controller('main',['$scope','$timeout','$http',function($scope,$timeout,$http){
+app.controller('main',['$scope','$timeout',function($scope,$timeout){
 
     console.info('Fermi Components were loaded.')
     $scope.test=function(item){
@@ -27,13 +26,20 @@ app.controller('main',['$scope','$timeout','$http',function($scope,$timeout,$htt
     };
 
     $scope.message="test"
+    var tmp={
+        Monday:[ {title:'IELTS',duration:120,comment:'Duration:120 Mins',starttime:'2015-07-24T13:00:00'} ],
+        Saturday:[ {title:'IELTS',duration:180,comment:'Duration:120 Mins',starttime:'2015-07-24T12:30:00'} ],
+        Thursday:[ {title:'English Fit',duration:60,comment:'Duration:60 Mins',starttime:'2015-07-24T10:15:00'} ],
+        Friday:[ {title:'IELTS',duration:180,comment:'Duration:120 Mins',starttime:'2015-07-24T15:00:00'} ]
+    }
 
-    var tmp=scheduleItems[0]
-    var tmp2=scheduleItems[1]
-
-    console.log(scheduleItems)
-
-
+    var tmp2={
+        monday:[ {title:'IELTS',duration:120,comment:'Duration:120 Mins',starttime:'2015-07-24T14:00:00'},{title:'IELTS',duration:120,comment:'Duration:120 Mins',starttime:'2015-07-24T10:15:00'},{title:'IELTS',duration:120,comment:'Duration:120 Mins',starttime:'2015-07-24T17:30:00'} ],
+        Saturday:[ {title:'IELTS',duration:180,comment:'Duration:120 Mins',starttime:'2015-07-24T11:30:00'},{title:'English Fit',duration:60,comment:'Duration:120 Mins',starttime:'2015-07-24T15:30:00'},{title:'IELTS',duration:120,comment:'Duration:120 Mins',starttime:'2015-07-24T17:45:00'} ],
+        Thursday:[ {title:'English Fit',duration:60,comment:'Duration:60 Mins',starttime:'2015-07-24T11:15:00'},{title:'IELTS',duration:60,comment:'Duration:120 Mins',starttime:'2015-07-24T18:45:00'},{title:'IELTS',duration:180,comment:'Duration:120 Mins',starttime:'2015-07-24T18:00:00'} ],
+        Friday:[ {title:'IELTS',duration:180,comment:'Duration:120 Mins',starttime:'2015-07-24T14:00:00'} ],
+        Wednesday:[{title:'TOF',duration:120,comment:'Duration:60 Mins',starttime:'2015-07-24T17:00:00'},{title:'IELTS',duration:120,comment:'Duration:120 Mins',starttime:'2015-07-24T09:05:00'}]
+    }
 
     $timeout(function(){
         $scope.events.update(tmp)
@@ -45,12 +51,11 @@ app.controller('main',['$scope','$timeout','$http',function($scope,$timeout,$htt
 
 
     var rec=()=>{
-        if($scope.entity1>100)
+        if($scope.entity1>=100)
             $scope.entity1=-1
-        else
-            $timeout(rec,2000)
-        $scope.entity1+=5
+        $scope.entity1+=1
+        $timeout(rec,100)
     }
 
-    $timeout(rec,3000)
+    $timeout(rec,1000)
 }])
