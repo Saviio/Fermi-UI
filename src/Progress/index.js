@@ -1,7 +1,7 @@
 import factory from '../utils/directives'
 import line from './directive/line'
 
-import './css/line.css'
+import './css/line.scss'
 
 const component = {
     namespace:'Fermi.progress',

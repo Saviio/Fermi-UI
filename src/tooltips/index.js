@@ -2,7 +2,7 @@
 import factory from '../utils/directives'
 import directive from './directive/tooltips'
 import '../core/core.js'
-import './css/tooltips.css'
+import './css/tooltips.scss'
 
 const component = {
     namespace:'Fermi.tooltip',

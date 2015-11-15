@@ -1,7 +1,7 @@
 import factory from '../utils/directives'
 import directive from './directive/breadcrumb'
 
-import './css/breadcrumb.css'
+import './css/breadcrumb.scss'
 
 const component = {
     namespace:'Fermi.breadcrumb',

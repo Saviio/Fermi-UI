@@ -6,11 +6,6 @@
     background-color:#77B91B;
 }
 
-
-.progress-loading{
-
-}
-
 .progress-line-padding{
     height: 7px;
     border-radius:100px;
@@ -21,10 +16,10 @@
 .progress-line-inner{
     display:inline-block;
     width:100%;
-}
 
-.progress-line-inner > input {
-    display:none;
+    input{
+        display:none;
+    }
 }
 
 .progress-line-text{

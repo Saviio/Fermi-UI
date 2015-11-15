@@ -1,6 +1,6 @@
 import factory from '../utils/directives'
 import directive from './directive/switch'
-import './css/switch.css'
+import './css/switch.scss'
 
 const component = {
     namespace:'Fermi.switch',

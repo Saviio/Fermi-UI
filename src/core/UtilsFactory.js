@@ -27,6 +27,16 @@ export default function(){
         return style
     }
 
+    function escapeHTML(str){
+
+        return str.replace(/&/g,"&amp;")
+                  .replace(/</g,"&lt;")
+                  .replace(/>/g,"&gt;")
+                  .replace(/ /g,"&nbsp;")
+                  .replace(/"/g,"&#34;")
+                  .replace(/'/g,"&#39;")
+    }
+
     function getDOMState(attrs, key){
         var state=null
         if(attrs[key]==undefined){
@@ -49,6 +59,7 @@ export default function(){
     return {
         coords:getCoords,
         style:getStyle,
-        DOMState:getDOMState
+        DOMState:getDOMState,
+        escapeHTML
     }
 }

@@ -1,13 +1,4 @@
 
-
-.tooltip-arrow{
-    position:absolute;
-    width: 0;
-    height: 0;
-    border-color:transparent;
-    border-style:solid;
-}
-
 .tooltip{
     position: absolute;
     z-index: 999;
@@ -20,6 +11,15 @@
     transition: transform 500ms cubic-bezier(0.08, 0.82, 0.17, 1),opacity 300ms ease-out;
 
 }
+
+.tooltip-arrow{
+    position:absolute;
+    width: 0;
+    height: 0;
+    border-color:transparent;
+    border-style:solid;
+}
+
 
 .tooltip.tooltip-hidden{
     /*visibility: hidden;*/

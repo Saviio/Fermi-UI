@@ -28,7 +28,9 @@
         a{
             &:hover,&:focus{
                 cursor: not-allowed;
-                border:1px solid #ddd;
+                border-top:1px solid #ddd;
+                border-left:1px solid #ddd;
+                border-right:1px solid #ddd;
                 background-color: transparent;
             }
         }
