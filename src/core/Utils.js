@@ -92,7 +92,6 @@ export default function(){
         if(prefix !== null && eventPrefix!==null)
             return {prefix, eventPrefix}
 
-
         var vendor={ Webkit: 'webkit', Moz: '', O: 'o' }
         for(var i in vendor){
             if (testElem.style[i + 'TransitionProperty'] !== undefined) {
@@ -101,6 +100,8 @@ export default function(){
                 return {prefix, eventPrefix}
             }
         }
+        prefix=eventPrefix=""
+        return {prefix,eventPrefix}
     }
 
     return {
