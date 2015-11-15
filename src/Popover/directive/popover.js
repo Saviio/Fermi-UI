@@ -136,8 +136,10 @@ export default class Popover{
 
         let showCloseBtn=this.utils.DOMState(tAttrs,'close')
         let tmpl=popoverTmpl.replace(/#{dire}/, dire)
-        if(!showCloseBtn)
-            tmpl=tmpl.replace(/<button class="close" >×<\/button>/,"")
+        if(showCloseBtn)
+            tmpl=tmpl.replace(/<\!--CLOSE\_BUTTON-->/,`<button class="close">×</button>`)
+        else
+            tmpl=tmpl.replace(/<\!--CLOSE\_BUTTON-->/,"")
         tElement.append(tmpl)
 
         if(tAttrs.trigger==undefined){
