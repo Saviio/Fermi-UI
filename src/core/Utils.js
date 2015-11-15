@@ -1,5 +1,10 @@
 
 export default function(){
+
+    var testElem = document.createElement('div')
+    var prefix = null
+    var eventPrefix = null
+
     var getCoords = function(elem){
         var box = elem.getBoundingClientRect(),
         self= window,
@@ -82,12 +87,29 @@ export default function(){
         }
     }
 
+
+    function detechPrefix(){
+        if(prefix !== null && eventPrefix!==null)
+            return {prefix, eventPrefix}
+
+
+        var vendor={ Webkit: 'webkit', Moz: '', O: 'o' }
+        for(var i in vendor){
+            if (testElem.style[i + 'TransitionProperty'] !== undefined) {
+                prefix = '-' + i.toLowerCase() + '-'
+                eventPrefix = vendor[i]
+                return {prefix, eventPrefix}
+            }
+        }
+    }
+
     return {
         coords:getCoords,
         style:getStyle,
         DOMState:getDOMState,
         escapeHTML,
         addClass,
-        removeClass
+        removeClass,
+        prefix:detechPrefix
     }
 }

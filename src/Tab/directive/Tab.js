@@ -16,7 +16,6 @@ export class Tabs{
         $scope.activedItem=null
 
         $scope.addItem= (item) => {
-            console.log($scope.headers)
             if(item.actived){
                 $scope.items.forEach(e=>e.actived=false)
             }
