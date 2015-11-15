@@ -71,27 +71,28 @@ export class Tab{
         var disable=this.utils.DOMState(attrs,'disable')
         var actived=this.utils.DOMState(attrs,'actived')
 
+        var contentState=null
+
         var item={
             display:null,
-            disable:false,
-            content:element
+            disable:false
         }
 
         Object.defineProperty(item,'actived',{
             get:() => {
-                return actived
+                return contentState
             },
             set:(newValue) => {
-                if(actived===newValue)
+                if(contentState===newValue)
                     return;
                 if(newValue)
                     element.removeClass('hide').addClass('show')
                 else
                     element.removeClass('show').addClass('hide')
-                actived=newValue
+                contentState=newValue
             },
             enumerable: true,
-            configurable: true
+            configurable: false
         })
 
         item.actived=actived

@@ -10,7 +10,7 @@ export default class Schedule{
             degree:'=',
             start:'@',
             tag:'@',
-            alias:'='
+            control:'='
         }
         this.transclude=true
         this.template=template
@@ -103,7 +103,7 @@ export default class Schedule{
         }
 
 
-        $scope.alias={
+        $scope.control={
               update:function(set,key){
                   for(var i in set){
                       if(set.hasOwnProperty(i)){

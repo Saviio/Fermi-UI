@@ -25,7 +25,7 @@
 
         <div id="fermischedule">
             <p>日程表</p>
-            <Fermi:schedule alias="events" ></Fermi:schedule>
+            <Fermi:schedule control="events" ></Fermi:schedule>
         </div>
 
 
@@ -57,7 +57,7 @@
             <p>Progress bar</p>
             <div style="width:500px">
                 <Fermi:LineProgress ng-model="entity1" fermi-default="100"></Fermi:LineProgress>
-                <Fermi:QueryProgress control="entity2" actived></Fermi:LineProgress>
+                <Fermi:QueryBar control="entity2" actived></Fermi:QueryBar>
             </div>
         </div>
 
@@ -74,7 +74,7 @@
                         　　<p>古今多少事，都付笑谈中。</p>
                     </div>
                 </Fermi:Tab>
-                <Fermi:Tab header="飞鸟集">
+                <Fermi:Tab header="飞鸟集" actived>
                     <div>我们如海鸥之与波涛相遇似地，遇见了，走近了。海鸥飞去，波涛滚滚地流开，我们也分别了。
                     </div>
                     <div>

@@ -12,5 +12,5 @@ const component = {
 
 export default angular.module(component.namespace, component.inject)
 	.directive('fermiLineprogress', factory.create(line))
-    .directive('fermiQueryprogress',factory.create(query))
+    .directive('fermiQuerybar',factory.create(query))
 	.name;
