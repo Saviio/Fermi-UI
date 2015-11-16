@@ -11,7 +11,11 @@ export default class Buttons {
         this.template=template
     }
 
-    link(scope,elem,attr,ctrl){
+    controller(){
+        
+    }
 
+    link(scope,elem,attrs,ctrl){
+        let size=attrs.size || 'default'
     }
 }

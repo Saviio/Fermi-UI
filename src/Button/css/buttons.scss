@@ -1,0 +1,64 @@
+
+$primaryButtonColor:#fff;
+$primaryBgColor:#487ebb;
+$buttonHeight:30px;
+$defaultButtonColor:#565656;
+$defaultButtonBgColor:#f6f6f6;
+$largeHeight:50px;
+$smallHeight:0px;
+
+
+a.buttons{
+    text-decoration: none;
+    //line-height: $buttonHeight;
+    display:inline-block;
+
+    color:$defaultButtonColor;
+    background-color:$defaultButtonBgColor;
+    border:darken($defaultButtonBgColor,20%) solid 1px;
+    padding-left:3px;
+    padding-right:3px;
+    text-align:center;
+    -webkit-user-select:none;
+    transition: color ease-in-out 100ms,background-color ease-in-out 100ms,border-color ease-in-out 100ms;
+    border-radius: 3px;
+    box-shadow: 0px 1px 2px rgba(0,0,0,0.25);
+    font-size:12px;
+
+    &:hover,&:visited{
+        color:$defaultButtonColor;
+        text-decoration: none;
+    }
+
+    &:hover{
+        background: darken($defaultButtonBgColor,3%);
+    }
+
+    &:active{
+        box-shadow: 0 0 0 1px rgba(0,0,0,0) inset, 0 0 6px rgba(0,0,0,.35) inset;
+    }
+}
+
+a.buttons-primary{
+    color:$primaryButtonColor;
+    background-color:$primaryBgColor;
+    border:darken($primaryBgColor,10%) solid 1px;
+
+    &:hover,&:visited{
+        color:$primaryButtonColor;
+        text-decoration: none;
+    }
+    &:hover{
+        background: darken($primaryBgColor,5%);
+    }
+}
+
+a.buttons-large{
+    padding:5px 15px 5px 15px;
+    font-size:14px;
+}
+
+a.buttons-small{
+    padding:1px 7px;
+    font-size:12px;
+}

@@ -18,19 +18,19 @@
                     <td colspan="7">
                         <div class="schedule-hours-wrapper">
                             <div class="schedule-hours">
-                                <div ng-repeat="n in [] | range:period.length" ng-style="test()" class="schedule-cell"></div>
+                                <div ng-repeat="n in [] | range:period.length track by $index" ng-style="test()" class="schedule-cell"></div>
                             </div>
                         </div>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <div ng-repeat="time in period" class="schedule-time-pri">
+                        <div ng-repeat="time in period track by $index" class="schedule-time-pri">
                             {{time}}
                         </div>
                     </td>
-                    <td ng-repeat="day in [] | range:hebdomThead.length" ng-init="parentIndex=$index">
-                        <div ng-repeat="evt in [] | range:period.length" class="schedule-grid">
+                    <td ng-repeat="day in [] | range:hebdomThead.length track by $index" ng-init="parentIndex=$index">
+                        <div ng-repeat="evt in [] | range:period.length track by $index" class="schedule-grid">
                             <div class="schedule-event" ng-style="calculateHeight(hebdom[parentIndex][$index])" ng-if="hebdom[parentIndex] && hebdom[parentIndex][$index].title!=undefined">
                                 <div class="schedule-event-tag" ng-style="calculateColor(hebdom[parentIndex][$index])" ></div>
                                 <div class="schedule-event-content">

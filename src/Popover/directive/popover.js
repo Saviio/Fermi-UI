@@ -43,7 +43,6 @@ export default class Popover{
     link(scope,element,attr,ctrl,transcludeFn){
         //("Popover component can only support for single element."
         let componentDOMRoot=element[0]
-        let autoHide=/auto|true/.test(attr.hide)
         let layerElem=componentDOMRoot.querySelector('.popover')
         let trigger=componentDOMRoot.querySelector(attr.trigger)
 
@@ -100,33 +99,49 @@ export default class Popover{
         }
 
         scope.layer=ngLayer
-        if(autoHide)
-            ngTriggerBtn.bind('blur',() => scope.close())
-        ngTriggerBtn.bind('click',() => {
-            setLocation()
-            scope.toggle()
-        })
 
-        let initState=this.utils.DOMState(attr,'actived')
-        let initOffset=this.utils.DOMState(attr,'offset')
-        let initCloseBtn=this.utils.DOMState(attr,'close')
+        let init=()=>{
+            let autoHide=/auto|true/.test(attr.hide)
+            let initState=this.utils.DOMState(attr,'actived')
+            let initOffset=this.utils.DOMState(attr,'offset')
+            let initCloseBtn=this.utils.DOMState(attr,'close')
+            let triggerAction=attr.action || 'click'
 
-        scope.offset= /^\d{1,}$/.test(initOffset) ? initOffset : 5
+            if(!/click|hover|focus/g.test(triggerAction)){
+                throw new Error("trigger action does not supported, it should one of 'click','hover','focus'")
+                return;
+            } else if(triggerAction==='hover'){
+                triggerAction='mouseover'
+            }
 
-        if(!initState)
-            scope.close(true)
+            scope.offset= /^\d{1,}$/.test(initOffset) ? initOffset : 5
+            scope.isOpen=initState
 
-        if(initCloseBtn){
-            var closeBtn=componentDOMRoot.querySelector('.popover > .close')
-            angular.element(closeBtn).bind('click',()=>scope.close(true))
+            var autoHideBindingExpr=(triggerAction==='click' || triggerAction==='focus') ? 'blur' : 'mouseout'
+            if(autoHide)
+                ngTriggerBtn.bind(autoHideBindingExpr,() => scope.close())
+
+            ngTriggerBtn.bind(triggerAction,() => {
+                setLocation()
+                scope.toggle()
+            })
+
+            if(!initState)
+                scope.close(true)
+
+            if(initCloseBtn){
+                var closeBtn=componentDOMRoot.querySelector('.popover > .close')
+                angular.element(closeBtn).bind('click',()=>scope.close(true))
+            }
+
+            let arrowColor=attr.arrow || null
+            setTimeout(()=> {
+                setLocation()
+                this.arrowColor(attr.trigger,placement,arrowColor)
+            },0)
         }
 
-        scope.isOpen=initState
-        let arrowColor=attr.arrow || null
-        setTimeout(()=> {
-            setLocation()
-            this.arrowColor(attr.trigger,placement,arrowColor)
-        },0)
+        init()
     }
 
     compile(tElement, tAttrs, transclude){
@@ -173,6 +188,7 @@ export default class Popover{
         `
         arrowStyle.innerHTML+=controlCSS
     }
+
 }
 
 Popover.$inject=["fermi.Utils"]

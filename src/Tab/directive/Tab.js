@@ -20,10 +20,6 @@ export class Tabs{
                 $scope.items.forEach(e=>e.actived=false)
             }
 
-            if($scope.items.length===0){
-                item.actived=true
-            }
-
             $scope.items.push(item)
         }
 
@@ -50,6 +46,13 @@ export class Tabs{
                 scope.switchState(index,children)
             }
         })
+
+        let init=() => {
+            if(scope.items.length>0 && scope.items.filter(e=>e.actived).length==0)
+                scope.items[0].actived=true
+        }
+
+        init()
     }
 }
 

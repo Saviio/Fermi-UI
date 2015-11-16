@@ -1,5 +1,5 @@
 <div class="breadcrumb-container">
-    <span ng-repeat="item in items" class="breadcrumb">
+    <span ng-repeat="item in items track by $index" class="breadcrumb">
         <span class="breadcrumb-link" ng-if="!item.label">
             {{item}}
         </span>

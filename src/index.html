@@ -98,21 +98,29 @@
                 </Fermi:Popover>
                 <Fermi:Popover title="POPOVER" placement="bottom" button="BOTTOM" hide=auto trigger="#btn2">
                     <button id="btn2" style="padding:5px">BOTTOM</button>
-                    <div style="background:#eaf5ff;width:500px;">BOTTOM</div>
+                    <div style="background:#fff;width:500px;">BOTTOM</div>
                 </Fermi:Popover>
                 <Fermi:Popover title="POPOVER" placement="left" button="LEFT" hide=auto trigger="#btn3">
                     <button id="btn3" style="padding:5px">LEFT</button>
-                    <div style="background-color:#eaf5ff;width:500px;">LEFT</div>
+                    <div style="background-color:#fff;width:500px;">LEFT</div>
                 </Fermi:Popover>
                 <Fermi:Popover title="POPOVER" placement="right" button="RIGHT" hide=auto trigger="#btn4">
                     <button id="btn4" style="padding:5px">RIGHT</button>
-                    <div style="background-color:#eaf5ff;width:500px;">RIGHT</div>
+                    <div style="background-color:#fff;width:500px;">RIGHT</div>
                 </Fermi:Popover>
-                <Fermi:Popover placement="top" hide=auto trigger="#btn5" close>
-                    <button id="btn5" style="padding:5px">NO TITLE</button>
+                <Fermi:Popover placement="top" hide=auto trigger="#btn5" close action="hover">
+                    <button id="btn5" style="padding:5px">NO TITLE and hover to trigger</button>
                     <div style="background-color:#fff">NO TITLE</div>
                 </Fermi:Popover>
+                <Fermi:Popover placement="top" hide=auto trigger="#btn5" close action="focus">
+                    <input id="btn5" style="padding:5px" value="focus to trigger"></input>
+                    <div style="background-color:#fff">DEMO</div>
+                </Fermi:Popover>
             </div>
+        </div>
+
+        <div id="fermiButtons" style="padding:100px">
+            <Fermi:buttons content="大号按钮"></Fermi:buttons>
         </div>
     </div>
 </body>

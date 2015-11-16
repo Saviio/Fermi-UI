@@ -104,7 +104,7 @@ section {
 .disappear-animation{
     //visibility:hidden !important;
     opacity:0.3 !important;
-    transform:scale(0);
+    transform:scale(0) translateZ(0);
 }
 
 

@@ -48,8 +48,8 @@ export default class Tooltips{
 
 
             let tooltip_element=tooltip[0]
-            let tp_height=parseInt(this.utils.style(tooltip_element,'height').replace(/px/,''))
-            let tp_width=parseInt(this.utils.style(tooltip_element,'width').replace(/px/,''))
+            let tp_height=~~this.utils.style(tooltip_element,'height','px')
+            let tp_width=~~this.utils.style(tooltip_element,'width','px')
 
             switch(scope.placement){
                 case 'top':

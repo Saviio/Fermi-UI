@@ -17,7 +17,7 @@ import './Button/index.js'
 
 import scheduleItems from './scheduleItems.json'
 
-var app=angular.module('app', ['Fermi.switch','Fermi.schedule','Fermi.tooltip','Fermi.breadcrumb','Fermi.progress','Fermi.tab','Fermi.popover']);
+var app=angular.module('app', ['Fermi.switch','Fermi.schedule','Fermi.tooltip','Fermi.breadcrumb','Fermi.progress','Fermi.tab','Fermi.popover','Fermi.buttons']);
 
 app.controller('main',['$scope','$timeout',function($scope,$timeout){
 

@@ -9,7 +9,6 @@
     opacity: 0.9;
     visibility:visible;
     transition: transform 500ms cubic-bezier(0.08, 0.82, 0.17, 1),opacity 300ms ease-out;
-
 }
 
 .tooltip-arrow{
@@ -23,7 +22,7 @@
 
 .tooltip.tooltip-hidden{
     /*visibility: hidden;*/
-    transform: scale(0.1);
+    transform: scale(0.1) translateZ(0);
     opacity: 0;
 }
 
