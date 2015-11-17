@@ -50,4 +50,8 @@ app.controller('main',['$scope','$timeout',function($scope,$timeout){
 
     $timeout(rec,2000)
 
+    $timeout(()=>window.p=$scope.progress,1)
+
+
+
 }])

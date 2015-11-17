@@ -94,18 +94,24 @@ section {
 
 
 .hide{
-    display: none;
+    display: none !important;
 }
 
 .show{
-    display: block;
+    display: block !important;
 }
 
-.disappear-animation{
+.disappear{
+    visibility:hidden !important;
+}
+
+.pop-disappear-animation{
     //visibility:hidden !important;
     opacity:0.3 !important;
     transform:scale(0) translateZ(0);
 }
+
+
 
 
 .close{
@@ -134,9 +140,15 @@ button.close{
     border: 0;
 }
 
+@keyframes pulse{
+    30%{opacity:.6}
+    60%{opacity:0}
+    to{opacity:.6}
+}
+
 @keyframes query{
-    0% {opacity:1;transform:translateX(35%) scale(.3,1)}
-    100% {opacity:0;transform:translateX(-50%) scale(0,1)}
+    0% {opacity:1;transform:translateX(-50%) scale(.3,1)}
+    100% {opacity:0;transform:translateX(35%) scale(0,1)}
 }
 
 @keyframes query2{

@@ -19,7 +19,7 @@ export default class Popover{
         $scope.open=()=>{
             if($scope.isOpen===false){
                 $scope.isOpen=!$scope.isOpen
-                $scope.layer.removeClass('disappear-animation')
+                $scope.layer.removeClass('pop-disappear-animation')
             }
         }
 
@@ -29,7 +29,7 @@ export default class Popover{
             else if($scope.isOpen!==false)
                 $scope.isOpen=!$scope.isOpen
 
-            $scope.layer.addClass('disappear-animation')
+            $scope.layer.addClass('pop-disappear-animation')
         }
 
         $scope.toggle=()=>{
