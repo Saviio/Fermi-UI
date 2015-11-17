@@ -1,3 +1,4 @@
-<a class="buttons buttons-primary buttons-large" href="javascript:;" node-type="btnText">
-    {{content}}
-</a>
+<button class="">
+    <span ng-if="!loading">{{content}}</span>
+    <div class="btn-loader" ng-if="loading"></div>
+</button>

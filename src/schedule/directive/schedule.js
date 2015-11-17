@@ -10,7 +10,8 @@ export default class Schedule{
             degree:'=',
             start:'@',
             tag:'@',
-            control:'='
+            control:'=',
+            events:'='
         }
         this.transclude=true
         this.template=template
@@ -104,19 +105,22 @@ export default class Schedule{
 
 
         $scope.control={
-              update:function(set,key){
-                  for(var i in set){
-                      if(set.hasOwnProperty(i)){
-                          var index=$scope.thKey.indexOf(i.toLowerCase())
-                          if(index>-1)
-                              $scope.hebdom[index]=transform(set[i],key)
-                      }
-                  }
-              },
-              refresh:function(set,key){
-                  $scope.hebdom={}
-                  this.update(set,key)
-              }
-          }
+            update:function(set,key){
+                for(var i in set){
+                    if(set.hasOwnProperty(i)){
+                        var index=$scope.thKey.indexOf(i.toLowerCase())
+                        if(index>-1)
+                            $scope.hebdom[index]=transform(set[i],key)
+                    }
+                }
+            },
+            refresh:function(set,key){
+                $scope.hebdom={}
+                this.update(set,key)
+            }
+        }
+
+        if($scope.events!=null)
+            $scope.control.refresh($scope.events)
     }
 }

@@ -27,18 +27,16 @@ app.controller('main',['$scope','$timeout',function($scope,$timeout){
     };
 
     $scope.message="test"
-    var tmp=scheduleItems[0]
+    $scope.tmp=scheduleItems[0]
 
     var tmp2=scheduleItems[1]
 
-    $timeout(function(){
-        $scope.events.update(tmp)
-    },1000)
 
     $timeout(function(){
-        $scope.events.refresh(tmp2)
+        //$scope.schedule.refresh(tmp2)
     },3000)
 
+    $timeout(()=> {window.a=$scope.a,window.b=$scope.b,window.c=$scope.c,window.d=$scope.d,window.e=$scope.e},1000)
 
 
     var rec=()=>{
