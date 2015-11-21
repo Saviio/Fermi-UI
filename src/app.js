@@ -5,26 +5,28 @@ import './app.css'
 
 
 //import Fermi.components
-import './Switch/index.js'
-import './Schedule/index.js'
-import './Tooltips/index.js'
-import './Breadcrumb/index.js'
-import './Progress/index.js'
-import './Tab/index.js'
-import './Popover/index.js'
-import './Button/index.js'
+import './Switch'
+import './Schedule'
+import './Tooltips'
+import './Breadcrumb'
+import './Progress'
+import './Tab'
+import './Popover'
+import './Button'
 
 
 import scheduleItems from './scheduleItems.json'
 
 var app=angular.module('app', ['Fermi.switch','Fermi.schedule','Fermi.tooltip','Fermi.breadcrumb','Fermi.progress','Fermi.tab','Fermi.popover','Fermi.buttons']);
 
-app.controller('main',['$scope','$timeout',function($scope,$timeout){
+app.controller('main',['$scope','$timeout','Fermi.Loading',function($scope,$timeout,loading){
 
     console.info('Fermi Components were loaded.')
     $scope.test=function(item){
         console.log(item)
     };
+
+    window.loading=loading
 
     $scope.message="test"
     $scope.tmp=scheduleItems[0]

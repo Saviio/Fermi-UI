@@ -57,7 +57,6 @@ export default class Loading{
                 $scope.progress=value
             },
             reset:function(){
-                //$scope.progress=0
                 self.$timeout(()=>$scope.progress=0,0)
             },
             complete:function(){
@@ -71,7 +70,6 @@ export default class Loading{
     }
 
     link(scope, element, attrs, ctrl){
-        //scope.element=element
         console.log(element)
 
         let zero=(e)=>{
@@ -82,13 +80,11 @@ export default class Loading{
         }
         let {prefix,eventPrefix}=this.utils.prefix()
 
-        scope.hide=()=>{
+        scope.hide=()=> {
             element.bind(eventPrefix+'TransitionEnd',zero)
             this.$timeout(()=> {
                 element.addClass('disappear')
             }, scope.delay)
-
-            //debugger
         }
 
         scope.show=()=>{

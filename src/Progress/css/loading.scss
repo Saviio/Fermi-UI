@@ -9,11 +9,10 @@ $progress-bg-color:#147EE6;
     z-index:9999;
     height:2px;
     border-radius:1px;
-    transition:width 600ms ease-out,visibility 500ms linear;
     transform:translateZ(0);
     background-color:$progress-bg-color;
-    visibility:visible;
-    
+    opacity:1;
+
     dd,dt{
         position:absolute;
         top:0px;
