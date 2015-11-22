@@ -9,16 +9,14 @@ let clamp = (n, min, max) => {
 let queue = (function() {
     let waiting = []
 
-    function next() {
-        var fn = waiting.shift()
-        if (fn) {
-            fn(next)
-        }
+    let next = () => {
+        let fn = waiting.shift()
+        if(fn) fn(next)
     }
 
-    return function(fn) {
+    return (fn) => {
         waiting.push(fn)
-        if (waiting.length == 1) next()
+        if (waiting.length === 1) next()
     }
 })()
 
@@ -104,7 +102,7 @@ export default class Loading{
     }
 
     done(){
-        this.inc(0.8)
-        this.set(1)
+        if(this.instance)
+            this.set(1)
     }
 }
