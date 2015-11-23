@@ -71,6 +71,7 @@ export default class Loading{
         }
 
         exec()
+        return this
     }
 
     set(n){
@@ -94,6 +95,7 @@ export default class Loading{
                 setTimeout(next, this.speed)
             }
         })
+        return this
     }
 
     inc(amount = (1 - n) * Math.random() * n){
