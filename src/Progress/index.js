@@ -14,8 +14,8 @@ const component = {
 }
 //.directive('fermiLoadingbar',factory.create(test))
 export default angular.module(component.namespace, component.inject)
-	.directive('fermiLineprogress', factory.create(line))
-    .directive('fermiQuerybar',factory.create(query))
-    .directive('fermiCircleprogress',factory.create(circle))
+	.directive('fermiLine', factory.create(line))
+    .directive('fermiQuery',factory.create(query))
+    .directive('fermiCircle',factory.create(circle))
     .service('Fermi.Loading',loading)
 	.name;
