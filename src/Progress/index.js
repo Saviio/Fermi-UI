@@ -7,6 +7,7 @@ import circle from './directive/circle'
 import './css/line.scss'
 import './css/query.scss'
 import './css/loading.scss'
+import './css/circle.scss'
 
 const component = {
     namespace:'Fermi.progress',

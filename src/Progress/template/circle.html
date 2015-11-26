@@ -1,6 +1,9 @@
-<div data-pct={{ngModel}}>
-    <svg ng-attr-view_box="{{'0 0 '+ size + ' ' + size}}">
-        <path ng-attr-d={{pathDescription()}} stroke={{inner}} stroke-width={{strokeWidth}} fill-opacity="0"></path>
-        <path ng-attr-d={{pathDescription()}} stroke={{outer}} stroke-width={{strokeWidth}} fill-opacity="0" stroke-linecap="round" ng-style="dashOffset()"></path>
-    </svg>
+<div data-pct={{ngModel}} style="width:132px;height:132px;" class="progress-circle-wrapper">
+    <div class="progress-circle-inner">
+        <svg>
+            <path fill-opacity="0"></path>
+            <path fill-opacity="0" stroke-linecap="round" ng-style="dashOffset()"></path>
+        </svg>
+        <span ng-if="showinfo">{{ngModel}}%</span>
+    </div>
 </div>

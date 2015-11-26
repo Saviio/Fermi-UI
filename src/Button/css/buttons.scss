@@ -1,6 +1,6 @@
 
 $primary-btn-color:#fff;
-$primary-btn-background:#2b8ccd;
+$primary-btn-background:#00a9e8;
 
 $default-btn-color:#565656;
 $default-btn-background:#f6f6f6;
@@ -51,7 +51,7 @@ button.buttons-default{
     text-decoration: none;
     //line-height: $buttonHeight;
     display:inline-block;
-
+    font-family: "Helvetica Neue",Helvetica,"Hiragino Sans GB","Microsoft YaHei",SimSun,sans-serif;
     color:$default-btn-color;
     background-color:$default-btn-background;
     border:darken($default-btn-background,20%) solid 1px;
