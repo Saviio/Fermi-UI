@@ -42,15 +42,13 @@ app.controller('main',['$scope','$timeout','Fermi.Loading',function($scope,$time
 
 
     var rec=()=>{
-        window.f=$scope.entity2
-        if($scope.entity1>100)
+        if($scope.entity1>=100)
             $scope.entity1=-1
-        else
-            $timeout(rec,2000)
-        $scope.entity1+=10
+        $scope.entity1+=5
+        $timeout(rec,1000)
     }
 
-    $timeout(rec,2000)
+    $timeout(rec,100)
 
     $timeout(()=>window.p=$scope.progress,1)
 
