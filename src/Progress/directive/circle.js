@@ -21,6 +21,7 @@ export default class circle{
         const PI = 3.1415926535898
 
         $scope.showinfo=Boolean($scope.showinfo)
+
         $scope.dashOffset = () => {
             const C = $scope.radius * 2 * PI
             return {
