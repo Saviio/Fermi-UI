@@ -1,8 +1,7 @@
-
-
 import template from '../template/circle.html'
 
-
+//Todo 半圆形
+//Todo template 接口
 export default class circle{
     constructor(){
         this.replace=true
@@ -15,16 +14,15 @@ export default class circle{
             showinfo:'@'
         }
 
-        //this.utils=utils
         this.controller.$inject=['$scope']
     }
 
     controller($scope){
         const PI = 3.1415926535898
-        //$scope.showInfo=!!$scope.showInfo
+
         $scope.showinfo=Boolean($scope.showinfo)
         $scope.dashOffset = () => {
-            let C = $scope.radius * 2 * PI
+            const C = $scope.radius * 2 * PI
             return {
                 'stroke-dasharray'  : `${C}px ${C}px`,
                 'stroke-dashoffset' : `${C - C * $scope.ngModel / 100}`
@@ -37,6 +35,7 @@ export default class circle{
         let strokeWidth = attrs.strokeWidth || 4
         let inner = attrs.inner || '#e9e9e9' //inner background-color
         let outer = attrs.outer || '#00a9e8' //outer background-color
+        let shape = attrs.shape || 'round'
         let radius = null
 
         let moveTo = size / 2
@@ -49,10 +48,9 @@ export default class circle{
             paths[i].setAttribute('stroke-width', strokeWidth)
         }
 
+        paths[paths.length-1].setAttribute('stroke-linecap',shape)
+
         let svg = elem.find('svg')[0]
         svg.setAttribute('viewBox',`0 0 ${size} ${size}`)
     }
 }
-
-
-//circle.$inject = ['fermi.Utils']
