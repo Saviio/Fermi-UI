@@ -35,7 +35,7 @@ app.controller('main',['$scope','$timeout','Fermi.Loading',function($scope,$time
 
 
     $timeout(function(){
-        //$scope.schedule.refresh(tmp2)
+        $scope.schedule.refresh(tmp2)
     },3000)
 
     $timeout(()=> {window.a=$scope.a,window.b=$scope.b,window.c=$scope.c,window.d=$scope.d,window.e=$scope.e},1000)
@@ -44,7 +44,7 @@ app.controller('main',['$scope','$timeout','Fermi.Loading',function($scope,$time
     var rec=()=>{
         if($scope.entity1>=100)
             $scope.entity1=0
-        $scope.entity1+=5
+        $scope.entity1+=10
         $timeout(rec,1000)
     }
 
@@ -53,6 +53,8 @@ app.controller('main',['$scope','$timeout','Fermi.Loading',function($scope,$time
     $timeout(()=>window.p=$scope.progress,1)
 
     loading.start()
+
+    $scope.entity3=55
 
 
 }])

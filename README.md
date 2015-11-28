@@ -20,15 +20,15 @@ UI components library based on angular.js.
 7. select 选择器 (pending)
 8. dropdown 下拉菜单(pending)
 9. pagination 分页器(pending)
-10. progress 进度条(30%)
+10. progress 进度条(90%)
 11. notification 消息提示(pending)
 12. crop 修剪器 (nice to have)
 13. step 步骤提示(pending)
 14. Tab 标签页(80%)
-15. button 基础按钮(pending)
+15. button 基础按钮(75%)
 16. modal 模态对话框(pending)
 17. aside (nice to have)
-18. affix (nice to have)
+18. scrollspy (nice to have)
 
 ###Compile && Run:
 ```
