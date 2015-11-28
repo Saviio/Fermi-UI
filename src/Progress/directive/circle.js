@@ -3,24 +3,23 @@ import template from '../template/circle.html'
 //Todo 半圆形
 //Todo template 接口
 export default class circle{
-    constructor(){
+    constructor($compile,utils){
         this.replace=true
         this.restrict='EA'
         this.template=template
         this.require='^ngModel'
         this.scope={
             ngModel:'=',
-            label:'@',
-            showinfo:'@'
+            label:'@'
         }
 
         this.controller.$inject=['$scope']
+        this.$compile=$compile
+        this.utils=utils
     }
 
     controller($scope){
         const PI = 3.1415926535898
-
-        $scope.showinfo=Boolean($scope.showinfo)
 
         $scope.dashOffset = () => {
             const C = $scope.radius * 2 * PI
@@ -28,6 +27,11 @@ export default class circle{
                 'stroke-dasharray'  : `${C}px ${C}px`,
                 'stroke-dashoffset' : `${C - C * $scope.ngModel / 100}`
             }
+        }
+
+        $scope.check=function(){
+            if($scope.ngModel>100) $scope.ngModel=100
+            else if($scope.ngModel<0) $scope.ngModel=0
         }
     }
 
@@ -37,6 +41,8 @@ export default class circle{
         let inner = attrs.inner || '#e9e9e9' //inner background-color
         let outer = attrs.outer || '#00a9e8' //outer background-color
         let shape = attrs.shape || 'round'
+        let showinfo = !!(attrs.showinfo || false)
+        let isProgress = this.utils.DOMState(attrs,'progress')
         let radius = null
 
         let moveTo = size / 2
@@ -51,7 +57,24 @@ export default class circle{
 
         paths[paths.length-1].setAttribute('stroke-linecap',shape)
 
+        if(showinfo){
+            let format = (attrs.format || "${percent}").replace(/\$\{percent\}/,($0) => "{{ngModel}}")
+            let unit   = attrs.unit === undefined ? "%" : attrs.unit
+            let tmpl   = `<span>${format} ${unit ? "<sup>"+unit+"</sup>" :""}</span>`
+            let innerDIV = elem.find('div').append(tmpl)
+            this.$compile(innerDIV.find('span'))(scope)
+        }
+
+        if(isProgress){
+            scope.$watch('ngModel',(newValue,oldValue) => {
+                scope.check()
+                newValue >= 100 ? elem.addClass('progress-success') : elem.removeClass('progress-success')
+            })
+        }
+
         let svg = elem.find('svg')[0]
         svg.setAttribute('viewBox',`0 0 ${size} ${size}`)
     }
 }
+
+circle.$inject=['$compile','fermi.Utils']

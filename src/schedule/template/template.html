@@ -31,8 +31,8 @@
                     </td>
                     <td ng-repeat="day in [] | range:hebdomThead.length track by $index" ng-init="parentIndex=$index">
                         <div ng-repeat="evt in [] | range:period.length track by $index" class="schedule-grid">
-                            <div class="schedule-event" ng-style="calculateHeight(hebdom[parentIndex][$index])" ng-if="hebdom[parentIndex] && hebdom[parentIndex][$index].title!=undefined">
-                                <div class="schedule-event-tag" ng-style="calculateColor(hebdom[parentIndex][$index])" ></div>
+                            <div class="schedule-event" ng-style="::calculateHeight(hebdom[parentIndex][$index])" ng-if="hebdom[parentIndex] && hebdom[parentIndex][$index].title!=undefined">
+                                <div class="schedule-event-tag" ng-style="::calculateColor(hebdom[parentIndex][$index])" ></div>
                                 <div class="schedule-event-content">
                                     <div>
                                         {{ hebdom[parentIndex][$index].title }}

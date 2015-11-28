@@ -69,7 +69,12 @@
             <div style="width:500px">
                 <Fermi:Line ng-model="entity1" fermi-default="100"></Fermi:Line>
                 <Fermi:Query control="entity2" actived></Fermi:Query>
-                <Fermi:Circle ng-model="entity1" size="100" stroke-width="6" fermi-default="10" showInfo=true></Fermi:Circle>
+                <div style="width:132px;height:132px;display:inline-block">
+                    <Fermi:Circle ng-model="entity1" size="100" stroke-width="6" fermi-default="10" showInfo=true progress></Fermi:Circle>
+                </div>
+                <div style="width:132px;height:132px;display:inline-block">
+                    <Fermi:Circle ng-model="entity3" size="100" stroke-width="6" shape="rect" outer="#ccc"></Fermi:Circle>
+                </div>
             </div>
         </div>
 
