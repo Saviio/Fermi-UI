@@ -2,7 +2,7 @@
 import angular from 'angular'
 import './global.scss'
 import './app.css'
-
+import './Icon/iconfont.scss'
 
 //import Fermi.components
 import './Switch'
@@ -13,11 +13,12 @@ import './Progress'
 import './Tab'
 import './Popover'
 import './Button'
+import './Selector'
 
 
 import scheduleItems from './scheduleItems.json'
 
-var app=angular.module('app', ['Fermi.switch','Fermi.schedule','Fermi.tooltip','Fermi.breadcrumb','Fermi.progress','Fermi.tab','Fermi.popover','Fermi.buttons']);
+var app=angular.module('app', ['Fermi.switch','Fermi.schedule','Fermi.tooltip','Fermi.breadcrumb','Fermi.progress','Fermi.tab','Fermi.popover','Fermi.buttons','Fermi.select']);
 
 app.controller('main',['$scope','$timeout','Fermi.Loading',function($scope,$timeout,loading){
 

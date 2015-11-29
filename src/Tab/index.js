@@ -1,5 +1,5 @@
 import factory from '../utils/directives'
-import {Tabs,Tab} from './directive/Tab'
+import {Tabs,Tab} from './directive'
 
 import './css/Tab.scss'
 

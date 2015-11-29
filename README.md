@@ -1,6 +1,6 @@
 # Fermi.UI
 
-UI components library based on angular.js.
+A simple UI library based on angular.js.
 
 
 1. Lang: ES6
@@ -11,6 +11,7 @@ UI components library based on angular.js.
 
 -------------------
 
+Stage: Draft
 
 ###Compile && Run:
 ```
@@ -18,7 +19,6 @@ UI components library based on angular.js.
     npm run dev
 ```
 
-项目结束后我会着手整理组件，暂时只有schedule,tooltips,switcher等组件
 
 ---------
 Thank you for your watching and using, Enjoy.

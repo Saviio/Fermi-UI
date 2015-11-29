@@ -152,9 +152,9 @@ export default class Popover{
         let showCloseBtn=this.utils.DOMState(tAttrs,'close')
         let tmpl=popoverTmpl.replace(/#{dire}/, dire)
         if(showCloseBtn)
-            tmpl=tmpl.replace(/<\!--CLOSE\_BUTTON-->/,`<button class="close">×</button>`)
+            tmpl=tmpl.replace('<!--CLOSE_BUTTON-->',`<button class="close">×</button>`)
         else
-            tmpl=tmpl.replace(/<\!--CLOSE\_BUTTON-->/,"")
+            tmpl=tmpl.replace('<!--CLOSE_BUTTON-->',"")
         tElement.append(tmpl)
 
         if(tAttrs.trigger==undefined){
@@ -191,4 +191,4 @@ export default class Popover{
 
 }
 
-Popover.$inject=["fermi.Utils"]
+Popover.$inject = ["fermi.Utils"]

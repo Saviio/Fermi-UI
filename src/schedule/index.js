@@ -1,7 +1,7 @@
 import factory from '../utils/directives'
 import directive from './directive/schedule'
 import './css/schedule.scss'
-import '../core/core.js'
+import '../core'
 
 const component = {
     namespace:'Fermi.schedule',

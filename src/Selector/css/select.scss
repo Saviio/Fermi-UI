@@ -1,0 +1,41 @@
+.select-wrapper-base{
+    display:inline-block;
+    min-width:130px;
+    border:#ccc 1px solid;
+    cursor:pointer;
+    border-radius:2px;
+    position:relative;
+    .select-inner{
+        height:26px;
+        line-height:26px;
+        padding-left:10px;
+        padding-right:24px;
+        width:100%;
+
+        .select-icon{
+            position:absolute;
+            right:0px;
+        }
+    }
+    span {
+        display:inline-block;
+        vertical-align:top;
+    }
+
+
+}
+
+.select-wrapper-normal{
+    height:28px;
+    @extend .select-wrapper-base;
+}
+
+.select-wrapper-small{
+    height:22px;
+    @extend .select-wrapper-base;
+}
+
+.select-wrapper-large{
+    height:33px;
+    @extend .select-wrapper-base;
+}

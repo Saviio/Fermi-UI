@@ -1,7 +1,7 @@
 
 import factory from '../utils/directives'
 import directive from './directive/tooltips'
-import '../core/core.js'
+import '../core'
 import './css/tooltips.scss'
 
 const component = {

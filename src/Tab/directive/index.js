@@ -88,10 +88,7 @@ export class Tab{
             set:(newValue) => {
                 if(contentState===newValue)
                     return;
-                if(newValue)
-                    element.removeClass('hide').addClass('show')
-                else
-                    element.removeClass('show').addClass('hide')
+                newValue ? element.removeClass('hide').addClass('show') : element.removeClass('show').addClass('hide')
                 contentState=newValue
             },
             enumerable: true,
