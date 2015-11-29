@@ -1,4 +1,5 @@
-.select-wrapper-base{
+
+@mixin select-wrapper-base($height:28px){
     display:inline-block;
     min-width:130px;
     border:#ccc 1px solid;
@@ -6,8 +7,8 @@
     border-radius:2px;
     position:relative;
     .select-inner{
-        height:26px;
-        line-height:26px;
+        height:$height+(-2px);
+        line-height:$height+(-2px);
         padding-left:10px;
         padding-right:24px;
         width:100%;
@@ -21,21 +22,45 @@
         display:inline-block;
         vertical-align:top;
     }
+    .select-dropdown{
+        width:100%;
+        background-color:#fff;
+        position:absolute;
+        top:$height + 2px;
+        box-shadow:0px 0px 2px rgba(220, 220, 220, 0.7);
+        border:rgba(204, 204, 204, 0.65) solid 1px;
+        ul{
+            list-style:none;
+            li{
+                padding-left:10px;
+                height:22px;
+                line-height:22px;
+                //padding:7px 33px 7px 16px;
 
-
+                &:hover{
+                    background-color:#eaf8fe !important;
+                }
+                &:first-child{
+                    margin-top:5px;
+                }
+                &:last-child{
+                    margin-bottom:5px;
+                }
+            }
+        }
+    }
 }
 
+
+
 .select-wrapper-normal{
-    height:28px;
-    @extend .select-wrapper-base;
+    @include select-wrapper-base
 }
 
 .select-wrapper-small{
-    height:22px;
-    @extend .select-wrapper-base;
+    @include select-wrapper-base(22px)
 }
 
 .select-wrapper-large{
-    height:33px;
-    @extend .select-wrapper-base;
+    @include select-wrapper-base(32px)
 }

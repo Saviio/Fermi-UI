@@ -46,6 +46,7 @@ app.controller('main',['$scope','$timeout','Fermi.Loading',function($scope,$time
         if($scope.entity1>=100)
             $scope.entity1=0
         $scope.entity1+=10
+        //console.log($scope.selectEntity)
         $timeout(rec,1000)
     }
 
@@ -56,6 +57,17 @@ app.controller('main',['$scope','$timeout','Fermi.Loading',function($scope,$time
     loading.start()
 
     $scope.entity3=55
+    $scope.selectEntity=null
+    $scope.list=[
+        { category: 'meat', name: 'Pepperoni' },
+        { category: 'meat', name: 'Sausage' },
+        { category: 'meat', name: 'Ground Beef' },
+        { category: 'meat', name: 'Bacon' },
+        { category: 'veg', name: 'Mushrooms' },
+        { category: 'veg', name: 'Onion' },
+        { category: 'veg', name: 'Green Pepper' },
+        { category: 'veg', name: 'Green Olives' }
+    ]
 
 
 }])

@@ -18,9 +18,15 @@ export default class DirectiveFactory {
 
 			if (instance.controller) {
 				let controllerOrg = instance.controller;
+
 				instance.controller = function (...controllerArgs) {
 					let instance = new Directive(...args);
 					controllerOrg.apply(instance, controllerArgs);
+					if(typeof instance.passing === 'function'){
+						let passingCtrl = new instance.passing(...controllerArgs)
+						for(let key in passingCtrl)
+							this[key] = passingCtrl[key]
+					}
 				};
 
 				instance.controller.$inject = controllerOrg.$inject || ["$scope", "$element"];

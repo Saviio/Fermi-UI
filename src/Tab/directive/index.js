@@ -99,7 +99,7 @@ export class Tab{
         item.display=header
         item.disable=disable
 
-        var parent=scope.$parent
+        var parent=scope.$parent //bug? 不能这么access 父级作用域
         parent.addItem(item)
     }
 }
