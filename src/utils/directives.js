@@ -22,10 +22,12 @@ export default class DirectiveFactory {
 				instance.controller = function (...controllerArgs) {
 					let instance = new Directive(...args);
 					controllerOrg.apply(instance, controllerArgs);
+
 					if(typeof instance.passing === 'function'){
-						let passingCtrl = new instance.passing(...controllerArgs)
-						for(let key in passingCtrl)
-							this[key] = passingCtrl[key]
+						let exports = {}
+						instance.passing(exports,...controllerArgs);
+						for(let key in exports)
+							this[key] = exports[key]
 					}
 				};
 

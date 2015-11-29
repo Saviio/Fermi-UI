@@ -41,8 +41,8 @@ export class Select {
 
     }
 
-    passing($scope){
-        this.select=function(item){
+    passing(exports, $scope){
+        exports.select=function(item){
             $scope.ngModel=item
         }
     }
@@ -61,18 +61,18 @@ export class Option {
         }
     }
 
-    link(scope,elem,attrs,ctrl){
+    link(scope,elem,attrs,parentCtrl){
         /*console.log(scope.$parent)
         console.log(scope)
         console.log(attrs.value)*/
-        console.log(ctrl,scope)
+        console.log(parentCtrl,scope)
         //scope.$parent.options.push(elem.contents())
         if(typeof attrs.value === "string" && scope.value === undefined)
             scope.value = attrs.value
 
         elem.bind('click', ()=>{
-            console.log(ctrl)
-            ctrl.select(scope.value)
+            console.log(parentCtrl)
+            parentCtrl.select(scope.value)
         })
     }
 }
