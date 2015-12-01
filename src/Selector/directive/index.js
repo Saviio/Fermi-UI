@@ -7,7 +7,8 @@ import option from '../template/option.html'
 //disable
 //span + span + ul + li + span
 //select overflow ...
-
+//select option group
+//single option disable
 
 export class Select {
     constructor(utils){
@@ -38,6 +39,14 @@ export class Select {
         let dropdown = angular.element(elem.children()[1])
         let expanded = false
 
+        let hide = () => {
+            if(!expanded) dropdown.addClass('select-dropdown-hidden')
+
+            setTimeout(() => {
+                dropdown.unbind(eventPrefix+'TransitionEnd',hide)
+                dropdown.unbind('animationend webkitAnimationEnd MSAnimationEnd oAnimationEnd',hide)
+            },0)
+        }
 
         scope.switchDropdownState = () => {
             if(expanded){
@@ -49,20 +58,11 @@ export class Select {
                 dropdown.removeClass('select-dropdown-fadeOut').addClass('select-dropdown-fadeIn')
             }
             expanded = !expanded
-            dropdown.bind(eventPrefix+'TransitionEnd',hide)
+            dropdown.bind(eventPrefix+'TransitionEnd',hide) //尝试给这部分代码建立一个函数抽象
             dropdown.bind(eventPrefix+'animationend webkitAnimationEnd',hide)
         }
 
         select.bind('click',scope.switchDropdownState)
-
-        let hide = () => {
-            if(!expanded)
-                dropdown.addClass('select-dropdown-hidden')
-            setTimeout(() => {
-                dropdown.unbind(eventPrefix+'TransitionEnd',hide)
-                dropdown.unbind('animationend webkitAnimationEnd MSAnimationEnd oAnimationEnd',hide)
-            },0)
-        }
     }
 
     passing(exports, $scope){
