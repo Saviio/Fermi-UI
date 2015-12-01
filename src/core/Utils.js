@@ -104,6 +104,23 @@ export default function(){
         return {prefix,eventPrefix}
     }
 
+    function onMotionEnd(callback){
+        if(this==undefined) return
+        let {prefix,eventPrefix} = detechPrefix()
+
+        let handler = () => {
+            callback()
+
+            setTimeout(() => {
+                this.unbind(eventPrefix+'TransitionEnd',handler)
+                this.unbind('animationend webkitAnimationEnd MSAnimationEnd oAnimationEnd',handler)
+            },0)
+        }
+
+        this.bind(eventPrefix+'TransitionEnd',handler)
+        this.bind('animationend webkitAnimationEnd MSAnimationEnd oAnimationEnd',handler)
+    }
+
     return {
         coords:getCoords,
         style:getStyle,
@@ -111,6 +128,7 @@ export default function(){
         escapeHTML,
         addClass,
         removeClass,
-        prefix:detechPrefix
+        prefix:detechPrefix,
+        onMotionEnd
     }
 }

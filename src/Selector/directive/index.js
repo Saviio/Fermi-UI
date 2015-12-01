@@ -33,33 +33,24 @@ export class Select {
     }
 
     link(scope,elem,attrs,ctrl){
-        let {prefix,eventPrefix}=this.utils.prefix()
         let icon = angular.element(elem.children().children()[1])
         let select = angular.element(elem.children()[0])
         let dropdown = angular.element(elem.children()[1])
         let expanded = false
 
-        let hide = () => {
-            if(!expanded) dropdown.addClass('select-dropdown-hidden')
-
-            setTimeout(() => {
-                dropdown.unbind(eventPrefix+'TransitionEnd',hide)
-                dropdown.unbind('animationend webkitAnimationEnd MSAnimationEnd oAnimationEnd',hide)
-            },0)
-        }
 
         scope.switchDropdownState = () => {
             if(expanded){
                 icon.removeClass('expanded')
                 dropdown.removeClass('select-dropdown-fadeIn').addClass('select-dropdown-fadeOut')
             } else {
-                dropdown.removeClass('select-dropdown-hidden')
                 icon.addClass('expanded')
-                dropdown.removeClass('select-dropdown-fadeOut').addClass('select-dropdown-fadeIn')
+                dropdown.removeClass('select-dropdown-hidden select-dropdown-fadeOut').addClass('select-dropdown-fadeIn')
             }
             expanded = !expanded
-            dropdown.bind(eventPrefix+'TransitionEnd',hide) //尝试给这部分代码建立一个函数抽象
-            dropdown.bind(eventPrefix+'animationend webkitAnimationEnd',hide)
+
+            if(!expanded)
+                dropdown::this.utils.onMotionEnd(()=> dropdown.addClass('select-dropdown-hidden'))
         }
 
         select.bind('click',scope.switchDropdownState)
