@@ -6,16 +6,11 @@ import option from '../template/option.html'
 //multi
 //disable
 //span + span + ul + li + span
-
-function a(){
-    this.checking=function(){
-        console.log('checking!')
-    }
-}
+//select overflow ...
 
 
 export class Select {
-    constructor(){
+    constructor(utils){
         this.restrict='EA'
         this.replace=true
         this.template=select
@@ -23,30 +18,64 @@ export class Select {
         this.scope={
             ngModel:'='
         }
-        this.controller.$inject=['$scope','$timeout']
         this.transclude=true
-        this.id="demo"
-        this.nestedController=true
+        this.utils=utils
+        this.controller.$inject=['$scope','$timeout']
     }
 
     controller($scope,$timeout){
-        let test=()=>{
+        /*let test=()=>{
             console.log($scope.ngModel)
             $timeout(()=>test(),1000)
         }
-        test()
+        test()*/
     }
 
     link(scope,elem,attrs,ctrl){
+        let {prefix,eventPrefix}=this.utils.prefix()
+        let icon = angular.element(elem.children().children()[1])
+        let select = angular.element(elem.children()[0])
+        let dropdown = angular.element(elem.children()[1])
+        let expanded = false
 
+
+        scope.switchDropdownState = () => {
+            if(expanded){
+                icon.removeClass('expanded')
+                dropdown.removeClass('select-dropdown-fadeIn').addClass('select-dropdown-fadeOut')
+            } else {
+                dropdown.removeClass('select-dropdown-hidden')
+                icon.addClass('expanded')
+                dropdown.removeClass('select-dropdown-fadeOut').addClass('select-dropdown-fadeIn')
+            }
+            expanded = !expanded
+            dropdown.bind(eventPrefix+'TransitionEnd',hide)
+            dropdown.bind(eventPrefix+'animationend webkitAnimationEnd',hide)
+        }
+
+        select.bind('click',scope.switchDropdownState)
+
+        let hide = () => {
+            if(!expanded)
+                dropdown.addClass('select-dropdown-hidden')
+            setTimeout(() => {
+                dropdown.unbind(eventPrefix+'TransitionEnd',hide)
+                dropdown.unbind('animationend webkitAnimationEnd MSAnimationEnd oAnimationEnd',hide)
+            },0)
+        }
     }
 
     passing(exports, $scope){
-        exports.select=function(item){
-            $scope.ngModel=item
+        exports.select= function(item){
+            $scope.$apply(()=>{
+                $scope.ngModel = item
+                $scope.switchDropdownState()
+            })
         }
     }
 }
+
+Select.$inject = ['fermi.Utils']
 
 //@value
 export class Option {
@@ -62,16 +91,10 @@ export class Option {
     }
 
     link(scope,elem,attrs,parentCtrl){
-        /*console.log(scope.$parent)
-        console.log(scope)
-        console.log(attrs.value)*/
-        console.log(parentCtrl,scope)
-        //scope.$parent.options.push(elem.contents())
         if(typeof attrs.value === "string" && scope.value === undefined)
             scope.value = attrs.value
 
         elem.bind('click', ()=>{
-            console.log(parentCtrl)
             parentCtrl.select(scope.value)
         })
     }

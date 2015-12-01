@@ -32,8 +32,7 @@ export default class Query{
         var actived=this.utils.DOMState(attrs,'actived')
 
         element.bind(eventPrefix+'TransitionEnd',()=>{
-            if(!actived)
-                element.addClass('hide')
+            if(!actived) element.addClass('hide')
         })
 
         scope.show=()=>{
@@ -47,8 +46,7 @@ export default class Query{
             actived=false
         }
 
-        if(actived)
-            scope.show()
+        if(actived) scope.show()
     }
 }
 

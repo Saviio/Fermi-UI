@@ -16,6 +16,11 @@
         .select-icon{
             position:absolute;
             right:0px;
+            transition: transform 300ms ease;
+        }
+
+        .expanded{
+            transform: rotateZ(180deg)
         }
     }
     span {
@@ -29,6 +34,8 @@
         top:$height + 2px;
         box-shadow:0px 0px 2px rgba(220, 220, 220, 0.7);
         border:rgba(204, 204, 204, 0.65) solid 1px;
+        opacity:0;
+        z-index:9999;
         ul{
             list-style:none;
             li{
@@ -51,7 +58,17 @@
     }
 }
 
+.select-dropdown-fadeIn{
+    animation:fadeInDown 0.3s 0s ease both;
+}
 
+.select-dropdown-fadeOut{
+    animation:fadeOutUp 0.3s 0s ease both;
+}
+
+.select-dropdown-hidden{
+    display:none;
+}
 
 .select-wrapper-normal{
     @include select-wrapper-base
