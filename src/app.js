@@ -13,7 +13,7 @@ import './Progress'
 import './Tab'
 import './Popover'
 import './Button'
-import './Selector'
+import './Select'
 
 
 import scheduleItems from './scheduleItems.json'

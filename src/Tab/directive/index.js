@@ -3,63 +3,61 @@ import tab from '../template/tab.html'
 
 export class Tabs{
     constructor(){
-        this.replace=true
-        this.restrict='EA'
-        this.template=tabs
-        this.controller.$inject=['$scope']
-        this.transclude=true
-        this.scope={}
+        this.replace  = true
+        this.restrict = 'EA'
+        this.template = tabs
+        this.controller.$inject = ['$scope']
+        this.transclude = true
+        this.scope = {}
     }
 
     controller($scope){
-        $scope.items=[]
-        $scope.activedItem=null
+        $scope.items = []
+        $scope.activedItem = null
 
-        $scope.addItem= (item) => {
-            if(item.actived){
-                $scope.items.forEach(e=>e.actived=false)
-            }
+        $scope.switchState=(index) => {
+            if ($scope.items[index].disable) return
 
-            $scope.items.push(item)
-        }
-
-        $scope.switchState=(index,tabHeaders)=>{
-            if($scope.items[index].disable)
-                return;
-
-            $scope.$apply(()=>{
-                $scope.activedItem=$scope.items[index]
-                $scope.items.forEach((e,i)=>e.actived=i===index)
+            $scope.$apply(() => {
+                $scope.activedItem = $scope.items[index]
+                $scope.items.forEach((e,i) => e.actived = (i===index))
             })
         }
     }
 
     link(scope, elem, attrs, ctrl){
-        var ul=elem.find('ul')
+        let ul = elem.find('ul')
 
         ul.bind('click',(evt)=>{
-            var target=evt.target
-            var children=ul.children()
-            if(target.tagName==='A'){
-                var node=angular.element(evt.target)
-                var index=~~node.attr('data-index')
-                scope.switchState(index,children)
+            let target = evt.target
+
+            if(target.tagName === 'A'){
+                let node = angular.element(evt.target)
+                let index = ~~node.attr('data-index')
+                scope.switchState(index)
             }
         })
 
-        let init=() => {
-            if(scope.items.length>0 && scope.items.filter(e=>e.actived).length==0)
-                scope.items[0].actived=true
-        }
+        let activedItem = scope.items.filter(e => e.actived)
 
-        init()
+        if(scope.items.length > 0 && activedItem.length === 0){
+            scope.items[0].actived = true
+        } else {
+            for(let i = 0; i< activedItem.length-1; i++){
+                activedItem[i].active = false
+            }
+        }
+    }
+
+    passing(exports, $scope){
+        exports.addItem = (item) => $scope.items.push(item)
     }
 }
 
 export class Tab{
     constructor(utils){
         this.restrict='EA'
-        this.require='^fermiTab'
+        this.require='^fermiTabs'
         this.replace=true
         this.template=tab
         this.controller.$inject=['$scope']
@@ -70,26 +68,23 @@ export class Tab{
     controller($scope){}
 
     link(scope,element,attrs,parentCtrl){
-        var header=attrs.header
-        var disable=this.utils.DOMState(attrs,'disable')
-        var actived=this.utils.DOMState(attrs,'actived')
+        let header  = attrs.header
+        let disable = this.utils.DOMState(attrs,'disable')
+        let actived = this.utils.DOMState(attrs,'actived')
 
-        var contentState=null
+        let contentState = null
 
-        var item={
+        let item = {
             display:null,
             disable:false
         }
 
         Object.defineProperty(item,'actived',{
-            get:() => {
-                return contentState
-            },
+            get:() => contentState,
             set:(newValue) => {
-                if(contentState===newValue)
-                    return;
+                if(contentState === newValue) return
                 newValue ? element.removeClass('hide').addClass('show') : element.removeClass('show').addClass('hide')
-                contentState=newValue
+                contentState = newValue
             },
             enumerable: true,
             configurable: false
@@ -99,8 +94,7 @@ export class Tab{
         item.display=header
         item.disable=disable
 
-        var parent=scope.$parent //bug? 不能这么access 父级作用域
-        parent.addItem(item)
+        parentCtrl.addItem(item)
     }
 }
 

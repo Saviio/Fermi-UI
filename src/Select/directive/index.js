@@ -24,13 +24,7 @@ export class Select {
         this.controller.$inject=['$scope','$timeout']
     }
 
-    controller($scope,$timeout){
-        /*let test=()=>{
-            console.log($scope.ngModel)
-            $timeout(()=>test(),1000)
-        }
-        test()*/
-    }
+    controller($scope,$timeout){}
 
     link(scope,elem,attrs,ctrl){
         let icon = angular.element(elem.children().children()[1])

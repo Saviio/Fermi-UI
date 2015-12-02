@@ -104,17 +104,17 @@ export default function(){
         return {prefix,eventPrefix}
     }
 
-    function onMotionEnd(callback){
-        if(this==undefined) return
+    function onMotionEnd(cb){
+        if(!(this instanceof angular.element)) return
         let {prefix,eventPrefix} = detechPrefix()
+        let el = this[0]
 
-        let handler = () => {
-            callback()
-
-            setTimeout(() => {
+        let handler = (e) => {
+            if(e.target === el){
                 this.unbind(eventPrefix+'TransitionEnd',handler)
                 this.unbind('animationend webkitAnimationEnd MSAnimationEnd oAnimationEnd',handler)
-            },0)
+                cb()
+            }
         }
 
         this.bind(eventPrefix+'TransitionEnd',handler)
