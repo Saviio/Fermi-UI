@@ -27,7 +27,7 @@ export class Select {
     controller($scope,$timeout){}
 
     link(scope,elem,attrs,ctrl){
-        let icon = angular.element(elem.children().children()[1])
+        let icon = elem.children().children()[1]
         let select = angular.element(elem.children()[0])
         let dropdown = angular.element(elem.children()[1])
         let expanded = false
@@ -58,14 +58,15 @@ export class Select {
 
 
         scope.switchDropdownState = () => {
-            if(expanded){
-                icon.removeClass('expanded')
-                dropdown.removeClass('select-dropdown-fadeIn').addClass('select-dropdown-fadeOut')
-            } else {
-                icon.addClass('expanded')
-                dropdown.removeClass('select-dropdown-hidden select-dropdown-fadeOut').addClass('select-dropdown-fadeIn')
-            }
             expanded = !expanded
+
+            if(expanded){
+                icon.classList.add('expanded')
+                dropdown.removeClass('select-dropdown-hidden select-dropdown-fadeOut').addClass('select-dropdown-fadeIn')
+            } else {
+                icon.classList.remove('expanded')
+                dropdown.removeClass('select-dropdown-fadeIn').addClass('select-dropdown-fadeOut')
+            }
 
             if(!expanded)
                 dropdown::this.utils.onMotionEnd(()=>

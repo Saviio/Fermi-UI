@@ -1,10 +1,8 @@
 
-@mixin select-wrapper-base($height:28px){
+@mixin select-wrapper-base($height:30px){
     display:inline-block;
     min-width:130px;
-    border:#ccc 1px solid;
     cursor:pointer;
-    border-radius:3px;
     position:relative;
     .select-inner{
         height:$height+(-2px);
@@ -12,6 +10,14 @@
         padding-left:10px;
         padding-right:24px;
         width:100%;
+        border:#ccc 1px solid;
+        border-radius:3px;
+
+        transition:border-color 0.5s ease;
+
+        &:hover{
+            border-color:#00a9e8;
+        }
 
         .select-icon{
             position:absolute;
@@ -37,9 +43,10 @@
         opacity:0;
         z-index:9999;
 
-        padding-top:10px;
-        padding-bottom:10px;
+        padding-top:5px;
+        padding-bottom:5px;
         border-radius:3px;
+
 
         ul{
             list-style:none;
@@ -47,8 +54,8 @@
             li{
                 padding-left:10px;
                 padding-right:10px;
-                height:22px;
-                line-height:22px;
+                height:26px;
+                line-height:26px;
                 //padding:7px 33px 7px 16px;
 
                 &:hover{
@@ -63,9 +70,9 @@
             margin-bottom:8px;
             input {
                 outline:none;
-                width:90%;
-                margin-left:10px;
-                margin-right:10px;
+                width:95%;
+                /*margin-left:10px;
+                margin-right:10px;*/
                 height:28px;
                 line-height:28px;
                 padding:4px 7px;
@@ -95,9 +102,16 @@
 }
 
 .select-wrapper-small{
-    @include select-wrapper-base(22px)
+    @include select-wrapper-base(26px)
 }
 
 .select-wrapper-large{
-    @include select-wrapper-base(32px)
+    @include select-wrapper-base(36px)
+}
+
+.spec{
+    top:26px;
+    border-top:none;
+    border-top-left-radius:0px;
+    border-top-right-radius:0px;
 }

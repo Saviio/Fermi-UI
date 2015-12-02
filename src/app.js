@@ -70,4 +70,12 @@ app.controller('main',['$scope','$timeout','Fermi.Loading',function($scope,$time
     ]
 
 
+    let list2 = [
+        { category: 'meat', name: 'Jack' },
+        { category: 'meat', name: 'Rose' },
+        { category: 'meat', name: 'Heart of Occean' }
+    ]
+
+    window.ss= () => $scope.list = list2
+
 }])
