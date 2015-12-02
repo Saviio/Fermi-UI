@@ -4,7 +4,7 @@
     min-width:130px;
     border:#ccc 1px solid;
     cursor:pointer;
-    border-radius:2px;
+    border-radius:3px;
     position:relative;
     .select-inner{
         height:$height+(-2px);
@@ -36,10 +36,17 @@
         border:rgba(204, 204, 204, 0.65) solid 1px;
         opacity:0;
         z-index:9999;
+
+        padding-top:10px;
+        padding-bottom:10px;
+        border-radius:3px;
+
         ul{
             list-style:none;
+
             li{
                 padding-left:10px;
+                padding-right:10px;
                 height:22px;
                 line-height:22px;
                 //padding:7px 33px 7px 16px;
@@ -47,14 +54,27 @@
                 &:hover{
                     background-color:#eaf8fe !important;
                 }
-                &:first-child{
-                    margin-top:5px;
-                }
-                &:last-child{
-                    margin-bottom:5px;
-                }
+
             }
         }
+
+        div{
+            text-align:center;
+            margin-bottom:8px;
+            input {
+                outline:none;
+                width:90%;
+                margin-left:10px;
+                margin-right:10px;
+                height:28px;
+                line-height:28px;
+                padding:4px 7px;
+                border:1px solid #d9d9d9;
+                border-radius:3px;
+                color:#777;
+            }
+        }
+
     }
 }
 

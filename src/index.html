@@ -149,6 +149,13 @@
 
         <div id="fermiSelect" style="padding:30px;">
             <p>Select</p>
+            <Fermi:Select style="width:180px;" ng-model="selectEntity" search>
+                <Fermi:Option ng-repeat="item in list" value="item.name">{{item.name}}</Fermi:Option>
+            <!--    <Fermi:Option value="Titanic">Titanic</Fermi:Option>
+                <Fermi:Option value="Jack">Jack</Fermi:Option>
+                <Fermi:Option value="Rose">Rose</Fermi:Option> -->
+            </Fermi:Select>
+
             <Fermi:Select style="width:180px;" ng-model="selectEntity">
                 <Fermi:Option ng-repeat="item in list" value="item.name">{{item.name}}</Fermi:Option>
             <!--    <Fermi:Option value="Titanic">Titanic</Fermi:Option>

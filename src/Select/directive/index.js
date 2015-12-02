@@ -32,6 +32,30 @@ export class Select {
         let dropdown = angular.element(elem.children()[1])
         let expanded = false
 
+        let withSearch = null
+
+        scope.withSearch = withSearch = this.utils.DOMState(attrs, 'search')
+
+        if(withSearch){
+            let tmpl = `<div><input placeholder="输入"/></div>`
+            let searchInput = dropdown.prepend(tmpl).find('input')
+            let func = this.utils.debounce(()=>{
+                let options = dropdown.find('span')
+                let val = searchInput.val()
+
+                let cb1 = (e) => {
+                    new RegExp(val,"ig").test(e.innerText)
+                    ? e.parentElement.classList.remove('hide')
+                    : e.parentElement.classList.add('hide')
+                }
+                let cb2 = (e) => e.parentElement.classList.remove('hide')
+
+                options::[].forEach(val ? cb1 : cb2)
+            },200)
+
+            searchInput.bind('input', ()=> func())
+        }
+
 
         scope.switchDropdownState = () => {
             if(expanded){
@@ -44,7 +68,8 @@ export class Select {
             expanded = !expanded
 
             if(!expanded)
-                dropdown::this.utils.onMotionEnd(()=> dropdown.addClass('select-dropdown-hidden'))
+                dropdown::this.utils.onMotionEnd(()=>
+                    dropdown.addClass('select-dropdown-hidden'))
         }
 
         select.bind('click',scope.switchDropdownState)
