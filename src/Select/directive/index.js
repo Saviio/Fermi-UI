@@ -1,6 +1,6 @@
 import select from '../template/select.html'
 import option from '../template/option.html'
-
+import * as helper from '../../utils'
 //normal
 //search
 //multi
@@ -102,6 +102,9 @@ export class Option {
     }
 
     link(scope,elem,attrs,parentCtrl){
+        console.log(helper)
+        let a=document.getElementsByTagName('body')[0]
+        //window.ele=elem
         if(typeof attrs.value === "string" && scope.value === undefined)
             scope.value = attrs.value
 
