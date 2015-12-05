@@ -13,10 +13,10 @@ export default class Switch {
         this.template=template
     }
 
-    link(scope,elem,attr,ctrl){
-        elem.children()
+    link(scope,$elem,attr,ctrl){
+        $elem.children()
             .find('span')
             .bind('click',()=>
-                scope.ngModel=!scope.ngModel)
+                scope.ngModel = !scope.ngModel)
     }
 }

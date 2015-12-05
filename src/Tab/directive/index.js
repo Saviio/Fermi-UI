@@ -12,16 +12,16 @@ export class Tabs{
         this.scope = {}
     }
 
-    controller($scope){
-        $scope.items = []
-        $scope.activedItem = null
+    controller(scope){
+        scope.items = []
+        scope.activedItem = null
 
-        $scope.switchState=(index) => {
-            if ($scope.items[index].disable) return
+        scope.switchState = index => {
+            if (scope.items[index].disable) return
 
-            $scope.$apply(() => {
-                $scope.activedItem = $scope.items[index]
-                $scope.items.forEach((e,i) => e.actived = (i===index))
+            scope.$apply(() => {
+                scope.activedItem = scope.items[index]
+                scope.items.forEach((e,i) => e.actived = (i === index))
             })
         }
     }
@@ -50,8 +50,8 @@ export class Tabs{
         }
     }
 
-    passing(exports, $scope){
-        exports.addItem = (item) => $scope.items.push(item)
+    passing(exports, scope){
+        exports.addItem = (item) => scope.items.push(item)
     }
 }
 
@@ -65,10 +65,10 @@ export class Tab{
     }
 
 
-    link(scope,element,attrs,parentCtrl){
+    link(scope,$element,attrs,parentCtrl){
         let header  = attrs.header
-        let disable = element::getDOMState('disable')
-        let actived = element::getDOMState('actived')
+        let disable = $element::getDOMState('disable')
+        let actived = $element::getDOMState('actived')
 
         let contentState = null
 
@@ -81,16 +81,16 @@ export class Tab{
             get:() => contentState,
             set:(newValue) => {
                 if(contentState === newValue) return
-                newValue ? element.removeClass('hide').addClass('show') : element.removeClass('show').addClass('hide')
+                newValue ? $element.removeClass('hide').addClass('show') : $element.removeClass('show').addClass('hide')
                 contentState = newValue
             },
             enumerable: true,
             configurable: false
         })
 
-        item.actived=actived
-        item.display=header
-        item.disable=disable
+        item.actived = actived
+        item.display = header
+        item.disable = disable
 
         parentCtrl.addItem(item)
     }

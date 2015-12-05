@@ -1,4 +1,4 @@
-import factory from '../utils/directives'
+import factory from '../external/directiveFacotry'
 import directive from './directive/buttons'
 import './css/buttons.scss'
 

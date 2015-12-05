@@ -1,4 +1,4 @@
-import factory from '../utils/directives'
+import factory from '../external/directiveFacotry'
 import directive from './directive/switch'
 import './css/switch.scss'
 

@@ -21,34 +21,32 @@ export default class Popover{
         }
         this.transclude = true
         this.template = template
-        this.controller.$inject = ['$scope','$element']
+        this.controller.$inject = ['$scope']
     }
 
-    controller($scope,$element){
-        $scope.open = () => {
-            if($scope.isOpen === false){
-                $scope.isOpen =! $scope.isOpen
-                $scope.layer.removeClass('pop-disappear-animation')
+    controller(scope){
+        scope.open = () => {
+            if(scope.isOpen === false){
+                scope.isOpen = !scope.isOpen
+                scope.$layer.removeClass('pop-disappear-animation')
             }
         }
 
-        $scope.close = (force = false) => {
-            //debugger
-            if(force) $scope.isOpen = false
-            else if($scope.isOpen !== false) $scope.isOpen=!$scope.isOpen
-
-            $scope.layer.addClass('pop-disappear-animation')
+        scope.close = (force = false) => {
+            if(force) scope.isOpen = false
+            else if(scope.isOpen !== false) scope.isOpen = scope.isOpen
+            scope.$layer.addClass('pop-disappear-animation')
         }
 
-        $scope.toggle = ()=> {
-            if($scope.isOpen) $scope.close()
-            else $scope.open()
+        scope.toggle = () => {
+            if (scope.isOpen) scope.close()
+            else scope.open()
         }
     }
 
-    link(scope,element,attr,ctrl,transcludeFn){
+    link(scope, $element, attr, ctrl){
         //("Popover component can only support for single element."
-        let componentDOMRoot = element[0]
+        let componentDOMRoot = $element[0]
         let layerElem = componentDOMRoot.querySelector('.popover')
         let trigger = componentDOMRoot.querySelector(attr.trigger)
 
@@ -57,7 +55,7 @@ export default class Popover{
         }
 
         componentDOMRoot.insertBefore(trigger, layerElem)
-        let ngLayer = angular.element(layerElem)
+        let $ngLayer = angular.element(layerElem)
         let placement = attr.placement.toLowerCase()
 
         var setLocation = () => {
@@ -95,15 +93,15 @@ export default class Popover{
                     return
             }
 
-            ngLayer.css({left,top})
+            $ngLayer.css({left,top})
         }
 
-        scope.layer = ngLayer
+        scope.$layer = $ngLayer
 
         let init = () => {
-            let initState = element::getDOMState('actived')
-            let initOffset = element::getDOMState('offset')
-            let initCloseBtn = element::getDOMState('close')
+            let initState = $element::getDOMState('actived')
+            let initOffset = $element::getDOMState('offset')
+            let initCloseBtn = $element::getDOMState('close')
             let event = attr.action || 'click'
 
             if(!/click|hover|focus/.test(event)){
@@ -122,7 +120,7 @@ export default class Popover{
             }
 
             trigger::on(event, () => {
-                setLocation()
+                setLocation() //优化
                 scope.toggle()
             })
 

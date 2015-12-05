@@ -14,7 +14,7 @@ export default class Tooltips{
 
     controller($scope){}
 
-    link(scope,elem,attr,ctrl){
+    link(scope,$elem,attr,ctrl){
 
         ctrl.container = null, ctrl.parent = null
         ctrl.tooltipTmpl = `
@@ -43,9 +43,9 @@ export default class Tooltips{
             let offset = scope.offset || 6
             let tooltip = ctrl.getContainer()
 
-            let {left,top} = elem[0]::getCoords()
-            let height = elem[0]::getStyle('height')
-            let width = elem[0]::getStyle('width')
+            let {left,top} = $elem[0]::getCoords()
+            let height = $elem[0]::getStyle('height')
+            let width = $elem[0]::getStyle('width')
 
 
             let tooltipElement = tooltip[0]
@@ -96,7 +96,7 @@ export default class Tooltips{
             configurable: true
         })
 
-        elem.bind('mouseover',() => ctrl.tooltip.removeClass('tooltip-hidden'))
-        elem.bind('mouseout',() => ctrl.tooltip.addClass('tooltip-hidden'))
+        $elem.bind('mouseenter',() => ctrl.tooltip.removeClass('tooltip-hidden'))
+        $elem.bind('mouseleave',() => ctrl.tooltip.addClass('tooltip-hidden'))
     }
 }

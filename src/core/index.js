@@ -1,4 +1,4 @@
-import factory from '../utils/directives'
+import factory from '../external/directiveFacotry'
 import fermiDefault from './FermiDefault'
 import fermiRangeFilter from './RangeFilter'
 //import fermiUtils from './Utils'

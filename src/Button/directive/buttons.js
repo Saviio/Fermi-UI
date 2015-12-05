@@ -14,23 +14,23 @@ export default class Buttons {
         this.controller.$inject = ['$scope','$attrs','$element']
     }
 
-    controller($scope,$attrs,$elem){
+    controller(scope,attrs,$elem){
         let isLoading = $elem::getDOMState('loading')
-        $scope.loading = isLoading
+        scope.loading = isLoading
 
         let loading = () => {
-            if(!$scope.loading){
-                $scope.$apply(() => {
+            if(!scope.loading){
+                scope.$apply(() => {
                     $elem.addClass('loading')
-                    $scope.loading=true
+                    scope.loading=true
                 })
             }
         }
         let done = () => {
-            if($scope.loading){
-                $scope.$apply(()=>{
+            if(scope.loading){
+                scope.$apply(()=>{
                     $elem.removeClass('loading')
-                    $scope.loading=false
+                    scope.loading=false
                 })
             }
         }
@@ -45,8 +45,8 @@ export default class Buttons {
             return undefined
         }
 
-        if($attrs.control !== undefined){
-            $scope.control = {
+        if(attrs.control !== undefined){
+            scope.control = {
                 disable,
                 allow,
                 loading,

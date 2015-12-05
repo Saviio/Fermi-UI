@@ -1,4 +1,8 @@
 import template from '../template/loading.html'
+import {
+    querySingle,
+    createElem
+} from '../../utils'
 
 let clamp = (n, min, max) => {
     if (n < min) return min
@@ -25,36 +29,36 @@ export default class Loading{
     constructor(){
         this.status = null
         this.speed = 200
-        this.instance = null
+        this.$instance = null
         this.rate = 700
     }
 
     __dispose__(){
-        if(this.instance !== null){
-            this.instance = this.status = null
-            document.body.removeChild(document.querySelector('#progress-loading-elem'))
+        if(this.$instance !== null){
+            this.$instance = this.status = null
+            document.body.removeChild(querySingle('#progress-loading-elem'))
         }
     }
 
     __render__(fromZero){
-        if(this.instance !== null)
-            return this.instance
+        if(this.$instance !== null)
+            return this.$instance
 
         if(document.body.insertAdjacentHTML){
             document.body.insertAdjacentHTML('beforeEnd',template)
         } else {
-            let div = document.createElement('div')
+            let div = createElem('div')
             div.innerHTML = template
             document.body.appendChild(div.firstChild)
         }
 
-        let ins = document.querySelector('#progress-loading-elem')
+        let ins = querySingle('#progress-loading-elem')
         if(ins !== null){
-            this.instance = angular.element(ins)
-            this.instance.css('width',`${fromZero ? 0 : (this.status || 0) * 100}%`)
-            this.instance.css('transition',`width ${this.speed}ms ease-out, opacity ${this.speed}ms linear`)
+            this.$instance = angular.element(ins)
+            this.$instance.css('width',`${fromZero ? 0 : (this.status || 0) * 100}%`)
+            this.$instance.css('transition',`width ${this.speed}ms ease-out, opacity ${this.speed}ms linear`)
             ins.offsetWidth
-            return this.instance
+            return this.$instance
         }
     }
 
@@ -80,11 +84,11 @@ export default class Loading{
         this.__render__(!started)
 
         queue((next) => {
-            this.instance.css('width',`${n * 100}%`)
+            this.$instance.css('width',`${n * 100}%`)
 
             if (n >= 1) {
                 setTimeout(() => {
-                    this.instance.addClass('disappear')
+                    this.$instance.addClass('disappear')
                     setTimeout(() => {
                         this.__dispose__()
                         next()
@@ -103,6 +107,6 @@ export default class Loading{
     }
 
     done(){
-        if(this.instance) this.set(1)
+        if(this.$instance) this.set(1)
     }
 }

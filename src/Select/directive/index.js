@@ -32,13 +32,13 @@ export class Select {
         this.controller.$inject = ['$scope']
     }
 
-    controller($scope){}
+    controller(scope){}
 
     link(scope,elem,attrs,ctrl){
         let children = elem.children()
         let select = children[0]
         let icon = children.children()[1]
-        let dropdown = angular.element(children[1])
+        let $dropdown = angular.element(children[1])
         let expanded = false
         let withSearch = null
 
@@ -47,9 +47,9 @@ export class Select {
 
         if(withSearch){
             let tmpl = `<div><input placeholder="输入"/></div>`
-            let searchInput = dropdown.prepend(tmpl).find('input')
+            let $search = $dropdown.prepend(tmpl).find('input')
             let func = debounce(() => {
-                let options = dropdown.find('span')
+                let options = $dropdown.find('span')
                 let val = searchInput.val()
 
                 let cb1 = e => {
@@ -63,7 +63,7 @@ export class Select {
                 options::[].forEach(val ? cb1 : cb2)
             },200)
 
-            searchInput.bind('input', () => func())
+            $search.bind('input', () => func())
         }
 
 
@@ -72,15 +72,18 @@ export class Select {
 
             if(expanded){
                 icon::addClass('expanded')
-                dropdown.removeClass('select-dropdown-hidden')
-                        .addClass('select-dropdown-fadeIn')
+                $dropdown
+                    .removeClass('select-dropdown-hidden')
+                    .addClass('select-dropdown-fadeIn')
             } else {
                 icon::removeClass('expanded')
-                dropdown.removeClass('select-dropdown-fadeIn')
-                        .addClass('select-dropdown-fadeOut')
-                        ::onMotionEnd(() =>
-                            dropdown.addClass('select-dropdown-hidden')
-                                    .removeClass('select-dropdown-fadeOut'))
+                $dropdown
+                    .removeClass('select-dropdown-fadeIn')
+                    .addClass('select-dropdown-fadeOut')
+                    ::onMotionEnd(() =>
+                        $dropdown
+                            .addClass('select-dropdown-hidden')
+                            .removeClass('select-dropdown-fadeOut'))
             }
         }
 
@@ -88,7 +91,7 @@ export class Select {
     }
 
     passing(exports, $scope){
-        exports.select= (item) => {
+        exports.select = item => {
             $scope.$apply(() => {
                 $scope.ngModel = item
                 $scope.switchDropdownState()

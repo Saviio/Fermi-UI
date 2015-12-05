@@ -1,4 +1,4 @@
-import factory from '../utils/directives'
+import factory from '../external/directiveFacotry'
 import {Select,Option} from './directive/'
 import './css/select.scss'
 

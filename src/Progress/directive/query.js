@@ -14,33 +14,34 @@ export default class Query{
         this.timeout=timeout
     }
 
-    controller($scope){
-        $scope.control={
-            hide:function(execCallback=false){
-                if(typeof $scope.callback === 'function' && execCallback)
-                    $scope.callback()
-                $scope.hide()
+    controller(scope){
+        scope.control={
+            hide:function(execCallback = false){
+                if(typeof $scope.callback === 'function' && execCallback){
+                    scope.callback()
+                }
+                scope.hide()
             },
-            show:()=>$scope.show()
+            show:() => scope.show()
         }
     }
 
-    link(scope, element, attrs, ctrl){
+    link(scope, $element, attrs, ctrl){
         var {prefix,eventPrefix}=detechPrefix()
-        var actived=element::getDOMState('actived')
+        var actived = $element::getDOMState('actived')
 
-        element.bind(eventPrefix+'TransitionEnd',()=>{
-            if(!actived) element.addClass('hide')
+        $element.bind(eventPrefix + 'TransitionEnd',()=>{
+            if(!actived) $element.addClass('hide')
         })
 
         scope.show=()=>{
-            element.removeClass('hide')
-            this.timeout(()=>element.addClass('progress-query-show'),10)
+            $element.removeClass('hide')
+            this.timeout(() => $element.addClass('progress-query-show'),10)
             actived=true
         }
 
         scope.hide=()=>{
-            this.timeout(()=>element.removeClass('progress-query-show'),10)
+            this.timeout(() => $element.removeClass('progress-query-show'),10)
             actived=false
         }
 
