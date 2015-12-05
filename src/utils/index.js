@@ -76,7 +76,7 @@ export function getDOMState(el, key){
 export function addClass(el, cls){
     if(typeof el === 'string') cls = el, el = this
     if(!isDOM(el)) return
-
+    
     if (el.classList) {
         el.classList.add(cls)
     } else {
@@ -112,13 +112,19 @@ export function removeClass(el, cls){
 export function on (el, event, cb) {
     if(typeof el === 'string') cb = event, event = el, el = this
     if(!isDOM(el)) return
-    el.addEventListener(event, cb)
+    let evts = event.split(' ')
+    while (evts.length){
+        el.addEventListener(evts.pop(), cb)
+    }
 }
 
 export function off(el, event, cb){
     if(typeof el === 'string') cb = event, event = el, el = this
     if(!isDOM(el)) return
-    el.removeEventListener(event, cb)
+    let evts = event.split(' ')
+    while (evts.length){
+        el.removeEventListener(evts.pop(), cb)
+    }
 }
 
 export function isDOM(el){
@@ -146,32 +152,22 @@ export function detechPrefix(){
 export function onMotionEnd(el, cb){
     let isNgElement = false
     if(typeof el === 'function') cb = el, el = this
-    if(!(el instanceof angular.element) || !isDOM(el)) return
-    if(el instanceof angular.element) isNgElement = true
-
+    if(!isDOM(el) && !(el instanceof angular.element)) return
+    if(el instanceof angular.element) el = el[0]
 
     let {prefix, eventPrefix} = detechPrefix()
 
     let handler = (e) => {
+        //debugger
         if(e.target === el){
-            if(isNgElement){
-                el.unbind(eventPrefix+'TransitionEnd', handler)
-                el.unbind('animationend webkitAnimationEnd MSAnimationEnd oAnimationEnd', handler)
-            } else {
-                el::off(eventPrefix+'TransitionEnd', handler)
-                el::off('animationend webkitAnimationEnd MSAnimationEnd oAnimationEnd', handler)
-            }
+            el::off(eventPrefix+'TransitionEnd', handler)
+            el::off('animationend webkitAnimationEnd MSAnimationEnd oAnimationEnd', handler)
             cb()
         }
     }
-
-    if (isNgElement){
-        el.bind(eventPrefix+'TransitionEnd', handler)
-        el.bind('animationend webkitAnimationEnd MSAnimationEnd oAnimationEnd', handler)
-    } else {
-        el::on(eventPrefix+'TransitionEnd', handler)
-        el::on('animationend webkitAnimationEnd MSAnimationEnd oAnimationEnd', handler)
-    }
+    //debugger
+    el::on(eventPrefix + 'TransitionEnd', handler)
+    el::on('animationend webkitAnimationEnd MSAnimationEnd oAnimationEnd', handler)
 }
 
 export function debounce(func, wait){
@@ -194,4 +190,16 @@ export function debounce(func, wait){
         if (!timeout)  timeout = setTimeout(later, wait)
         return result
     }
+}
+
+export function querySingle(el){
+    if (typeof el === 'string') {
+        let selector = el
+        el = document.querySelector(el)
+    }
+    return el
+}
+
+export function createElem(tag){
+    return document.createElement(tag)
 }

@@ -1,6 +1,16 @@
 import template from '../template/template.html'
 import popoverTmpl from '../template/popover.html'
-import {getDOMState,getStyle,escapeHTML,getCoords} from '../../utils'
+import {
+    getDOMState,
+    getStyle,
+    escapeHTML,
+    getCoords,
+    querySingle,
+    createElem,
+    on
+} from '../../utils'
+
+
 //add disable function
 export default class Popover{
     constructor(){
@@ -93,7 +103,7 @@ export default class Popover{
             ngLayer.css(style)
         }
 
-        scope.layer=ngLayer
+        scope.layer = ngLayer
 
         let init=()=>{
             let autoHide = /auto|true/.test(attr.hide)
@@ -112,27 +122,25 @@ export default class Popover{
             scope.offset = /^\d{1,}$/.test(initOffset) ? initOffset : 5
             scope.isOpen = initState
 
-            var autoHideBindingExpr = (triggerAction==='click' || triggerAction==='focus') ? 'blur' : 'mouseout'
-            if(autoHide)
-                ngTriggerBtn.bind(autoHideBindingExpr,() => scope.close())
+            var autoHideEvent = (triggerAction === 'click' || triggerAction === 'focus') ? 'blur' : 'mouseout'
+            if(autoHide) ngTriggerBtn.bind(autoHideEvent, () => scope.close(true))
 
             ngTriggerBtn.bind(triggerAction,() => {
                 setLocation()
                 scope.toggle()
             })
 
-            if(!initState)
-                scope.close(true)
+            if(!initState) scope.close(true)
 
             if(initCloseBtn){
-                var closeBtn = componentDOMRoot.querySelector('.popover > .close')
-                angular.element(closeBtn).bind('click',()=>scope.close(true))
+                let closeBtn = componentDOMRoot.querySelector('.popover > .close')
+                closeBtn::on('click', () => scope.close(true))
             }
 
             let arrowColor=attr.arrow || null
             setTimeout(() => {
                 setLocation()
-                this.arrowColor(attr.trigger,placement,arrowColor)
+                this.arrowColor(attr.trigger, placement, arrowColor)
             },0)
         }
 
@@ -164,14 +172,14 @@ export default class Popover{
         if(color === null){
             //auto calc arrow color
             var matchedColorSelector = dire === "bottom" ? "+.popover > .popover-title" :"+.popover > .popover-content > *"
-            var dom = document.querySelector(trigger+matchedColorSelector)
-            color = getStyle(dom,'background-color')
+            var dom = querySingle(trigger + matchedColorSelector)
+            color = dom::getStyle('background-color')
         }
 
-        let arrowStyle = document.querySelector('#arrowColor')
+        let arrowStyle = querySingle('#arrowColor')
 
         if(arrowStyle === null){
-            arrowStyle = document.createElement('style')
+            arrowStyle = createElem('style')
             arrowStyle.id = "arrowColor"
             document.getElementsByTagName('head')[0].appendChild(arrowStyle)
         }
