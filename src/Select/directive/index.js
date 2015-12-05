@@ -42,22 +42,23 @@ export class Select {
         let expanded = false
         let withSearch = null
 
+
         scope.withSearch = withSearch = elem::getDOMState('search')
 
         if(withSearch){
             let tmpl = `<div><input placeholder="输入"/></div>`
             let searchInput = dropdown.prepend(tmpl).find('input')
-            let func = debounce(()=>{
+            let func = debounce(() => {
                 let options = dropdown.find('span')
                 let val = searchInput.val()
 
-                let cb1 = (e) => {
+                let cb1 = e => {
                     new RegExp(val,"ig").test(e.innerText)
                     ? e.parentElement::removeClass('hide')
                     : e.parentElement::addClass('hide')
                 }
 
-                let cb2 = (e) => e.parentElement::removeClass('hide')
+                let cb2 = e => e.parentElement::removeClass('hide')
 
                 options::[].forEach(val ? cb1 : cb2)
             },200)
@@ -71,17 +72,15 @@ export class Select {
 
             if(expanded){
                 icon::addClass('expanded')
-                dropdown.removeClass('select-dropdown-hidden select-dropdown-fadeOut')
+                dropdown.removeClass('select-dropdown-hidden')
                         .addClass('select-dropdown-fadeIn')
             } else {
                 icon::removeClass('expanded')
                 dropdown.removeClass('select-dropdown-fadeIn')
                         .addClass('select-dropdown-fadeOut')
-            }
-
-            if(!expanded){
-                dropdown::onMotionEnd(()=>
-                    dropdown.addClass('select-dropdown-hidden'))
+                        ::onMotionEnd(() =>
+                            dropdown.addClass('select-dropdown-hidden')
+                                    .removeClass('select-dropdown-fadeOut'))
             }
         }
 

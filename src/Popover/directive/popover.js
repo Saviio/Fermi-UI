@@ -33,6 +33,7 @@ export default class Popover{
         }
 
         $scope.close = (force = false) => {
+            //debugger
             if(force) $scope.isOpen = false
             else if($scope.isOpen !== false) $scope.isOpen=!$scope.isOpen
 
@@ -51,22 +52,20 @@ export default class Popover{
         let layerElem = componentDOMRoot.querySelector('.popover')
         let trigger = componentDOMRoot.querySelector(attr.trigger)
 
-        if(trigger === undefined)
+        if(trigger === undefined){
             throw new Error("trigger element cannot be fined in component scope.")
-        componentDOMRoot.insertBefore(trigger,layerElem)
+        }
+
+        componentDOMRoot.insertBefore(trigger, layerElem)
         let ngLayer = angular.element(layerElem)
-        let ngTriggerBtn = angular.element(trigger)
         let placement = attr.placement.toLowerCase()
 
         var setLocation = () => {
             let offset = scope.offset
-            let {left,top} = trigger::getCoords()
 
-            let triggetBtn = {
+            let triggerBtn = {
                 height:trigger::getStyle('height','px'),
-                width:trigger::getStyle('width','px'),
-                left,
-                top
+                width:trigger::getStyle('width','px')
             }
 
             let layer = {
@@ -74,58 +73,55 @@ export default class Popover{
                 width:layerElem::getStyle('width','px')
             }
 
-            let style = {
-                left:null,
-                top:null
-            }
-
+            let left,top
             switch (placement) {
                 case 'top':
-                    style.left = `${-layer.width/2+triggetBtn.width/2}px`
-                    style.top = `${-layer.height+(-10)+(-offset)}px`
-                    break;
+                    left = `${-layer.width/2+triggerBtn.width/2}px`
+                    top = `${-layer.height+(-10)+(-offset)}px`
+                    break
                 case 'bottom':
-                    style.left = `${-layer.width/2+triggetBtn.width/2}px`
-                    style.top = `${triggetBtn.height+10+offset}px`
-                    break;
+                    left = `${-layer.width/2+triggerBtn.width/2}px`
+                    top = `${triggerBtn.height+10+offset}px`
+                    break
                 case 'left':
-                    style.left = `${-layer.width+(-10)+(-offset)}px`
-                    style.top = `${triggetBtn.height/2-layer.height/2}px`
-                    break;
+                    left = `${-layer.width+(-10)+(-offset)}px`
+                    top = `${triggerBtn.height/2-layer.height/2}px`
+                    break
                 case 'right':
-                    style.left = `${triggetBtn.width+10+offset}px`
-                    style.top = `${triggetBtn.height/2-layer.height/2}px`
-                    break;
+                    left = `${triggerBtn.width+10+offset}px`
+                    top = `${triggerBtn.height/2-layer.height/2}px`
+                    break
                 default:
-                    return;
-                    break;
+                    return
             }
-            ngLayer.css(style)
+
+            ngLayer.css({left,top})
         }
 
         scope.layer = ngLayer
 
-        let init=()=>{
-            let autoHide = /auto|true/.test(attr.hide)
+        let init = () => {
             let initState = element::getDOMState('actived')
             let initOffset = element::getDOMState('offset')
             let initCloseBtn = element::getDOMState('close')
-            let triggerAction = attr.action || 'click'
+            let event = attr.action || 'click'
 
-            if(!/click|hover|focus/g.test(triggerAction)){
-                throw new Error("trigger action does not supported, it should one of 'click','hover','focus'")
-                return;
-            } else if(triggerAction === 'hover'){
-                triggerAction = 'mouseover'
+            if(!/click|hover|focus/.test(event)){
+                throw new Error("Event does not supported, it should one of 'click','hover','focus'")
+                return
+            } else if(event === 'hover'){
+                event = 'mouseenter'
             }
 
             scope.offset = /^\d{1,}$/.test(initOffset) ? initOffset : 5
             scope.isOpen = initState
 
-            var autoHideEvent = (triggerAction === 'click' || triggerAction === 'focus') ? 'blur' : 'mouseout'
-            if(autoHide) ngTriggerBtn.bind(autoHideEvent, () => scope.close(true))
 
-            ngTriggerBtn.bind(triggerAction,() => {
+            if(/auto|true/.test(attr.hide)){
+                trigger::on(event === 'mouseenter' ? 'mouseleave' : 'blur', () => scope.close(true))
+            }
+
+            trigger::on(event, () => {
                 setLocation()
                 scope.toggle()
             })
@@ -154,10 +150,12 @@ export default class Popover{
 
         let showCloseBtn = tElement::getDOMState('close')
         let tmpl = popoverTmpl.replace(/#{dire}/, dire)
-        if(showCloseBtn)
+        if(showCloseBtn){
             tmpl = tmpl.replace('<!--CLOSE_BUTTON-->',`<button class="close">×</button>`)
-        else
+        } else {
             tmpl = tmpl.replace('<!--CLOSE_BUTTON-->',"")
+        }
+
         tElement.append(tmpl)
 
         if(tAttrs.trigger == undefined){
@@ -181,7 +179,7 @@ export default class Popover{
         if(arrowStyle === null){
             arrowStyle = createElem('style')
             arrowStyle.id = "arrowColor"
-            document.getElementsByTagName('head')[0].appendChild(arrowStyle)
+            querySingle('head').appendChild(arrowStyle)
         }
 
         let controlCSS = `
