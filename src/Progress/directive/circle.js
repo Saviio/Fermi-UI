@@ -1,8 +1,9 @@
 import template from '../template/circle.html'
+import {getDOMState} from '../../utils'
 
 //Todo 半圆形
 export default class circle{
-    constructor($compile,utils){
+    constructor($compile){
         this.replace=true
         this.restrict='EA'
         this.template=template
@@ -14,7 +15,6 @@ export default class circle{
 
         this.controller.$inject=['$scope']
         this.$compile=$compile
-        this.utils=utils
     }
 
     controller($scope){
@@ -28,7 +28,7 @@ export default class circle{
             }
         }
 
-        $scope.check=function(){
+        $scope.check = () => {
             if($scope.ngModel>100) $scope.ngModel=100
             else if($scope.ngModel<0) $scope.ngModel=0
         }
@@ -41,7 +41,7 @@ export default class circle{
         let outer = attrs.outer || '#00a9e8' //outer background-color
         let shape = attrs.shape || 'round'
         let showinfo = !!(attrs.showinfo || false)
-        let isProgress = this.utils.DOMState(attrs,'progress')
+        let isProgress = elem::getDOMState('progress')
         let radius = null
 
         let moveTo = size / 2
@@ -50,7 +50,7 @@ export default class circle{
 
         for(let i = 0;i < paths.length; i++){
             paths[i].setAttribute('d',`M ${moveTo},${moveTo} m 0,-${radius} a ${radius},${radius} 0 1 1 0,${radius * 2} a ${radius},${radius} 0 1 1 0,-${radius * 2}`)
-            paths[i].setAttribute('stroke', i===0 ? inner : outer)
+            paths[i].setAttribute('stroke', i === 0 ? inner : outer)
             paths[i].setAttribute('stroke-width', strokeWidth)
         }
 
@@ -76,4 +76,4 @@ export default class circle{
     }
 }
 
-circle.$inject=['$compile','fermi.Utils']
+circle.$inject=['$compile']

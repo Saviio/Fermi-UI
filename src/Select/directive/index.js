@@ -1,6 +1,8 @@
 import select from '../template/select.html'
 import option from '../template/option.html'
+import {getDOMState,debounce,onMotionEnd} from '../../utils'
 import * as helper from '../../utils'
+
 //normal
 //search
 //multi
@@ -11,7 +13,7 @@ import * as helper from '../../utils'
 //single option disable
 
 export class Select {
-    constructor(utils){
+    constructor(){
         this.restrict='EA'
         this.replace=true
         this.template=select
@@ -20,7 +22,6 @@ export class Select {
             ngModel:'='
         }
         this.transclude=true
-        this.utils=utils
         this.controller.$inject=['$scope','$timeout']
     }
 
@@ -34,12 +35,12 @@ export class Select {
 
         let withSearch = null
 
-        scope.withSearch = withSearch = this.utils.DOMState(attrs, 'search')
+        scope.withSearch = withSearch = elem::getDOMState('search')
 
         if(withSearch){
             let tmpl = `<div><input placeholder="输入"/></div>`
             let searchInput = dropdown.prepend(tmpl).find('input')
-            let func = this.utils.debounce(()=>{
+            let func = debounce(()=>{
                 let options = dropdown.find('span')
                 let val = searchInput.val()
 
@@ -53,7 +54,7 @@ export class Select {
                 options::[].forEach(val ? cb1 : cb2)
             },200)
 
-            searchInput.bind('input', ()=> func())
+            searchInput.bind('input', () => func())
         }
 
 
@@ -69,7 +70,7 @@ export class Select {
             }
 
             if(!expanded)
-                dropdown::this.utils.onMotionEnd(()=>
+                dropdown::onMotionEnd(()=>
                     dropdown.addClass('select-dropdown-hidden'))
         }
 
@@ -86,7 +87,7 @@ export class Select {
     }
 }
 
-Select.$inject = ['fermi.Utils']
+
 
 //@value
 export class Option {

@@ -18,10 +18,8 @@ export default class{
 
     controller($scope){
         $scope.check=function(){
-            if($scope.ngModel>100)
-                $scope.ngModel=100
-            else if($scope.ngModel<0)
-                $scope.ngModel=0
+            if($scope.ngModel>100) $scope.ngModel=100
+            else if($scope.ngModel<0) $scope.ngModel=0
         }
     }
 

@@ -1,32 +1,32 @@
 import template from '../template/template.html'
+import {getDOMState} from '../../utils'
 
 export default class Buttons {
-    constructor(utils){
-        this.restrict='EA'
-        this.replace=true
-        this.scope={
+    constructor(){
+        this.restrict = 'EA'
+        this.replace = true
+        this.scope = {
             content:'@',
             control:'='
         }
-        this.transclude=true
-        this.template=template
-        this.utils=utils
-        this.controller.$inject=['$scope','$attrs','$element']
+        this.transclude = true
+        this.template = template
+        this.controller.$inject = ['$scope','$attrs','$element']
     }
 
     controller($scope,$attrs,$elem){
-        let isLoading=this.utils.DOMState($attrs,'loading')
-        $scope.loading=isLoading
+        let isLoading = $elem::getDOMState('loading')
+        $scope.loading = isLoading
 
-        let loading= () => {
+        let loading = () => {
             if(!$scope.loading){
-                $scope.$apply(()=>{
+                $scope.$apply(() => {
                     $elem.addClass('loading')
                     $scope.loading=true
                 })
             }
         }
-        let done= () => {
+        let done = () => {
             if($scope.loading){
                 $scope.$apply(()=>{
                     $elem.removeClass('loading')
@@ -35,18 +35,18 @@ export default class Buttons {
             }
         }
 
-        let disable=() => {
+        let disable = () => {
             $elem.attr('disabled',true)
             return undefined
         }
 
-        let allow=() => {
+        let allow = () => {
             $elem.removeAttr('disabled')
             return undefined
         }
 
-        if($attrs.control!==undefined){
-            $scope.control={
+        if($attrs.control !== undefined){
+            $scope.control = {
                 disable,
                 allow,
                 loading,
@@ -54,19 +54,15 @@ export default class Buttons {
             }
         }
 
-        if(isLoading)
-            $elem.addClass('loading')
+        if(isLoading) $elem.addClass('loading')
     }
 
-    link(scope,elem,attrs,ctrl){
-        let size=(attrs.size || 'default').toLowerCase()
-        let type=(attrs.type || 'default').toLowerCase()
+    link(scope, elem, attrs, ctrl){
+        let size = (attrs.size || 'default').toLowerCase()
+        let type = (attrs.type || 'default').toLowerCase()
 
-        if(size!=='default')
-            elem.addClass(`buttons-${size}`)
+        if(size !== 'default') elem.addClass(`buttons-${size}`)
 
         elem.addClass(`buttons-${type}`)
     }
 }
-
-Buttons.$inject=['fermi.Utils']

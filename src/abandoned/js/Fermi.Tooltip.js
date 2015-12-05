@@ -49,14 +49,14 @@
                     var tooltip=ctrl.getContainer()
                     //if(typeof ctrl.style!=='object'){
 
-                        var {left,top}=utils.coords(elem[0])
-                        var height=utils.style(elem[0],'height')
-                        var width=utils.style(elem[0],'width')
+                        var {left,top}=utils.getCoords(elem[0])
+                        var height=utils.getStyle(elem[0],'height')
+                        var width=utils.getStyle(elem[0],'width')
 
 
                         var tooltip_element=tooltip[0]
-                        var tp_height=parseInt(utils.style(tooltip_element,'height').replace(/px/,''))
-                        var tp_width=parseInt(utils.style(tooltip_element,'width').replace(/px/,''))
+                        var tp_height=parseInt(utils.getStyle(tooltip_element,'height').replace(/px/,''))
+                        var tp_width=parseInt(utils.getStyle(tooltip_element,'width').replace(/px/,''))
 
                         switch(scope.placement){
                             case 'top':ctrl.style={

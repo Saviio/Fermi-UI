@@ -59,8 +59,7 @@ export default class Loading{
     }
 
     start(){
-        if (!this.status)
-            this.set(0)
+        if (!this.status) this.set(0)
 
         let exec = () => {
             setTimeout(() => {
@@ -104,7 +103,6 @@ export default class Loading{
     }
 
     done(){
-        if(this.instance)
-            this.set(1)
+        if(this.instance) this.set(1)
     }
 }

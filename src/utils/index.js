@@ -2,10 +2,13 @@ let testElem = document.createElement('div')
 let prefix = null
 let eventPrefix = null
 
-export function getCoords(elem){
-    let box = elem.getBoundingClientRect(),
+export function getCoords(el){
+    if(el === undefined) el = this
+    if(!isDOM(el)) return
+
+    let box = el.getBoundingClientRect(),
     self= window,
-    doc = elem.ownerDocument,
+    doc = el.ownerDocument,
     body = doc.body,
     html = doc.documentElement,
     clientTop = html.clientTop || body.clientTop || 0,
@@ -19,6 +22,9 @@ export function getCoords(elem){
 
 
 export function getStyle(el, name, removeUnit = ""){
+    if(typeof el === "string") removeUnit = name === undefined ? "" : name, name = el, el = this
+    if(!isDOM(el)) return
+
     var style = window.getComputedStyle ? window.getComputedStyle(el, null)[name] : el.currentStyle[name]
 
     if((name === 'width' || name === 'height') && style === 'auto'){

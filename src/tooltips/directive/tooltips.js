@@ -1,5 +1,7 @@
+import {getCoords,getStyle} from '../../utils'
+
 export default class Tooltips{
-    constructor(utils){
+    constructor(){
         this.restrict="EA"
         this.transclude=true
         this.scope={
@@ -8,72 +10,71 @@ export default class Tooltips{
             offset:'@'
         }
         this.template=`<span ng-transclude></span>`
-        this.utils=utils
     }
 
     controller($scope){}
 
     link(scope,elem,attr,ctrl){
 
-        ctrl.container=null,ctrl.parent=null
-        ctrl.tooltipTmpl=`
+        ctrl.container = null, ctrl.parent = null
+        ctrl.tooltipTmpl = `
                 <div class="tooltip-arrow tooltip-arrow"></div>
                 <div class="tooltip-content">
                     <span>${scope.content}</span>
                 </div>
         `
 
-        ctrl.style=null
-        ctrl.placement=scope.placement || 'top'
-        ctrl.isExpend=false
+        ctrl.style = null
+        ctrl.placement = scope.placement || 'top'
+        ctrl.isExpend = false
 
-        ctrl.getContainer=() => {
+        ctrl.getContainer = () => {
             if(!ctrl.container){
-                ctrl.container=document.createElement('div')
+                ctrl.container = document.createElement('div')
                 document.body.appendChild(ctrl.container)
-                ctrl.container=angular.element(ctrl.container)
+                ctrl.container = angular.element(ctrl.container)
                 ctrl.container.html(ctrl.tooltipTmpl)
                 ctrl.container.addClass(`tooltip tooltip-hidden tooltip-${ctrl.placement}`)
             }
             return ctrl.container
         }
 
-        ctrl.setLocationStyle=() => {
-            let offset=scope.offset || 6
-            let tooltip=ctrl.getContainer()
+        ctrl.setLocationStyle = () => {
+            let offset = scope.offset || 6
+            let tooltip = ctrl.getContainer()
 
-            let {left,top}=this.utils.coords(elem[0])
-            let height=this.utils.style(elem[0],'height')
-            let width=this.utils.style(elem[0],'width')
+            let {left,top} = elem[0]::getCoords()
+            let height = elem[0]::getStyle('height')
+            let width = elem[0]::getStyle('width')
 
 
-            let tooltip_element=tooltip[0]
-            let tp_height=~~this.utils.style(tooltip_element,'height','px')
-            let tp_width=~~this.utils.style(tooltip_element,'width','px')
+            let tooltipElement = tooltip[0]
+            let tpHeight = ~~tooltipElement::getStyle('height','px')
+            let tpWidth = ~~tooltipElement::getStyle('width','px')
 
             switch(scope.placement){
                 case 'top':
-                    ctrl.style={
-                        left:`${(left+width/2)-tp_width/2}px`,
-                        top:`${top-tp_height-offset-7}px`
+                    ctrl.style =  {
+                        left:`${(left+width/2)-tpWidth/2}px`,
+                        top:`${top-tpHeight-offset-7}px`
                     }
                 break
                 case 'bottom':
-                    ctrl.style={
-                        left:`${(left+width/2)-tp_width/2}px`,
+                    ctrl.style = {
+                        left:`${(left+width/2)-tpWidth/2}px`,
                         top:`${top+height+offset}px`
                     }
                     break
                 case 'left':
-                    ctrl.style={
-                        left:`${left-tp_width-offset-4}px`,
-                        top:`${(top+height/2)-tp_height/2}px`
+                    ctrl.style = {
+                        left:`${left-tpWidth-offset-4}px`,
+                        top:`${(top+height/2)-tpHeight/2}px`
                     }
                     break
                 case 'right':
-                    ctrl.style={
+                    ctrl.style = {
                         left:`${left+width}px`,
-                        top:`${(top+height/2)-tp_height/2}px`
+                        top:`${(top+height/2)-tpHeight/2}px`
                     }
                     break
             }
@@ -99,6 +100,3 @@ export default class Tooltips{
         elem.bind('mouseout',() => ctrl.tooltip.addClass('tooltip-hidden'))
     }
 }
-
-
-Tooltips.$inject=["fermi.Utils"]

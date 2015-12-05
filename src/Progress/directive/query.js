@@ -1,9 +1,8 @@
-
-
 import template from '../template/query.html'
+import {detechPrefix,getDOMState} from '../../utils'
 
 export default class Query{
-    constructor(utils,timeout){
+    constructor(timeout){
         this.replace=true
         this.restrict='EA'
         this.template=template
@@ -12,7 +11,6 @@ export default class Query{
             control:'=',
             callback:'='
         }
-        this.utils=utils
         this.timeout=timeout
     }
 
@@ -28,8 +26,8 @@ export default class Query{
     }
 
     link(scope, element, attrs, ctrl){
-        var {prefix,eventPrefix}=this.utils.prefix()
-        var actived=this.utils.DOMState(attrs,'actived')
+        var {prefix,eventPrefix}=detechPrefix()
+        var actived=element::getDOMState('actived')
 
         element.bind(eventPrefix+'TransitionEnd',()=>{
             if(!actived) element.addClass('hide')
@@ -50,4 +48,4 @@ export default class Query{
     }
 }
 
-Query.$inject=['fermi.Utils','$timeout']
+Query.$inject=['$timeout']

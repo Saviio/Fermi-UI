@@ -1,5 +1,6 @@
 import tabs from '../template/tabs.html'
 import tab from '../template/tab.html'
+import {getDOMState} from '../../utils'
 
 export class Tabs{
     constructor(){
@@ -55,22 +56,19 @@ export class Tabs{
 }
 
 export class Tab{
-    constructor(utils){
-        this.restrict='EA'
-        this.require='^fermiTabs'
-        this.replace=true
-        this.template=tab
-        this.controller.$inject=['$scope']
-        this.transclude=true
-        this.utils=utils
+    constructor(){
+        this.restrict = 'EA'
+        this.require = '^fermiTabs'
+        this.replace = true
+        this.template = tab
+        this.transclude = true
     }
 
-    controller($scope){}
 
     link(scope,element,attrs,parentCtrl){
         let header  = attrs.header
-        let disable = this.utils.DOMState(attrs,'disable')
-        let actived = this.utils.DOMState(attrs,'actived')
+        let disable = element::getDOMState('disable')
+        let actived = element::getDOMState('actived')
 
         let contentState = null
 
@@ -97,5 +95,3 @@ export class Tab{
         parentCtrl.addItem(item)
     }
 }
-
-Tab.$inject=['fermi.Utils']
