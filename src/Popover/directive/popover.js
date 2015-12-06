@@ -5,8 +5,9 @@ import {
     getStyle,
     escapeHTML,
     getCoords,
-    querySingle,
+    query,
     createElem,
+    prepend,
     on
 } from '../../utils'
 
@@ -46,15 +47,15 @@ export default class Popover{
 
     link(scope, $element, attr, ctrl){
         //("Popover component can only support for single element."
-        let componentDOMRoot = $element[0]
-        let layerElem = componentDOMRoot.querySelector('.popover')
-        let trigger = componentDOMRoot.querySelector(attr.trigger)
+        let rootDOM = $element[0]
+        let layerElem = rootDOM::query('.popover')
+        let trigger = rootDOM::query(attr.trigger)
 
         if(trigger === undefined){
-            throw new Error("trigger element cannot be fined in component scope.")
+            throw new Error("trigger element cannot be finded in component scope.")
         }
 
-        componentDOMRoot.insertBefore(trigger, layerElem)
+        rootDOM::prepend(trigger)
         let $ngLayer = angular.element(layerElem)
         let placement = attr.placement.toLowerCase()
 
@@ -106,7 +107,6 @@ export default class Popover{
 
             if(!/click|hover|focus/.test(event)){
                 throw new Error("Event does not supported, it should one of 'click','hover','focus'")
-                return
             } else if(event === 'hover'){
                 event = 'mouseenter'
             }
@@ -127,7 +127,7 @@ export default class Popover{
             if(!initState) scope.close(true)
 
             if(initCloseBtn){
-                let closeBtn = componentDOMRoot.querySelector('.popover > .close')
+                let closeBtn = rootDOM::query('.popover > .close')
                 closeBtn::on('click', () => scope.close(true))
             }
 
@@ -141,12 +141,12 @@ export default class Popover{
         init()
     }
 
-    compile(tElement, tAttrs, transclude){
+    compile($tElement, tAttrs, transclude){
         let dire = (tAttrs.placement || "top").toLowerCase()
         if(["top","bottom","left","right"].indexOf(dire) === -1)
             throw Error("Popover direction not in announced list(top,bottom,left,right).")
 
-        let showCloseBtn = tElement::getDOMState('close')
+        let showCloseBtn = $tElement::getDOMState('close')
         let tmpl = popoverTmpl.replace(/#{dire}/, dire)
         if(showCloseBtn){
             tmpl = tmpl.replace('<!--CLOSE_BUTTON-->',`<button class="close">×</button>`)
@@ -154,11 +154,10 @@ export default class Popover{
             tmpl = tmpl.replace('<!--CLOSE_BUTTON-->',"")
         }
 
-        tElement.append(tmpl)
+        $tElement.append(tmpl)
 
         if(tAttrs.trigger == undefined){
             throw new Error("No trigger element was binded for popover component.")
-            return
         }
 
         return this.link
@@ -168,16 +167,16 @@ export default class Popover{
         if(color === null){
             //auto calc arrow color
             var matchedColorSelector = dire === "bottom" ? "+.popover > .popover-title" :"+.popover > .popover-content > *"
-            var dom = querySingle(trigger + matchedColorSelector)
+            var dom = query(trigger + matchedColorSelector)
             color = dom::getStyle('background-color')
         }
 
-        let arrowStyle = querySingle('#arrowColor')
+        let arrowStyle = query('#arrowColor')
 
         if(arrowStyle === null){
             arrowStyle = createElem('style')
             arrowStyle.id = "arrowColor"
-            querySingle('head').appendChild(arrowStyle)
+            query('head').appendChild(arrowStyle)
         }
 
         let controlCSS = `

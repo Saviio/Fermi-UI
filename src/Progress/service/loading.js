@@ -1,6 +1,6 @@
 import template from '../template/loading.html'
 import {
-    querySingle,
+    query,
     createElem
 } from '../../utils'
 
@@ -36,7 +36,7 @@ export default class Loading{
     __dispose__(){
         if(this.$instance !== null){
             this.$instance = this.status = null
-            document.body.removeChild(querySingle('#progress-loading-elem'))
+            document.body.removeChild(query('#progress-loading-elem'))
         }
     }
 
@@ -52,7 +52,7 @@ export default class Loading{
             document.body.appendChild(div.firstChild)
         }
 
-        let ins = querySingle('#progress-loading-elem')
+        let ins = query('#progress-loading-elem')
         if(ins !== null){
             this.$instance = angular.element(ins)
             this.$instance.css('width',`${fromZero ? 0 : (this.status || 0) * 100}%`)

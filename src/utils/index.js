@@ -2,6 +2,8 @@ let testElem = document.createElement('div')
 let prefix = null
 let eventPrefix = null
 
+export function noop(){}
+
 export function getCoords(el){
     if(el === undefined) el = this
     if(!isDOM(el)) return
@@ -22,7 +24,7 @@ export function getCoords(el){
 
 
 export function getStyle(el, name, removeUnit = ""){
-    if(typeof el === "string") removeUnit = name === undefined ? "" : name, name = el, el = this
+    if(typeof el === "string") [el, name, removeUnit] = [this, el, name === undefined ? "" : name]
     if(!isDOM(el)) return
 
     var style = window.getComputedStyle ? window.getComputedStyle(el, null)[name] : el.currentStyle[name]
@@ -47,9 +49,9 @@ export function escapeHTML(str){
 }
 
 export function getDOMState(el, key){
-    let attr = null
+    if(typeof el === 'string') [el, key] = [this, el]
 
-    if(typeof el === 'string') key = el, el = this
+    let attr = null
     if(el instanceof angular.element) {
         attr = ::el.attr
     } else if(isDOM(el)) {
@@ -74,9 +76,9 @@ export function getDOMState(el, key){
 }
 
 export function addClass(el, cls){
-    if(typeof el === 'string') cls = el, el = this
+    if(typeof el === 'string') [el, cls] = [this, el]
     if(!isDOM(el)) return
-    
+
     if (el.classList) {
         el.classList.add(cls)
     } else {
@@ -88,7 +90,7 @@ export function addClass(el, cls){
 }
 
 export function removeClass(el, cls){
-    if(typeof el === 'string') cls = el, el = this
+    if(typeof el === 'string') [el, cls] = [this, el]
     if(!isDOM(el)) return
 
 
@@ -109,22 +111,55 @@ export function removeClass(el, cls){
     }
 }
 
+export function replaceClass(el, orig, mdi){
+    if(typeof el === 'string') [el, orig, mdi] = [this, el, orig]
+    if(!isDOM(el)) return
+    el::removeClass(orig)
+    el::addClass(mdi)
+    return el
+}
+
 export function on (el, event, cb) {
-    if(typeof el === 'string') cb = event, event = el, el = this
+    if(typeof el === 'string') [el, event, cb] = [this, el, event]
     if(!isDOM(el)) return
     let evts = event.split(' ')
     while (evts.length){
         el.addEventListener(evts.pop(), cb)
     }
+    return el
 }
 
 export function off(el, event, cb){
-    if(typeof el === 'string') cb = event, event = el, el = this
+    if(typeof el === 'string') [el, event, cb] = [this, el, event]
     if(!isDOM(el)) return
     let evts = event.split(' ')
     while (evts.length){
         el.removeEventListener(evts.pop(), cb)
     }
+    return el
+}
+
+export function before(el, target) {
+    if(arguments.length === 1) [el, target] = [this, el]
+    target.parentNode.insertBefore(el, target)
+    return el
+}
+
+export function after(el, target) {
+    if(arguments.length === 1) [el, target] = [this, el]
+    return target.nextSibling ? before(el, target.nextSibling) : target.parentNode.appendChild(el), el
+}
+
+export function prepend(target, el){
+    if(arguments.length === 1) [target, el] = [this, target]
+
+    if(typeof el === 'string'){
+        let dom = createElem('div')
+        dom.innerHTML = el
+        el = dom.firstChild
+    }
+
+    return target.firstChild ? el::before(target.firstChild) : target.appendChild(el), el
 }
 
 export function isDOM(el){
@@ -151,7 +186,7 @@ export function detechPrefix(){
 
 export function onMotionEnd(el, cb){
     let isNgElement = false
-    if(typeof el === 'function') cb = el, el = this
+    if(typeof el === 'function') [el, cb] = [this, el]
     if(!isDOM(el) && !(el instanceof angular.element)) return
     if(el instanceof angular.element) el = el[0]
 
@@ -168,6 +203,7 @@ export function onMotionEnd(el, cb){
     //debugger
     el::on(eventPrefix + 'TransitionEnd', handler)
     el::on('animationend webkitAnimationEnd MSAnimationEnd oAnimationEnd', handler)
+    return el
 }
 
 export function debounce(func, wait){
@@ -192,13 +228,25 @@ export function debounce(func, wait){
     }
 }
 
-export function querySingle(el){
+export function query(el){
+    let base = this || document
     if (typeof el === 'string') {
         let selector = el
-        el = document.querySelector(el)
+        el = base.querySelector(selector)
     }
     return el
 }
+
+
+export function queryAll(el){
+    let base = this || document
+    if (typeof el === 'string') {
+        let selector = el
+        el = base.querySelectorAll(selector)
+    }
+    return el
+}
+
 
 export function createElem(tag){
     return document.createElement(tag)

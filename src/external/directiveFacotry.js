@@ -16,6 +16,17 @@ export default class DirectiveFactory {
 				};
 			}
 
+			if (instance.compile) {
+				let compileOrg = instance.compile;
+				instance.compile = function (...compileArgs) {
+					let instance = new Directive(...args);
+					let postLink = compileOrg.apply(instance, compileArgs);
+					if(postLink !== undefined){
+						return postLink.bind(instance)
+					}
+				};
+			}
+
 			if (instance.controller) {
 				let controllerOrg = instance.controller;
 

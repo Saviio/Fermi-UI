@@ -12,7 +12,7 @@
         width:100%;
         border:#ccc 1px solid;
         border-radius:3px;
-
+        position:relative;
         transition:border-color 0.5s ease;
 
         &:hover{
@@ -23,16 +23,28 @@
             position:absolute;
             right:0px;
             transition: transform 300ms ease;
+            top:0px;
         }
 
         .expanded{
             transform: rotateZ(180deg)
         }
     }
+
+    .select-selection{
+        width:100%;
+        .select-selection-current{
+            width:100%;
+            overflow:hidden;
+            text-overflow:ellipsis;
+        }
+    }
+
     span {
         display:inline-block;
         vertical-align:top;
     }
+
     .select-dropdown{
         width:100%;
         background-color:#fff;
