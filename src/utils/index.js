@@ -162,6 +162,26 @@ export function prepend(target, el){
     return target.firstChild ? el::before(target.firstChild) : target.appendChild(el), el
 }
 
+export function remove(el){
+    if(arguments.length === 0) [el] = [this]
+    el.parentNode.removeChild(el)
+}
+
+export function replace(target, el){
+    if(arguments.length === 1) [target, el] = [this, target]
+    if(typeof el === 'string'){
+        let dom = createElem('div')
+        dom.innerHTML = el
+        el = dom.firstChild
+    }
+
+    let parent = target.parentNode
+    if(parent){
+        parent.replaceChild(el, target)
+    }
+    return el
+}
+
 export function isDOM(el){
     if (el.nodeType && el.nodeName) return true
     return false

@@ -1,57 +1,54 @@
-"use strict";
+"use strict"
 
 export default class DirectiveFactory {
 	static create(Directive) {
 		let factory = function (...args) {
-			let instance = new Directive(...args);
+			let instance = new Directive(...args)
 			for (let key in instance) {
-				instance[key] = instance[key];
+				instance[key] = instance[key]
 			}
 
-			if (instance.link) {
-				let linkOrg = instance.link;
+			if (instance.link && !instance.compile) {
+				let linkOrg = instance.link
 				instance.link = function (...linkArgs) {
-					let instance = new Directive(...args);
-					linkOrg.apply(instance, linkArgs);
-				};
+					let instance = new Directive(...args)
+					linkOrg.apply(instance, linkArgs)
+				}
 			}
 
 			if (instance.compile) {
-				let compileOrg = instance.compile;
+				let compileOrg = instance.compile
 				instance.compile = function (...compileArgs) {
-					let instance = new Directive(...args);
-					let postLink = compileOrg.apply(instance, compileArgs);
+					let instance = new Directive(...args)
+					let postLink = compileOrg.apply(instance, compileArgs)
 					if(postLink !== undefined){
 						return postLink.bind(instance)
 					}
-				};
+				}
 			}
 
 			if (instance.controller) {
-				let controllerOrg = instance.controller;
+				let controllerOrg = instance.controller
 
 				instance.controller = function (...controllerArgs) {
-					let instance = new Directive(...args);
-					controllerOrg.apply(instance, controllerArgs);
+					let instance = new Directive(...args)
+					controllerOrg.apply(instance, controllerArgs)
 
 					if(typeof instance.passing === 'function'){
-						let exports = {}
-						instance.passing(exports,...controllerArgs);
-						for(let key in exports)
-							this[key] = exports[key]
+						instance.passing.apply(instance, [this].concat(controllerArgs))
 					}
-				};
+				}
 
-				instance.controller.$inject = controllerOrg.$inject || ["$scope", "$element"];
+				instance.controller.$inject = controllerOrg.$inject || ["$scope", "$element"] //尝试从controller开始挂
 			}
 
-			return instance;
-		};
+			return instance
+		}
 
-		factory.$inject = Directive.$inject || [];
+		factory.$inject = Directive.$inject || []
 
-		return factory;
+		return factory
 	}
 }
 
-DirectiveFactory.$inject = [];
+DirectiveFactory.$inject = []

@@ -6,16 +6,19 @@ import {
     onMotionEnd,
     on,
     addClass,
-    removeClass
+    removeClass,
+    replaceClass,
+    prepend,
+    replace,
+    remove,
+    query,
+    queryAll
 } from '../../utils'
 
 
-//normal
-//search
 //multi
 //disable
 //span + span + ul + li + span
-//select overflow ...
 //select option group
 //single option disable
 
@@ -34,23 +37,40 @@ export class Select {
 
     controller(scope){}
 
-    link(scope,elem,attrs,ctrl){
-        let children = elem.children()
-        let select = children[0]
-        let icon = children.children()[1]
-        let $dropdown = angular.element(children[1])
-        let expanded = false
-        let withSearch = null
+    compile($tElement, tAttrs, transclude){
+        let elem = $tElement[0]
+        let isSearch = $tElement::getDOMState('search')
+        let isMulti = $tElement::getDOMState('multi')
+        let isTags = $tElement::getDOMState('tags')
+
+        this.select = elem::query('.select-inner')
+        this.dropdown = elem::query('.select-dropdown')
+        this.icon = elem::query('.select-icon')
 
 
-        scope.withSearch = withSearch = elem::getDOMState('search')
+        if(!(isMulti || isTags) && isSearch){
+            let searchTmpl = '<div><input placeholder="输入"/></div>'
+            this.searchInput = this.dropdown
+                                    ::prepend(searchTmpl)
+                                    ::query('input')
+        }
 
-        if(withSearch){
-            let tmpl = `<div><input placeholder="输入"/></div>`
-            let $search = $dropdown.prepend(tmpl).find('input')
-            let func = debounce(() => {
-                let options = $dropdown.find('span')
-                let val = searchInput.val()
+        if(isMulti || isTags){
+            this.mode = "tags"
+            let tagsTmpl = `<span><ul><li ng-repeat="item in selection"></li></ul></span>`
+            let selection = this.select::query('.select-selection')
+            selection::replace(tagsTmpl)
+            this.icon = this.icon::remove()
+        }
+
+        return this.link
+    }
+
+    link(scope, $elem, attrs, ctrl){
+        if(this.searchInput){
+            let fn = debounce(() => {
+                let options = this.dropdown::queryAll('span')
+                let val = this.searchInput.value
 
                 let cb1 = e => {
                     new RegExp(val,"ig").test(e.innerText)
@@ -59,47 +79,39 @@ export class Select {
                 }
 
                 let cb2 = e => e.parentElement::removeClass('hide')
-
                 options::[].forEach(val ? cb1 : cb2)
-            },200)
-
-            $search.bind('input', () => func())
+            })
+            this.searchInput::on('input', fn)
         }
 
-
+        let expanded = false
         scope.switchDropdownState = () => {
             expanded = !expanded
-
             if(expanded){
-                icon::addClass('expanded')
-                $dropdown
-                    .removeClass('select-dropdown-hidden')
-                    .addClass('select-dropdown-fadeIn')
+                this.icon && this.icon::addClass('expanded')
+                this.dropdown::replaceClass('select-dropdown-hidden', 'select-dropdown-fadeIn')
             } else {
-                icon::removeClass('expanded')
-                $dropdown
-                    .removeClass('select-dropdown-fadeIn')
-                    .addClass('select-dropdown-fadeOut')
+                this.icon && this.icon::removeClass('expanded')
+                this.dropdown
+                    ::replaceClass('select-dropdown-fadeIn', 'select-dropdown-fadeOut')
                     ::onMotionEnd(() =>
-                        $dropdown
-                            .addClass('select-dropdown-hidden')
-                            .removeClass('select-dropdown-fadeOut'))
+                        this.dropdown::replaceClass('select-dropdown-fadeOut', 'select-dropdown-hidden'))
             }
         }
 
-        select::on('click',scope.switchDropdownState)
+        this.select::on('click', scope.switchDropdownState)
     }
 
-    passing(exports, $scope){
+    passing(exports, scope){
         exports.select = item => {
-            $scope.$apply(() => {
-                $scope.ngModel = item
-                $scope.switchDropdownState()
+            console.log(this)
+            scope.$apply(() => {
+                scope.ngModel = item
+                scope.switchDropdownState()
             })
         }
     }
 }
-
 
 
 //@value
@@ -113,11 +125,12 @@ export class Option {
         this.scope = { value:'=' }
     }
 
-    link(scope,elem,attrs,parentCtrl){
-        if(typeof attrs.value === "string" && scope.value === undefined)
+    link(scope, $elem, attrs, parentCtrl){
+        if(typeof attrs.value === "string" && scope.value === undefined){
             scope.value = attrs.value
+        }
 
-        elem.bind('click', () => {
+        $elem.bind('click', () => {
             parentCtrl.select(scope.value)
         })
     }
