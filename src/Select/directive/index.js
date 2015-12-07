@@ -104,7 +104,6 @@ export class Select {
 
     passing(exports, scope){
         exports.select = item => {
-            console.log(this)
             scope.$apply(() => {
                 scope.ngModel = item
                 scope.switchDropdownState()
