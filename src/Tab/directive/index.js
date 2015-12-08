@@ -62,6 +62,7 @@ export class Tab{
         this.replace = true
         this.template = tab
         this.transclude = true
+        this.scope = {}
     }
 
 

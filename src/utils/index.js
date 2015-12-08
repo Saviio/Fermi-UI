@@ -271,3 +271,20 @@ export function queryAll(el){
 export function createElem(tag){
     return document.createElement(tag)
 }
+
+/*export function extend(target){
+    if(!this.$new) throw new Error("caller was not a angular scope variable.")
+    let dest = this
+    let ignore = []
+    if(target.constructor){
+        let re = /(?:this\.)(\w+)/gm
+        let source = target.constructor.toString()
+        source.match(re).forEach(e => ignore.push(e.substr(5)))
+    }
+
+    for (let key in target) {
+        if (!dest[key] && ignore.indexOf(key) ===-1 && target.hasOwnProperty(key)) {
+            dest[key] = target[key]
+        }
+    }
+}*/

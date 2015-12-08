@@ -12,7 +12,8 @@ import {
     replace,
     remove,
     query,
-    queryAll
+    queryAll,
+    extend
 } from '../../utils'
 
 
@@ -100,6 +101,7 @@ export class Select {
         }
 
         this.select::on('click', scope.switchDropdownState)
+        //scope::extend(this)
     }
 
     passing(exports, scope){
