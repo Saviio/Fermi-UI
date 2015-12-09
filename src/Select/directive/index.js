@@ -12,8 +12,7 @@ import {
     replace,
     remove,
     query,
-    queryAll,
-    extend
+    queryAll
 } from '../../utils'
 
 
