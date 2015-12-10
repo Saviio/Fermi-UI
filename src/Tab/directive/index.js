@@ -7,13 +7,13 @@ export class Tabs{
         this.replace  = true
         this.restrict = 'EA'
         this.template = tabs
-        //this.controller.$inject = ['$scope']
+        this.controller.$inject = ['$scope']
         this.transclude = true
         this.scope = {}
     }
 
     controller(scope){
-        /*scope.items = []
+        scope.items = []
         scope.activedItem = null
 
         scope.switchState = index => {
@@ -23,11 +23,11 @@ export class Tabs{
                 scope.activedItem = scope.items[index]
                 scope.items.forEach((e,i) => e.actived = (i === index))
             })
-        }*/
+        }
     }
 
     link(scope, elem, attrs, ctrl){
-        /*let ul = elem.find('ul')
+        let ul = elem.find('ul')
 
         ul.bind('click',(evt)=>{
             let target = evt.target
@@ -47,13 +47,11 @@ export class Tabs{
             for(let i = 0; i< activedItem.length-1; i++){
                 activedItem[i].active = false
             }
-        }*/
+        }
     }
 
-    passing(exports){
-        //exports.addItem = (item) => scope.items.push(item)
-        this.a=1
-        exports.test = () => console.log(this)
+    passing(exports, scope){
+        exports.addItem = (item) => scope.items.push(item)
     }
 }
 
@@ -68,9 +66,7 @@ export class Tab{
     }
 
 
-
     link(scope,$element,attrs,parentCtrl){
-        this.k=2
         let header  = attrs.header
         let disable = $element::getDOMState('disable')
         let actived = $element::getDOMState('actived')
@@ -97,6 +93,6 @@ export class Tab{
         item.display = header
         item.disable = disable
 
-        parentCtrl.test(item)
+        parentCtrl.addItem(item)
     }
 }
