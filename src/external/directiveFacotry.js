@@ -28,7 +28,7 @@ export default class DirectiveFactory {
 			}
 
 
-			if (instance.link && !instance.compile) {
+			if (typeof instance.link === 'function' && instance.compile === undefined) {
 				let linkOrg = instance.link
 				instance.link = function (...linkArgs) {
 					let scope = linkArgs[0]
@@ -38,7 +38,7 @@ export default class DirectiveFactory {
 				}
 			}
 
-			if (instance.compile) {
+			if (typeof instance.compile === 'function') {
 				let compileOrg = instance.compile
 				instance.compile = function (...compileArgs) {
 					let instance = new Directive(...args)
@@ -56,7 +56,7 @@ export default class DirectiveFactory {
 				}
 			}
 
-			if (instance.controller) {
+			if (typeof instance.controller === 'function') {
 				let controllerOrg = instance.controller
 
 				instance.controller = function (...controllerArgs) {
@@ -72,10 +72,10 @@ export default class DirectiveFactory {
 					}
 				}
 
-				instance.controller.$inject = controllerOrg.$inject || ["$scope", "$element"]
+				instance.controller.$inject = controllerOrg.$inject || ["$scope"]
 			}
 
-			if(typeof instance.passing === 'function' && !instance.controller){
+			if(typeof instance.passing === 'function' && instance.controller === undefined){
 				instance.controller = function (...controllerArgs){
 					let [caller] = controllerArgs
 					instance.passing.apply(caller, [this])
