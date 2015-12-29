@@ -20,16 +20,6 @@ export default class DirectiveFactory {
 				instance[key] = instance[key]
 			}
 
-			if (typeof instance.link === 'function' && instance.compile === undefined) {
-				let linkOrg = instance.link
-				instance.link = function (...linkArgs) {
-					let scope = linkArgs[0]
-					let ins = new Directive(...args)
-					linkOrg.apply(ins, linkArgs)
-					scope::mixin(ins)
-				}
-			}
-
 			if (typeof instance.compile === 'function') {
 				let compileOrg = instance.compile
 				instance.compile = function (...compileArgs) {
@@ -45,6 +35,14 @@ export default class DirectiveFactory {
 					} else {
 						scope::mixin(instance)
 					}
+				}
+			} else if(typeof instance.link === 'function') {
+				let linkOrg = instance.link
+				instance.link = function (...linkArgs) {
+					let scope = linkArgs[0]
+					let ins = new Directive(...args)
+					linkOrg.apply(ins, linkArgs)
+					scope::mixin(ins)
 				}
 			}
 
