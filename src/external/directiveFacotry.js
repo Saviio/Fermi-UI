@@ -26,13 +26,11 @@ export default class DirectiveFactory {
 					let instance = new Directive(...args)
 					let postLink = compileOrg.apply(instance, compileArgs)
 
-					if(postLink !== undefined){
-						return (...linkArgs) => {
-							let scope = linkArgs[0]
+					return (...linkArgs) => {
+						let scope = linkArgs[0]
+						if(postLink !== undefined){
 							postLink.apply(instance, linkArgs)
-							scope::mixin(instance)
 						}
-					} else {
 						scope::mixin(instance)
 					}
 				}
