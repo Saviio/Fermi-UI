@@ -58,3 +58,14 @@ link(scope,elem,attr,ctrl,transcludeFn){
 
     console.log(content)
 }*/
+
+/*
+
+else if(dest[key] && ignore.indexOf(key) === -1 ) {
+   throw new Error(`Duplicated Property between directive instance and scope. Property: ${key}`)
+} else if(dest[key] && ignore.indexOf(key) >= 0 && dest[key] !== instance[key]){
+   throw new Error(`Property confict between directive and scope. Property: ${key}`)
+}
+
+	let ignore = ['restrict', 'replace', 'template', 'require', 'scope', 'transclude']
+*/

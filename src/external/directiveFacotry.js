@@ -1,23 +1,16 @@
-import { noop } from '../utils'
-
 let mixin = function(instance){
 	let dest = this
-	if(!dest.$new) throw new Error("caller was not a angular scope variable.")
-	let ignore = ['restrict', 'replace', 'template', 'require', 'scope', 'transclude']
+	if(!dest.$new) throw new Error("caller was not a angular scope object.")
 
 	for (let key in instance) {
 		if (!dest[key] && instance.hasOwnProperty(key)) {
 			dest[key] = instance[key]
-		} else if(dest[key] && ignore.indexOf(key) ===-1 ) {
-			throw new Error(`Duplicated Property between directive instance and scope. Property: ${key}`)
-		} else if(dest[key] && ignore.indexOf(key) >= 0 && dest[key] !== instance[key]){
-			throw new Error(`Property confict between directive and scope. Property: ${key}`)
 		}
 	}
 }
 
-//为了看起来比较“完整”的支持使用ES6 Class 来编写Angular Directive，因此Factory里用了一点caller变换、属性糅杂的小技巧来保证开发体验是一致的。
-//在某些corner case可能会导致工作失常，如果遇到请报issue。
+//为了看起来比较“完整”的支持使用ES6 Class 来编写Angular Directive，因此做了一下属性糅杂的小技巧来保证开发体验是一致的。
+//so 可能在某些corner case可能会导致工作失常，尚在斟酌中。
 
 export default class DirectiveFactory {
 	static create(Directive) {
@@ -26,7 +19,6 @@ export default class DirectiveFactory {
 			for (let key in instance) {
 				instance[key] = instance[key]
 			}
-
 
 			if (typeof instance.link === 'function' && instance.compile === undefined) {
 				let linkOrg = instance.link
@@ -62,7 +54,7 @@ export default class DirectiveFactory {
 				instance.controller = function (...controllerArgs) {
 					let instance = new Directive(...args)
 					let index = controllerOrg.$inject && controllerOrg.$inject.indexOf('$scope')
-					let caller = controllerArgs.length > 0 && (index !== -1 && index !== undefined)
+					let caller = controllerArgs.length > 0 && index !== -1 && index !== undefined
 								? controllerArgs[index]
 								: instance
 
@@ -73,15 +65,13 @@ export default class DirectiveFactory {
 				}
 
 				instance.controller.$inject = controllerOrg.$inject || ["$scope"]
-			}
-
-			if(typeof instance.passing === 'function' && instance.controller === undefined){
+			} else if(typeof instance.passing === 'function'){
 				instance.controller = function (...controllerArgs){
 					let [caller] = controllerArgs
 					instance.passing.apply(caller, [this])
 				}
 
-				instance.controller = noop
+				instance.controller = () => {}
 				instance.controller.$inject = ["$scope"]
 			}
 
