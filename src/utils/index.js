@@ -272,6 +272,26 @@ export function createElem(tag){
     return document.createElement(tag)
 }
 
+export function is(v1, v2){
+    if(this !== undefined){
+        [v1, v2] = [this, v1]
+    }
+
+    if(!Object.is){
+        if (v1 === 0 && v2 === 0) {
+            return 1 / v1 === 1 / v2
+        }
+
+        if (v1 !== v1) {
+            return v2 !== v2
+        }
+
+        return v1 === v2
+    } else {
+        return Object.is(v1, v2)
+    }
+}
+
 /*export function extend(target){
     if(!this.$new) throw new Error("caller was not a angular scope variable.")
     let dest = this

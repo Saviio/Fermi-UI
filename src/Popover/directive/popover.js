@@ -18,7 +18,8 @@ export default class Popover{
         this.restrict = 'EA'
         this.replace = true
         this.scope = {
-            title:'@'
+            title:'@',
+            manual:'='
         }
         this.transclude = true
         this.template = template
@@ -35,7 +36,7 @@ export default class Popover{
 
         scope.close = (force = false) => {
             if(force) scope.isOpen = false
-            else if(scope.isOpen !== false) scope.isOpen = scope.isOpen
+            else if(scope.isOpen !== false) scope.isOpen = !scope.isOpen
             scope.$layer.addClass('pop-disappear-animation')
         }
 
@@ -50,6 +51,7 @@ export default class Popover{
         let rootDOM = $element[0]
         let layerElem = rootDOM::query('.popover')
         let trigger = rootDOM::query(attr.trigger)
+
 
         if(trigger === undefined){
             throw new Error("trigger element cannot be finded in component scope.")
@@ -105,10 +107,15 @@ export default class Popover{
             let initCloseBtn = $element::getDOMState('close')
             let event = attr.action || 'click'
 
-            if(!/click|hover|focus/.test(event)){
-                throw new Error("Event does not supported, it should one of 'click','hover','focus'")
+            if(!/click|hover|focus|manual/.test(event)){
+                throw new Error("Event does not supported, it should one of 'click','hover','focus' or 'manual'")
             } else if(event === 'hover'){
                 event = 'mouseenter'
+            } else if(event === 'manual'){
+                scope.manual = {
+                    open:scope.open.bind(scope),
+                    close:scope.close.bind(scope)
+                }
             }
 
             scope.offset = /^\d{1,}$/.test(initOffset) ? initOffset : 5
@@ -116,13 +123,18 @@ export default class Popover{
 
 
             if(/auto|true/.test(attr.hide)){
-                trigger::on(event === 'mouseenter' ? 'mouseleave' : 'blur', () => scope.close(true))
+                trigger::on(event === 'mouseenter'
+                    ? 'mouseleave'
+                    : 'blur', () => scope.close(true))
             }
 
-            trigger::on(event, () => {
-                setLocation() //优化
-                scope.toggle()
-            })
+            if(event !== 'manual'){
+                trigger::on(event, () => {
+                    setLocation() //优化
+                    scope.toggle()
+                })
+            }
+
 
             if(!initState) scope.close(true)
 
@@ -132,9 +144,10 @@ export default class Popover{
             }
 
             let arrowColor=attr.arrow || null
+            this.title = attr.title
             setTimeout(() => {
                 setLocation()
-                this.arrowColor(attr.trigger, placement, arrowColor)
+                this.arrowColor(attr.trigger, placement, arrowColor, )
             },0)
         }
 
@@ -143,8 +156,9 @@ export default class Popover{
 
     compile($tElement, tAttrs, transclude){
         let dire = (tAttrs.placement || "top").toLowerCase()
-        if(["top","bottom","left","right"].indexOf(dire) === -1)
+        if(["top","bottom","left","right"].indexOf(dire) === -1){
             throw Error("Popover direction not in announced list(top,bottom,left,right).")
+        }
 
         let showCloseBtn = $tElement::getDOMState('close')
         let tmpl = popoverTmpl.replace(/#{dire}/, dire)
@@ -166,8 +180,11 @@ export default class Popover{
     arrowColor(trigger,dire,color){
         if(color === null){
             //auto calc arrow color
-            var matchedColorSelector = dire === "bottom" ? "+.popover > .popover-title" :"+.popover > .popover-content > *"
-            var dom = query(trigger + matchedColorSelector)
+            let matchedColorSelector = dire === "bottom" && this.title
+            ? "+.popover > .popover-title"
+            : "+.popover > .popover-content > *"
+
+            let dom = query(trigger + matchedColorSelector)
             color = dom::getStyle('background-color')
         }
 

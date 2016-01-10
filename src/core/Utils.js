@@ -145,6 +145,7 @@ export default function(){
         }
     }
 
+
     return {
         coords:getCoords,
         style:getStyle,

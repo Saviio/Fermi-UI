@@ -39,7 +39,14 @@ app.controller('main',['$scope','$timeout','Fermi.Loading',function($scope,$time
         $scope.schedule.refresh(tmp2)
     },3000)
 
-    $timeout(()=> {window.a=$scope.a,window.b=$scope.b,window.c=$scope.c,window.d=$scope.d,window.e=$scope.e},1000)
+    $timeout(()=> {
+        window.a=$scope.a,
+        window.b=$scope.b,
+        window.c=$scope.c,
+        window.d=$scope.d,
+        window.e=$scope.e,
+        window.pop=$scope.pops
+    },1000)
 
 
     var rec=()=>{
@@ -77,5 +84,7 @@ app.controller('main',['$scope','$timeout','Fermi.Loading',function($scope,$time
     ]
 
     window.ss= () => $scope.list = list2
+
+
 
 }])
