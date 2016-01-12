@@ -102,9 +102,9 @@ export default class Popover{
         scope.$layer = $ngLayer
 
         let init = () => {
-            let initState = $element::getDOMState('actived')
-            let initOffset = $element::getDOMState('offset')
-            let initCloseBtn = $element::getDOMState('close')
+            let actived = $element::getDOMState('actived')
+            let offset = $element::getDOMState('offset')
+            let hasClose = $element::getDOMState('close')
             let event = attr.action || 'click'
 
             if(!/click|hover|focus|manual/.test(event)){
@@ -118,8 +118,8 @@ export default class Popover{
                 }
             }
 
-            scope.offset = /^\d{1,}$/.test(initOffset) ? initOffset : 5
-            scope.isOpen = initState
+            scope.offset = /^\d{1,}$/.test(offset) ? offset : 5
+            scope.isOpen = actived
 
 
             if(/auto|true/.test(attr.hide)){
@@ -136,9 +136,9 @@ export default class Popover{
             }
 
 
-            if(!initState) scope.close(true)
+            if(!actived) scope.close(true)
 
-            if(initCloseBtn){
+            if(hasClose){
                 let closeBtn = rootDOM::query('.popover > .close')
                 closeBtn::on('click', () => scope.close(true))
             }
@@ -160,14 +160,12 @@ export default class Popover{
             throw Error("Popover direction not in announced list(top,bottom,left,right).")
         }
 
-        let showCloseBtn = $tElement::getDOMState('close')
         let tmpl = popoverTmpl.replace(/#{dire}/, dire)
-        if(showCloseBtn){
+        if($tElement::getDOMState('close')){
             tmpl = tmpl.replace('<!--CLOSE_BUTTON-->',`<button class="close">×</button>`)
         } else {
             tmpl = tmpl.replace('<!--CLOSE_BUTTON-->',"")
         }
-
         $tElement.append(tmpl)
 
         if(tAttrs.trigger == undefined){
@@ -180,28 +178,28 @@ export default class Popover{
     arrowColor(trigger,dire,color){
         if(color === null){
             //auto calc arrow color
-            let matchedColorSelector = dire === "bottom" && this.title
+            let selector = dire === "bottom" && this.title
             ? "+.popover > .popover-title"
             : "+.popover > .popover-content > *"
 
-            let dom = query(trigger + matchedColorSelector)
+            let dom = query(trigger + selector)
             color = dom::getStyle('background-color')
         }
 
-        let arrowStyle = query('#arrowColor')
+        let style = query('#__arrowColor__')
 
-        if(arrowStyle === null){
-            arrowStyle = createElem('style')
-            arrowStyle.id = "arrowColor"
-            query('head').appendChild(arrowStyle)
+        if(style === null){
+            style = createElem('style')
+            style.id = "__arrowColor__"
+            query('head').appendChild(style)
         }
 
-        let controlCSS = `
+        let css = `
             ${escapeHTML(trigger)}+div.popover > .popover-arrow:after{
                 border-${escapeHTML(dire)}-color:${color};
             }
         `
-        arrowStyle.innerHTML += controlCSS
+        style.innerHTML += css
     }
 
 }

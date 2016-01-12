@@ -4,8 +4,14 @@
     min-width:130px;
     cursor:pointer;
     position:relative;
+
+    .select-tags{
+        padding-right: 10px !important;
+        padding-bottom: 4px;
+    }
+
     .select-inner{
-        height:$height+(-2px);
+        min-height:$height+(-2px);
         line-height:$height+(-2px);
         padding-left:10px;
         padding-right:24px;
@@ -29,6 +35,40 @@
         .expanded{
             transform: rotateZ(180deg)
         }
+
+        .tags-selection{
+            list-style: none;
+            height: 100%;
+            min-height: 24px;
+            li{
+                display: inline-block;
+                margin-right: 4px;
+                padding:0 4px;
+                vertical-align: top;
+                background:#f3f3f3;
+                height: 20px;
+                border-radius:4px;
+                float: left;
+                line-height: 20px;
+                margin-top: 4px;
+                box-sizing: content-box;
+                cursor:pointer;
+                .tag-remove{
+                    cursor:pointer;
+                    &:hover{
+                        color: #404040;
+                    }
+                }
+            }
+            .tag-input{
+                background: none;
+                border: none;
+                >span{
+                    outline: none;
+                    border:none;
+                }
+            }
+        }
     }
 
     .select-selection{
@@ -49,7 +89,8 @@
         width:100%;
         background-color:#fff;
         position:absolute;
-        top:$height + 2px;
+        //top:$height + 2px;
+        margin-top: 5px;
         box-shadow:0px 0px 2px rgba(220, 220, 220, 0.7);
         border:rgba(204, 204, 204, 0.65) solid 1px;
         opacity:0;
@@ -68,12 +109,17 @@
                 padding-right:10px;
                 height:26px;
                 line-height:26px;
+                cursor:pointer;
                 //padding:7px 33px 7px 16px;
 
                 &:hover{
                     background-color:#eaf8fe !important;
                 }
 
+            }
+
+            .tagged{
+                background: #d5f1fd;
             }
         }
 
@@ -119,6 +165,10 @@
 
 .select-wrapper-large{
     @include select-wrapper-base(36px)
+}
+
+.select-wrapper-normal[tags],.select-wrapper-large[tags],.select-wrapper-small[tags]{
+    cursor:text;
 }
 
 .spec{

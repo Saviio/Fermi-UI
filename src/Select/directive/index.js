@@ -2,6 +2,7 @@ import select from '../template/select.html'
 import option from '../template/option.html'
 import {
     getDOMState,
+    getStyle,
     debounce,
     onMotionEnd,
     on,
@@ -18,9 +19,6 @@ import {
 
 //multi
 //disable
-//span + span + ul + li + span
-//select option group
-//single option disable
 
 export class Select {
     constructor(){
@@ -29,15 +27,46 @@ export class Select {
         this.template = select
         this.require = "^ngModel"
         this.scope = {
-            ngModel:'='
+            ngModel:'=',
+            control:'='
         }
         this.transclude = true
         this.controller.$inject = ['$scope']
     }
 
-    controller(scope){}
+    controller(scope){
+        scope.selection = []
+        scope.remove= (index, e) => {
+            let option = scope.selection.splice(index, 1).pop()
+            if(option.$elem !== null){
+                option.$elem.removeClass('tagged')
+            }
+            e.stopPropagation()
+        }
+        scope.control = {
+            selected:() => {
+                if(scope.ngModel !== undefined) {
+                    return {
+                        item:scope.ngModel.item,
+                        data:scope.ngModel.data
+                    }
+                } else {
+                    let list = []
+                    for(var i = 0; i< scope.selection.length; i++){
+                        let model = scope.selection[i]
+                        list.push({
+                            item:model.item,
+                            data:model.data
+                        })
+                    }
+                    return list
+                }
+            }
+        }
+    }
 
     compile($tElement, tAttrs, transclude){
+        //console.log("compile:"+new Date().getTime())
         let elem = $tElement[0]
         let isSearch = $tElement::getDOMState('search')
         let isMulti = $tElement::getDOMState('multi')
@@ -56,11 +85,22 @@ export class Select {
         }
 
         if(isMulti || isTags){
-            this.mode = "tags"
-            let tagsTmpl = `<span><ul><li ng-repeat="item in selection"></li></ul></span>`
+            this.mode = isTags ? 'tags' : 'multi'
+            let tagsTmpl =
+            `<ul class="tags-selection">
+                <li ng-repeat="model in selection track by $index" ng-click="remove($index,$event)">
+                    <span>{{model.item}}</span>
+                    <span class="tag-remove">×</span>
+                </li>
+                ${isTags ? '<li class="tag-input"><span contenteditable="true"></span></li>' : ''}
+            </ul>`
             let selection = this.select::query('.select-selection')
+            this.select::addClass('select-tags')
             selection::replace(tagsTmpl)
             this.icon = this.icon::remove()
+            if(isTags){
+                this.tagInput = elem::query('.tag-input > span')
+            }
         }
 
         return this.link
@@ -73,7 +113,7 @@ export class Select {
                 let val = this.searchInput.value
 
                 let cb1 = e => {
-                    new RegExp(val,"ig").test(e.innerText)
+                    new RegExp(val, 'ig').test(e.innerText)
                     ? e.parentElement::removeClass('hide')
                     : e.parentElement::addClass('hide')
                 }
@@ -100,14 +140,37 @@ export class Select {
         }
 
         this.select::on('click', scope.switchDropdownState)
-        //scope::extend(this)
+        if(this.mode === 'tags'){
+            this.select::on('click', () => this.tagInput.focus())
+            this.tagInput::on('keydown', e => {
+                let value = this.tagInput.innerText
+                //let wordCount = value.length
+                //let ftsize = this.tagInput::getStyle('font-size','px')
+                //this.tagInput.style.width = 5 + wordCount * ftsize+'px'
+                if(e.keyCode !== 13 || value === '') return
+                scope.$apply(() => {
+                    scope.selection.push({item:value, data:{value}, $elem:null})
+                    this.tagInput.innerText = ''
+                })
+            })
+        }
     }
 
     passing(exports, scope){
-        exports.select = item => {
+        exports.select = option => {
             scope.$apply(() => {
-                scope.ngModel = item
-                scope.switchDropdownState()
+                if(this.mode === 'multi' || this.mode === 'tags' ){
+                    if(scope.selection.every(existOption => existOption !== option)){
+                        scope.selection.push(option)
+                        option.$elem.addClass('tagged')
+                        option.$elem.attr('selected',true)
+                    }
+                } else if (false){
+                    //multi
+                } else {
+                    scope.ngModel = option
+                    scope.switchDropdownState()
+                }
             })
         }
     }
@@ -115,6 +178,9 @@ export class Select {
 
 
 //@value
+//@data
+//select option group
+//single option disable
 export class Option {
     constructor(){
         this.restrict = 'EA'
@@ -122,7 +188,7 @@ export class Option {
         this.require = '^fermiSelect'
         this.template = option
         this.transclude = true
-        this.scope = { value:'=' }
+        this.scope = { value:'=', data:'=' }
     }
 
     link(scope, $elem, attrs, parentCtrl){
@@ -130,8 +196,14 @@ export class Option {
             scope.value = attrs.value
         }
 
+        let option = {
+            item:scope.value,
+            data:scope.data || {value: scope.value},
+            $elem:$elem
+        }
+
         $elem.bind('click', () => {
-            parentCtrl.select(scope.value)
+            parentCtrl.select(option)
         })
     }
 }

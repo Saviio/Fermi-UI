@@ -46,6 +46,7 @@ app.controller('main',['$scope','$timeout','Fermi.Loading',function($scope,$time
         window.d=$scope.d,
         window.e=$scope.e,
         window.pop=$scope.pops
+        window.selected = $scope.selected
     },1000)
 
 
@@ -73,6 +74,7 @@ app.controller('main',['$scope','$timeout','Fermi.Loading',function($scope,$time
         { category: 'veg', name: 'Mushrooms' },
         { category: 'veg', name: 'Onion' },
         { category: 'veg', name: 'Green Pepper' },
+        { category: 'veg', name: 'Green Olives' },
         { category: 'veg', name: 'Green Olives' }
     ]
 
