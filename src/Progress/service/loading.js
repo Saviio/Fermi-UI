@@ -40,7 +40,7 @@ export default class Loading{
         }
     }
 
-    __render__(fromZero){
+    __render__(fromZero = true){
         if(this.$instance !== null)
             return this.$instance
 

@@ -181,6 +181,9 @@ export class Select {
 //@data
 //select option group
 //single option disable
+//checked
+//&nbsp; + trim
+//input click 阻止冒泡
 export class Option {
     constructor(){
         this.restrict = 'EA'

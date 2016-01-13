@@ -47,6 +47,7 @@ app.controller('main',['$scope','$timeout','Fermi.Loading',function($scope,$time
         window.e=$scope.e,
         window.pop=$scope.pops
         window.selected = $scope.selected
+        window.ck = $scope.ck
     },1000)
 
 
