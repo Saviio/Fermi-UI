@@ -276,6 +276,10 @@ export function createElem(tag){
     return document.createElement(tag)
 }
 
+export function getType(){
+    return Object.prototype.toString.call(this).replace(/^\[object (\w+)\]$/,'$1')
+}
+
 export function is(v1, v2){
     if(this !== undefined){
         [v1, v2] = [this, v1]

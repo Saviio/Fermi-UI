@@ -3,6 +3,7 @@ import option from '../template/option.html'
 import {
     getDOMState,
     getStyle,
+    getType,
     debounce,
     onMotionEnd,
     on,
@@ -31,39 +32,47 @@ export class Select {
             control:'='
         }
         this.transclude = true
-        this.controller.$inject = ['$scope']
+        this.controller.$inject = ['$scope', '$attrs']
     }
 
-    controller(scope){
-        scope.selection = []
-        scope.remove= (index, e) => {
-            let option = scope.selection.splice(index, 1).pop()
+    controller(scope, attrs){
+
+        if(attrs.multi !==undefined || attrs.tags !==undefined){
+            scope.ngModel = []
+        }
+
+        scope.remove = (index, e) => {
+            let option = scope.ngModel.splice(index, 1).pop()
             if(option.$elem !== null){
                 option.$elem.removeClass('tagged')
             }
             e.stopPropagation()
         }
-        scope.control = {
-            selected:() => {
-                if(scope.ngModel !== undefined) {
-                    return {
-                        item:scope.ngModel.item,
-                        data:scope.ngModel.data
-                    }
-                } else {
-                    let list = []
-                    for(var i = 0; i< scope.selection.length; i++){
-                        let model = scope.selection[i]
-                        list.push({
-                            item:model.item,
-                            data:model.data
-                        })
-                    }
-                    return list
+
+        let selected = () => {
+            if(scope.ngModel::getType() !== 'Array') {
+                return {
+                    item:scope.ngModel.item,
+                    data:scope.ngModel.data
                 }
+            } else {
+                let list = []
+                for(var i = 0; i< scope.ngModel.length; i++){
+                    let model = scope.ngModel[i]
+                    list.push({
+                        item:model.item,
+                        data:model.data
+                    })
+                }
+                return list
             }
         }
+
+        scope.control = {
+            selected
+        }
     }
+
 
     compile($tElement, tAttrs, transclude){
         //console.log("compile:"+new Date().getTime())
@@ -88,11 +97,11 @@ export class Select {
             this.mode = isTags ? 'tags' : 'multi'
             let tagsTmpl =
             `<ul class="tags-selection">
-                <li ng-repeat="model in selection track by $index" ng-click="remove($index,$event)">
+                <li ng-repeat="model in ngModel track by $index" ng-click="remove($index, $event)">
                     <span>{{model.item}}</span>
                     <span class="tag-remove">×</span>
                 </li>
-                ${isTags ? '<li class="tag-input"><span contenteditable="true"></span></li>' : ''}
+                ${isTags ? '<li class="tag-input"><span contenteditable="true">&nbsp;</span></li>' : ''}
             </ul>`
             let selection = this.select::query('.select-selection')
             this.select::addClass('select-tags')
@@ -142,21 +151,21 @@ export class Select {
         this.select::on('click', scope.switchDropdownState)
         if(this.mode === 'tags'){
             let renderTag = value => {
-                scope.selection.push({item:value, data:{value}, $elem:null})
-                this.tagInput.innerText = ''
+                scope.ngModel.push({item:value, data:{value}, $elem:null})
+                this.tagInput.innerHTML = '&nbsp;'
             }
 
             this.select::on('click', () => this.tagInput.focus())
             this.tagInput::on('keydown', e => {
-                let value = this.tagInput.innerText
-                //let wordCount = value.length
-                //let ftsize = this.tagInput::getStyle('font-size','px')
-                //this.tagInput.style.width = 5 + wordCount * ftsize+'px'
-                if(e.keyCode !== 13 || value === '') return
-                scope.$apply(() => renderTag(value))
+                let value = this.tagInput.innerText.trim()
+                if(e.keyCode !== 13) return
+                e.preventDefault()
+                if(value !== ''){
+                    scope.$apply(() => renderTag(value))
+                }
             })
             this.tagInput::on('blur', e => {
-                let value = this.tagInput.innerText
+                let value = this.tagInput.innerText.trim()
                 if(value === '') return
                 scope.$apply(() => renderTag(value))
             })
@@ -167,8 +176,8 @@ export class Select {
         exports.select = option => {
             scope.$apply(() => {
                 if(this.mode === 'multi' || this.mode === 'tags' ){
-                    if(scope.selection.every(existOption => existOption !== option)){
-                        scope.selection.push(option)
+                    if(scope.ngModel.every(existOption => existOption !== option)){
+                        scope.ngModel.push(option)
                         option.$elem.addClass('tagged')
                         option.$elem.attr('selected',true)
                     }
@@ -184,13 +193,12 @@ export class Select {
 }
 
 
+
 //@value
 //@data
 //select option group
 //single option disable
 //checked
-//&nbsp; + trim
-//input click 阻止冒泡
 export class Option {
     constructor(){
         this.restrict = 'EA'

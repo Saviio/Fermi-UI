@@ -63,9 +63,11 @@
             .tag-input{
                 background: none;
                 border: none;
+                width:5px;
                 >span{
                     outline: none;
                     border:none;
+                    height:100%;
                 }
             }
         }
