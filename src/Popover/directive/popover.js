@@ -11,6 +11,8 @@ import {
     on
 } from '../../utils'
 
+import { DOM } from '../../utils/browser'
+
 
 //add disable function
 export default class Popover{
@@ -182,11 +184,11 @@ export default class Popover{
             ? "+.popover > .popover-title"
             : "+.popover > .popover-content > *"
 
-            let dom = query(trigger + selector)
+            let dom = DOM::query(trigger + selector)
             color = dom::getStyle('background-color')
         }
 
-        let style = query('#__arrowColor__')
+        let style = DOM::query('#__arrowColor__')
 
         if(style === null){
             style = createElem('style')

@@ -249,7 +249,9 @@ export function debounce(func, wait){
 }
 
 export function query(el){
-    let base = this || document
+    let base = this
+        ? this.__esModule ? document : this
+        : document
     if (typeof el === 'string') {
         let selector = el
         el = base.querySelector(selector)
@@ -259,7 +261,9 @@ export function query(el){
 
 
 export function queryAll(el){
-    let base = this || document
+    let base = this
+        ? this.__esModule ? document : this
+        : document
     if (typeof el === 'string') {
         let selector = el
         el = base.querySelectorAll(selector)

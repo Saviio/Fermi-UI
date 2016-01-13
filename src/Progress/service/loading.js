@@ -4,6 +4,8 @@ import {
     createElem
 } from '../../utils'
 
+import { DOM, BODY } from '../../utils/browser'
+
 let clamp = (n, min, max) => {
     if (n < min) return min
     if (n > max) return max
@@ -36,7 +38,7 @@ export default class Loading{
     __dispose__(){
         if(this.$instance !== null){
             this.$instance = this.status = null
-            document.body.removeChild(query('#progress-loading-elem'))
+            BODY.removeChild(DOM::query('#progress-loading-elem'))
         }
     }
 
@@ -44,20 +46,20 @@ export default class Loading{
         if(this.$instance !== null)
             return this.$instance
 
-        if(document.body.insertAdjacentHTML){
-            document.body.insertAdjacentHTML('beforeEnd',template)
+        if(BODY.insertAdjacentHTML){
+            BODY.insertAdjacentHTML('beforeEnd',template)
         } else {
             let div = createElem('div')
             div.innerHTML = template
-            document.body.appendChild(div.firstChild)
+            BODY.appendChild(div.firstChild)
         }
 
-        let ins = query('#progress-loading-elem')
+        let ins = DOM::query('#progress-loading-elem')
         if(ins !== null){
             this.$instance = angular.element(ins)
             this.$instance.css('width',`${fromZero ? 0 : (this.status || 0) * 100}%`)
             this.$instance.css('transition',`width ${this.speed}ms ease-out, opacity ${this.speed}ms linear`)
-            ins.offsetWidth
+            //ins.offsetWidth
             return this.$instance
         }
     }

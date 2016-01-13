@@ -141,6 +141,11 @@ export class Select {
 
         this.select::on('click', scope.switchDropdownState)
         if(this.mode === 'tags'){
+            let renderTag = value => {
+                scope.selection.push({item:value, data:{value}, $elem:null})
+                this.tagInput.innerText = ''
+            }
+
             this.select::on('click', () => this.tagInput.focus())
             this.tagInput::on('keydown', e => {
                 let value = this.tagInput.innerText
@@ -148,10 +153,12 @@ export class Select {
                 //let ftsize = this.tagInput::getStyle('font-size','px')
                 //this.tagInput.style.width = 5 + wordCount * ftsize+'px'
                 if(e.keyCode !== 13 || value === '') return
-                scope.$apply(() => {
-                    scope.selection.push({item:value, data:{value}, $elem:null})
-                    this.tagInput.innerText = ''
-                })
+                scope.$apply(() => renderTag(value))
+            })
+            this.tagInput::on('blur', e => {
+                let value = this.tagInput.innerText
+                if(value === '') return
+                scope.$apply(() => renderTag(value))
             })
         }
     }
