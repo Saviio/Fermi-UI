@@ -4,17 +4,17 @@ import {getDOMState} from '../../utils'
 //Todo 半圆形
 export default class circle{
     constructor($compile){
-        this.replace=true
-        this.restrict='EA'
-        this.template=template
-        this.require='^ngModel'
-        this.scope={
+        this.replace = true
+        this.restrict = 'EA'
+        this.template = template
+        this.require = '^ngModel'
+        this.scope = {
             ngModel:'=',
             label:'@'
         }
 
-        this.controller.$inject=['$scope']
-        this.$compile=$compile
+        this.controller.$inject = ['$scope']
+        this.$compile = $compile
     }
 
     controller(scope){
@@ -76,4 +76,4 @@ export default class circle{
     }
 }
 
-circle.$inject=['$compile']
+circle.$inject = ['$compile']

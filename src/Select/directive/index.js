@@ -174,7 +174,7 @@ export class Select {
 
     passing(exports, scope){
         exports.select = option => {
-            scope.$apply(() => {
+            setTimeout(()=> {
                 if(this.mode === 'multi' || this.mode === 'tags' ){
                     if(scope.ngModel.every(existOption => existOption !== option)){
                         scope.ngModel.push(option)
@@ -187,7 +187,12 @@ export class Select {
                     scope.ngModel = option
                     scope.switchDropdownState()
                 }
-            })
+
+                if(scope.$root.$$phase != '$apply' && scope.$root.$$phase != '$digest'){
+                    scope.$apply()
+                }
+            },0)
+
         }
     }
 }
@@ -223,5 +228,10 @@ export class Option {
         $elem.bind('click', () => {
             parentCtrl.select(option)
         })
+
+        let isSelected = $elem::getDOMState('selected')
+        if(isSelected){
+            parentCtrl.select(option)
+        }
     }
 }

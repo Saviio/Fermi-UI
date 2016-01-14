@@ -300,6 +300,18 @@ export function is(v1, v2){
     }
 }
 
+let __FMId__ = 1
+export function generateFermiId(){
+    let id = __FMId__.toString().split('')
+    let len = id.length
+    for(let i = 0; i < (5 - len); i++){
+        id.unshift("0")
+    }
+    __FMId__++
+    return id.join('.')
+}
+
+
 /*export function extend(target){
     if(!this.$new) throw new Error("caller was not a angular scope variable.")
     let dest = this
