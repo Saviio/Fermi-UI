@@ -4,9 +4,11 @@ import defaultMessage from '../template/default.html'
 
 
 import{
-    after,
+    on,
     last,
+    after,
     query,
+    inDoc,
     remove,
     prepend,
     setStyle,
@@ -22,59 +24,79 @@ let defaultConfig = {
     duration:4.5
 }
 
+//callback
+//default
+//params
 export default class Notification{
     constructor(){
-        this.$rendered = false
-        this.$container = null
+        this._rendered = false
+        this._container = null
     }
 
     __dispose__(){
-        if(this.$body::queryAll('div').length > 0) return
-        this.$container::remove()
-        this.$rendered = false
-        this.$container = this.$body = null
+        if(this._body::queryAll('div').length > 0) return
+        this._container::remove()
+        this._rendered = false
+        this._container = this._body = null
     }
 
     __render__(){
-        if(this.$rendered) return
-        this.$container = BODY::prepend(container)
-        this.$body = this.$container::query('div')
-        this.$container::setStyle({
-            top:this.getConfig().top,
-            right:this.getConfig().right
+        if(this._rendered) return
+        this._container = BODY::last(container)
+        this._body = this._container::query('div')
+        this._container::setStyle({
+            top:this.__getConfig__('top'),
+            right:this.__getConfig__('right')
         })
-        this.$rendered = true
+        this._rendered = true
     }
 
-    send(message, type = 'normal'){
+    __getConfig__(key){
+        return (this.customConfig || defaultConfig)[key] || defaultConfig[key]
+    }
+
+    send(message, type = 'normal', autoClose = true){
         this.__render__()
-        let notification = this.$body::last(defaultMessage)
-        let status = notification::query('i')
-        notification::addClass(`fermi-noticeStatus-${type}`)
-        status::addClass(`icon-${type}`)
-        setTimeout(() => notification::addClass('fermi-notice-show'), 50)
-        let cancellId = setTimeout(() => {
-            notification::removeClass(`fermi-notice-show`)
-                        ::onMotionEnd(() => {
-                            notification::remove()
-                            this.__dispose__()
-                        })
-        }, this.getConfig().duration * 1000)
+        let notification = this._body::prepend(defaultMessage)
+        let icon = notification::query('i')
+        let closeBtn = notification::query('.fm-close')
+        notification::query('.fm-notice-content').innerText = message
+        notification::addClass(`fm-noticeStatus-${type}`)
+        icon::addClass(`icon-${type}`)
+        setTimeout(() => notification::addClass('fm-notice-show'), 50)
+
+        let destory = () => {
+            if(!notification::inDoc()) return
+            notification
+                    ::removeClass(`fm-notice-show`)
+                    ::onMotionEnd(() => {
+                        notification::remove()
+                        this.__dispose__()
+                    })
+        }
+
+        let cancellId
+        let duration = this.__getConfig__('duration')
+        if(autoClose){
+            cancellId = setTimeout(destory, duration * 1000)
+        }
+
+        closeBtn::on('click', e => {
+            if(cancellId !== undefined) clearTimeout(cancellId)
+            destory()
+        })
     }
 
     config(option){
         if(this.customConfig === undefined){
             this.customConfig = option
-            Object.defineProperty(this,'customConfiguration',{
-                value:option,
-                enumerable:false,
-                configurable:false,
-                writable:false
-            })
+            Object.frezz(this.customConfig)
         }
     }
 
-    getConfig(){
-        return this.customConfig || defaultConfig
-    }
+    normal(){}
+    success(){}
+    warn(){}
+    error(){}
+    default(){}
 }

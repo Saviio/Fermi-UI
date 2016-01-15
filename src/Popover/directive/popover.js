@@ -141,7 +141,7 @@ export default class Popover{
             if(!actived) scope.close(true)
 
             if(hasClose){
-                let closeBtn = rootDOM::query('.popover > .close')
+                let closeBtn = rootDOM::query('.popover > .fm-close')
                 closeBtn::on('click', () => scope.close(true))
             }
 
@@ -164,7 +164,7 @@ export default class Popover{
 
         let tmpl = popoverTmpl.replace(/#{dire}/, dire)
         if($tElement::getDOMState('close')){
-            tmpl = tmpl.replace('<!--CLOSE_BUTTON-->',`<button class="close">×</button>`)
+            tmpl = tmpl.replace('<!--CLOSE_BUTTON-->',`<button class="fm-close">×</button>`)
         } else {
             tmpl = tmpl.replace('<!--CLOSE_BUTTON-->',"")
         }

@@ -242,14 +242,12 @@ export function onMotionEnd(el, cb){
     let {prefix, eventPrefix} = detechPrefix()
 
     let handler = (e) => {
-        //debugger
         if(e.target === el){
-            el::off(eventPrefix+'TransitionEnd', handler)
+            el::off(eventPrefix + 'TransitionEnd', handler)
             el::off('animationend webkitAnimationEnd MSAnimationEnd oAnimationEnd', handler)
             cb()
         }
     }
-    //debugger
     el::on(eventPrefix + 'TransitionEnd', handler)
     el::on('animationend webkitAnimationEnd MSAnimationEnd oAnimationEnd', handler)
     return el
@@ -351,11 +349,18 @@ export function def(obj, key, option){
 
 export function setStyle(el, obj){
     if(arguments.length === 1) [el, obj] = [this, el]
-    for(var i in obj){
+    for(let i in obj){
         if(obj.hasOwnProperty(i)){
             el.style[i] = obj[i]
         }
     }
+}
+
+export function inDoc(el) {
+    if(arguments.length === 0) el = this
+    let doc = document.documentElement
+    let parent = el && el.parentNode
+    return doc === el || doc === parent || !!(parent && parent.nodeType === 1 && (doc.contains(parent)))
 }
 
 /*export function extend(target){

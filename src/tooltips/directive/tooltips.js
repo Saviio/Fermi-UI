@@ -1,5 +1,6 @@
-import {getCoords,getStyle} from '../../utils'
+import { getCoords,getStyle } from '../../utils'
 
+//不要放在全局 remark
 export default class Tooltips{
     constructor(){
         this.restrict="EA"

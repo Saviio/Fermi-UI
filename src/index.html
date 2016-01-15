@@ -177,10 +177,12 @@
         </div>
 
         <div id="fermiNotification" style="padding:30px;">
-            <Fermi:buttons content="normal" type="default" ng-click="notification.send(123)"></Fermi:buttons>
-            <Fermi:buttons content="success" type="default" ng-click="notification.send(123,'success')"></Fermi:buttons>
-            <Fermi:buttons content="warn" type="default" ng-click="notification.send(123,'warn')"></Fermi:buttons>
-            <Fermi:buttons content="error" type="default" ng-click="notification.send(123,'error')"></Fermi:buttons>
+            <p>Notification</p>
+            <Fermi:buttons content="normal" type="default" ng-click="notification.send('Normal')"></Fermi:buttons>
+            <Fermi:buttons content="success" type="default" ng-click="notification.send('Success','success')"></Fermi:buttons>
+            <Fermi:buttons content="warn" type="default" ng-click="notification.send('Warning','warn')"></Fermi:buttons>
+            <Fermi:buttons content="error" type="default" ng-click="notification.send('Error','error')"></Fermi:buttons>
+            <Fermi:buttons content="default" type="default" ng-click="notification.send('default','default')"></Fermi:buttons>
         </div>
 
 

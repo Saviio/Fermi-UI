@@ -1,20 +1,20 @@
-#fermi-notification-container{
+#fm-notification-container{
     position: fixed;
     z-index: 9999;
     margin-right: 25px;
     width: 350px;
 
-    .fermi-notice{
+    .fm-notice{
         padding:15px;
         border-radius: 3px;
-        box-shadow: 0 0 3px rgba(0,0,0,.12);
+        box-shadow: 0 1px 4px rgba(220, 220, 220, 0.7);
         background: #fff;
         position: relative;
         margin-bottom: 10px;
         overflow: hidden;
         line-height: 1.5;
         border:1px solid #E6E6E6;
-        transition: right 300ms 100ms ease-out;
+        transition: right 200ms ease-out 50ms;
         right:-500px;
         width: 100%;
 
@@ -23,59 +23,62 @@
             &:before{
                 font-size: 40px;
             }
-            top:6px;
+            top:50%;
+            margin-top:-30px;
         }
 
         div > h3 {
-            margin-left: 70px;
+            margin-left: 60px;
         }
 
-        div > .fermi-notice-content {
-            margin-left: 70px;
+        div > .fm-notice-content {
+            margin-left: 60px;
         }
 
-        > .close {
+        > .fm-close {
             position: absolute;
             right:5px;
             top:2px;
         }
     }
 
-    .fermi-noticeStatus-normal{
+    .fm-noticeStatus-normal{
         border:1px solid #7DBCE0;
         background: #CDE8F6;
-        h3,.fermi-notice-content, div > i:before{
+        h3,.fm-notice-content, div > i:before{
             color:#447EAF;
         }
     }
 
-    .fermi-noticeStatus-success{
+    .fm-noticeStatus-success{
         border:1px solid #AFCDA4;
         background: #DDF3D5;
-        h3,.fermi-notice-content, div > i:before{
+        h3,.fm-notice-content, div > i:before{
             color:#597151;
         }
     }
 
-    .fermi-noticeStatus-warn{
+    .fm-noticeStatus-warn{
         border:1px solid #D8CF82;
         background: #F8F4D5;
 
-        h3,.fermi-notice-content, div > i:before{
+        h3,.fm-notice-content, div > i:before{
             color:#96722E;
         }
     }
 
-    .fermi-noticeStatus-error{
+    .fm-noticeStatus-error{
         border:1px solid #BE8181;
         background: #ECC8C5;
 
-        h3,.fermi-notice-content, div > i:before{
+        h3,.fm-notice-content, div > i:before{
             color:#B4302B;
         }
     }
 
-    .fermi-notice-show{
+    .fm-notice-show{
         right:0px;
     }
+
+
 }

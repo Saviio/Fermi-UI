@@ -117,7 +117,7 @@ section {
 
 
 
-.close{
+.fm-close{
     float: right;
     font-size: 21px;
     font-weight: bold;
@@ -134,7 +134,7 @@ section {
     }
 }
 
-button.close{
+button.fm-close{
     -webkit-appearance: none;
     padding: 0;
     cursor: pointer;
@@ -162,11 +162,11 @@ button.close{
 }
 
 @keyframes fadeInDown {
-    0%{opacity: 0;-webkit-transform:translateY(-10px)}
-    100%{opacity: 100;-webkit-transform:translateY(0)}
+    0%{opacity: 0;transform:translateY(-10px)}
+    100%{opacity: 100;transform:translateY(0)}
 }
 
 @keyframes fadeOutUp {
-    0%{opacity: 100;display:block;-webkit-transform:translateY(0px)}
-    100%{opacity: 0;display:none;-webkit-transform:translateY(-10px)}
+    0%{opacity: 100;display:block;transform:translateY(0px)}
+    100%{opacity: 0;display:none;transform:translateY(-10px)}
 }
