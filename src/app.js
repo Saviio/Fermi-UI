@@ -14,6 +14,7 @@ import './Tab'
 import './Popover'
 import './Button'
 import './Select'
+import './Notification'
 
 
 import scheduleItems from './scheduleItems.json'

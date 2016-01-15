@@ -311,6 +311,10 @@ export function generateFermiId(){
     return id.join('.')
 }
 
+export function clamp(val, min, max){
+    return val < min ? min : (val > max ? max : val)
+}
+
 
 /*export function extend(target){
     if(!this.$new) throw new Error("caller was not a angular scope variable.")

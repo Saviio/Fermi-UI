@@ -1,16 +1,12 @@
 import template from '../template/loading.html'
-import {
-    query,
-    createElem
-} from '../../utils'
-
 import { DOM, BODY } from '../../utils/browser'
 
-let clamp = (n, min, max) => {
-    if (n < min) return min
-    if (n > max) return max
-    return n
-}
+import {
+    query,
+    createElem,
+    clamp
+} from '../../utils'
+
 
 let queue = (function() {
     let waiting = []
