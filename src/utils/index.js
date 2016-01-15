@@ -91,6 +91,7 @@ export function addClass(el, cls){
             }
         }
     }
+    return el
 }
 
 export function removeClass(el, cls){
@@ -115,6 +116,7 @@ export function removeClass(el, cls){
             el.removeAttribute('class')
         }
     }
+    return el
 }
 
 export function replaceClass(el, orig, mdi){
