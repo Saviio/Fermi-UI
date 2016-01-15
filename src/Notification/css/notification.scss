@@ -1,6 +1,81 @@
-.fermi-notification-container{
+#fermi-notification-container{
     position: fixed;
     z-index: 9999;
     margin-right: 25px;
     width: 350px;
+
+    .fermi-notice{
+        padding:15px;
+        border-radius: 3px;
+        box-shadow: 0 0 3px rgba(0,0,0,.12);
+        background: #fff;
+        position: relative;
+        margin-bottom: 10px;
+        overflow: hidden;
+        line-height: 1.5;
+        border:1px solid #E6E6E6;
+        transition: right 300ms 100ms ease-out;
+        right:-500px;
+        width: 100%;
+
+        div > i {
+            position: absolute;
+            &:before{
+                font-size: 40px;
+            }
+            top:6px;
+        }
+
+        div > h3 {
+            margin-left: 70px;
+        }
+
+        div > .fermi-notice-content {
+            margin-left: 70px;
+        }
+
+        > .close {
+            position: absolute;
+            right:5px;
+            top:2px;
+        }
+    }
+
+    .fermi-noticeStatus-normal{
+        border:1px solid #7DBCE0;
+        background: #CDE8F6;
+        h3,.fermi-notice-content, div > i:before{
+            color:#447EAF;
+        }
+    }
+
+    .fermi-noticeStatus-success{
+        border:1px solid #AFCDA4;
+        background: #DDF3D5;
+        h3,.fermi-notice-content, div > i:before{
+            color:#597151;
+        }
+    }
+
+    .fermi-noticeStatus-warn{
+        border:1px solid #D8CF82;
+        background: #F8F4D5;
+
+        h3,.fermi-notice-content, div > i:before{
+            color:#96722E;
+        }
+    }
+
+    .fermi-noticeStatus-error{
+        border:1px solid #BE8181;
+        background: #ECC8C5;
+
+        h3,.fermi-notice-content, div > i:before{
+            color:#B4302B;
+        }
+    }
+
+    .fermi-notice-show{
+        right:0px;
+    }
 }

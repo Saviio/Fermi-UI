@@ -19,9 +19,9 @@ import './Notification'
 
 import scheduleItems from './scheduleItems.json'
 
-var app=angular.module('app', ['Fermi.switch','Fermi.schedule','Fermi.tooltip','Fermi.breadcrumb','Fermi.progress','Fermi.tab','Fermi.popover','Fermi.buttons','Fermi.select']);
+var app=angular.module('app', ['Fermi.switch','Fermi.schedule','Fermi.tooltip','Fermi.breadcrumb','Fermi.progress','Fermi.tab','Fermi.popover','Fermi.buttons','Fermi.select','Fermi.notification']);
 
-app.controller('main',['$scope','$timeout','Fermi.Loading',function($scope,$timeout,loading){
+app.controller('main',['$scope','$timeout','Fermi.Loading','Fermi.Notification',function($scope,$timeout,loading, notification){
 
     console.info('Fermi Components were loaded.')
     $scope.test=function(item){
@@ -29,6 +29,7 @@ app.controller('main',['$scope','$timeout','Fermi.Loading',function($scope,$time
     };
 
     window.loading=loading
+    window.notification = notification
 
     $scope.message="test"
     $scope.tmp=scheduleItems[0]

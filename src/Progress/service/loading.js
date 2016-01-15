@@ -39,8 +39,7 @@ export default class Loading{
     }
 
     __render__(fromZero = true){
-        if(this.$instance !== null)
-            return this.$instance
+        if(this.$instance !== null) return this.$instance
 
         if(BODY.insertAdjacentHTML){
             BODY.insertAdjacentHTML('beforeEnd',template)

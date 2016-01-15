@@ -79,12 +79,16 @@ export function addClass(el, cls){
     if(typeof el === 'string') [el, cls] = [this, el]
     if(!isDOM(el)) return
 
-    if (el.classList) {
-        el.classList.add(cls)
-    } else {
-        let cur = ' ' + (el.getAttribute('class') || '') + ' '
-        if (cur.indexOf(' ' + cls + ' ') < 0) {
-            el.setAttribute('class', (cur + cls).trim())
+    let clsList = cls.split(' ')
+
+    while(cls = clsList.pop()){
+        if (el.classList) {
+            el.classList.add(cls)
+        } else {
+            let cur = ' ' + (el.getAttribute('class') || '') + ' '
+            if (cur.indexOf(' ' + cls + ' ') < 0) {
+                el.setAttribute('class', (cur + cls).trim())
+            }
         }
     }
 }
@@ -93,21 +97,23 @@ export function removeClass(el, cls){
     if(typeof el === 'string') [el, cls] = [this, el]
     if(!isDOM(el)) return
 
+    let clsList = cls.split(' ')
+    while(cls = clsList.pop()){
+        if (el.classList) {
+            el.classList.remove(cls)
+        } else {
+            let cur = ' ' + (el.getAttribute('class') || '') + ' '
+            let tar = ' ' + cls + ' '
+            while (cur.indexOf(tar) >= 0) {
+                cur = cur.replace(tar, ' ')
+            }
 
-    if (el.classList) {
-        el.classList.remove(cls)
-    } else {
-        let cur = ' ' + (el.getAttribute('class') || '') + ' '
-        let tar = ' ' + cls + ' '
-        while (cur.indexOf(tar) >= 0) {
-            cur = cur.replace(tar, ' ')
+            el.setAttribute('class', cur.trim())
         }
 
-        el.setAttribute('class', cur.trim())
-    }
-
-    if (!el.className) {
-        el.removeAttribute('class')
+        if (!el.className) {
+            el.removeAttribute('class')
+        }
     }
 }
 
@@ -141,13 +147,23 @@ export function off(el, event, cb){
 
 export function before(el, target) {
     if(arguments.length === 1) [el, target] = [this, el]
+    if(typeof el === 'string'){
+        let dom = createElem('div')
+        dom.innerHTML = el
+        el = dom.firstChild
+    }
     target.parentNode.insertBefore(el, target)
     return el
 }
 
 export function after(el, target) {
     if(arguments.length === 1) [el, target] = [this, el]
-    return target.nextSibling ? before(el, target.nextSibling) : target.parentNode.appendChild(el), el
+    if(typeof target === 'string'){
+        let dom = createElem('div')
+        dom.innerHTML = target
+        target = dom.firstChild
+    }
+    return el.nextSibling ? before(target,el.nextSibling) : el.parentNode.appendChild(target), target
 }
 
 export function prepend(target, el){
@@ -160,6 +176,17 @@ export function prepend(target, el){
     }
 
     return target.firstChild ? el::before(target.firstChild) : target.appendChild(el), el
+}
+
+export function last(target, el){
+    if(arguments.length === 1) [target, el] = [this, target]
+    if(typeof el === 'string'){
+        let dom = createElem('div')
+        dom.innerHTML = el
+        el = dom.firstChild
+    }
+
+    return target.length > 0 ? el::after(target.lastChild) : target.appendChild(el), el
 }
 
 export function remove(el){
@@ -276,8 +303,9 @@ export function createElem(tag){
     return document.createElement(tag)
 }
 
-export function getType(){
-    return Object.prototype.toString.call(this).replace(/^\[object (\w+)\]$/,'$1')
+export function getType(obj){
+    if(arguments.length === 0) obj = this
+    return Object.prototype.toString.call(obj).replace(/^\[object (\w+)\]$/,'$1')
 }
 
 export function is(v1, v2){
@@ -315,6 +343,18 @@ export function clamp(val, min, max){
     return val < min ? min : (val > max ? max : val)
 }
 
+export function def(obj, key, option){
+    Object.defineProperty(obj, key, option)
+}
+
+export function setStyle(el, obj){
+    if(arguments.length === 1) [el, obj] = [this, el]
+    for(var i in obj){
+        if(obj.hasOwnProperty(i)){
+            el.style[i] = obj[i]
+        }
+    }
+}
 
 /*export function extend(target){
     if(!this.$new) throw new Error("caller was not a angular scope variable.")
