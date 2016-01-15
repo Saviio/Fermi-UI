@@ -30,6 +30,7 @@ app.controller('main',['$scope','$timeout','Fermi.Loading','Fermi.Notification',
 
     window.loading=loading
     window.notification = notification
+    $scope.notification = notification
 
     $scope.message="test"
     $scope.tmp=scheduleItems[0]

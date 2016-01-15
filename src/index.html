@@ -176,6 +176,12 @@
             </Fermi:Select>
         </div>
 
+        <div id="fermiNotification" style="padding:30px;">
+            <Fermi:buttons content="normal" type="default" ng-click="notification.send(123)"></Fermi:buttons>
+            <Fermi:buttons content="success" type="default" ng-click="notification.send(123,'success')"></Fermi:buttons>
+            <Fermi:buttons content="warn" type="default" ng-click="notification.send(123,'warn')"></Fermi:buttons>
+            <Fermi:buttons content="error" type="default" ng-click="notification.send(123,'error')"></Fermi:buttons>
+        </div>
 
 
     </div>
