@@ -18,9 +18,7 @@ import {
 } from '../../utils'
 
 
-//multi
-//disable
-
+//do not use ngModel
 export class Select {
     constructor(){
         this.restrict = 'EA'
@@ -36,7 +34,8 @@ export class Select {
     }
 
     controller(scope, attrs){
-        if(attrs.multi !==undefined || attrs.tags !==undefined){
+
+        if(this.mode === 'multi' || this.mode ==='tags'){
             scope.ngModel = []
         }
 
@@ -44,6 +43,7 @@ export class Select {
             let option = scope.ngModel.splice(index, 1).pop()
             if(option.$elem !== null){
                 option.$elem.removeClass('tagged')
+                option.$elem.removeAttr('selected')
             }
             e.stopPropagation()
         }
@@ -133,7 +133,7 @@ export class Select {
         }
 
         let expanded = false
-        scope.switchDropdownState = () => {
+        scope.switchDropdownState = () => { //移到controller上
             expanded = !expanded
             if(expanded){
                 this.icon && this.icon::addClass('expanded')
@@ -160,7 +160,11 @@ export class Select {
                 if(e.keyCode !== 13) return
                 e.preventDefault()
                 if(value !== ''){
-                    scope.$apply(() => renderTag(value))
+                    if(scope.ngModel.every(existOption => existOption.item !== value)){
+                        scope.$apply(() => renderTag(value))
+                    } else {
+                        this.tagInput.innerHTML = '&nbsp;'
+                    }
                 }
             })
             this.tagInput::on('blur', e => {
@@ -172,37 +176,31 @@ export class Select {
     }
 
     passing(exports, scope){
-        exports.select = option => {
-            setTimeout(()=> {
+        exports.select = (option, init = false) => {
+            setTimeout(()=>{
                 if(this.mode === 'multi' || this.mode === 'tags' ){
                     if(scope.ngModel.every(existOption => existOption !== option)){
                         scope.ngModel.push(option)
                         option.$elem.addClass('tagged')
                         option.$elem.attr('selected',true)
                     }
-                } else if (false){
-                    //multi
                 } else {
                     scope.ngModel = option
-                    scope.switchDropdownState()
+                    if(!init) scope.switchDropdownState()
                 }
 
-                if(scope.$root.$$phase != '$apply' && scope.$root.$$phase != '$digest'){
+                if(!/\$apply|\$digest/.test(scope.$root.$$phase)){
                     scope.$apply()
                 }
-            },0)
-
+            }, 0)
         }
+
+        exports.mode = this.mode
     }
 }
 
 
-
-//@value
-//@data
-//select option group
-//single option disable
-//checked
+//select option group (IMPLEMENT ME!)
 export class Option {
     constructor(){
         this.restrict = 'EA'
@@ -218,19 +216,31 @@ export class Option {
             scope.value = attrs.value
         }
 
+        let isSelected = $elem::getDOMState('selected')
+
         let option = {
             item:scope.value,
             data:scope.data || {value: scope.value},
             $elem:$elem
         }
 
+
         $elem.bind('click', () => {
+            let isDisabled = $elem::getDOMState('disabled')
+            if(isDisabled) return
+
+            if(parentCtrl.mode === 'multi' || parentCtrl.mode === 'tags'){
+                $elem.attr('selected', true)
+            } else {
+                $elem.parent().children().removeAttr('selected')
+                $elem.attr('selected', true)
+            }
+
             parentCtrl.select(option)
         })
 
-        let isSelected = $elem::getDOMState('selected')
         if(isSelected){
-            parentCtrl.select(option)
+            parentCtrl.select(option, true)
         }
     }
 }

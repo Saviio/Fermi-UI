@@ -1,28 +1,14 @@
 import cache from '../utils/cache'
 import { generateFermiId } from '../utils'
 
-let mixin = function(instance){
-	let dest = this
-	if(!dest.$new) throw new Error("caller was not a angular scope object.")
 
-	for (let key in instance) {
-		if (!dest[key] /*&& instance.hasOwnProperty(key)*/) {
-			dest[key] = instance[key]
-		}
-	}
-}
-
-//写一个cache对象，key => randomToken，tagged in rootElement， 当执行到controller方法时，获取通过elem获取之前instance的实例，然后从element以及cache上remove掉，将实例状态与scope mixin invoke as caller
-//写一个浅拷贝带ignore key的function
-
-//为了看起来比较“完整”的支持使用ES6 Class 来编写Angular Directive，因此做了一下属性糅杂的小技巧来保证开发体验是一致的。
-//so 可能在某些corner case可能会导致工作失常，尚在斟酌中。
-
-let __cache__ = new cache()
-window.ccc=__cache__
-window.genId = generateFermiId
+//为了看起来比较“完整”的支持使用ES6 Class 来编写Angular Directive，因此做了些小技巧来保证开发体验是一致的，directive的controller方法会在运行时多传入一个或两个依赖。
+//directive 流程： compile => controller => link
+//可能在某些corner case可能会导致工作失常，尚在斟酌中。
 
 const FermiIdenitifer = 'data-fermiId'
+let $cache = new cache()
+
 
 export default class DirectiveFactory {
 	static create(Directive) {
@@ -39,7 +25,7 @@ export default class DirectiveFactory {
 					let [$elem, ...restArgs] = compileArgs
 					let postLink = compileOrg.apply(ins, compileArgs)
 					let fmId = generateFermiId()
-					__cache__.add(fmId, ins)
+					$cache.add(fmId, ins)
 					$elem.attr(FermiIdenitifer, fmId)
 
 					return (...linkArgs) => {
@@ -48,7 +34,7 @@ export default class DirectiveFactory {
 							postLink.apply(ins, linkArgs)
 						}
 						$elem.removeAttr(FermiIdenitifer)
-						__cache__.remove(fmId)
+						$cache.remove(fmId)
 					}
 				}
 			} else if(typeof instance.link === 'function') {
@@ -58,7 +44,7 @@ export default class DirectiveFactory {
 					let fmId = $elem.attr(FermiIdenitifer)
 					let caller
 					if(fmId !== undefined){
-						caller = __cache__.remove(fmId)
+						caller = $cache.remove(fmId)
 					} else {
 						caller = new Directive(...args) //remark 更换了顺序，review
 					}
@@ -92,11 +78,11 @@ export default class DirectiveFactory {
 					let fmId = $elem.attr(FermiIdenitifer)
 					let caller
 					if(fmId !== undefined){
-						caller = __cache__.get(fmId)
+						caller = $cache.get(fmId)
 					} else {
 						caller = new Directive(...args)
 						fmId = generateFermiId()
-						__cache__.add(fmId, caller)
+						$cache.add(fmId, caller)
 						$elem.attr(FermiIdenitifer, fmId)
 					}
 
@@ -108,7 +94,7 @@ export default class DirectiveFactory {
 
 					if(typeof instance.link !== 'function' && fmId !== undefined){
 						$elem.removeAttr(FermiIdenitifer)
-						__cache__.remove(fmId)
+						$cache.remove(fmId)
 					}
 				}
 
@@ -120,11 +106,11 @@ export default class DirectiveFactory {
 					let fmId = $elem.attr(FermiIdenitifer)
 					let caller
 					if(fmId !== undefined){
-						caller = __cache__.get(fmId)
+						caller = $cache.get(fmId)
 					} else {
 						caller = new Directive(...args)
 						let id = generateFermiId()
-						__cache__.add(id, caller)
+						$cache.add(id, caller)
 						$elem.attr(FermiIdenitifer, id)
 					}
 

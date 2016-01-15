@@ -63,7 +63,6 @@
             .tag-input{
                 background: none;
                 border: none;
-                width:5px;
                 >span{
                     outline: none;
                     border:none;
@@ -113,15 +112,22 @@
                 line-height:26px;
                 cursor:pointer;
                 //padding:7px 33px 7px 16px;
-
+                user-select:none;
                 &:hover{
                     background-color:#eaf8fe !important;
                 }
+            }
 
+            li[disabled="disabled"]{
+                cursor: not-allowed;
+                color:#ccc;
+                &:hover{
+                    background-color:inherit !important;
+                }
             }
 
             .tagged{
-                background: #d5f1fd;
+                background: #eaf8fe !important;
             }
         }
 

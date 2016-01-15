@@ -155,13 +155,16 @@
             <p>Select</p>
             <Fermi:Select style="width:180px;" ng-model="selectEntity" search id="really">
                 <Fermi:Option ng-repeat="item in list" value="item.name">{{item.name}}</Fermi:Option>
+                <Fermi:Option value="Rose" selected>Rose</Fermi:Option>
             </Fermi:Select>
             <Fermi:Select style="width:180px;" ng-model="selectEntity3" id="really">
                 <Fermi:Option ng-repeat="item in list" value="item.name">{{item.name}}</Fermi:Option>
+                <Fermi:Option value="Rose" disabled="true">Rose</Fermi:Option>
             </Fermi:Select>
 
             <Fermi:Select style="width:250px;" ng-model="selectEntity2" multi id="sure" control="selected">
                 <Fermi:Option ng-repeat="item in list" value="item.name">{{item.name}}</Fermi:Option>
+                <Fermi:Option value="Rose" selected>Rose</Fermi:Option>
             <!--    <Fermi:Option value="Titanic">Titanic</Fermi:Option>
                 <Fermi:Option value="Jack">Jack</Fermi:Option>
                 <Fermi:Option value="Rose">Rose</Fermi:Option> -->
@@ -169,7 +172,7 @@
 
             <Fermi:Select style="width:250px;" ng-model="selectEntity4" tags id="sure" control="ck">
                 <Fermi:Option ng-repeat="item in list" value="item.name">{{item.name}}</Fermi:Option>
-                <Fermi:Option value="Rose" selected>Rose</Fermi:Option>
+                <Fermi:Option value="Rose" disabled>Rose</Fermi:Option>
             </Fermi:Select>
         </div>
 
