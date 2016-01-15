@@ -36,7 +36,6 @@ export class Select {
     }
 
     controller(scope, attrs){
-
         if(attrs.multi !==undefined || attrs.tags !==undefined){
             scope.ngModel = []
         }

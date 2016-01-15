@@ -20,6 +20,7 @@ let mixin = function(instance){
 
 let __cache__ = new cache()
 window.ccc=__cache__
+window.genId = generateFermiId
 
 const FermiIdenitifer = 'data-fermiId'
 
@@ -37,24 +38,24 @@ export default class DirectiveFactory {
 					let ins = new Directive(...args)
 					let [$elem, ...restArgs] = compileArgs
 					let postLink = compileOrg.apply(ins, compileArgs)
-					let id = generateFermiId()
-					__cache__.add(id, ins)
-					$elem.attr('data-fmId', id)
+					let fmId = generateFermiId()
+					__cache__.add(fmId, ins)
+					$elem.attr(FermiIdenitifer, fmId)
 
 					return (...linkArgs) => {
 						let [scope, $elem, ...restArgs] = linkArgs
 						if(postLink !== undefined){
 							postLink.apply(ins, linkArgs)
 						}
-						$elem.removeAttr('data-fmId')
-
+						$elem.removeAttr(FermiIdenitifer)
+						__cache__.remove(fmId)
 					}
 				}
 			} else if(typeof instance.link === 'function') {
 				let linkOrg = instance.link
 				instance.link = function (...linkArgs) {
 					let [scope, $elem, ...restArgs] = linkArgs
-					let fmId = $elem.attr('data-fmId')
+					let fmId = $elem.attr(FermiIdenitifer)
 					let caller
 					if(fmId !== undefined){
 						caller = __cache__.remove(fmId)
@@ -77,28 +78,26 @@ export default class DirectiveFactory {
 					]
 				}
 
-				//debugger
 				if(instance.controller.$inject.indexOf('$element') === -1){
 					instance.controller.$inject  = [
 						...instance.controller.$inject , '$element'
 					]
 				}
 
-
 				instance.controller = function (...controllerArgs) {
 					let scopeIndex = instance.controller.$inject && instance.controller.$inject.indexOf('$scope')
 					let elemIndex = instance.controller.$inject && instance.controller.$inject.indexOf('$element')
 					let $elem = elemIndex !== -1 && elemIndex !== undefined && controllerArgs[elemIndex]
 					//debugger
-					let fmId = $elem.attr('data-fmId')
+					let fmId = $elem.attr(FermiIdenitifer)
 					let caller
 					if(fmId !== undefined){
 						caller = __cache__.get(fmId)
 					} else {
 						caller = new Directive(...args)
-						let id = generateFermiId()
-						__cache__.add(id, caller)
-						$elem.attr('data-fmId', id)
+						fmId = generateFermiId()
+						__cache__.add(fmId, caller)
+						$elem.attr(FermiIdenitifer, fmId)
 					}
 
 					controllerOrg.apply(caller, controllerArgs)
@@ -108,7 +107,7 @@ export default class DirectiveFactory {
 					}
 
 					if(typeof instance.link !== 'function' && fmId !== undefined){
-						$elem.removeAttr('data-fmId')
+						$elem.removeAttr(FermiIdenitifer)
 						__cache__.remove(fmId)
 					}
 				}
@@ -118,7 +117,7 @@ export default class DirectiveFactory {
 			} else if(typeof instance.passing === 'function'){
 				instance.controller = function (...controllerArgs){
 					let [scope, $elem, ...restArgs] = controllerArgs
-					let fmId = $elem.attr('data-fmId')
+					let fmId = $elem.attr(FermiIdenitifer)
 					let caller
 					if(fmId !== undefined){
 						caller = __cache__.get(fmId)
@@ -126,7 +125,7 @@ export default class DirectiveFactory {
 						caller = new Directive(...args)
 						let id = generateFermiId()
 						__cache__.add(id, caller)
-						$elem.attr('data-fmId', id)
+						$elem.attr(FermiIdenitifer, id)
 					}
 
 					instance.passing.apply(caller, [this])
