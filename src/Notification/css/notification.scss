@@ -1,6 +1,6 @@
 #fm-notification-container{
     position: fixed;
-    z-index: 9999;
+    z-index: 99999;
     margin-right: 25px;
     width: 350px;
 
@@ -27,13 +27,10 @@
             margin-top:-30px;
         }
 
-        div > h3 {
+        div > h3, div > .fm-notice-content {
             margin-left: 60px;
         }
 
-        div > .fm-notice-content {
-            margin-left: 60px;
-        }
 
         > .fm-close {
             position: absolute;
@@ -76,9 +73,14 @@
         }
     }
 
+    .fm-noticeStatus-default{
+        div > .fm-notice-content, div > h3 {
+            margin-left:0px;
+        }
+    }
+
     .fm-notice-show{
         right:0px;
     }
-
 
 }

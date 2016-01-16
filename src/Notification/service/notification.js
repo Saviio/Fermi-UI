@@ -23,15 +23,16 @@ let defaultConfig = {
     duration:4.5
 }
 
-//callback
-//default
-//params
+let compile = null
+let rootScope = null
+
+//custom(tmpl, scope){} 实现自定义模板
 export default class Notification{
     constructor($compile, $rootScope){
         this._rendered = false
         this._container = null
-        this.$compile = $compile
-        this.$rootScope = $rootScope
+        compile = $compile
+        rootScope = $rootScope
     }
 
     __dispose__(){
@@ -41,7 +42,7 @@ export default class Notification{
         this._container = this._body = null
     }
 
-    __render__(){
+    __tryRender__(){
         if(this._rendered) return
         this._container = BODY::last(container)
         this._body = this._container::query('div')
@@ -56,42 +57,50 @@ export default class Notification{
         return (this.customConfig || defaultConfig)[key] || defaultConfig[key]
     }
 
-    send(message, type = 'normal', autoClose = true){
-        if(!/default|normal|success|warn|error/.test(type)){
+    __remove__(notificationNode, callback){
+        if(!notificationNode::inDoc()) return
+        notificationNode
+                ::removeClass(`fm-notice-show`)
+                ::onMotionEnd(() => {
+                    notificationNode::remove()
+                    this.__dispose__()
+                })
+        if(typeof callback === 'function'){
+            callback()
+        }
+    }
+
+
+    send(option){
+        if(!/default|normal|success|warn|error/.test(option.type)){
             throw new Error(`
                     Message Type is not a valid value, it should be one of following values: [default, normal, success, warn, error].`)
             return
         }
 
-        this.__render__()
-        let notification = this._body::prepend(defaultMessage)
-        let icon = notification::query('i')
-        let closeBtn = notification::query('.fm-close')
-        notification::query('.fm-notice-content').innerText = message //remark
-        notification::addClass(`fm-noticeStatus-${type}`) //remark
-        icon::addClass(`icon-${type}`) //remark
+        this.__tryRender__()
+        let cancellId
+        let scope = rootScope.$new()
+
+        scope.message = option.message || ''
+        scope.topic = option.topic || ''
+        scope.type = option.type
+        scope.callback = option.callback ? option.callback : null
+        scope.destory = e => {
+            if(cancellId !== undefined) clearTimeout(cancellId)
+            this.__remove__(e.target.parentNode, scope.callback)
+        }
+
+        let content = compile(defaultMessage)(scope)[0]
+        let notification = this._body::prepend(content)
         setTimeout(() => notification::addClass('fm-notice-show'), 50)
 
-        let destory = () => {
-            if(!notification::inDoc()) return
-            notification
-                    ::removeClass(`fm-notice-show`)
-                    ::onMotionEnd(() => {
-                        notification::remove()
-                        this.__dispose__()
-                    })
+        if(option.duration !== null && option.duration !== 0){
+            let duration = option.duration || this.__getConfig__('duration')
+            cancellId = setTimeout(() => {
+                this.__remove__(notification, scope.callback)
+            }, duration * 1000)
         }
-
-        let cancellId
-        let duration = this.__getConfig__('duration')
-        if(autoClose){
-            cancellId = setTimeout(destory, duration * 1000)
-        }
-
-        closeBtn::on('click', e => {
-            if(cancellId !== undefined) clearTimeout(cancellId)
-            destory()
-        })
     }
 
     config(option){
@@ -101,12 +110,46 @@ export default class Notification{
         }
     }
 
-    normal(){}
-    success(){}
-    warn(){}
-    error(){}
-    default(){}
-    custom(tmpl, scope){}
+    normal(message = '', topic = ''){
+        return this.send({
+            message,
+            topic,
+            type:'normal',
+            duration:undefined
+        })
+    }
+    success(message = '', topic = ''){
+        return this.send({
+            message,
+            topic,
+            type:'success',
+            duration:undefined
+        })
+    }
+    warn(message = '', topic = ''){
+        return this.send({
+            message,
+            topic,
+            type:'warn',
+            duration:undefined
+        })
+    }
+    error(message = '', topic = ''){
+        return this.send({
+            message,
+            topic,
+            type:'error',
+            duration:undefined
+        })
+    }
+    default(message = '', topic = ''){
+        return this.send({
+            message,
+            topic,
+            type:'default',
+            duration:undefined
+        })
+    }
 }
 
 Notification.$inject = ['$compile', '$rootScope']

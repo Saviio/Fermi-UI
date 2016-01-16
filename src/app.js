@@ -99,6 +99,15 @@ app.controller(
             { category: 'meat', name: 'Heart of Occean' }
         ]
 
+        $scope.notificationOption ={
+            topic:'Callback Test',
+            message:'After notification is removed, please check the output in Console.',
+            type:'normal',
+            callback:function(){
+                console.info('callback was executed.')
+            }
+        }
+
         window.ss= () => $scope.list = list2
 
 }])
