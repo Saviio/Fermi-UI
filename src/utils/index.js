@@ -43,7 +43,6 @@ export function escapeHTML(str){
     return str.replace(/&/g,"&amp;")
               .replace(/</g,"&lt;")
               .replace(/>/g,"&gt;")
-              .replace(/ /g,"&nbsp;")
               .replace(/"/g,"&#34;")
               .replace(/'/g,"&#39;")
 }
@@ -149,45 +148,26 @@ export function off(el, event, cb){
 
 export function before(el, target) {
     if(arguments.length === 1) [el, target] = [this, el]
-    if(typeof el === 'string'){
-        let dom = createElem('div')
-        dom.innerHTML = el
-        el = dom.firstChild
-    }
+    el = toDOM(el)
     target.parentNode.insertBefore(el, target)
     return el
 }
 
 export function after(el, target) {
     if(arguments.length === 1) [el, target] = [this, el]
-    if(typeof target === 'string'){
-        let dom = createElem('div')
-        dom.innerHTML = target
-        target = dom.firstChild
-    }
+    el = toDOM(el)
     return el.nextSibling ? before(target,el.nextSibling) : el.parentNode.appendChild(target), target
 }
 
 export function prepend(target, el){
     if(arguments.length === 1) [target, el] = [this, target]
-
-    if(typeof el === 'string'){
-        let dom = createElem('div')
-        dom.innerHTML = el
-        el = dom.firstChild
-    }
-
+    el = toDOM(el)
     return target.firstChild ? el::before(target.firstChild) : target.appendChild(el), el
 }
 
 export function last(target, el){
     if(arguments.length === 1) [target, el] = [this, target]
-    if(typeof el === 'string'){
-        let dom = createElem('div')
-        dom.innerHTML = el
-        el = dom.firstChild
-    }
-
+    el = toDOM(el)
     return target.length > 0 ? el::after(target.lastChild) : target.appendChild(el), el
 }
 
@@ -198,11 +178,7 @@ export function remove(el){
 
 export function replace(target, el){
     if(arguments.length === 1) [target, el] = [this, target]
-    if(typeof el === 'string'){
-        let dom = createElem('div')
-        dom.innerHTML = el
-        el = dom.firstChild
-    }
+    el = toDOM(el)
 
     let parent = target.parentNode
     if(parent){
@@ -214,6 +190,17 @@ export function replace(target, el){
 export function isDOM(el){
     if (el.nodeType && el.nodeName) return true
     return false
+}
+
+export function toDOM(el){
+    if(arguments.length === 0) el = this
+    if(typeof el === 'string'){
+        let dom = createElem('div')
+        dom.innerHTML = el
+        el = dom.firstChild
+    }
+
+    return el
 }
 
 export function detechPrefix(){

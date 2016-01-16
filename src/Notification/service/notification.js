@@ -1,7 +1,6 @@
 import { DOM, BODY } from '../../utils/browser'
 import container from '../template/container.html'
-import defaultMessage from '../template/default.html'
-
+import defaultMessage from '../template/message.html'
 
 import{
     on,
@@ -28,9 +27,11 @@ let defaultConfig = {
 //default
 //params
 export default class Notification{
-    constructor(){
+    constructor($compile, $rootScope){
         this._rendered = false
         this._container = null
+        this.$compile = $compile
+        this.$rootScope = $rootScope
     }
 
     __dispose__(){
@@ -56,13 +57,19 @@ export default class Notification{
     }
 
     send(message, type = 'normal', autoClose = true){
+        if(!/default|normal|success|warn|error/.test(type)){
+            throw new Error(`
+                    Message Type is not a valid value, it should be one of following values: [default, normal, success, warn, error].`)
+            return
+        }
+
         this.__render__()
         let notification = this._body::prepend(defaultMessage)
         let icon = notification::query('i')
         let closeBtn = notification::query('.fm-close')
-        notification::query('.fm-notice-content').innerText = message
-        notification::addClass(`fm-noticeStatus-${type}`)
-        icon::addClass(`icon-${type}`)
+        notification::query('.fm-notice-content').innerText = message //remark
+        notification::addClass(`fm-noticeStatus-${type}`) //remark
+        icon::addClass(`icon-${type}`) //remark
         setTimeout(() => notification::addClass('fm-notice-show'), 50)
 
         let destory = () => {
@@ -99,4 +106,7 @@ export default class Notification{
     warn(){}
     error(){}
     default(){}
+    custom(tmpl, scope){}
 }
+
+Notification.$inject = ['$compile', '$rootScope']

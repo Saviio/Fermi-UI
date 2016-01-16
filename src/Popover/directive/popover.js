@@ -8,6 +8,7 @@ import {
     query,
     createElem,
     prepend,
+    toDOM,
     on
 } from '../../utils'
 
@@ -28,7 +29,7 @@ export default class Popover{
         this.controller.$inject = ['$scope']
     }
 
-    controller(scope){
+    controller(scope, $elem){
         scope.open = () => {
             if(scope.isOpen === false){
                 scope.isOpen = !scope.isOpen
@@ -110,7 +111,7 @@ export default class Popover{
             let event = attr.action || 'click'
 
             if(!/click|hover|focus|manual/.test(event)){
-                throw new Error("Event does not supported, it should one of 'click','hover','focus' or 'manual'")
+                throw new Error("Event is not supported, it should one of the following values: [click, hover, focus, manual]")
             } else if(event === 'hover'){
                 event = 'mouseenter'
             } else if(event === 'manual'){
@@ -150,7 +151,7 @@ export default class Popover{
             setTimeout(() => {
                 setLocation()
                 this.arrowColor(attr.trigger, placement, arrowColor, )
-            },0)
+            }, 0)
         }
 
         init()
@@ -159,15 +160,14 @@ export default class Popover{
     compile($tElement, tAttrs, transclude){
         let dire = (tAttrs.placement || "top").toLowerCase()
         if(["top","bottom","left","right"].indexOf(dire) === -1){
-            throw Error("Popover direction not in announced list(top,bottom,left,right).")
+            throw Error("Popover direction is not in announced list (top,bottom,left,right).")
         }
 
-        let tmpl = popoverTmpl.replace(/#{dire}/, dire)
+        let tmpl = popoverTmpl.replace(/#{dire}/, dire)::toDOM()
         if($tElement::getDOMState('close')){
-            tmpl = tmpl.replace('<!--CLOSE_BUTTON-->',`<button class="fm-close">×</button>`)
-        } else {
-            tmpl = tmpl.replace('<!--CLOSE_BUTTON-->',"")
+            tmpl::prepend('<button class="fm-close">×</button>')
         }
+
         $tElement.append(tmpl)
 
         if(tAttrs.trigger == undefined){
@@ -193,7 +193,7 @@ export default class Popover{
         if(style === null){
             style = createElem('style')
             style.id = "__arrowColor__"
-            query('head').appendChild(style)
+            DOM::query('head').appendChild(style)
         }
 
         let css = `
