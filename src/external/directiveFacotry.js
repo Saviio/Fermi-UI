@@ -45,6 +45,7 @@ export default class DirectiveFactory {
 					let caller
 					if(fmId !== undefined){
 						caller = $cache.remove(fmId)
+						$elem.removeAttr(FermiIdenitifer)
 					} else {
 						caller = new Directive(...args) //remark 更换了顺序，review
 					}

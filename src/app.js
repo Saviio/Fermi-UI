@@ -23,7 +23,8 @@ var app=angular.module('app', [
     'Fermi.tooltip',
     'Fermi.breadcrumb',
     'Fermi.progress',
-    'Fermi.tab','Fermi.popover',
+    'Fermi.tab',
+    'Fermi.popover',
     'Fermi.buttons',
     'Fermi.select',
     'Fermi.notification'

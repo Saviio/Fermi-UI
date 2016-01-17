@@ -27,6 +27,7 @@ let compile = null
 let rootScope = null
 
 //custom(tmpl, scope){} 实现自定义模板
+//close 函数？
 export default class Notification{
     constructor($compile, $rootScope){
         this._rendered = false
@@ -106,7 +107,7 @@ export default class Notification{
     config(option){
         if(this.customConfig === undefined){
             this.customConfig = option
-            Object.frezz(this.customConfig)
+            Object.freeze(this.customConfig)
         }
     }
 
@@ -114,40 +115,39 @@ export default class Notification{
         return this.send({
             message,
             topic,
-            type:'normal',
-            duration:undefined
+            type:'normal'
         })
     }
+
     success(message = '', topic = ''){
         return this.send({
             message,
             topic,
-            type:'success',
-            duration:undefined
+            type:'success'
         })
     }
+
     warn(message = '', topic = ''){
         return this.send({
             message,
             topic,
-            type:'warn',
-            duration:undefined
+            type:'warn'
         })
     }
+
     error(message = '', topic = ''){
         return this.send({
             message,
             topic,
-            type:'error',
-            duration:undefined
+            type:'error'
         })
     }
+
     default(message = '', topic = ''){
         return this.send({
             message,
             topic,
-            type:'default',
-            duration:undefined
+            type:'default'
         })
     }
 }

@@ -1,6 +1,7 @@
 import template from '../template/template.html'
 import {getDOMState} from '../../utils'
 
+//IE9 pointer-event 没有兼容性 remark
 export default class Buttons {
     constructor(){
         this.restrict = 'EA'
@@ -22,27 +23,25 @@ export default class Buttons {
             if(!scope.loading){
                 scope.$apply(() => {
                     $elem.addClass('loading')
-                    scope.loading=true
+                    scope.loading = true
                 })
             }
         }
         let done = () => {
             if(scope.loading){
-                scope.$apply(()=>{
+                scope.$apply(() => {
                     $elem.removeClass('loading')
-                    scope.loading=false
+                    scope.loading = false
                 })
             }
         }
 
         let disable = () => {
-            $elem.attr('disabled',true)
-            return undefined
+            $elem.attr('disabled', true)
         }
 
         let allow = () => {
             $elem.removeAttr('disabled')
-            return undefined
         }
 
         if(attrs.control !== undefined){
@@ -57,12 +56,12 @@ export default class Buttons {
         if(isLoading) $elem.addClass('loading')
     }
 
-    link(scope, elem, attrs, ctrl){
+    link(scope, $elem, attrs, ctrl){
         let size = (attrs.size || 'default').toLowerCase()
         let type = (attrs.type || 'default').toLowerCase()
 
-        if(size !== 'default') elem.addClass(`buttons-${size}`)
+        if(size !== 'default') $elem.addClass(`buttons-${size}`)
 
-        elem.addClass(`buttons-${type}`)
+        $elem.addClass(`buttons-${type}`)
     }
 }
