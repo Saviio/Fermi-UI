@@ -17,22 +17,23 @@ export default class Tooltips{
 
     link(scope,$elem,attr,ctrl){
 
-        ctrl.container = null, ctrl.parent = null
+        ctrl.container = null
+        ctrl.parent = null
         ctrl.tooltipTmpl = `
                 <div class="tooltip-arrow tooltip-arrow"></div>
                 <div class="tooltip-content">
                     <span>${scope.content}</span>
                 </div>
-        `
+        `//remark use compile + scope
 
         ctrl.style = null
         ctrl.placement = scope.placement || 'top'
         ctrl.isExpend = false
 
-        ctrl.getContainer = () => {
+        ctrl.getContainer = () => { //remark ctrl.container rename to ctrl.$container
             if(!ctrl.container){
-                ctrl.container = document.createElement('div')
-                document.body.appendChild(ctrl.container)
+                ctrl.container = document.createElement('div') //remark
+                document.body.appendChild(ctrl.container) //remark
                 ctrl.container = angular.element(ctrl.container)
                 ctrl.container.html(ctrl.tooltipTmpl)
                 ctrl.container.addClass(`tooltip tooltip-hidden tooltip-${ctrl.placement}`)
@@ -44,7 +45,7 @@ export default class Tooltips{
             let offset = scope.offset || 6
             let tooltip = ctrl.getContainer()
 
-            let {left,top} = $elem[0]::getCoords()
+            let { left,top } = $elem[0]::getCoords()
             let height = $elem[0]::getStyle('height')
             let width = $elem[0]::getStyle('width')
 
@@ -56,38 +57,38 @@ export default class Tooltips{
             switch(scope.placement){
                 case 'top':
                     ctrl.style =  {
-                        left:`${(left+width/2)-tpWidth/2}px`,
-                        top:`${top-tpHeight-offset-7}px`
+                        left:`${(left + width / 2) - tpWidth / 2}px`,
+                        top:`${top - tpHeight-offset - 7}px`
                     }
                 break
                 case 'bottom':
                     ctrl.style = {
-                        left:`${(left+width/2)-tpWidth/2}px`,
-                        top:`${top+height+offset}px`
+                        left:`${(left + width / 2) - tpWidth / 2}px`,
+                        top:`${top + height + offset}px`
                     }
                     break
                 case 'left':
                     ctrl.style = {
-                        left:`${left-tpWidth-offset-4}px`,
-                        top:`${(top+height/2)-tpHeight/2}px`
+                        left:`${left - tpWidth - offset - 4}px`,
+                        top:`${(top + height / 2) - tpHeight / 2}px`
                     }
                     break
                 case 'right':
                     ctrl.style = {
-                        left:`${left+width}px`,
-                        top:`${(top+height/2)-tpHeight/2}px`
+                        left:`${left + width}px`,
+                        top:`${(top + height / 2)-tpHeight/2}px`
                     }
                     break
             }
 
-            tooltip.css('left',ctrl.style.left)
-            tooltip.css('top',ctrl.style.top)
+            tooltip.css('left', ctrl.style.left)
+            tooltip.css('top', ctrl.style.top)
         }
 
         Object.defineProperty(ctrl, 'tooltip', {
             get: () => {
                 if(!ctrl.isExpend) ctrl.setLocationStyle()
-                ctrl.isExpend =! ctrl.isExpend
+                ctrl.isExpend = !ctrl.isExpend
                 return ctrl.getContainer()
             },
             set: () => {},

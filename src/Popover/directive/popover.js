@@ -45,10 +45,7 @@ export default class Popover{
             scope.$layer.addClass('pop-disappear-animation')
         }
 
-        scope.toggle = () => {
-            if (scope.isOpen) scope.close()
-            else scope.open()
-        }
+        scope.toggle = () => scope.isOpen ? scope.close() : scope.open()
     }
 
     link(scope, $element, attr, ctrl){

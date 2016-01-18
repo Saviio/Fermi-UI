@@ -55,8 +55,8 @@ export default class Schedule{
                 let time=undefined
 
                 if(re.STR.test(k[key])){
-                    time=new Date(0)
-                    let info=k[key].match(re.STR)
+                    time = new Date(0)
+                    let info = k[key].match(re.STR)
                     time.setYear(info[1])
                     time.setMonth(info[2]-1)
                     time.setDate(info[3])
@@ -92,14 +92,14 @@ export default class Schedule{
         scope.calculateHeight = evt => {
             if(evt == null) return
 
-            let skew=0, height=null
+            let skew = 0, height = null
             if(evt.$minutes) skew = evt.$minutes/60
 
             height = evt.duration/60
 
             return {
-                height:`${height*100}%`,
-                top:`${skew*100}%;`
+                height:`${height * 100}%`,
+                top:`${skew * 100}%;`
             }
         }
 
@@ -117,7 +117,7 @@ export default class Schedule{
             },
             refresh:function(set, key){
                 scope.hebdom = {}
-                this.update(set,key)
+                this.update(set, key)
             }
         }
 

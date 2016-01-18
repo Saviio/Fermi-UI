@@ -17,7 +17,7 @@ export default class Buttons {
     }
 
     @dependencies('$scope', '$attrs', '$element')
-    controller(scope,attrs,$elem){
+    controller(scope, attrs, $elem){
         let isLoading = $elem::getDOMState('loading')
         scope.loading = isLoading
 
@@ -38,13 +38,9 @@ export default class Buttons {
             }
         }
 
-        let disable = () => {
-            $elem.attr('disabled', true)
-        }
+        let disable = () => $elem.attr('disabled', true)
+        let allow = () => $elem.removeAttr('disabled')
 
-        let allow = () => {
-            $elem.removeAttr('disabled')
-        }
 
         if(attrs.control !== undefined){
             scope.control = {
@@ -63,7 +59,6 @@ export default class Buttons {
         let type = (attrs.type || 'default').toLowerCase()
 
         if(size !== 'default') $elem.addClass(`buttons-${size}`)
-
         $elem.addClass(`buttons-${type}`)
     }
 }

@@ -31,9 +31,10 @@ export class Select {
             control:'='
         }
         this.transclude = true
-        this.controller.$inject = ['$scope', '$attrs']
+        //this.controller.$inject = ['$scope', '$attrs']
     }
 
+    @dependencies('$scope', '$attrs')
     controller(scope, attrs){
 
         if(this.mode === 'multi' || this.mode ==='tags'){
@@ -134,7 +135,7 @@ export class Select {
         }
 
         let expanded = false
-        scope.switchDropdownState = () => { //移到controller上
+        scope.switchDropdownState = () => { //移到controller上 remark
             expanded = !expanded
             if(expanded){
                 this.icon && this.icon::addClass('expanded')

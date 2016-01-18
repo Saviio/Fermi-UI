@@ -13,7 +13,7 @@ export default class Query{
             control: '=',
             callback: '='
         }
-        this.timeout = $timeout
+        this.$timeout = $timeout
     }
 
     @dependencies('$scope')
@@ -39,12 +39,12 @@ export default class Query{
 
         scope.show = () => {
             $element.removeClass('hide')
-            this.timeout(() => $element.addClass('progress-query-show'),10)
-            actived=true
+            this.$timeout(() => $element.addClass('progress-query-show'), 10)
+            actived = true
         }
 
         scope.hide = () => {
-            this.timeout(() => $element.removeClass('progress-query-show'),10)
+            this.$timeout(() => $element.removeClass('progress-query-show'), 10)
             actived = false
         }
 

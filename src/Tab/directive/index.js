@@ -68,7 +68,7 @@ export class Tab{
     }
 
 
-    link(scope,$element,attrs,parentCtrl){
+    link(scope, $element, attrs, parentCtrl){
         let header  = attrs.header
         let disable = $element::getDOMState('disable')
         let actived = $element::getDOMState('actived')
