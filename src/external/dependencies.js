@@ -9,7 +9,7 @@ export function dependencies(...injection){
         if(target !== null && key === undefined && descriptor === undefined){
             let clazz = class extends target {
                 constructor(...args){
-                    super(args)
+                    super(...args)
                 }
             }
 

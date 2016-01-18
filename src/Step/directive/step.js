@@ -1,3 +1,4 @@
+import { dependencies } from '../../external/dependencies'
 import horizontal from '../template/horizontal.html'
 import vertical from '../template/vertical.html'
 
@@ -24,6 +25,7 @@ export class Steps {
     controller(scope){
 
     }
+
 }
 
 

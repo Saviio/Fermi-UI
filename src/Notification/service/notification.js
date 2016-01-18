@@ -1,3 +1,4 @@
+import { dependencies } from '../../external/dependencies'
 import { DOM, BODY } from '../../utils/browser'
 import container from '../template/container.html'
 import defaultMessage from '../template/message.html'
@@ -28,6 +29,8 @@ let rootScope = null
 
 //custom(tmpl, scope){} 实现自定义模板
 //close 函数？
+
+@dependencies('$compile', '$rootScope')
 export default class Notification{
     constructor($compile, $rootScope){
         this._rendered = false
@@ -151,5 +154,3 @@ export default class Notification{
         })
     }
 }
-
-Notification.$inject = ['$compile', '$rootScope']

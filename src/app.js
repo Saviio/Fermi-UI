@@ -1,6 +1,5 @@
 //import global
 import angular from 'angular'
-import { controllerInject } from './external'
 import './fermi.scss'
 
 //import Fermi.components
