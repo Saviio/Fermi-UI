@@ -1,5 +1,6 @@
 //import global
 import angular from 'angular'
+import { controllerInject } from './external'
 import './fermi.scss'
 
 //import Fermi.components
@@ -13,6 +14,8 @@ import './Popover'
 import './Button'
 import './Select'
 import './Notification'
+import './Step'
+
 
 //import mock data
 import scheduleItems from './scheduleItems.json'
