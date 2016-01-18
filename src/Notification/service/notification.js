@@ -29,6 +29,7 @@ let rootScope = null
 
 //custom(tmpl, scope){} 实现自定义模板
 //close 函数？
+//remark DOM leak
 
 @dependencies('$compile', '$rootScope')
 export default class Notification{

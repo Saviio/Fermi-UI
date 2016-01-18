@@ -20,22 +20,22 @@ import './Step'
 import scheduleItems from './scheduleItems.json'
 
 var app=angular.module('app', [
-    'Fermi.switch',
-    'Fermi.schedule',
-    'Fermi.tooltip',
-    'Fermi.breadcrumb',
+    //'Fermi.switch',
+    //'Fermi.schedule',
+    //'Fermi.tooltip',
+    //'Fermi.breadcrumb',
     'Fermi.progress',
-    'Fermi.tab',
-    'Fermi.popover',
-    'Fermi.buttons',
-    'Fermi.select',
+    //'Fermi.tab',
+    //'Fermi.popover',
+    //'Fermi.buttons',
+    //'Fermi.select',
     'Fermi.notification'
 ])
 
 app.controller(
     'main',['$scope','$timeout','Fermi.Loading','Fermi.Notification',
         function($scope,$timeout,loading, notification){
-
+/*
         console.info('Fermi Components were loaded.')
         $scope.test=function(item){
             console.log(item)
@@ -112,5 +112,8 @@ app.controller(
         }
 
         window.ss= () => $scope.list = list2
-
+        window.clean = function(){
+            console.log(app)
+        }
+*/
 }])
