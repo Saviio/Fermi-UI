@@ -1,3 +1,4 @@
+import { dependencies } from '../../external/dependencies'
 import select from '../template/select.html'
 import option from '../template/option.html'
 import {

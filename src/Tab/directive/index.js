@@ -1,3 +1,4 @@
+import { dependencies } from '../../external/dependencies'
 import tabs from '../template/tabs.html'
 import tab from '../template/tab.html'
 import {getDOMState} from '../../utils'
@@ -7,11 +8,12 @@ export class Tabs{
         this.replace  = true
         this.restrict = 'EA'
         this.template = tabs
-        this.controller.$inject = ['$scope']
+        //this.controller.$inject = ['$scope']
         this.transclude = true
         this.scope = {}
     }
 
+    @dependencies('$scope')
     controller(scope){
         scope.items = []
         scope.activedItem = null
@@ -29,7 +31,7 @@ export class Tabs{
     link(scope, elem, attrs, ctrl){
         let ul = elem.find('ul')
 
-        ul.bind('click',(evt)=>{
+        ul.bind('click',evt => {
             let target = evt.target
 
             if(target.tagName === 'A'){
@@ -51,7 +53,7 @@ export class Tabs{
     }
 
     passing(exports, scope){
-        exports.addItem = (item) => scope.items.push(item)
+        exports.addItem = item => scope.items.push(item)
     }
 }
 

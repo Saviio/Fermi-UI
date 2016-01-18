@@ -1,4 +1,3 @@
-
 import template from '../template/template.html'
 
 export default class {

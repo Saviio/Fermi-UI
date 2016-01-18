@@ -1,13 +1,14 @@
-
+import { dependencies } from '../external/dependencies'
 
 
 export default class FermiDefaultDirective{
     constructor(){
         this.restrict='A'
         this.require='^ngModel'
-        this.controller.$inject=['$scope','$attrs', '$parse']
+        //this.controller.$inject=['$scope','$attrs', '$parse']
     }
 
+    @dependencies('$scope', '$attrs', '$parse')
     controller($scope, $attrs, $parse){
 
         var idf=$attrs.ngModel

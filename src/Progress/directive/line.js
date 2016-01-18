@@ -1,5 +1,4 @@
-
-
+import { dependencies } from '../../external/dependencies'
 import template from '../template/line.html'
 
 export default class{
@@ -7,7 +6,7 @@ export default class{
         this.replace=true
         this.restrict='EA'
         this.template=template
-        this.controller.$inject=['$scope']
+        //this.controller.$inject=['$scope']
         this.require='^ngModel'
         this.scope={
             success:'=',
@@ -16,6 +15,7 @@ export default class{
         }
     }
 
+    @dependencies('$scope')
     controller(scope){
         scope.check=function(){
             if(scope.ngModel>100) scope.ngModel=100
@@ -24,7 +24,7 @@ export default class{
     }
 
     link(scope, $element, attrs, ctrl){
-        scope.$watch('ngModel',(newValue,oldValue) => {
+        scope.$watch('ngModel',(newValue, oldValue) => {
             scope.check()
             if(newValue>=100){
                 $element.addClass('progress-success')

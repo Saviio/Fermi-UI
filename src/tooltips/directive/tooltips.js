@@ -3,14 +3,14 @@ import { getCoords,getStyle } from '../../utils'
 //不要放在全局 remark
 export default class Tooltips{
     constructor(){
-        this.restrict="EA"
-        this.transclude=true
-        this.scope={
+        this.restrict = "EA"
+        this.transclude = true
+        this.scope = {
             placement:'@',
             content:'@',
             offset:'@'
         }
-        this.template=`<span ng-transclude></span>`
+        this.template = `<span ng-transclude></span>`
     }
 
     controller($scope){}
@@ -86,10 +86,8 @@ export default class Tooltips{
 
         Object.defineProperty(ctrl, 'tooltip', {
             get: () => {
-                if(!ctrl.isExpend)
-                    ctrl.setLocationStyle()
-
-                ctrl.isExpend=!ctrl.isExpend
+                if(!ctrl.isExpend) ctrl.setLocationStyle()
+                ctrl.isExpend =! ctrl.isExpend
                 return ctrl.getContainer()
             },
             set: () => {},

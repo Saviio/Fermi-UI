@@ -1,7 +1,9 @@
+import { dependencies } from '../../external/dependencies'
 import template from '../template/circle.html'
 import {getDOMState} from '../../utils'
 
 //Todo 半圆形
+@dependencies('$compile')
 export default class circle{
     constructor($compile){
         this.replace = true
@@ -12,11 +14,11 @@ export default class circle{
             ngModel:'=',
             label:'@'
         }
-
-        this.controller.$inject = ['$scope']
+        //this.controller.$inject = ['$scope']
         this.$compile = $compile
     }
 
+    @dependencies('$scope')
     controller(scope){
         const PI = 3.1415926535898
 
@@ -57,7 +59,7 @@ export default class circle{
         paths[paths.length-1].setAttribute('stroke-linecap',shape)
 
         if(showinfo){
-            let format = (attrs.format || '${percent}').replace('${percent}',($0) => '{{ngModel}}')
+            let format = (attrs.format || '${percent}').replace('${percent}', $0 => '{{ngModel}}')
             let unit   =  typeof attrs.unit === 'string' ? attrs.unit : '%'
             let tmpl   = `<span>${format} ${unit ? '<sup>'+unit+'</sup>' :''}</span>`
             let innerDIV = $elem.find('div').append(tmpl)
@@ -72,8 +74,8 @@ export default class circle{
         }
 
         let svg = $elem.find('svg')[0]
-        svg.setAttribute('viewBox',`0 0 ${size} ${size}`)
+        svg.setAttribute('viewBox', `0 0 ${size} ${size}`)
     }
 }
 
-circle.$inject = ['$compile']
+//circle.$inject = ['$compile']

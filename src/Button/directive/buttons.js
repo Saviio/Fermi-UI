@@ -1,3 +1,4 @@
+import { dependencies } from '../../external/dependencies'
 import template from '../template/template.html'
 import {getDOMState} from '../../utils'
 
@@ -12,9 +13,10 @@ export default class Buttons {
         }
         this.transclude = true
         this.template = template
-        this.controller.$inject = ['$scope','$attrs','$element']
+        //this.controller.$inject = ['$scope','$attrs','$element']
     }
 
+    @dependencies('$scope', '$attrs', '$element')
     controller(scope,attrs,$elem){
         let isLoading = $elem::getDOMState('loading')
         scope.loading = isLoading

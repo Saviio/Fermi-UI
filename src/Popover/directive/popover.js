@@ -1,3 +1,4 @@
+import { dependencies } from '../../external/dependencies'
 import template from '../template/template.html'
 import popoverTmpl from '../template/popover.html'
 import {
@@ -26,10 +27,11 @@ export default class Popover{
         }
         this.transclude = true
         this.template = template
-        this.controller.$inject = ['$scope']
+        //this.controller.$inject = ['$scope']
     }
 
-    controller(scope, $elem){
+    @dependencies('$scope')
+    controller(scope){
         scope.open = () => {
             if(scope.isOpen === false){
                 scope.isOpen = !scope.isOpen
