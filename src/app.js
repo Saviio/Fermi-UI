@@ -20,28 +20,29 @@ import './Step'
 import scheduleItems from './scheduleItems.json'
 
 var app=angular.module('app', [
-    //'Fermi.switch',
-    //'Fermi.schedule',
-    //'Fermi.tooltip',
-    //'Fermi.breadcrumb',
+    'Fermi.switch',
+    'Fermi.schedule',
+    'Fermi.tooltip',
+    'Fermi.breadcrumb',
+    'Fermi.tab',
+    'Fermi.popover',
+    'Fermi.buttons',
+    'Fermi.select',
     'Fermi.progress',
-    //'Fermi.tab',
-    //'Fermi.popover',
-    //'Fermi.buttons',
-    //'Fermi.select',
-    'Fermi.notification'
+    'Fermi.notification',
+    'Fermi.step'
 ])
 
 app.controller(
     'main',['$scope','$timeout','Fermi.Loading','Fermi.Notification',
         function($scope,$timeout,loading, notification){
-/*
+
         console.info('Fermi Components were loaded.')
         $scope.test=function(item){
             console.log(item)
-        };
+        }
 
-        window.loading=loading
+        //window.loading=loading
         window.notification = notification
         $scope.notification = notification
 
@@ -52,7 +53,7 @@ app.controller(
 
 
         $timeout(function(){
-            $scope.schedule.refresh(tmp2)
+            //$scope.schedule.refresh(tmp2)
         },3000)
 
         $timeout(()=> {
@@ -111,9 +112,12 @@ app.controller(
             }
         }
 
-        window.ss= () => $scope.list = list2
-        window.clean = function(){
-            console.log(app)
+        window.s=function(){
+            document.body.innerHTML=null
+            $scope.$destroy()
+            //console.log(app)
         }
-*/
+
+        window.ss= () => $scope.list = list2
+
 }])

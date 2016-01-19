@@ -26,6 +26,7 @@ let defaultConfig = {
 
 let compile = null
 let rootScope = null
+//let compiledTmpl = 
 
 //custom(tmpl, scope){} 实现自定义模板
 //close 函数？
@@ -94,6 +95,7 @@ export default class Notification{
         scope.destory = e => {
             if(cancellId !== undefined) clearTimeout(cancellId)
             this.__remove__(e.target.parentNode, scope.callback)
+            scope.$destroy()
         }
 
         let content = compile(defaultMessage)(scope)[0]

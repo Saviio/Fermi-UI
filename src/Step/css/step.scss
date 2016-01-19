@@ -1,0 +1,49 @@
+$primary-btn-background:#00a9e8;
+
+.fm-steps-container{
+    width: 100%;
+
+    .fm-steps-item{
+        position: relative;
+        > .fm-steps-icon{
+            position: absolute;
+            top: 50%;
+            margin-top: -15px; //temp
+            &:before{
+                color:$primary-btn-background;
+                font-size:20px;
+            }
+        }
+
+        .fm-steps-line{
+            position: relative;
+            overflow: hidden;
+            width: 300px;
+            margin-left: 30px;
+            > i {
+                background-color: $primary-btn-background;
+                display: inline-block;
+                vertical-align: top;
+                height: 1px;
+                position: absolute;
+                top: 50%;
+                margin-top: -.5px;
+                margin-left: 15px;
+                width:100%;
+            }
+        }
+    }
+
+    .fm-steps-item-small {
+        > .fm-steps-icon{
+            margin-top: -15px;
+            &:before{
+                font-size:20px;
+            }
+        }
+
+        .fm-steps-line{
+            margin-left: 25px;
+        }
+    }
+}

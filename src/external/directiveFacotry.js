@@ -7,7 +7,7 @@ import { generateFermiId } from '../utils'
 //可能在某些corner case可能会导致工作失常，尚在斟酌中。
 
 const FermiIdenitifer = 'data-fermiId'
-let $cache = new cache() //remark 考虑一下究竟是不是需要在DOM上tag，还是干脆以DOM为key做数据映射
+let _cache = new cache() //remark 考虑一下究竟是不是需要在DOM上tag，还是干脆以DOM为key做数据映射
 
 
 export default class DirectiveFactory {
@@ -25,7 +25,7 @@ export default class DirectiveFactory {
 					let [$elem, ...restArgs] = compileArgs
 					let postLink = compileOrg.apply(ins, compileArgs)
 					let fmId = generateFermiId()
-					$cache.add(fmId, ins)
+					_cache.add(fmId, ins)
 					$elem.attr(FermiIdenitifer, fmId)
 
 					return (...linkArgs) => {
@@ -34,7 +34,7 @@ export default class DirectiveFactory {
 							postLink.apply(ins, linkArgs)
 						}
 						$elem.removeAttr(FermiIdenitifer)
-						$cache.remove(fmId)
+						_cache.remove(fmId)
 					}
 				}
 			} else if(typeof instance.link === 'function') {
@@ -44,7 +44,7 @@ export default class DirectiveFactory {
 					let fmId = $elem.attr(FermiIdenitifer)
 					let caller
 					if(fmId !== undefined){
-						caller = $cache.remove(fmId)
+						caller = _cache.remove(fmId)
 						$elem.removeAttr(FermiIdenitifer)
 					} else {
 						caller = new Directive(...args) //remark 更换了顺序，review
@@ -79,11 +79,11 @@ export default class DirectiveFactory {
 					let fmId = $elem.attr(FermiIdenitifer)
 					let caller
 					if(fmId !== undefined){
-						caller = $cache.get(fmId)
+						caller = _cache.get(fmId)
 					} else {
 						caller = new Directive(...args)
 						fmId = generateFermiId()
-						$cache.add(fmId, caller)
+						_cache.add(fmId, caller)
 						$elem.attr(FermiIdenitifer, fmId)
 					}
 
@@ -95,7 +95,7 @@ export default class DirectiveFactory {
 
 					if(typeof instance.link !== 'function' && fmId !== undefined){
 						$elem.removeAttr(FermiIdenitifer)
-						$cache.remove(fmId)
+						_cache.remove(fmId)
 					}
 				}
 
@@ -107,11 +107,11 @@ export default class DirectiveFactory {
 					let fmId = $elem.attr(FermiIdenitifer)
 					let caller
 					if(fmId !== undefined){
-						caller = $cache.get(fmId)
+						caller = _cache.get(fmId)
 					} else {
 						caller = new Directive(...args)
 						let id = generateFermiId()
-						$cache.add(id, caller)
+						_cache.add(id, caller)
 						$elem.attr(FermiIdenitifer, id)
 					}
 

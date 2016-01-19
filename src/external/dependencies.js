@@ -7,14 +7,8 @@ export function dependencies(...injection){
         }
 
         if(target !== null && key === undefined && descriptor === undefined){
-            let clazz = class extends target {
-                constructor(...args){
-                    super(...args)
-                }
-            }
-
-            clazz.$inject = injection
-            return clazz
+            target.$inject = injection
+            return target
         } else {
             if(key === 'controller'){
                 let raw = descriptor.value

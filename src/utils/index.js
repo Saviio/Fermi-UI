@@ -315,14 +315,14 @@ export function is(v1, v2){
     }
 }
 
-let $FMId = 1
+let _FMId = 1
 export function generateFermiId(){
-    let id = $FMId.toString().split('')
+    let id = _FMId.toString().split('')
     let len = id.length
     for(let i = 0; i < (5 - len); i++){
         id.unshift("0")
     }
-    $FMId++
+    _FMId++
     return id.join('.')
 }
 

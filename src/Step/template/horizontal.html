@@ -1,13 +1,4 @@
-<div class="breadcrumb-container">
-    <span ng-repeat="item in items track by $index" class="breadcrumb">
-        <span class="breadcrumb-link" ng-if="!item.label">
-            {{item}}
-        </span>
-        <a  class="breadcrumb-link" ng-if="item.label" href={{ item.href ? item.href : 'javascript:; ' }}>
-            {{item.label}}
-        </a>
-        <span class="breadcrumb-slash">
-            /
-        </span>
-    </span>
+<div class="fm-steps-container">
+    <div class="fm-steps" ng-transclude>
+    </div>
 </div>
