@@ -16,7 +16,8 @@ export class Steps {
         this.scope = {
             items:'=',
             size:'@',
-            mode:'@'
+            mode:'@',
+            control:'=?'
         }
         this.transclude = true
         this.template = steps
@@ -35,7 +36,18 @@ export class Steps {
             if(unChecked[1] !== undefined) unChecked[1].inProgress()
         }
 
-        scope.reset = () => scope.steps.forEach(item => item.cancel())
+        scope.reset = () => {
+            scope.steps.forEach(item => item.cancel())
+            scope.steps[0] && scope.steps[0].inProgress()
+        }
+
+        scope.isDone = () => scope.steps.filter(item => item.status()) === scope.steps.length
+
+        scope.control = {
+            next:scope.next,
+            reset:scope.reset,
+            isDone:scope.isDone
+        }
     }
 
     passing(exports, scope){
@@ -53,11 +65,6 @@ export class Steps {
     }
 
 }
-
-
-//status
-//title
-//description
 
 export class Step{
     constructor(){
