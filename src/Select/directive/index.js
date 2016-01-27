@@ -27,16 +27,13 @@ export class Select {
         this.template = select
         this.require = "^ngModel"
         this.scope = {
-            ngModel:'=',
-            control:'='
+            ngModel:'='
         }
         this.transclude = true
-        //this.controller.$inject = ['$scope', '$attrs']
     }
 
     @dependencies('$scope', '$attrs')
     controller(scope, attrs){
-
         if(this.mode === 'multi' || this.mode ==='tags'){
             scope.ngModel = []
         }

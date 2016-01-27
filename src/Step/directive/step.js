@@ -21,17 +21,26 @@ export class Steps {
         this.template = horizontal
     }
 
-    compile($tElement, tAttrs, transclude){
-        this.$container = $tElement
-    }
 
     @dependencies('$scope')
     controller(scope){
-
+        scope.steps = []
+        scope.next = () => {
+            let unChecked = scope.steps.filter(item => item.status() === false)
+            unChecked.length > 0 && unChecked[0].check()
+        }
     }
 
     passing(exports, scope){
-        exports.$container = this.$container
+        exports.add = item => {
+             scope.steps.push(item)
+             return scope.steps.length
+        }
+    }
+
+    link(scope, $element, attrs, ctrl){
+        let width = 96 / scope.steps.length
+        scope.steps.forEach(item => item.$elem.attr('style', `width:${width.toFixed(0)}%;`))
     }
 
 }
@@ -48,15 +57,25 @@ export class Step{
         this.replace = true
         this.template = step
         this.transclude = true
-        this.scope = {}
+        this.scope = {
+            title:'@',
+            checked:'=?'
+        }
     }
 
     @dependencies('$scope')
-    controller(){
-
+    controller(scope){
+        scope.title = scope.title || ' '
+        scope.checked = scope.checked || false
+        scope.check = () => scope.checked = true
+        scope.status = () => scope.checked
     }
 
     link(scope, $element, attrs, parentCtrl){
-        console.log(parentCtrl)
+        scope.step = parentCtrl.add({
+            status:scope.status.bind(scope),
+            check:scope.check.bind(scope),
+            $elem:$element
+        })
     }
 }

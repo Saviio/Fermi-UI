@@ -15,6 +15,8 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+
+.icon-check-light:before,
 .icon-success:before,
 .icon-error:before,
 .icon-warn:before,
@@ -55,11 +57,16 @@
 .icon-select2:before,
 .icon-filter:before,
 .icon-filter2:before,
-.icon-backtop:before,{
+.icon-backtop:before{
     @extend .iconfont
 }
 
 
+.icon-check-light:before{
+    -webkit-text-stroke-width:0px;
+}
+
+.icon-check-light:before { content: "\e62e"; }
 .icon-success:before { content: "\e605"; }
 .icon-error:before { content: "\e61e"; }
 .icon-warn:before { content: "\e61f"; }
