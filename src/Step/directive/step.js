@@ -14,7 +14,9 @@ export class Steps {
         this.restrict = 'EA'
         this.replace = true
         this.scope = {
-            items:'='
+            items:'=',
+            size:'@',
+            mode:'@'
         }
         this.transclude = true
         this.template = steps
@@ -25,9 +27,12 @@ export class Steps {
     controller(scope){
         scope.steps = []
         scope.mode = scope.mode || 'hori'
+        scope.size = scope.size || 'small'
         scope.next = () => {
             let unChecked = scope.steps.filter(item => item.status() === false)
+
             unChecked.length > 0 && unChecked[0].check()
+            if(unChecked[1] !== undefined) unChecked[1].inProgress()
         }
 
         scope.reset = () => scope.steps.forEach(item => item.cancel())
@@ -42,6 +47,8 @@ export class Steps {
 
     link(scope, $element, attrs, ctrl){
         let unit = 96 / scope.steps.length
+        let unChecked = scope.steps.filter(item => item.status() === false)
+        unChecked.length > 0 && unChecked[0].inProgress()
         scope.steps.forEach(item => item.$elem.attr('style', `width:${unit.toFixed(0)}%;`))
     }
 
@@ -69,8 +76,19 @@ export class Step{
     controller(scope){
         scope.title = scope.title || ' '
         scope.checked = scope.checked || false
-        scope.check = () => scope.checked = true
-        scope.cancel = () => scope.checked = false
+        scope.state = scope.checked ? 'checked' : 'waiting'
+        scope.check = () => {
+            scope.checked = true
+            scope.state = 'checked'
+        }
+
+        scope.cancel = () => {
+            scope.checked = false
+            scope.state = 'waiting'
+        }
+
+        scope.inProgress = () => scope.state = 'inProgress'
+
         scope.status = () => scope.checked
     }
 
@@ -79,6 +97,7 @@ export class Step{
             status:scope.status,
             check:scope.check,
             cancel:scope.cancel,
+            inProgress:scope.inProgress,
             $elem:$element
         })
     }

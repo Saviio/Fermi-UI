@@ -1,5 +1,5 @@
 <div class="fm-steps-container" >
-    <div class="fm-steps-{{::mode}}" ng-transclude>
+    <div class="fm-steps-{{::mode}}-{{::size}}" ng-transclude>
     </div>
-    <button ng-click="next()">next</button>
+    <Fermi:buttons content="Next" size="normal" type="default" ng-click="next()"></Fermi:buttons>
 </div>

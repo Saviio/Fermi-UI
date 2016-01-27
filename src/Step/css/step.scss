@@ -1,110 +1,141 @@
 $primary-btn-background:#00a9e8;
 
+
+@mixin Step($size, $iconSize){
+    .fm-steps-item{
+        display: inline-block;
+        vertical-align:top;
+        position: relative;
+        padding-left: 10px;
+        > .fm-steps-icon{
+            position: absolute;
+            //top: 50%;
+            //margin-top: -15px ; //temp
+            &:before{
+                color:$primary-btn-background;
+                display:block;
+                width:$size;
+                height:$size;
+                font-size:$iconSize;
+                text-align:center;
+                border:$primary-btn-background 1px solid;
+                border-radius:50%;
+                transition:all 300ms ease;
+            }
+        }
+
+        > .fm-steps-sq {
+            //margin-top: -9px !important;
+            &:before{
+                content:attr(data-step);
+                font-size:$iconSize - 2px;
+                display: block;
+                background-color:$primary-btn-background;
+                text-align:center;
+                width: $size;
+                height: $size;
+                border-radius: 50%;
+                color:#fff;
+            }
+        }
+
+        .fm-steps-line{
+            position: relative;
+            overflow: hidden;
+            //width: 300px;
+            margin-left: 30px;
+            > i {
+                background-color: #ccc;
+                display: inline-block;
+                vertical-align: top;
+                height: 1px;
+                position: absolute;
+                top: 50%;
+                margin-top: -.5px;
+                margin-left: 5px;
+                width:100%;
+
+                &:after{
+                    width: 0%;
+                    content: '';
+                    display: block;
+                    height: 1px;
+                    background-color:#ccc;
+                    transition: all 400ms ease;
+                }
+            }
+
+            > .fm-steps-title {
+                font-weight: bold;
+                font-size:$iconSize - 2px;
+            }
+
+        }
+
+        .fm-steps-description{
+            //position: absolute;
+            margin-left: 30px;
+        }
+    }
+
+    .fm-steps-state-checked{
+        .fm-steps-line{
+            > i {
+                &:after{
+                    background-color: $primary-btn-background;
+                    width: 100%;
+                }
+            }
+        }
+    }
+
+    .fm-steps-state-waiting{
+        > .fm-steps-icon {
+            &:before{
+                background-color:#fff;
+                color:#ccc;
+                border:#ccc 1px solid;
+            }
+        }
+    }
+}
+
 .fm-steps-container{
     width: 100%;
     margin: auto;
+    padding-top:5px;
 
-    .fm-steps-hori{
-        .fm-steps-item{
-            display: inline-block;
-            vertical-align:top;
-            position: relative;
-            padding-left: 10px;
-            > .fm-steps-icon{
-                position: absolute;
-                //top: 50%;
-                //margin-top: -15px ; //temp
-                &:before{
-                    color:$primary-btn-background;
-                    display:block;
-                    width:18px;
-                    height:18px;
-                    font-size:14px;
-                    text-align:center;
-                    border:$primary-btn-background 1px solid;
-                    border-radius:50%;
-                    transition:all 300ms ease;
-                }
-            }
-
-            > .fm-steps-sq {
-                //margin-top: -9px !important;
-                &:before{
-                    content:attr(data-step);
-                    font-size:12px;
-                    display: block;
-                    background-color:$primary-btn-background;
-                    text-align:center;
-                    width: 18px;
-                    height: 18px;
-                    border-radius: 50%;
-                    color:#fff;
-                }
-            }
-
-            .fm-steps-line{
-                position: relative;
-                overflow: hidden;
-                //width: 300px;
-                margin-left: 30px;
-                > i {
-                    background-color: #ccc;
-                    display: inline-block;
-                    vertical-align: top;
-                    height: 1px;
-                    position: absolute;
-                    top: 50%;
-                    margin-top: -.5px;
-                    margin-left: 5px;
-                    width:100%;
-
-                    &:after{
-                        width: 0%;
-                        content: '';
-                        display: block;
-                        height: 1px;
-                        background-color:#ccc;
-                        transition: all 500ms ease;
-                    }
-                }
-                > .fm-steps-title {
-                    font-weight: bold;
-                }
-
-            }
-
-            .fm-steps-description{
-                //position: absolute;
-                margin-left: 30px;
-            }
-        }
-
-        .fm-steps-checked-true{
-            .fm-steps-line{
-                > i {
-                    &:after{
-                        background-color: $primary-btn-background;
-                        width: 100%;
-                    }
-                }
-            }
-        }
-
-        .fm-steps-item-small {
-            > .fm-steps-icon{
-                margin-top: -15px;
-                &:before{
-                    font-size:20px;
-                }
-            }
-
-            .fm-steps-line{
-                margin-left: 25px;
-            }
-        }
-
+    .fm-steps-hori-small{
+        @include Step(18px, 14px)
     }
 
+    .fm-steps-hori-normal{
+        @include Step(24px, 16px)
+    }
+
+    .fm-steps-item{
+        &:last-child{
+            .fm-steps-line{
+                > i {
+                    display:none;
+                }
+            }
+        }
+    }
+
+
+    .fm-steps-item-small {
+        > .fm-steps-icon{
+            margin-top: -15px;
+            &:before{
+                font-size:20px;
+            }
+        }
+
+        .fm-steps-line{
+            margin-left: 25px;
+        }
+    }
 
 
 }
