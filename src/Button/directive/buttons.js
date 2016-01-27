@@ -23,18 +23,16 @@ export default class Buttons {
 
         let loading = () => {
             if(!scope.loading){
-                scope.$apply(() => {
-                    $elem.addClass('loading')
-                    scope.loading = true
-                })
+                $elem.addClass('loading')
+                scope.loading = true
+                scope.$apply()
             }
         }
         let done = () => {
             if(scope.loading){
-                scope.$apply(() => {
-                    $elem.removeClass('loading')
-                    scope.loading = false
-                })
+                $elem.removeClass('loading')
+                scope.loading = false
+                scope.$apply()
             }
         }
 

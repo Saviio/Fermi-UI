@@ -14,9 +14,7 @@ export default class DirectiveFactory {
 	static create(Directive) {
 		let factory = function (...args) {
 			let instance = new Directive(...args)
-			/*for (let key in instance) {
-				instance[key] = instance[key]
-			}*/
+
 
 			if (typeof instance.compile === 'function') {
 				let compileOrg = instance.compile

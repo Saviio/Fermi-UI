@@ -26,7 +26,7 @@ let defaultConfig = {
 
 let compile = null
 let rootScope = null
-//let compiledTmpl = 
+
 
 //custom(tmpl, scope){} 实现自定义模板
 //close 函数？
@@ -118,42 +118,22 @@ export default class Notification{
     }
 
     normal(message = '', topic = ''){
-        return this.send({
-            message,
-            topic,
-            type:'normal'
-        })
+        return this.send({message, topic, type:'normal'})
     }
 
     success(message = '', topic = ''){
-        return this.send({
-            message,
-            topic,
-            type:'success'
-        })
+        return this.send({message, topic, type:'success'})
     }
 
     warn(message = '', topic = ''){
-        return this.send({
-            message,
-            topic,
-            type:'warn'
-        })
+        return this.send({message, topic, type:'warn'})
     }
 
     error(message = '', topic = ''){
-        return this.send({
-            message,
-            topic,
-            type:'error'
-        })
+        return this.send({message, top, type:'error'})
     }
 
     default(message = '', topic = ''){
-        return this.send({
-            message,
-            topic,
-            type:'default'
-        })
+        return this.send({message, topic, type:'default'})
     }
 }
