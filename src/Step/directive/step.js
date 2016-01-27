@@ -1,6 +1,5 @@
 import { dependencies } from '../../external/dependencies'
-import horizontal from '../template/horizontal.html'
-import vertical from '../template/vertical.html'
+import steps from '../template/steps.html'
 import step from '../template/step.html'
 
 
@@ -18,17 +17,20 @@ export class Steps {
             items:'='
         }
         this.transclude = true
-        this.template = horizontal
+        this.template = steps
     }
 
 
     @dependencies('$scope')
     controller(scope){
         scope.steps = []
+        scope.mode = scope.mode || 'hori'
         scope.next = () => {
             let unChecked = scope.steps.filter(item => item.status() === false)
             unChecked.length > 0 && unChecked[0].check()
         }
+
+        scope.reset = () => scope.steps.forEach(item => item.cancel())
     }
 
     passing(exports, scope){
@@ -39,8 +41,8 @@ export class Steps {
     }
 
     link(scope, $element, attrs, ctrl){
-        let width = 96 / scope.steps.length
-        scope.steps.forEach(item => item.$elem.attr('style', `width:${width.toFixed(0)}%;`))
+        let unit = 96 / scope.steps.length
+        scope.steps.forEach(item => item.$elem.attr('style', `width:${unit.toFixed(0)}%;`))
     }
 
 }
@@ -68,13 +70,15 @@ export class Step{
         scope.title = scope.title || ' '
         scope.checked = scope.checked || false
         scope.check = () => scope.checked = true
+        scope.cancel = () => scope.checked = false
         scope.status = () => scope.checked
     }
 
     link(scope, $element, attrs, parentCtrl){
         scope.step = parentCtrl.add({
-            status:scope.status.bind(scope),
-            check:scope.check.bind(scope),
+            status:scope.status,
+            check:scope.check,
+            cancel:scope.cancel,
             $elem:$element
         })
     }
