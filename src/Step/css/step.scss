@@ -7,20 +7,24 @@ $primary-btn-background:#00a9e8;
         vertical-align:top;
         position: relative;
         padding-left: 10px;
+        overflow: hidden;
         > .fm-steps-icon{
-            position: absolute;
-            //top: 50%;
-            //margin-top: -15px ; //temp
+            //position: absolute;
+            padding-right: 10px;
+            display: inline-block;
+            background-color: #fff;
+
             &:before{
                 color:$primary-btn-background;
                 display:block;
                 width:$size;
                 height:$size;
-                font-size:$iconSize;
+                line-height: $size;
+                font-size:$iconSize - 2px;
                 text-align:center;
                 border:$primary-btn-background 1px solid;
                 border-radius:50%;
-                transition:all 300ms ease;
+                transition:background 300ms ease, border 300ms ease;
             }
         }
 
@@ -39,11 +43,26 @@ $primary-btn-background:#00a9e8;
             }
         }
 
+        .fm-steps-title {
+            font-weight: bold;
+            font-size:$iconSize - 2px;
+            margin-left: -3px;
+            background-color: #fff;
+            height: $size;
+            line-height: $size;
+            display: inline-block;
+            vertical-align: top;
+        }
+
         .fm-steps-line{
-            position: relative;
-            overflow: hidden;
-            //width: 300px;
-            margin-left: 30px;
+            position: absolute;;
+            //overflow: hidden;
+            //margin-left: 30px;
+            left:10px;
+            top:0px;
+            z-index: -1;
+            height: $size;
+            width: 100%;
             > i {
                 background-color: #ccc;
                 display: inline-block;
@@ -51,8 +70,8 @@ $primary-btn-background:#00a9e8;
                 height: 1px;
                 position: absolute;
                 top: 50%;
-                margin-top: -.5px;
-                margin-left: 5px;
+                //margin-top: -.5px;
+                //margin-left: 5px;
                 width:100%;
 
                 &:after{
@@ -64,17 +83,10 @@ $primary-btn-background:#00a9e8;
                     transition: all 400ms ease;
                 }
             }
-
-            > .fm-steps-title {
-                font-weight: bold;
-                font-size:$iconSize - 2px;
-            }
-
         }
 
         .fm-steps-description{
-            //position: absolute;
-            margin-left: 30px;
+            margin-left: $size + 10px;
         }
     }
 
@@ -100,17 +112,71 @@ $primary-btn-background:#00a9e8;
     }
 }
 
+
+@mixin Vertical($size){
+    .fm-steps-item{
+        display: block;
+        > .fm-steps-line{
+            height: 100%;
+            width: 24px;
+        }
+    }
+    .fm-steps-item{
+        display: block;
+        margin-bottom: 10px;
+        > .fm-steps-line{
+            height: 100%;
+            width: $size;
+            > i {
+                height: 100%;
+                top:0;
+                width: 1px;
+                left:50%;
+                &:after{
+                    width:1px;
+                    height:0%;
+                }
+            }
+        }
+
+        > .fm-steps-icon{
+            padding-bottom: 10px;
+        }
+    }
+
+    .fm-steps-state-checked{
+        .fm-steps-line{
+            > i {
+                &:after{
+                    background-color: $primary-btn-background;
+                    height:100%;
+                }
+            }
+        }
+    }
+}
+
 .fm-steps-container{
     width: 100%;
     margin: auto;
     padding-top:5px;
 
-    .fm-steps-hori-small{
+    .fm-steps-H-small{
         @include Step(18px, 14px)
     }
 
-    .fm-steps-hori-normal{
+    .fm-steps-H-normal{
         @include Step(24px, 16px)
+    }
+
+    .fm-steps-V-small{
+        @include Step(18px, 14px)
+        @include Vertical(18px)
+    }
+
+    .fm-steps-V-normal{
+        @include Step(24px, 16px)
+        @include Vertical(24px)
     }
 
     .fm-steps-item{
@@ -122,20 +188,4 @@ $primary-btn-background:#00a9e8;
             }
         }
     }
-
-
-    .fm-steps-item-small {
-        > .fm-steps-icon{
-            margin-top: -15px;
-            &:before{
-                font-size:20px;
-            }
-        }
-
-        .fm-steps-line{
-            margin-left: 25px;
-        }
-    }
-
-
 }

@@ -27,13 +27,12 @@ export class Steps {
     @dependencies('$scope')
     controller(scope){
         scope.steps = []
-        scope.mode = scope.mode || 'hori'
+        scope.mode = scope.mode || 'H'
         scope.size = scope.size || 'small'
         scope.next = () => {
             let unChecked = scope.steps.filter(item => item.status() === false)
-
             unChecked.length > 0 && unChecked[0].check()
-            if(unChecked[1] !== undefined) unChecked[1].inProgress()
+            unChecked[1] !== undefined && unChecked[1].inProgress()
         }
 
         scope.reset = () => {
@@ -59,9 +58,10 @@ export class Steps {
 
     link(scope, $element, attrs, ctrl){
         let unit = 96 / scope.steps.length
+        let style = scope.mode === 'H' ? 'width' : 'height'
         let unChecked = scope.steps.filter(item => item.status() === false)
         unChecked.length > 0 && unChecked[0].inProgress()
-        scope.steps.forEach(item => item.$elem.attr('style', `width:${unit.toFixed(0)}%;`))
+        scope.steps.forEach(item => item.$elem.attr('style', `${style}:${unit.toFixed(0)}%;`))
     }
 
 }
