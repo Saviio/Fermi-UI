@@ -1,5 +1,4 @@
-$primary-btn-background:#00a9e8;
-
+@import "../../theme.scss";
 
 @mixin Step($size, $iconSize){
     .fm-steps-item{
@@ -108,6 +107,16 @@ $primary-btn-background:#00a9e8;
             }
         }
     }
+
+    .fm-steps-item{
+        &:last-child{
+            .fm-steps-line{
+                > i {
+                    display:none;
+                }
+            }
+        }
+    }
 }
 
 
@@ -176,15 +185,5 @@ $primary-btn-background:#00a9e8;
     .fm-steps-V-normal{
         @include Step(24px, 16px);
         @include Vertical(24px);
-    }
-
-    .fm-steps-item{
-        &:last-child{
-            .fm-steps-line{
-                > i {
-                    display:none;
-                }
-            }
-        }
     }
 }

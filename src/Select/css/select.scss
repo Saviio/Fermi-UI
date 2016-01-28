@@ -1,3 +1,5 @@
+@import '../../theme.scss';
+
 
 @mixin select-wrapper-base($height:30px){
     display:inline-block;
@@ -22,7 +24,7 @@
         transition:border-color 0.5s ease;
 
         &:hover{
-            border-color:#00a9e8;
+            border-color:$primary-background;
         }
 
         .select-icon{

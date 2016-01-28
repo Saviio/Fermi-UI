@@ -54,10 +54,9 @@ export class Steps {
     link(scope, $element, attrs, ctrl){
         let stepsLen = scope.steps.length
         if(stepsLen === 0) return
-        //let unit = 96 / (scope.steps.length /*- 1*/)
         let style = scope.mode === 'H' ? 'width' : 'height'
         let containerSize = $element[0]::getStyle(style, 'px')
-        setTimeout(()=>{
+        setTimeout(() => {
             let unit
             if(style === 'width'){
                 let lastStepSize = scope.steps[stepsLen - 1].$elem[0]::getStyle(style, 'px')
@@ -70,8 +69,7 @@ export class Steps {
             unChecked.length > 0 && unChecked[0].inProgress()
             scope.steps.forEach((item, i) =>
                 i !== stepsLen -1 && item.$elem.attr('style', `${style}:${unit.toFixed(0) + (style === 'width' ? 'px' : '%')};`))
-        },0)
-
+        }, 0)
     }
 
 }
