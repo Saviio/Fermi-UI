@@ -8,7 +8,7 @@ import {
 } from '../../utils'
 
 
-let queue = (function() {
+let queue = (function() {//remark
     let waiting = []
 
     let next = () => {
@@ -38,7 +38,7 @@ export default class Loading{
         }
     }
 
-    __render__(fromZero = true){
+    __render__(fromZero = true){//remark
         if(this.$instance !== null) return this.$instance
 
         if(BODY.insertAdjacentHTML){
