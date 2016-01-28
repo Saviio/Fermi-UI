@@ -9,7 +9,6 @@ export class Steps {
         this.restrict = 'EA'
         this.replace = true
         this.scope = {
-            items:'=',
             size:'@',
             mode:'@',
             control:'=?'
