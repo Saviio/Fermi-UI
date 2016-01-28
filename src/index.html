@@ -198,31 +198,29 @@
             <Fermi:buttons content="normal with callback" type="default" ng-click="notification.send(notificationOption)"></Fermi:buttons>
         </div>
 
-        <div id="fermiNotification" style="padding:30px;width:1000px;">
+        <div id="fermiSteps" style="padding:30px;width:1000px;">
             <p>Steps</p>
-            <Fermi:Steps style="width:960px;">
-                <Fermi:Step title="Step1">步骤一</Fermi:Step>
-                <Fermi:Step title="Step2">步骤二</Fermi:Step>
-                <Fermi:Step title="Step3">步骤三</Fermi:Step>
-            </Fermi:Steps>
 
-            <Fermi:Steps style="width:960px;" size="normal">
+            <Fermi:Steps style="width:960px;" size="normal" control="steps1">
                 <Fermi:Step title="Step1" checked="true">步骤一</Fermi:Step>
                 <Fermi:Step title="Step2">步骤二</Fermi:Step>
                 <Fermi:Step title="Step3">步骤三</Fermi:Step>
             </Fermi:Steps>
+            <Fermi:buttons content="Next" ng-click="steps1.next()"></Fermi:buttons>
+            <Fermi:buttons content="Reset" ng-click="steps1.reset()"></Fermi:buttons>
 
-            <Fermi:Steps style="width:960px;" size="small" mode="V">
+
+            <Fermi:Steps style="width:960px;" size="normal" mode="V" control="steps2">
                 <Fermi:Step title="Step1" checked="true">步骤一</Fermi:Step>
                 <Fermi:Step title="Step2">步骤二</Fermi:Step>
                 <Fermi:Step title="Step3">步骤三</Fermi:Step>
             </Fermi:Steps>
+            <Fermi:buttons content="Next" ng-click="steps2.next()"></Fermi:buttons>
+            <Fermi:buttons content="Reset" ng-click="steps2.reset()"></Fermi:buttons>
+        </div>
 
-            <Fermi:Steps style="width:960px;" size="normal" mode="V">
-                <Fermi:Step title="Step1" checked="true">步骤一</Fermi:Step>
-                <Fermi:Step title="Step2">步骤二</Fermi:Step>
-                <Fermi:Step title="Step3">步骤三</Fermi:Step>
-            </Fermi:Steps>
+        <div id="fermiPagination" style="padding:30px;width:1000px;">
+            <p>Pagination</p>
         </div>
 
     </div>

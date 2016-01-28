@@ -9,11 +9,11 @@ $primary-btn-background:#00a9e8;
         padding-left: 10px;
         overflow: hidden;
         > .fm-steps-icon{
-            //position: absolute;
             padding-right: 10px;
             display: inline-block;
             background-color: #fff;
-
+            position: relative;
+            z-index: 100;
             &:before{
                 color:$primary-btn-background;
                 display:block;
@@ -52,15 +52,15 @@ $primary-btn-background:#00a9e8;
             line-height: $size;
             display: inline-block;
             vertical-align: top;
+            position: relative;
+            z-index: 100;
         }
 
         .fm-steps-line{
             position: absolute;;
-            //overflow: hidden;
-            //margin-left: 30px;
             left:10px;
             top:0px;
-            z-index: -1;
+            z-index: 0;
             height: $size;
             width: 100%;
             > i {
@@ -70,8 +70,6 @@ $primary-btn-background:#00a9e8;
                 height: 1px;
                 position: absolute;
                 top: 50%;
-                //margin-top: -.5px;
-                //margin-left: 5px;
                 width:100%;
 
                 &:after{

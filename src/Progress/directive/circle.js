@@ -14,7 +14,7 @@ export default class circle{
             ngModel:'=',
             label:'@'
         }
-        //this.controller.$inject = ['$scope']
+
         this.$compile = $compile
     }
 
@@ -78,5 +78,3 @@ export default class circle{
         svg.setAttribute('viewBox', `0 0 ${size} ${size}`)
     }
 }
-
-//circle.$inject = ['$compile']

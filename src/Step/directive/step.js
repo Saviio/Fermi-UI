@@ -3,11 +3,6 @@ import steps from '../template/steps.html'
 import step from '../template/step.html'
 
 
-//next function
-//step
-//mode
-//size
-
 
 export class Steps {
     constructor(){

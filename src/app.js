@@ -14,6 +14,7 @@ import './Button'
 import './Select'
 import './Notification'
 import './Step'
+import './Pagination'
 
 
 //import mock data
@@ -30,7 +31,8 @@ var app=angular.module('app', [
     'Fermi.select',
     'Fermi.progress',
     'Fermi.notification',
-    'Fermi.step'
+    'Fermi.step',
+    'Fermi.pagination'
 ])
 
 app.controller(
@@ -119,5 +121,7 @@ app.controller(
         }
 
         window.ss= () => $scope.list = list2
-
+        $timeout(function () {
+            window.steps = $scope.steps
+        }, 10);
 }])

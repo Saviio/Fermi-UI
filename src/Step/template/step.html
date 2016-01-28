@@ -1,11 +1,8 @@
 <div class="fm-steps-item fm-steps-state-{{state}}">
-    <span class="fm-steps-icon" data-step={{step}} ng-class="{'icon-check-light':checked, 'fm-steps-sq':!checked}" > <!--ng-class="{'icon-check-light':checked, 'fm-steps-sq':!checked}"-->
-    </span>
+    <span class="fm-steps-icon {{checked ? 'icon-check-light' : 'fm-steps-sq'}}" data-step={{step}}></span>
     <span class="fm-steps-title" >{{::title}}</span>
     <div class="fm-steps-line" >
-
         <i></i>
     </div>
-    <div class="fm-steps-description" ng-transclude>
-    </div>
+    <div class="fm-steps-description" ng-transclude></div>
 </div>
