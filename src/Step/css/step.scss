@@ -158,23 +158,24 @@ $primary-btn-background:#00a9e8;
     width: 100%;
     margin: auto;
     padding-top:5px;
+    padding-bottom:5px;
 
     .fm-steps-H-small{
-        @include Step(18px, 14px)
+        @include Step(18px, 14px);
     }
 
     .fm-steps-H-normal{
-        @include Step(24px, 16px)
+        @include Step(24px, 16px);
     }
 
     .fm-steps-V-small{
-        @include Step(18px, 14px)
-        @include Vertical(18px)
+        @include Step(18px, 14px);
+        @include Vertical(18px);
     }
 
     .fm-steps-V-normal{
-        @include Step(24px, 16px)
-        @include Vertical(24px)
+        @include Step(24px, 16px);
+        @include Vertical(24px);
     }
 
     .fm-steps-item{
