@@ -31,7 +31,8 @@
             //margin-top: -9px !important;
             &:before{
                 content:attr(data-step);
-                font-size:$iconSize - 2px;
+                font-size:12px;
+                line-height: $size - 1px;
                 display: block;
                 background-color:$primary-btn-background;
                 text-align:center;
