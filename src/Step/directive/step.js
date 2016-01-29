@@ -1,7 +1,7 @@
 import { dependencies } from '../../external/dependencies'
 import steps from '../template/steps.html'
 import step from '../template/step.html'
-import { getStyle } from '../../utils'
+
 
 
 export class Steps {
@@ -51,24 +51,11 @@ export class Steps {
     }
 
     link(scope, $element, attrs, ctrl){
-        let stepsLen = scope.steps.length
-        if(stepsLen === 0) return
+        let unit = 96 / scope.steps.length
         let style = scope.mode === 'H' ? 'width' : 'height'
-        let containerSize = $element[0]::getStyle(style, 'px')
-        setTimeout(() => {
-            let unit
-            if(style === 'width'){
-                let lastStepSize = scope.steps[stepsLen - 1].$elem[0]::getStyle(style, 'px')
-                unit = (containerSize -(5 * stepsLen)  - lastStepSize) / (stepsLen -1)
-            } else {
-                unit = 96 / scope.steps.length
-            }
-
-            let unChecked = scope.steps.filter(item => item.status() === false)
-            unChecked.length > 0 && unChecked[0].inProgress()
-            scope.steps.forEach((item, i) =>
-                i !== stepsLen -1 && item.$elem.attr('style', `${style}:${unit.toFixed(0) + (style === 'width' ? 'px' : '%')};`))
-        }, 0)
+        let unChecked = scope.steps.filter(item => item.status() === false)
+        unChecked.length > 0 && unChecked[0].inProgress()
+        scope.steps.forEach(item => item.$elem.attr('style', `${style}:${unit.toFixed(0)}%;`))
     }
 
 }
@@ -102,7 +89,6 @@ export class Step{
         }
 
         scope.inProgress = () => scope.state = 'inProgress'
-
         scope.status = () => scope.checked
     }
 

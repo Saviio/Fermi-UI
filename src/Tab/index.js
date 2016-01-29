@@ -1,5 +1,5 @@
 import factory from '../external/directiveFacotry'
-import {Tabs,Tab} from './directive'
+import { Tabs, Tab } from './directive/Tab'
 
 import './css/Tab.scss'
 

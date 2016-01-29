@@ -5,7 +5,6 @@ import './css/step.scss'
 
 const component = {
     namespace:'Fermi.step',
-    name:'fermiStep',
     inject:[]
 }
 

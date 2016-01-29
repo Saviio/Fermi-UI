@@ -1,8 +1,60 @@
 @import '../../theme.scss';
-.fm-pagination{
-    .fm-pagination-pages{
-        > a {
 
+
+.fm-pagination{
+    height: 25px;
+    float: right;
+    .fm-pagination-pages{
+        ul{
+            list-style: none;
+            margin:0px;
+            padding:0px;
+            > li {
+                display: inline-block;
+                height: 25px;
+                position: relative;
+                vertical-align: top;
+                line-height: 25px;
+                width: 25px;
+                text-align: center;
+                border-radius: 3px;
+                user-select:none;
+                &:hover{
+                    cursor: pointer;
+                    color: #666;
+                    background-color: #eee;
+                }
+            }
+
+            > .fm-pagination-current{
+                background-color: $primary-background;
+                color:#fff;
+                &:hover{
+                    background-color: $primary-background;
+                    color:#fff;
+                }
+            }
+
+            > .fm-pagination-next, > .fm-pagination-prev {
+                &:before{
+                    font-size: 28px;
+                }
+                &:hover{
+                    cursor: pointer;
+                    color: #666;
+                    background-color: #eee;
+                }
+            }
+
+            > .fm-pagination-more {
+                font-weight: bold;
+                font-size: 16px;
+                line-height: 17px;
+                &:hover{
+                    cursor: default;
+                    background-color: initial;
+                }
+            }
         }
     }
 }

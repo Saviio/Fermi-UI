@@ -2,20 +2,20 @@ import { dependencies } from '../../external/dependencies'
 import select from '../template/select.html'
 import option from '../template/option.html'
 import {
-    getDOMState,
-    getStyle,
+    on,
+    query,
+    remove,
+    replace,
+    prepend,
     getType,
     debounce,
-    onMotionEnd,
-    on,
+    getStyle,
     addClass,
+    queryAll,
+    onMotionEnd,
+    getDOMState,
     removeClass,
-    replaceClass,
-    prepend,
-    replace,
-    remove,
-    query,
-    queryAll
+    replaceClass
 } from '../../utils'
 
 
@@ -73,7 +73,6 @@ export class Select {
 
 
     compile($tElement, tAttrs, transclude){
-        //console.log("compile:"+new Date().getTime())
         let elem = $tElement[0]
         let isSearch = $tElement::getDOMState('search')
         let isMulti = $tElement::getDOMState('multi')

@@ -1,5 +1,5 @@
 import factory from '../external/directiveFacotry'
-import {Select,Option} from './directive/'
+import {Select,Option} from './directive/select'
 import './css/select.scss'
 
 const component = {

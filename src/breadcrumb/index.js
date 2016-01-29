@@ -1,5 +1,5 @@
 import factory from '../external/directiveFacotry'
-import directive from './directive/breadcrumb'
+import { breadcrumb, breadcrumbItem } from './directive/breadcrumb'
 
 import './css/breadcrumb.scss'
 
@@ -10,5 +10,6 @@ const component = {
 }
 
 export default angular.module(component.namespace, component.inject)
-	.directive(component.name, factory.create(directive))
+	.directive('fermiBreadcrumb', factory.create(breadcrumb))
+    .directive('fermiBreadcrumbItem', factory.create(breadcrumbItem))
 	.name;
