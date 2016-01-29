@@ -34,7 +34,9 @@ export function getStyle(el, name, removeUnit = ""){
         else if(name == 'height') style = el.offsetHeight
     }
 
-    if(removeUnit !== "") style = ~~style.replace(new RegExp(removeUnit),"")
+    if(removeUnit !== "" && getType(style) === 'String') {
+        style = ~~style.replace(new RegExp(removeUnit),"")
+    }
 
     return style
 }

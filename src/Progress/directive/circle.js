@@ -40,7 +40,7 @@ export default class circle{
         let size = attrs.size || 100
         let strokeWidth = attrs.strokeWidth || 4
         let inner = attrs.inner || '#e9e9e9' //inner background-color
-        let outer = attrs.outer || '#00a9e8' //outer background-color
+        let outer = attrs.outer || '#488fcd' //outer background-color
         let shape = attrs.shape || 'round'
         let showinfo = !!(attrs.showinfo || false)
         let isProgress = $elem::getDOMState('progress')

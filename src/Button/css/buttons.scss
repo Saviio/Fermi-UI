@@ -1,15 +1,7 @@
+@import "../../theme.scss";
 
-$primary-btn-color:#fff;
-$primary-btn-background:#00a9e8;
-
-$default-btn-color:#565656;
-$default-btn-background:#f6f6f6;
 $large-btn-height:50px;
 $small-btn-height:0px;
-
-$large-font-size:14px;
-$default-font-size:12px;
-$small-font-size:12px;
 
 
 @mixin loading($size){
@@ -129,6 +121,8 @@ button[disabled]:hover{
 button[disabled]:active{
     box-shadow:none;
 }
+
+
 
 
 @keyframes btn-loader {

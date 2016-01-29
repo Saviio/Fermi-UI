@@ -8,7 +8,7 @@ import {
 } from '../../utils'
 
 
-let queue = (function() {
+let queue = (function() {//remark
     let waiting = []
 
     let next = () => {
@@ -16,7 +16,7 @@ let queue = (function() {
         if(fn) fn(next)
     }
 
-    return (fn) => {
+    return fn => {
         waiting.push(fn)
         if (waiting.length === 1) next()
     }
@@ -38,7 +38,7 @@ export default class Loading{
         }
     }
 
-    __render__(fromZero = true){
+    __render__(fromZero = true){//remark
         if(this.$instance !== null) return this.$instance
 
         if(BODY.insertAdjacentHTML){
@@ -51,7 +51,7 @@ export default class Loading{
 
         let ins = DOM::query('#progress-loading-elem')
         if(ins !== null){
-            this.$instance = angular.element(ins)
+            this.$instance = angular.element(ins) //remark
             this.$instance.css('width',`${fromZero ? 0 : (this.status || 0) * 100}%`)
             this.$instance.css('transition',`width ${this.speed}ms ease-out, opacity ${this.speed}ms linear`)
             //ins.offsetWidth
@@ -80,13 +80,13 @@ export default class Loading{
         this.status = (n >= 1 ? null : n)
         this.__render__(!started)
 
-        queue((next) => {
+        queue(next => {
             this.$instance.css('width',`${n * 100}%`)
 
             if (n >= 1) {
                 setTimeout(() => {
                     this.$instance.addClass('disappear')
-                    setTimeout(() => {
+                    setTimeout(() => { //onMotionEnd remark
                         this.__dispose__()
                         next()
                     }, this.speed)

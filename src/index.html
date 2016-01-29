@@ -202,9 +202,11 @@
             <p>Steps</p>
 
             <Fermi:Steps style="width:960px;" size="normal" control="steps1">
-                <Fermi:Step title="Step1" checked="true">步骤一</Fermi:Step>
-                <Fermi:Step title="Step2">步骤二</Fermi:Step>
-                <Fermi:Step title="Step3">步骤三</Fermi:Step>
+                <Fermi:Step title="等待输入" checked="true"></Fermi:Step>
+                <Fermi:Step title="队列中"></Fermi:Step>
+                <Fermi:Step title="准备处理"></Fermi:Step>
+                <Fermi:Step title="处理中"></Fermi:Step>
+                <Fermi:Step title="处理完成"></Fermi:Step>
             </Fermi:Steps>
             <Fermi:buttons content="Next" ng-click="steps1.next()"></Fermi:buttons>
             <Fermi:buttons content="Reset" ng-click="steps1.reset()"></Fermi:buttons>
