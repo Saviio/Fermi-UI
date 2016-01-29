@@ -30,27 +30,26 @@ export default class Pagination {
 
         scope.range = () => {
             let arr = [scope.current]
-            let i,j
-            for(i = 1; i <= 3 && scope.items[scope.current - i - 1] !== undefined ; i++){
-                arr.unshift(scope.items[scope.current - i - 1])
+            let len = scope.items.length
+            let pivot = Math.round(scope.items.length / 2)
+            let i,j,f
+            let num = 6
+
+            if(scope.current > pivot) f = true
+
+            let n = f ? -1 : 1
+            for(i = 1; num >= 3 && scope.items[scope.current - n - 1] !== undefined ; i++, num--, n = f ? -i : i){
+                f
+                ? arr.push(scope.items[scope.current - n - 1])
+                : arr.unshift(scope.items[scope.current - n - 1])
             }
 
-            for(j = 1; j <= 3 && scope.items[scope.current + j - 1] !== undefined ; j++){
-                arr.push(scope.items[scope.current + j - 1])
+            let m = f ? -1 : 1
+            for(j = 1; j !== num && scope.items[scope.current + m - 1] !== undefined ; j++, m = f ? -j : j){
+                f
+                ? arr.unshift(scope.items[scope.current + m - 1])
+                : arr.push(scope.items[scope.current + m - 1])
             }
-
-            /*if(i <= 3){
-                while(i !== 3 && scope.items[scope.current + 3 + i - 1] !== undefined){
-                    arr.push(scope.items[scope.current + 3 + i - 1])
-                    i++
-                }
-            } else if(j <= 3){
-                while(j !== 0 && scope.items[scope.current - 3 - j - 1] !== undefined){
-                    arr.push(scope.items[scope.current - 3 - j - 1])
-                    j--
-                }
-            }*/
-
 
             return arr
         }
