@@ -1,6 +1,8 @@
 import { dependencies } from '../../external/dependencies'
 import template from '../template/template.html'
 import {
+    on,
+    last,
     range,
     query,
     addClass,
@@ -25,6 +27,16 @@ export default class Pagination {
         let elem = $tElement[0]
         this.prevLabel = elem::query('.fm-pagination-prev')
         this.nextLabal = elem::query('.fm-pagination-next')
+        this.hasJumper = elem::getDOMState('jumper')
+        if(this.hasJumper){
+            let jumper =
+            `<div class="fm-pagination-jumper">
+                <span>跳至</span>
+                <input class="fm-pagination-jumper-input" />
+                <span>页</span>
+            </div>`
+            this.jumperInput = elem::last(jumper)::query('.fm-pagination-jumper-input')
+        }
         return this.link
     }
 
@@ -78,9 +90,19 @@ export default class Pagination {
     }
 
     link(scope, $elem, attrs, ctrl){
-        let elem = $elem[0]
-        let hasJumper = elem::getDOMState('jumper')
+        if(this.hasJumper){
+            this.jumperInput::on('keydown', e => {
+                if(e.keyCode !== 13 || !/^\d*$/.test(this.jumperInput.value)) return
+                e.preventDefault()
+                let value = this.jumperInput.value
+                if(value <= scope.size && value > 0){
+                    scope.choose(~~this.jumperInput.value)
+                    scope.$apply()
+                    this.jumperInput.value = ''
+                }
 
+            })
+        }
         scope.choose(scope.current, false)
     }
 }

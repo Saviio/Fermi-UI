@@ -4,7 +4,10 @@
 .fm-pagination{
     height: 25px;
     float: right;
+    margin:5px 0px;
     .fm-pagination-pages{
+        display:inline-block;
+        vertical-align:top;
         ul{
             list-style: none;
             margin:0px;
@@ -54,6 +57,25 @@
                     cursor: default;
                     background-color: initial;
                 }
+            }
+        }
+    }
+    .fm-pagination-jumper{
+        display:inline-block;
+        vertical-align:top;
+        height:25px;
+        margin-left:5px;
+        .fm-pagination-jumper-input{
+            outline:none;
+            border:1px solid #d9d9d9;
+            border-radius:3px;
+            height:100%;
+            line-height:100%;
+            padding:4px 7px;
+            width:50px;
+            transition:border 300ms ease;
+            &:focus{
+                border:1px solid $primary-background;
             }
         }
     }

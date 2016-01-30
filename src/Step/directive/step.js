@@ -21,7 +21,7 @@ export class Steps {
     @dependencies('$scope')
     controller(scope){
         scope.steps = []
-        scope.mode = scope.mode || 'H'
+        scope.mode = scope.mode && scope.mode.match(/v|h/ig)[0] || 'H'
         scope.size = scope.size || 'small'
         scope.next = () => {
             let unChecked = scope.steps.filter(item => item.status() === false)
