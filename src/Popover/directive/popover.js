@@ -199,7 +199,7 @@ export default class Popover{
             ${escapeHTML(trigger)}+div.popover > .popover-arrow:after{
                 border-${escapeHTML(dire)}-color:${color};
             }
-        `
+        `//remark is this a bug? 模拟一个scoped css
         style.innerHTML += css
     }
 

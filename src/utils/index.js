@@ -352,6 +352,12 @@ export function inDoc(el) {
     return doc === el || doc === parent || !!(parent && parent.nodeType === 1 && (doc.contains(parent)))
 }
 
+export function range(size, start = 0){
+    let arr = []
+    for(let i = start; i <= size; i++) arr.push(i)
+    return arr
+}
+
 /*export function extend(target){
     if(!this.$new) throw new Error("caller was not a angular scope variable.")
     let dest = this

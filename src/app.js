@@ -124,4 +124,6 @@ app.controller(
         $timeout(function () {
             window.steps = $scope.steps
         }, 10);
+
+        $scope.output = item => console.log(item)
 }])

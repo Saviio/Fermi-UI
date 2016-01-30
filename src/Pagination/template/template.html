@@ -1,17 +1,11 @@
 <div class="fm-pagination clearfix">
     <div class="fm-pagination-pages">
         <ul>
-            <li class="fm-pagination-prev icon-left" ng-show="current !== items[0]" ng-click="prev()"></li>
-            <li ng-show="1 !== pages[0]" ng-click="choose(1)">1</li>
-            <li class="fm-pagination-more" ng-show="1 !== pages[0]">...</li>
-            <li ng-repeat="item in pages track by $index" class="{{current === item && 'fm-pagination-current'}}"  ng-click="choose(item)">
+            <li class="fm-pagination-prev icon-left" ng-click="prev()"></li>
+            <li ng-repeat="item in pages track by $index" class="{{current === item ? 'fm-pagination-current' : item === '...' && 'fm-pagination-more'}}"  ng-click="choose(item)">
                 {{item}}
             </li>
-            <li class="fm-pagination-more" ng-show="last() !== pages[pages.length - 1]">...</li>
-            <li class="{{current === items[items.length-1] && 'fm-pagination-current'}}" ng-click="choose(last())" ng-show="last() !== pages[pages.length - 1]">
-                {{last()}}
-            </li>
-            <li class="fm-pagination-next icon-right" ng-show="current !== last()" ng-click="next()"></li>
+            <li class="fm-pagination-next icon-right"  ng-click="next()"></li>
         </ul>
     </div>
 </div>
