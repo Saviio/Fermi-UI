@@ -358,6 +358,10 @@ export function range(size, start = 0){
     return arr
 }
 
+export function generateUID(){
+   return '_f' + ("0000" + (Math.random() * Math.pow(36,6) << 0).toString(36)).slice(-6)
+}
+
 /*export function extend(target){
     if(!this.$new) throw new Error("caller was not a angular scope variable.")
     let dest = this

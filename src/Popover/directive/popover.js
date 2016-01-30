@@ -2,6 +2,7 @@ import { dependencies } from '../../external/dependencies'
 import template from '../template/template.html'
 import popoverTmpl from '../template/popover.html'
 import {
+    generateUID,
     getDOMState,
     getStyle,
     escapeHTML,
@@ -149,7 +150,7 @@ export default class Popover{
             this.title = attr.title
             setTimeout(() => {
                 setLocation()
-                this.arrowColor(attr.trigger, placement, arrowColor, )
+                this.arrowColor(rootDOM, attr.trigger, placement, arrowColor, )
             }, 0)
         }
 
@@ -176,14 +177,14 @@ export default class Popover{
         return this.link
     }
 
-    arrowColor(trigger,dire,color){
+    arrowColor(rootDOM, trigger, dire, color){
         if(color === null){
             //auto calc arrow color
             let selector = dire === "bottom" && this.title
             ? "+.popover > .popover-title"
             : "+.popover > .popover-content > *"
 
-            let dom = DOM::query(trigger + selector)
+            let dom = rootDOM::query(trigger + selector)
             color = dom::getStyle('background-color')
         }
 
@@ -195,11 +196,15 @@ export default class Popover{
             DOM::query('head').appendChild(style)
         }
 
+        let triggerBtn = rootDOM::query(trigger)
+        let uid = generateUID()
+        triggerBtn.setAttribute(uid,'')
+
         let css = `
-            ${escapeHTML(trigger)}+div.popover > .popover-arrow:after{
+            ${escapeHTML(trigger)}[${uid}]+div.popover > .popover-arrow:after{
                 border-${escapeHTML(dire)}-color:${color};
             }
-        `//remark is this a bug? 模拟一个scoped css
+        `
         style.innerHTML += css
     }
 
