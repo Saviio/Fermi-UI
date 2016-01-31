@@ -10,15 +10,15 @@ import {
     getDOMState
 } from '../../utils'
 
-//jumper
+
 export default class Pagination {
     constructor(){
         this.restrict = 'EA'
         this.replace = true
         this.scope = {
             onchange:'=?',
-            size:'=?',
-            current:'=?'
+            size:'=',
+            cursor:'=?'
         }
         this.template = template
     }
@@ -44,7 +44,7 @@ export default class Pagination {
     controller(scope){
         scope.pages = []
         scope.items = range(scope.size > 0 ? scope.size : 0, 1)
-        scope.current = scope.current || 1
+        scope.current = (scope.cursor <= scope.size && scope.cursor) || 1
         scope.first = () => scope.items[0]
         scope.last = () => scope.items[scope.items.length - 1]
         scope.next = () => scope.current++ && _renderPages()
@@ -79,8 +79,13 @@ export default class Pagination {
                 : arr.push(scope.items[scope.current + m - 1])
             }
 
-            if(1 !== arr[0]) arr = [1,'...'].concat(arr)
-            if(scope.last() !== arr[arr.length - 1]) arr = arr.concat(['...', scope.last()])
+            if(1 !== arr[0]) {
+                arr = 2 === arr[0] ? [1].concat(arr) : [1,'...'].concat(arr)
+            }
+
+            if(scope.last() !== arr[arr.length - 1]) {
+                arr = scope.last() - 1 === arr[arr.length - 1] ? arr.concat([scope.last()]) : arr.concat(['...', scope.last()])
+            }
 
             scope.pages = arr
 
@@ -100,7 +105,6 @@ export default class Pagination {
                     scope.$apply()
                     this.jumperInput.value = ''
                 }
-
             })
         }
         scope.choose(scope.current, false)
