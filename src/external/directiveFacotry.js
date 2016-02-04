@@ -7,7 +7,7 @@ import { generateFermiId } from '../utils'
 //可能在某些corner case可能会导致工作失常，尚在斟酌中。
 
 const FermiIdenitifer = 'data-fermiId'
-let _cache = new cache() //remark 考虑一下究竟是不是需要在DOM上tag，还是干脆以DOM为key做数据映射
+let _cache = new cache() //remark 考虑一下究竟是不是需要在DOM上tag，还是干脆以DOM为key做数据映射  domRef
 
 
 export default class DirectiveFactory {
@@ -115,6 +115,7 @@ export default class DirectiveFactory {
 					}
 					instance.passing.apply(caller, [this])
 				}
+
 				instance.controller.$inject = ['$scope', '$element']
 			}
 
@@ -125,5 +126,3 @@ export default class DirectiveFactory {
 		return factory
 	}
 }
-
-//DirectiveFactory.$inject = []

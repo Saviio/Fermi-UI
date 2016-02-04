@@ -194,7 +194,7 @@ export function isDOM(el){
     return false
 }
 
-export function toDOM(el){
+export function toDOM(el){ //remark 支持多个元素 类似<span>123</span><div>321</div>  用fragment?
     if(arguments.length === 0) el = this
     if(typeof el === 'string'){
         let dom = createElem('div')
@@ -204,6 +204,14 @@ export function toDOM(el){
 
     return el
 }
+
+/*
+function fragmentFromString(strHTML) {
+    var temp = document.createElement('template');
+    temp.innerHTML = strHTML;
+    return temp.content;
+}
+*/
 
 export function detechPrefix(){
     if(prefix !== null && eventPrefix !== null) return { prefix, eventPrefix }

@@ -1,9 +1,11 @@
 import { dependencies } from '../../external/dependencies'
-import template from '../template/template.html'
+import menu from '../template/menu.html'
 import subMenu from '../template/subMenu.html'
 import menuItem from '../template/menuItem.html'
 import {
     query,
+    prepend,
+    addClass,
     setStyle,
     getDOMState
  } from '../../utils'
@@ -17,10 +19,12 @@ const cascading = 0
 export class Menu{
     constructor(){
         this.restrict = 'EA'
-        this.scope = {}
+        this.scope = {
+            mode:'@'
+        }
         this.replace = true
         this.transclude = true
-        this.template = template
+        this.template = menu
     }
 
     @dependencies('$scope')
@@ -41,7 +45,9 @@ export class Menu{
 export class SubMenu{
     constructor(){
         this.restrict = 'EA'
-        this.scope = {}
+        this.scope = {
+            title:'@'
+        }
         this.replace = true
         this.transclude = true
         this.template = subMenu
@@ -53,9 +59,10 @@ export class SubMenu{
         return this.link
     }
 
-    @dependencies('$scope')
-    controller(scope){
+    @dependencies('$scope','$sce')
+    controller(scope, $sce){
         scope.cascading = []
+        this.title = scope.title
     }
 
     passing(exports, scope){
@@ -63,6 +70,14 @@ export class SubMenu{
     }
 
     link(scope, $elem, attrs, parentCtrl){
+        let rootDOM = $elem[0]
+        let titleDOM = rootDOM::query('.fm-submenu-title')
+        if(this.title === undefined || this.title === ""){
+            titleDOM::addClass('hide')
+        } else {
+            titleDOM.innerHTML = this.title
+        }
+
         let parent
         for(let i = parentCtrl.length - 1; i >= 0 && parentCtrl.length; i--){
             if(parentCtrl[i] !== null){
@@ -71,12 +86,12 @@ export class SubMenu{
             }
         }
 
-        if(parent !== null){
+        if(parent !== null && parent !== undefined){
             parent.add({
                 type:'submenu',
                 render:offset => {
                     $elem[0]::query('.fm-submenu-title')::setStyle({
-                        'padding-left':offset + 'px'
+                        'padding-left': offset + 'px'
                     })
 
                     scope.cascading.forEach(e =>
@@ -84,7 +99,6 @@ export class SubMenu{
                 }
             })
         } else {
-            // no menu parent
             scope.cascading.forEach(e => e.render(cascading))
         }
     }
@@ -116,11 +130,10 @@ export class MenuItem{
 
         parent.add({
             type:'item',
-            render(offset){
+            render: offset =>
                 $elem[0]::setStyle({
                     'padding-left':offset + 'px'
                 })
-            }
         })
     }
 }

@@ -11,5 +11,5 @@ const component = {
 
 export default angular.module(component.namespace, component.inject)
 	.directive('fermiBreadcrumb', factory.create(breadcrumb))
-    .directive('fermiBreadcrumbItem', factory.create(breadcrumbItem))
+    .directive('fermiBreadcrumbitem', factory.create(breadcrumbItem))
 	.name;
