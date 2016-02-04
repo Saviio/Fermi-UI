@@ -117,7 +117,7 @@
                 //padding:7px 33px 7px 16px;
                 user-select:none;
                 &:hover{
-                    background-color:#eaf8fe !important;
+                    background-color:$hover-color !important;
                 }
             }
 
@@ -130,7 +130,7 @@
             }
 
             .tagged{
-                background: #eaf8fe !important;
+                background: $hover-color !important;
             }
         }
 

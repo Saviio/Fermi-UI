@@ -15,7 +15,7 @@ import './Select'
 import './Notification'
 import './Step'
 import './Pagination'
-
+import './Menu'
 
 //import mock data
 import scheduleItems from './scheduleItems.json'
@@ -32,7 +32,8 @@ var app=angular.module('app', [
     'Fermi.progress',
     'Fermi.notification',
     'Fermi.step',
-    'Fermi.pagination'
+    'Fermi.pagination',
+    'Fermi.menu'
 ])
 
 app.controller(

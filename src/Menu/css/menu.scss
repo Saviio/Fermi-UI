@@ -1,1 +1,44 @@
 @import '../../theme.scss';
+
+
+
+.fm-menu-container{
+    > * {
+        //margin-left: 24px;
+    }
+
+    //> ul{
+    /*    > .fm-menu-item, > .fm-submenu-container {
+            padding-left: 24px;
+            padding-right: 15px;
+        }*/
+    //}
+
+    border-right:#ccc 1px solid;
+    ul{
+        list-style: none;
+    }
+
+
+}
+
+.fm-submenu-title{
+    height: 42px;
+    line-height: 42px;
+}
+
+.fm-submenu-container{
+    width:100%;
+}
+
+
+.fm-menu-item{
+    width: 100%;
+    height: 42px;
+    line-height: 42px;
+    padding-right: 15px;
+    &:hover{
+        background-color: $hover-color !important;
+        cursor: pointer;
+    }
+}

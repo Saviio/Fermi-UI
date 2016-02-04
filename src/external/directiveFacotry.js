@@ -100,6 +100,7 @@ export default class DirectiveFactory {
 				instance.controller.$inject = controllerOrg.$inject
 
 			} else if(typeof instance.passing === 'function'){
+
 				instance.controller = function (...controllerArgs){
 					let [scope, $elem, ...restArgs] = controllerArgs
 					let fmId = $elem.attr(FermiIdenitifer)
@@ -112,11 +113,8 @@ export default class DirectiveFactory {
 						_cache.add(id, caller)
 						$elem.attr(FermiIdenitifer, id)
 					}
-
 					instance.passing.apply(caller, [this])
 				}
-
-				instance.controller = () => {}
 				instance.controller.$inject = ['$scope', '$element']
 			}
 

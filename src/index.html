@@ -127,16 +127,16 @@
                 </Fermi:Popover>
                 <Fermi:Popover title="POPOVER" placement="bottom" button="BOTTOM" hide=auto trigger="#btn2">
                     <Fermi:buttons id="btn2" content="Bottom" control="e"></Fermi:buttons>
-                    <div style="background:#fff;width:500px;">BOTTOM</div>
+                    <div style="background:#fff;">BOTTOM</div>
                 </Fermi:Popover>
                 <Fermi:Popover title="POPOVER" placement="left" button="LEFT" hide=auto trigger="#btn3">
                     <Fermi:buttons id="btn3" content="Left" control="e"></Fermi:buttons>
-                    <div style="background-color:#fff;width:500px;">LEFT</div>
+                    <div style="background-color:#fff;">LEFT</div>
                 </Fermi:Popover>
 
                 <Fermi:Popover title="POPOVER" placement="right" button="RIGHT" hide=auto trigger="#btn4">
                     <Fermi:buttons id="btn4" content="Right" control="e"></Fermi:buttons>
-                    <div style="background-color:#fff;width:500px;">RIGHT</div>
+                    <div style="background-color:#fff;">RIGHT</div>
                 </Fermi:Popover>
                 <Fermi:Popover placement="top" hide=auto trigger="#btn5" close action="hover">
                     <Fermi:buttons id="btn5" content="No title and hover to trigger" ></Fermi:buttons>
@@ -224,6 +224,19 @@
             <p>Pagination</p>
             <Fermi:Pagination size=45 cursor=1 onchange="output" jumper></Fermi:Pagination>
             <Fermi:Pagination size=9 cursor=9 onchange="output"></Fermi:Pagination>
+        </div>
+
+        <div id="fermiMenu" style="padding:30px;width:500px;">
+            <p>Menu</p>
+            <Fermi:Menu style="width:240px;">
+                <!--<Fermi:Menuitem>测试栏目1</Fermi:Menuitem>-->
+                <Fermi:Submenu>
+                    <!--<Fermi:Menuitem>测试栏目2</Fermi:Menuitem>-->
+                    <Fermi:Submenu>
+                        <Fermi:Menuitem>测试栏目3</Fermi:Menuitem>
+                    </Fermi:Submenu>
+                </Fermi:Submenu>
+            </Fermi:Menu>
         </div>
 
     </div>

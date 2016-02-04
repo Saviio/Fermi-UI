@@ -3,12 +3,12 @@ import { Menu, SubMenu, MenuItem } from './directive/menu'
 import './css/menu.scss'
 
 const component = {
-    namespace:'Fermi.Menu'
+    namespace:'Fermi.menu',
     inject:[]
 }
 
 export default angular.module(component.namespace, component.inject)
 	.directive('fermiMenu', factory.create(Menu))
-    .directive('fermiSubMenu', factory.create(SubMenu))
-    .directive('fermiMenuItem', factory.create(MenuItem))
+    .directive('fermiSubmenu', factory.create(SubMenu))
+    .directive('fermiMenuitem', factory.create(MenuItem))
 	.name;
