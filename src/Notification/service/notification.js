@@ -130,7 +130,7 @@ export default class Notification{
     }
 
     error(message = '', topic = ''){
-        return this.send({message, top, type:'error'})
+        return this.send({message, topic, type:'error'})
     }
 
     default(message = '', topic = ''){
