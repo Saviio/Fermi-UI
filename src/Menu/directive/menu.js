@@ -10,6 +10,14 @@ const cascading = 0
 //@title
 //@disabled
 
+const nesting = scope => {
+    let index = 0
+    while(scope.$$cascading !== 'Menu'){
+        if(scope.$$cascading === 'SubMenu' || scope.$$cascading === 'MenuItem') index ++
+        scope = scope.$parent
+    }
+    return index
+}
 
 export class Menu{
     constructor(){
@@ -20,8 +28,10 @@ export class Menu{
         this.template = template
     }
 
-    /*@dependencies('$scope')
-    controller(){}*/
+    @dependencies('$scope')
+    controller(scope){
+        scope.$$cascading = 'Menu'
+    }
 
     passing(exports, scope){
         exports.cascading = () => cascading
@@ -40,7 +50,9 @@ export class SubMenu{
     }
 
     @dependencies('$scope')
-    controller(scope){}
+    controller(scope){
+        scope.$$cascading = 'SubMenu'
+    }
 
     passing(exports, scope){
         exports.cascading = () => scope.cascading
@@ -55,11 +67,12 @@ export class SubMenu{
             }
         }
 
-        let delay = (parentCtrl.length && parentCtrl.filter(e => e !== null)).length || 1
+        //let delay = (parentCtrl.length && parentCtrl.filter(e => e !== null)).length || 1
         //setTimeout(function(){
-            scope.cascading = delay * 24
+        let cascading = nesting(scope)
+            scope.cascading = cascading * 24
         //}, delay * 2)
-        console.log('SubMenu:'+delay)
+
 
         console.log(scope.cascading)
     }
@@ -76,6 +89,11 @@ export class MenuItem{
         this.require = ['?^^fermiMenu','?^^fermiSubmenu']
     }
 
+    @dependencies('$scope')
+    controller(scope){
+        scope.$$cascading = 'MenuItem'
+    }
+
 
     link(scope, $elem, attrs, parentCtrl){
         let parent
@@ -85,11 +103,12 @@ export class MenuItem{
                 break
             }
         }
-        let delay = (parentCtrl.length && parentCtrl.filter(e => e !== null)).length || 1
+
+        let cascading = nesting(scope)
         //setTimeout(() => {
-            scope.cascading = delay * 24
+            scope.cascading = cascading * 24
         //}, delay * 4)
-        debugger
-        console.log('MenuItem:'+delay)
+
+
     }
 }
