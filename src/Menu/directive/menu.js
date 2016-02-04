@@ -2,22 +2,17 @@ import { dependencies } from '../../external/dependencies'
 import template from '../template/template.html'
 import subMenu from '../template/subMenu.html'
 import menuItem from '../template/menuItem.html'
-
+import {
+    query,
+    setStyle,
+    getDOMState
+ } from '../../utils'
 
 const cascading = 0
 
 //@mode
 //@title
 //@disabled
-
-const nesting = scope => {
-    let index = 0
-    while(scope.$$cascading !== 'Menu'){
-        if(scope.$$cascading === 'SubMenu' || scope.$$cascading === 'MenuItem') index ++
-        scope = scope.$parent
-    }
-    return index
-}
 
 export class Menu{
     constructor(){
@@ -30,15 +25,19 @@ export class Menu{
 
     @dependencies('$scope')
     controller(scope){
-        scope.$$cascading = 'Menu'
+        scope.cascading = []
     }
 
     passing(exports, scope){
-        exports.cascading = () => cascading
+        exports.add = item => scope.cascading.push(item)
+    }
+
+    link(scope, $elem, attrs, ctrl){
+        scope.cascading.forEach(e => e.render(cascading + 24))
     }
 }
 
-
+//@cascading
 export class SubMenu{
     constructor(){
         this.restrict = 'EA'
@@ -49,13 +48,18 @@ export class SubMenu{
         this.require = ['?^^fermiMenu','?^^fermiSubmenu']
     }
 
+    compile($tElement, tAttrs, transclude){
+        this.isCascading = $tElement::getDOMState('cascading') || true
+        return this.link
+    }
+
     @dependencies('$scope')
     controller(scope){
-        scope.$$cascading = 'SubMenu'
+        scope.cascading = []
     }
 
     passing(exports, scope){
-        exports.cascading = () => scope.cascading
+        exports.add = item => scope.cascading.push(item)
     }
 
     link(scope, $elem, attrs, parentCtrl){
@@ -67,14 +71,22 @@ export class SubMenu{
             }
         }
 
-        //let delay = (parentCtrl.length && parentCtrl.filter(e => e !== null)).length || 1
-        //setTimeout(function(){
-        let cascading = nesting(scope)
-            scope.cascading = cascading * 24
-        //}, delay * 2)
+        if(parent !== null){
+            parent.add({
+                type:'submenu',
+                render:offset => {
+                    $elem[0]::query('.fm-submenu-title')::setStyle({
+                        'padding-left':offset + 'px'
+                    })
 
-
-        console.log(scope.cascading)
+                    scope.cascading.forEach(e =>
+                        e.render(offset + (this.isCascading ? 24 : 0)))
+                }
+            })
+        } else {
+            // no menu parent
+            scope.cascading.forEach(e => e.render(cascading))
+        }
     }
 }
 
@@ -90,9 +102,7 @@ export class MenuItem{
     }
 
     @dependencies('$scope')
-    controller(scope){
-        scope.$$cascading = 'MenuItem'
-    }
+    controller(scope){}
 
 
     link(scope, $elem, attrs, parentCtrl){
@@ -104,11 +114,13 @@ export class MenuItem{
             }
         }
 
-        let cascading = nesting(scope)
-        //setTimeout(() => {
-            scope.cascading = cascading * 24
-        //}, delay * 4)
-
-
+        parent.add({
+            type:'item',
+            render(offset){
+                $elem[0]::setStyle({
+                    'padding-left':offset + 'px'
+                })
+            }
+        })
     }
 }

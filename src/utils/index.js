@@ -68,9 +68,9 @@ export function getDOMState(el, key){
     } else if(ret === ""){
         return true
     } else if(/true|false/i.test(ret)){
-        return !!v
+        return !!ret
     } else if(/^\d{1,}$/.test(ret)){
-        return ~~v
+        return ~~ret
     }
 
     return ret
@@ -359,7 +359,7 @@ export function range(size, start = 0){
 }
 
 export function generateUID(){
-   return '_f' + ("0000" + (Math.random() * Math.pow(36,6) << 0).toString(36)).slice(-6)
+   return '_F' + ("0000" + (Math.random() * Math.pow(36,6) << 0).toString(36)).slice(-6)
 }
 
 /*export function extend(target){
