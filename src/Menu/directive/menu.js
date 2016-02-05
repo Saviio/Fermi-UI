@@ -6,6 +6,7 @@ import {
     on,
     query,
     prepend,
+    queryAll,
     addClass,
     setStyle,
     getDOMState,
@@ -39,7 +40,14 @@ export class Menu{
     }
 
     link(scope, $elem, attrs, ctrl){
+        let rootDOM = $elem[0]
+        let childrenItem = rootDOM::queryAll('.fm-menu-item')
         scope.cascading.forEach(e => e.render(cascading + 24))
+        scope.$on('menuItem::selected', (event, domRef) => {
+            [].forEach.call(childrenItem, item => item::removeClass('fm-menu-item-selected'))
+            domRef::addClass('fm-menu-item-selected')
+            event.stopPropagation()
+        })
     }
 }
 
@@ -58,6 +66,7 @@ export class SubMenu{
 
     compile($tElement, tAttrs, transclude){
         this.isCascading = $tElement::getDOMState('cascading') || true
+        this.actived = $tElement::getDOMState('actived') || false
         return this.link
     }
 
@@ -72,18 +81,23 @@ export class SubMenu{
     }
 
     link(scope, $elem, attrs, parentCtrl){
-        let expanded = false
         let rootDOM = $elem[0]
         let titleDOM = rootDOM::query('.fm-submenu-title')
         let children = rootDOM::query('.fm-submenu-items')
+
         if(this.title === undefined || this.title === ""){
             titleDOM::addClass('hide')
         } else {
-            titleDOM.innerHTML = this.title
-            titleDOM::on('click', () => {
-                !expanded ? children::addClass('fm-submenu-expanded') : children::removeClass('fm-submenu-expanded')
-                expanded = !expanded
-            })
+            titleDOM.innerHTML += this.title
+            let fn = () => {
+                this.actived
+                ? rootDOM::addClass('fm-submenu-actived')
+                : rootDOM::removeClass('fm-submenu-actived')
+
+                this.actived = !this.actived
+            }
+            titleDOM::on('click', fn)
+            fn()
         }
 
         let parent
@@ -128,6 +142,7 @@ export class MenuItem{
 
 
     link(scope, $elem, attrs, parentCtrl){
+        let rootDOM = $elem[0]
         let parent
         for(let i = parentCtrl.length - 1; i >= 0 && parentCtrl.length; i--){
             if(parentCtrl[i] !== null){
@@ -142,6 +157,11 @@ export class MenuItem{
                 $elem[0]::setStyle({
                     'padding-left':offset + 'px'
                 })
+        })
+
+
+        rootDOM::on('click', () => {
+            scope.$emit('menuItem::selected', rootDOM)
         })
     }
 }

@@ -70,6 +70,10 @@ app.controller(
             window.ck = $scope.ck
         },1000)
 
+        $scope.$on('checked', data => {
+            console.log('ROOT')
+        })
+
 
         var rec=()=>{
             if($scope.entity1>=100)
