@@ -3,11 +3,13 @@ import menu from '../template/menu.html'
 import subMenu from '../template/subMenu.html'
 import menuItem from '../template/menuItem.html'
 import {
+    on,
     query,
     prepend,
     addClass,
     setStyle,
-    getDOMState
+    getDOMState,
+    removeClass
  } from '../../utils'
 
 const cascading = 0
@@ -70,12 +72,18 @@ export class SubMenu{
     }
 
     link(scope, $elem, attrs, parentCtrl){
+        let expanded = false
         let rootDOM = $elem[0]
         let titleDOM = rootDOM::query('.fm-submenu-title')
+        let children = rootDOM::query('.fm-submenu-items')
         if(this.title === undefined || this.title === ""){
             titleDOM::addClass('hide')
         } else {
             titleDOM.innerHTML = this.title
+            titleDOM::on('click', () => {
+                !expanded ? children::addClass('fm-submenu-expanded') : children::removeClass('fm-submenu-expanded')
+                expanded = !expanded
+            })
         }
 
         let parent

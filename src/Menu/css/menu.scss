@@ -25,10 +25,43 @@
 .fm-submenu-title{
     height: 42px;
     line-height: 42px;
+    &:hover{
+        background-color: $hover-color !important;
+        cursor: pointer;
+    }
 }
 
 .fm-submenu-container{
     width:100%;
+    position: relative;
+    > .menu-icon{
+        position: absolute;
+        right:0px;
+        top: 0px;
+        height: 42px;
+        transition:transform 300ms ease;
+        &:before{
+            display: block;
+            height: 42px;
+            line-height: 42px;
+        }
+    }
+
+    > .fm-submenu-items{
+        //transition: max-height 500ms cubic-bezier(0.92, 0, 0.01, 1.01);
+        /*transition: max-height 500ms cubic-bezier(.5, 0, 1, 0);
+        overflow: hidden;
+        max-height: 2000px;*/
+        @include slideUp;
+    }
+
+    > .fm-submenu-expanded{
+        /*max-height: 0px;
+        //transition: max-height 500ms cubic-bezier(0.92, 0, 0.01, 1.01) -.5s;
+        transition-timing-function:cubic-bezier(0, 1, 0, 1);
+        transition-delay: -.1s;*/
+        @include slideDown;
+    }
 }
 
 
