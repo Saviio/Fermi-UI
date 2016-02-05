@@ -175,22 +175,20 @@ export class Select {
 
     passing(exports, scope){
         exports.select = (option, init = false) => {
-            setTimeout(()=>{
-                if(this.mode === 'multi' || this.mode === 'tags' ){
-                    if(scope.ngModel.every(existOption => existOption !== option)){
-                        scope.ngModel.push(option)
-                        option.$elem.addClass('tagged')
-                        option.$elem.attr('selected',true)
-                    }
-                } else {
-                    scope.ngModel = option
-                    if(!init) scope.switchDropdownState()
+            if(this.mode === 'multi' || this.mode === 'tags' ){
+                if(scope.ngModel.every(existOption => existOption !== option)){
+                    scope.ngModel.push(option)
+                    option.$elem.addClass('tagged')
+                    option.$elem.attr('selected',true)
                 }
+            } else {
+                scope.ngModel = option
+                if(!init) scope.switchDropdownState()
+            }
 
-                if(!/\$apply|\$digest/.test(scope.$root.$$phase)){
-                    scope.$apply()
-                }
-            }, 0)
+            if(!/\$apply|\$digest/.test(scope.$root.$$phase)){
+                scope.$apply()
+            }
         }
 
         exports.mode = this.mode
