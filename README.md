@@ -11,13 +11,19 @@ A simple UI library implementation using angular.js.
 
 -------------------
 
-Stage: Draft
+Stage: development
 
 ###Compile && Run:
 ```
     npm install
     npm run dev
 ```
+
+###Features
+
+###Install
+
+###Compatibility
 
 
 ---------

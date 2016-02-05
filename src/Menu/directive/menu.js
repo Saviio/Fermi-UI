@@ -15,6 +15,15 @@ import {
 
 const cascading = 0
 
+let peekMenuEnv = ctrls => {
+    for(let i = ctrls.length - 1; i >= 0 && ctrls.length; i--){
+        if(ctrls[i] !== null){
+            return ctrls[i]
+        }
+    }
+    return null
+}
+
 //@mode
 //@title
 //@disabled
@@ -30,9 +39,16 @@ export class Menu{
         this.template = menu
     }
 
+    compile($tElement, tAttrs, transclude){
+        //debugger
+        console.log($tElement[0].innerHTML)
+        return this.link
+    }
+
     @dependencies('$scope')
     controller(scope){
         scope.cascading = []
+        scope.mode = (scope.mode && scope.mode.match(/v|h/ig)[0] || 'V').toUpperCase()
     }
 
     passing(exports, scope){
@@ -42,12 +58,19 @@ export class Menu{
     link(scope, $elem, attrs, ctrl){
         let rootDOM = $elem[0]
         let childrenItem = rootDOM::queryAll('.fm-menu-item')
-        scope.cascading.forEach(e => e.render(cascading + 24))
         scope.$on('menuItem::selected', (event, domRef) => {
             [].forEach.call(childrenItem, item => item::removeClass('fm-menu-item-selected'))
             domRef::addClass('fm-menu-item-selected')
             event.stopPropagation()
         })
+
+        //if(){
+            scope.cascading.forEach(e => {
+                e.init(cascading + (scope.mode === 'V' ? 24 : 0), scope.mode)
+                //if(e.type === 'submenu') e.bind()
+            })
+        //}
+
     }
 }
 
@@ -89,39 +112,42 @@ export class SubMenu{
             titleDOM::addClass('hide')
         } else {
             titleDOM.innerHTML += this.title
-            let fn = () => {
-                this.actived
-                ? rootDOM::addClass('fm-submenu-actived')
-                : rootDOM::removeClass('fm-submenu-actived')
-
-                this.actived = !this.actived
-            }
-            titleDOM::on('click', fn)
-            fn()
         }
 
-        let parent
-        for(let i = parentCtrl.length - 1; i >= 0 && parentCtrl.length; i--){
-            if(parentCtrl[i] !== null){
-                parent = parentCtrl[i]
-                break
-            }
-        }
+        let parent = peekMenuEnv(parentCtrl)
 
         if(parent !== null && parent !== undefined){
             parent.add({
                 type:'submenu',
-                render:offset => {
-                    $elem[0]::query('.fm-submenu-title')::setStyle({
-                        'padding-left': offset + 'px'
-                    })
+                init:(offset, mode) => {
+                    if(mode === 'H'){
+                        offset = 0
+                    } else if(mode === 'V'){
+                        $elem[0]::query('.fm-submenu-title')::setStyle({
+                            'padding-left': offset + 'px'
+                        })
 
-                    scope.cascading.forEach(e =>
-                        e.render(offset + (this.isCascading ? 24 : 0)))
+                        offset += this.isCascading ? 24 : 0
+                    }
+
+                    if(this.title !== undefined && this.title !== "") {
+                        let switchState = () => {
+                            this.actived
+                            ? rootDOM::addClass(`fm-submenu-${mode === 'V' ? 'actived' : 'pop'}`)
+                            : rootDOM::removeClass(`fm-submenu-${mode === 'V' ? 'actived' : 'pop'}`)
+
+                            this.actived = !this.actived
+                        }
+                        switchState()
+                        titleDOM::on('click', switchState)
+                    }
+
+                    scope.cascading.forEach(e => e.init(offset, mode))
                 }
             })
         } else {
-            scope.cascading.forEach(e => e.render(cascading))
+            //when a submenu was inserted to DOMtree separately, the mode of menu will be "V" as default.
+            scope.cascading.forEach(e => e.init(cascading, 'V'))
         }
     }
 }
@@ -140,25 +166,20 @@ export class MenuItem{
     @dependencies('$scope')
     controller(scope){}
 
-
     link(scope, $elem, attrs, parentCtrl){
         let rootDOM = $elem[0]
-        let parent
-        for(let i = parentCtrl.length - 1; i >= 0 && parentCtrl.length; i--){
-            if(parentCtrl[i] !== null){
-                parent = parentCtrl[i]
-                break
-            }
-        }
+        let parent = peekMenuEnv(parentCtrl)
 
         parent.add({
             type:'item',
-            render: offset =>
+            init: (offset, mode) => {
+                if(mode === 'H') return
                 $elem[0]::setStyle({
                     'padding-left':offset + 'px'
                 })
-        })
+            }
 
+        })
 
         rootDOM::on('click', () => {
             scope.$emit('menuItem::selected', rootDOM)
