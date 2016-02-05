@@ -35,8 +35,8 @@
             height: 100%;
         }
 
-        .expanded{
-            transform: rotateZ(180deg)
+        .expanded{//remark rename to actived
+            @include rotate180;
         }
 
         .tags-selection{

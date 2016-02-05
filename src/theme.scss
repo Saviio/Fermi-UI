@@ -19,3 +19,7 @@ $hover-color:#eaf8fe;
     max-height: 2000px;
     transition-timing-function: cubic-bezier(.5, 0, 1, 0);
 }
+
+@mixin rotate180{
+    transform: rotateZ(180deg)
+}
