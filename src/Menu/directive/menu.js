@@ -4,13 +4,18 @@ import subMenu from '../template/subMenu.html'
 import menuItem from '../template/menuItem.html'
 import {
     on,
+    noop,
     query,
+    nextId,
     prepend,
     queryAll,
     addClass,
     setStyle,
+    onMotionEnd,
     getDOMState,
-    removeClass
+    toggleClass,
+    removeClass,
+    replaceClass
  } from '../../utils'
 
 const cascading = 0
@@ -39,11 +44,6 @@ export class Menu{
         this.template = menu
     }
 
-    compile($tElement, tAttrs, transclude){
-        //debugger
-        console.log($tElement[0].innerHTML)
-        return this.link
-    }
 
     @dependencies('$scope')
     controller(scope){
@@ -130,24 +130,48 @@ export class SubMenu{
                         offset += this.isCascading ? 24 : 0
                     }
 
-                    if(this.title !== undefined && this.title !== "") {
-                        let switchState = () => {
-                            this.actived
-                            ? rootDOM::addClass(`fm-submenu-${mode === 'V' ? 'actived' : 'pop'}`)
-                            : rootDOM::removeClass(`fm-submenu-${mode === 'V' ? 'actived' : 'pop'}`)
+                    let switchState = noop
 
-                            this.actived = !this.actived
+                    if(this.title !== undefined && this.title !== "") {
+
+                        if(mode === 'V'){
+                            switchState = () => {
+                                this.actived
+                                ? rootDOM::addClass(`fm-submenu-actived`)
+                                : rootDOM::removeClass(`fm-submenu-actived`)
+
+                                this.actived = !this.actived
+                            }
+                            switchState()
+                            titleDOM::on('click', switchState)
+                        } else if(mode === 'H'){
+                            let items = rootDOM::query('.fm-submenu-items')
+                            /*switchState = rootDOM
+                                ::query('.fm-submenu-items')
+                                ::toggleClass('fm-submenu-pop', this.actived, {'true':'enter', 'false':'leave'})*/
+                            rootDOM::on('mouseover', e => {
+                                items::replaceClass('hide', 'fm-submenu-pop-enter')
+                            })
+                            rootDOM::on('mouseleave', e => {
+                                console.log('leave!')
+                                items::replaceClass('fm-submenu-pop-enter', 'fm-submenu-pop-leave')
+                                     ::onMotionEnd(() => {
+                                         items::addClass('hide')
+                                     })
+                            })
+                            items::addClass('hide')
+                            //switchState()
                         }
-                        switchState()
-                        titleDOM::on('click', switchState)
+
                     }
 
                     scope.cascading.forEach(e => e.init(offset, mode))
                 }
             })
         } else {
-            //when a submenu was inserted to DOMtree separately, the mode of menu will be "V" as default.
+            //when a submenu was inserted to DOMtree separately, the mode of menu will be "V" by default.
             scope.cascading.forEach(e => e.init(cascading, 'V'))
+
         }
     }
 }
@@ -178,7 +202,6 @@ export class MenuItem{
                     'padding-left':offset + 'px'
                 })
             }
-
         })
 
         rootDOM::on('click', () => {

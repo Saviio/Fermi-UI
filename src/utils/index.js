@@ -239,6 +239,7 @@ export function onMotionEnd(el, cb){
     let {prefix, eventPrefix} = detechPrefix()
 
     let handler = (e) => {
+        //console.log(e.target, el)
         if(e.target === el){
             el::off(eventPrefix + 'TransitionEnd', handler)
             el::off('animationend webkitAnimationEnd MSAnimationEnd oAnimationEnd', handler)
@@ -336,6 +337,10 @@ export function generateFermiId(){
     return id.join('.')
 }
 
+export function nextId(){
+    return _FMId++
+}
+
 export function clamp(val, min, max){
     return val < min ? min : (val > max ? max : val)
 }
@@ -368,6 +373,22 @@ export function range(size, start = 0){
 
 export function generateUID(){
    return '_F' + ("0000" + (Math.random() * Math.pow(36,6) << 0).toString(36)).slice(-6)
+}
+
+export function toggleClass(el, namespace, state, suffix){
+    if(arguments.length === 3) [el, namespace, state, suffix] = [this, el, namespace, state]
+
+    return function(){
+
+        state
+        ? el::replaceClass('hide', namespace + '-' + suffix['true'])
+        : el::replaceClass(namespace + '-' + suffix['true'], namespace + '-' + suffix['false'])::onMotionEnd(() => {
+            //debugger
+            el::replaceClass(namespace + '-' + suffix['false'], 'hide')
+        })
+
+        state = !state
+    }
 }
 
 /*export function extend(target){
