@@ -151,12 +151,15 @@ export class SubMenu{
                                 ::toggleClass('fm-submenu-pop', this.actived, {'true':'enter', 'false':'leave'})*/
                             rootDOM::on('mouseover', e => {
                                 items::replaceClass('hide', 'fm-submenu-pop-enter')
+                                items::setStyle({
+                                    'z-index': nextId()+1000
+                                })
                             })
                             rootDOM::on('mouseleave', e => {
                                 console.log('leave!')
                                 items::replaceClass('fm-submenu-pop-enter', 'fm-submenu-pop-leave')
                                      ::onMotionEnd(() => {
-                                         items::addClass('hide')
+                                         items::replaceClass('fm-submenu-pop-leave','hide')
                                      })
                             })
                             items::addClass('hide')
