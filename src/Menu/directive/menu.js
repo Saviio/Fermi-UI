@@ -6,6 +6,7 @@ import {
     on,
     noop,
     query,
+    queue,
     nextId,
     prepend,
     queryAll,
@@ -149,18 +150,44 @@ export class SubMenu{
                             /*switchState = rootDOM
                                 ::query('.fm-submenu-items')
                                 ::toggleClass('fm-submenu-pop', this.actived, {'true':'enter', 'false':'leave'})*/
-                            rootDOM::on('mouseover', e => {
-                                items::replaceClass('hide', 'fm-submenu-pop-enter')
-                                items::setStyle({
-                                    'z-index': nextId()+1000
-                                })
+                            let q = []
+                            rootDOM::on('mouseenter', e => {
+                                let fn = () => {
+                                    if(!this.actived){
+                                        items::replaceClass('hide', 'fm-submenu-pop-enter')
+                                             ::onMotionEnd(() => {
+                                                 this.actived = true
+                                                 if(q.length >= 1) (q.shift())()
+                                             })
+                                    }
+                                }
+                                //if(!this.actived){
+                                    //q(next => {
+
+                                    //})
+                                if(!this.actived && q.length === 0){
+                                    fn()
+                                } else {
+                                    q.push(fn)
+                                }
                             })
                             rootDOM::on('mouseleave', e => {
-                                console.log('leave!')
-                                items::replaceClass('fm-submenu-pop-enter', 'fm-submenu-pop-leave')
-                                     ::onMotionEnd(() => {
-                                         items::replaceClass('fm-submenu-pop-leave','hide')
-                                     })
+                                let fn = () => {
+                                    if(this.actived){
+                                        items::replaceClass('fm-submenu-pop-enter', 'fm-submenu-pop-leave')
+                                             ::onMotionEnd(() => {
+                                                 items::replaceClass('fm-submenu-pop-leave', 'hide')
+                                                 this.actived = false
+                                                 if(q.length >= 1) (q.shift())()
+                                                 console.log(q.length)
+                                             })
+                                    }
+                                }
+                                if(this.actived && q.length === 0){
+                                    fn()
+                                } else {
+                                    q.push(fn)
+                                }
                             })
                             items::addClass('hide')
                             //switchState()

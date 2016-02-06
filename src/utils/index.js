@@ -231,15 +231,13 @@ export function detechPrefix(){
 }
 
 export function onMotionEnd(el, cb){
-    let isNgElement = false
     if(typeof el === 'function') [el, cb] = [this, el]
     if(!isDOM(el) && !(el instanceof angular.element)) return
     if(el instanceof angular.element) el = el[0]
 
     let {prefix, eventPrefix} = detechPrefix()
 
-    let handler = (e) => {
-        //console.log(e.target, el)
+    let handler = e => { //remark
         if(e.target === el){
             el::off(eventPrefix + 'TransitionEnd', handler)
             el::off('animationend webkitAnimationEnd MSAnimationEnd oAnimationEnd', handler)
@@ -390,6 +388,32 @@ export function toggleClass(el, namespace, state, suffix){
         state = !state
     }
 }
+
+export function queue(isAsync = false){
+    let waiting = []
+
+    let next = () => {
+        let fn = waiting.shift()
+        if(fn){
+            isAsync
+            ? setTimeout(() => fn(next), 0)
+            : fn(next)
+        }
+    }
+
+    return fn => {
+        waiting.push(fn)
+        if (waiting.length === 1) next()
+    }
+}
+
+export const transitionState = {
+    waiting  : 0,
+    running  : 1,
+    finished : 2
+}
+
+
 
 /*export function extend(target){
     if(!this.$new) throw new Error("caller was not a angular scope variable.")
