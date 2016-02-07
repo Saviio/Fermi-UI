@@ -7,7 +7,6 @@ import {
     noop,
     query,
     queue,
-    nextId,
     prepend,
     queryAll,
     addClass,
@@ -153,18 +152,16 @@ export class SubMenu{
                             let q = []
                             rootDOM::on('mouseenter', e => {
                                 let fn = () => {
-                                    if(!this.actived){
+                                    //if(!this.actived){
                                         items::replaceClass('hide', 'fm-submenu-pop-enter')
                                              ::onMotionEnd(() => {
                                                  this.actived = true
                                                  if(q.length >= 1) (q.shift())()
+                                                 console.log(q.length)
                                              })
-                                    }
+                                    //}
                                 }
-                                //if(!this.actived){
-                                    //q(next => {
 
-                                    //})
                                 if(!this.actived && q.length === 0){
                                     fn()
                                 } else {
@@ -173,7 +170,7 @@ export class SubMenu{
                             })
                             rootDOM::on('mouseleave', e => {
                                 let fn = () => {
-                                    if(this.actived){
+                                    //if(this.actived){
                                         items::replaceClass('fm-submenu-pop-enter', 'fm-submenu-pop-leave')
                                              ::onMotionEnd(() => {
                                                  items::replaceClass('fm-submenu-pop-leave', 'hide')
@@ -181,7 +178,7 @@ export class SubMenu{
                                                  if(q.length >= 1) (q.shift())()
                                                  console.log(q.length)
                                              })
-                                    }
+                                    //}
                                 }
                                 if(this.actived && q.length === 0){
                                     fn()
@@ -217,6 +214,7 @@ export class MenuItem{
         this.require = ['?^^fermiMenu','?^^fermiSubmenu']
     }
 
+
     @dependencies('$scope')
     controller(scope){}
 
@@ -235,6 +233,8 @@ export class MenuItem{
         })
 
         rootDOM::on('click', () => {
+            let isDisabled = rootDOM::getDOMState('disabled')
+            if(isDisabled) return
             scope.$emit('menuItem::selected', rootDOM)
         })
     }

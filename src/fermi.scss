@@ -163,12 +163,18 @@ button.fm-close{
     100% {opacity:0.7;transform:translateX(40%) scale(0.05,1)}
 }
 
+
 @keyframes fadeInDown {
-    0%{opacity: 0;transform:translateY(-10px)}
-    100%{opacity: 100;transform:translateY(0)}
+    from{opacity: 0;transform:translateY(-10px);}
+    to{opacity: 100;transform:translateY(0);}
 }
 
 @keyframes fadeOutUp {
-    0%{opacity: 100;display:block;transform:translateY(0px)}
-    100%{opacity: 0;display:none;transform:translateY(-10px)}
+    from{opacity: 100;transform:translateY(0px);}
+    to{opacity: 0;transform:translateY(-10px);}
+}
+
+@keyframes fadeOutDown {
+    from{opacity: 100;transform:translateY(0px);}
+    to{opacity: 0;transform:translateY(10px);}
 }

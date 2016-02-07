@@ -401,17 +401,16 @@ export function queue(isAsync = false){
         }
     }
 
-    return fn => {
+    let entry = fn => {
         waiting.push(fn)
         if (waiting.length === 1) next()
     }
+
+    entry.count = () => waiting.length
+    return entry
 }
 
-export const transitionState = {
-    waiting  : 0,
-    running  : 1,
-    finished : 2
-}
+
 
 
 

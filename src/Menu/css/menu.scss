@@ -92,6 +92,7 @@
         display:inline-block;
         vertical-align:top;
         width:100%;
+        z-index:100;
 
          .fm-submenu-title{
             border:none;
@@ -119,27 +120,6 @@
         }
     }
 
-    .fm-submenu-actived{
-
-        .fm-submenu-items{
-            /*box-shadow:0px 1px 2px rgba(220, 220, 220, 0.7);
-            border:#e9e9e9 1px solid;*/
-            border-radius:3px;
-            /*position: absolute;
-            top: 9px;
-            left: 105%;
-            width:100%;*/
-        }
-
-        > .fm-submenu-items{
-            //overflow:visible;
-        }
-    }
-    /*
-    > .fm-submenu-actived > .fm-submenu-items {
-        position:static !important;
-    }*/
-
     > .fm-submenu-actived > .fm-submenu-items {
         box-shadow:0px 1px 2px rgba(220, 220, 220, 0.7);
         border:#e9e9e9 1px solid;
@@ -147,26 +127,27 @@
 
     > .fm-submenu-container{
         width:auto ;
-        min-width:90px;
+        min-width:120px;
 
         > .fm-submenu-items{
            margin-top:10px;
-           max-height:initial;
+           max-height:none;
        }
     }
 
     .fm-submenu-pop-enter{//remark 把select控件也改成toggle的形式
-        animation:fadeInDown 0.3s 0s ease both;
+        animation:fadeInDown 0.3s 0s ease-out both;
     }
 
     .fm-submenu-pop-leave{
-        animation:fadeOutUp 0.3s 0s ease both;
+        animation:fadeOutUp 0.3s 0s ease-in both;
     }
+
 
     .fm-submenu-container { //二级及以上
         position: relative;
         > .fm-submenu-items{
-            overflow:initial;
+            overflow:visible;
             box-shadow:0px 1px 2px rgba(220, 220, 220, 0.7);
             border:#e9e9e9 1px solid;
             position:absolute;
@@ -174,25 +155,51 @@
             margin-left:100%;
             //margin-left: 5px;
             //padding-left: 5px;
-            top:0px;
+            top:-1px;
             width: 100%;
-            max-height: initial;
+            max-height: none;
             background-color: #fff;
+            border-radius:2px;
         }
     }
 
     > .fm-submenu-container{ //一级菜单
         position: static;
         > .fm-submenu-items{
-            position:static;
-            margin-left: initial;
+            position:relative;
+            margin-left: auto;
+            z-index:100;
         }
     }
 
+    > .fm-menu-item{
+        border-right:none;
+        border-bottom:rgba($primary-background, 0) solid 3px;
+        height:50px;
+        line-height:50px;
+        text-align:center;
+        width:100%;
+        display:inline-block;
+        vertical-align:top;
+        width: auto;
+        min-width: 120px;
+        padding:0px 0px;
 
-
+        &:hover{
+            transition:border-color 300ms ease;
+            border-bottom:3px solid rgba($primary-background, 1);
+            background-color: inherit !important;
+        }
+    }
 }
 
+.fm-menu-item[disabled="disabled"]{
+    cursor: not-allowed !important;
+    color:#ccc;
+    &:hover{
+        background-color:inherit !important;
+    }
+}
 
 
 @include SubMenu;
