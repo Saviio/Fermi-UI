@@ -2,6 +2,7 @@ import { dependencies } from '../../external/dependencies'
 import menu from '../template/menu.html'
 import subMenu from '../template/subMenu.html'
 import menuItem from '../template/menuItem.html'
+import { transition } from '../../utils/transition'
 import {
     on,
     noop,
@@ -13,12 +14,11 @@ import {
     setStyle,
     onMotionEnd,
     getDOMState,
-    toggleClass,
     removeClass,
     replaceClass
  } from '../../utils'
 
-const cascading = 0
+const CASCADING = 0
 
 let peekMenuEnv = ctrls => {
     for(let i = ctrls.length - 1; i >= 0 && ctrls.length; i--){
@@ -66,7 +66,7 @@ export class Menu{
 
         //if(){
             scope.cascading.forEach(e => {
-                e.init(cascading + (scope.mode === 'V' ? 24 : 0), scope.mode)
+                e.init(CASCADING + (scope.mode === 'V' ? 24 : 0), scope.mode)
                 //if(e.type === 'submenu') e.bind()
             })
         //}
@@ -115,6 +115,25 @@ export class SubMenu{
         }
 
         let parent = peekMenuEnv(parentCtrl)
+        let eventsBinding = mode => {
+            if(mode === 'V'){
+                let switchState = e => {
+                    this.actived
+                    ? rootDOM::addClass(`fm-submenu-actived`)
+                    : rootDOM::removeClass(`fm-submenu-actived`)
+
+                    this.actived = !this.actived
+                }
+                switchState()
+                titleDOM::on('click', switchState)
+            } else if(mode === 'H'){
+                let items = rootDOM::query('.fm-submenu-items')
+                let subMenuTrans = new transition(items, 'fm-submenu-pop')
+
+                titleDOM::on('mouseenter', e => subMenuTrans.state = true)
+                rootDOM::on('mouseleave', e => subMenuTrans.state = false)
+            }
+        }
 
         if(parent !== null && parent !== undefined){
             parent.add({
@@ -126,84 +145,26 @@ export class SubMenu{
                         $elem[0]::query('.fm-submenu-title')::setStyle({
                             'padding-left': offset + 'px'
                         })
-
                         offset += this.isCascading ? 24 : 0
                     }
 
-                    let switchState = noop
-
                     if(this.title !== undefined && this.title !== "") {
-
-                        if(mode === 'V'){
-                            switchState = () => {
-                                this.actived
-                                ? rootDOM::addClass(`fm-submenu-actived`)
-                                : rootDOM::removeClass(`fm-submenu-actived`)
-
-                                this.actived = !this.actived
-                            }
-                            switchState()
-                            titleDOM::on('click', switchState)
-                        } else if(mode === 'H'){
-                            let items = rootDOM::query('.fm-submenu-items')
-                            /*switchState = rootDOM
-                                ::query('.fm-submenu-items')
-                                ::toggleClass('fm-submenu-pop', this.actived, {'true':'enter', 'false':'leave'})*/
-                            let q = []
-                            rootDOM::on('mouseenter', e => {
-                                let fn = () => {
-                                    //if(!this.actived){
-                                        items::replaceClass('hide', 'fm-submenu-pop-enter')
-                                             ::onMotionEnd(() => {
-                                                 this.actived = true
-                                                 if(q.length >= 1) (q.shift())()
-                                                 console.log(q.length)
-                                             })
-                                    //}
-                                }
-
-                                if(!this.actived && q.length === 0){
-                                    fn()
-                                } else {
-                                    q.push(fn)
-                                }
-                            })
-                            rootDOM::on('mouseleave', e => {
-                                let fn = () => {
-                                    //if(this.actived){
-                                        items::replaceClass('fm-submenu-pop-enter', 'fm-submenu-pop-leave')
-                                             ::onMotionEnd(() => {
-                                                 items::replaceClass('fm-submenu-pop-leave', 'hide')
-                                                 this.actived = false
-                                                 if(q.length >= 1) (q.shift())()
-                                                 console.log(q.length)
-                                             })
-                                    //}
-                                }
-                                if(this.actived && q.length === 0){
-                                    fn()
-                                } else {
-                                    q.push(fn)
-                                }
-                            })
-                            items::addClass('hide')
-                            //switchState()
-                        }
-
+                        eventsBinding(mode)
                     }
 
                     scope.cascading.forEach(e => e.init(offset, mode))
                 }
             })
         } else {
-            //when a submenu was inserted to DOMtree separately, the mode of menu will be "V" by default.
-            scope.cascading.forEach(e => e.init(cascading, 'V'))
-
+            rootDOM::addClass('fm-submenu-separated')
+            //when a submenu was inserted to DOMtree separately, the mode of menu will be "H" by default.
+            scope.cascading.forEach(e => e.init(CASCADING, 'H'))
+            eventsBinding('H')
+            //remark
         }
     }
 }
 
-//@disabled
 export class MenuItem{
     constructor(){
         this.restrict = 'EA'
@@ -215,16 +176,15 @@ export class MenuItem{
     }
 
 
-    @dependencies('$scope')
-    controller(scope){}
-
     link(scope, $elem, attrs, parentCtrl){
         let rootDOM = $elem[0]
         let parent = peekMenuEnv(parentCtrl)
+        let parentMode
 
         parent.add({
             type:'item',
             init: (offset, mode) => {
+                parentMode = mode
                 if(mode === 'H') return
                 $elem[0]::setStyle({
                     'padding-left':offset + 'px'
@@ -234,7 +194,7 @@ export class MenuItem{
 
         rootDOM::on('click', () => {
             let isDisabled = rootDOM::getDOMState('disabled')
-            if(isDisabled) return
+            if(isDisabled || parentMode === 'H') return
             scope.$emit('menuItem::selected', rootDOM)
         })
     }

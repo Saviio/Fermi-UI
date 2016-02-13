@@ -238,7 +238,7 @@ export function onMotionEnd(el, cb){
     let {prefix, eventPrefix} = detechPrefix()
 
     let handler = e => { //remark
-        if(e.target === el){
+        if(e && e.target === el){
             el::off(eventPrefix + 'TransitionEnd', handler)
             el::off('animationend webkitAnimationEnd MSAnimationEnd oAnimationEnd', handler)
             cb()
@@ -370,33 +370,18 @@ export function range(size, start = 0){
 }
 
 export function generateUID(){
-   return '_F' + ("0000" + (Math.random() * Math.pow(36,6) << 0).toString(36)).slice(-6)
+   return '_F' + ("0000" + (Math.random() * Math.pow(36,6) << 0).toString(36)).slice(-6) + nextId()
 }
 
-export function toggleClass(el, namespace, state, suffix){
-    if(arguments.length === 3) [el, namespace, state, suffix] = [this, el, namespace, state]
 
-    return function(){
-
-        state
-        ? el::replaceClass('hide', namespace + '-' + suffix['true'])
-        : el::replaceClass(namespace + '-' + suffix['true'], namespace + '-' + suffix['false'])::onMotionEnd(() => {
-            //debugger
-            el::replaceClass(namespace + '-' + suffix['false'], 'hide')
-        })
-
-        state = !state
-    }
-}
-
-export function queue(isAsync = false){
+export function queue(isAsync = false, interval = 0){
     let waiting = []
 
     let next = () => {
         let fn = waiting.shift()
         if(fn){
             isAsync
-            ? setTimeout(() => fn(next), 0)
+            ? setTimeout(() => fn(next), interval)
             : fn(next)
         }
     }
@@ -427,6 +412,22 @@ export function queue(isAsync = false){
     for (let key in target) {
         if (!dest[key] && ignore.indexOf(key) ===-1 && target.hasOwnProperty(key)) {
             dest[key] = target[key]
+        }
+    }
+
+    export function toggleClass(el, namespace, state, suffix){
+        if(arguments.length === 3) [el, namespace, state, suffix] = [this, el, namespace, state]
+
+        return function(){
+
+            state
+            ? el::replaceClass('hide', namespace + '-' + suffix['true'])
+            : el::replaceClass(namespace + '-' + suffix['true'], namespace + '-' + suffix['false'])::onMotionEnd(() => {
+                //debugger
+                el::replaceClass(namespace + '-' + suffix['false'], 'hide')
+            })
+
+            state = !state
         }
     }
 }*/

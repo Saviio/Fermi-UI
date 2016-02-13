@@ -101,7 +101,7 @@ section {
 }
 
 
-.hide{
+.hide,.fm-hide{
     display: none !important;
 }
 
@@ -174,7 +174,55 @@ button.fm-close{
     to{opacity: 0;transform:translateY(-10px);}
 }
 
-@keyframes fadeOutDown {
-    from{opacity: 100;transform:translateY(0px);}
-    to{opacity: 0;transform:translateY(10px);}
+
+@keyframes slideUpIn {
+  0% {
+    opacity: 0;
+    transform-origin: 0% 0%;
+    transform: scaleY(.8);
+  }
+  100% {
+    opacity: 1;
+    transform-origin: 0% 0%;
+    transform: scaleY(1);
+  }
+}
+
+@keyframes slideUpOut {
+  0% {
+    opacity: 1;
+    transform-origin: 0% 0%;
+    transform: scaleY(1);
+  }
+  100% {
+    opacity: 0;
+    transform-origin: 0% 0%;
+    transform: scaleY(.8);
+  }
+}
+
+@keyframes moveUpIn {
+  0% {
+    transform-origin: 0 0;
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform-origin: 0 0;
+    transform: translateY(0%);
+    opacity: 1;
+  }
+}
+
+@keyframes moveUpOut {
+  0% {
+    transform-origin: 0 0;
+    transform: translateY(0%);
+    opacity: 1;
+  }
+  100% {
+    transform-origin: 0 0;
+    transform: translateY(-100%);
+    opacity: 0;
+  }
 }
