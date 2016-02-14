@@ -58,7 +58,7 @@ export default class Tooltips{
                 case 'top':
                     ctrl.style =  {
                         left:`${(left + width / 2) - tpWidth / 2}px`,
-                        top:`${top - tpHeight-offset - 7}px`
+                        top:`${top - tpHeight - offset}px`
                     }
                 break
                 case 'bottom':
@@ -69,14 +69,14 @@ export default class Tooltips{
                     break
                 case 'left':
                     ctrl.style = {
-                        left:`${left - tpWidth - offset - 4}px`,
+                        left:`${left - tpWidth - offset}px`,
                         top:`${(top + height / 2) - tpHeight / 2}px`
                     }
                     break
                 case 'right':
                     ctrl.style = {
-                        left:`${left + width}px`,
-                        top:`${(top + height / 2)-tpHeight/2}px`
+                        left:`${left + width + offset}px`,
+                        top:`${(top + height / 2) - tpHeight / 2}px`
                     }
                     break
             }

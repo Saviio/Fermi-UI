@@ -216,7 +216,7 @@
 }
 */
 .fm-submenu-pop-enter{
-    animation:fadeInDown .3s 0s ease-out both;
+    animation:fadeInDown .25s 0s ease-out both;
 }
 .fm-submenu-pop-enter.fm-submenu-pop-enter-active{
     display:block !important;
@@ -231,7 +231,7 @@
 }
 
 .fm-submenu-pop-leave.fm-submenu-pop-leave-active{
-    animation:fadeOutUp .3s 0s ease-in both;
+    animation:fadeOutUp .25s 0s ease-in both;
 }
 
 
