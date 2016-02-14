@@ -11,6 +11,7 @@ import {
     on,
     off,
     noop,
+    isHidden,
     addClass,
     setStyle,
     removeClass
@@ -29,14 +30,8 @@ const valueTypeError = "The type of value which is listened by transition should
 const classTypeCache = {}
 
 
-export function isHidden(el) {
-  return !(el.offsetWidth || el.offsetHeight || el.getClientRects().length)
-}
-
 let getTransitionType = (el, className) => {
-    if (!transitionEndEvent || document.hidden || isHidden(el)) {
-        return
-    }
+    if (!transitionEndEvent || document.hidden || isHidden(el)) return
 
     let type = classTypeCache[className]
     if(type) return type
@@ -109,7 +104,7 @@ export class transition{
             } else if(type === ANIMATION) {
                 this.setUp(animationEndEvent, recycle)
             } else {
-                this.enterDone()
+                recycle()
                 return
             }
         }, tick)
@@ -125,12 +120,15 @@ export class transition{
     leave(){
         if(isHidden(this.el)){
             if(this.state !== false){
-                this.enter()
-            } else {
-                this.__stage__ = UNMOUNTED
+                return this.enter()
             }
-            return
+            this.el::removeClass(`${this.transitionName}-entered`)
+            return this.leaveNext()
         }
+
+        /*
+        this.__stage__ = UNMOUNTED
+        return*/
 
         this.el::removeClass(`${this.transitionName}-entered`)
         this.el::addClass(`${this.transitionName}-leave`)
@@ -154,10 +152,9 @@ export class transition{
             } else if(type === ANIMATION) {
                 this.setUp(animationEndEvent, recycle)
             } else {
-                this.leaveDone()
+                recycle()
                 return
             }
-
         }, tick)
     }
 
@@ -180,8 +177,8 @@ export class transition{
         this.el::on(event, handler)
 
         this.timeout = setTimeout(() => {
-            this.timeout = null
             this.el::off(event, handler)
+            this.timeout = null
             cb()
         }, this.maxTimeout)
     }
@@ -190,5 +187,4 @@ export class transition{
         clearTimeout(this.timeout)
         this.timeout = null
     }
-
 }

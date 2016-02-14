@@ -395,7 +395,9 @@ export function queue(isAsync = false, interval = 0){
     return entry
 }
 
-
+export function isHidden(el) {
+  return !(el.offsetWidth || el.offsetHeight || el.getClientRects().length)
+}
 
 
 

@@ -26,12 +26,21 @@
             @include slideUp;
         }
     }
-
+    /*
     .fm-submenu-actived{
         > .fm-submenu-title > .menu-icon{
             @include rotate180;
         }
 
+        > .fm-submenu-items{
+            @include slideDown;
+        }
+    }*/
+
+    .fm-submenu-vertical-entered{
+        > .fm-submenu-title > .menu-icon{
+            @include rotate180;
+        }
         > .fm-submenu-items{
             @include slideDown;
         }
@@ -233,7 +242,6 @@
     @include base;
     @include menu-pop;
     width:auto;
-    //min-width:120px;
     position: static;
     z-index:90;
 

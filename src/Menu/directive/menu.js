@@ -117,6 +117,8 @@ export class SubMenu{
         let parent = peekMenuEnv(parentCtrl)
         let eventsBinding = mode => {
             if(mode === 'V'){
+                let subMenuTrans = new transition(rootDOM, 'fm-submenu-vertical', this.actived)
+                /*
                 let switchState = e => {
                     this.actived
                     ? rootDOM::addClass(`fm-submenu-actived`)
@@ -124,8 +126,8 @@ export class SubMenu{
 
                     this.actived = !this.actived
                 }
-                switchState()
-                titleDOM::on('click', switchState)
+                switchState()*/
+                titleDOM::on('click', e => subMenuTrans.state = !subMenuTrans.state)
             } else if(mode === 'H'){
                 let items = rootDOM::query('.fm-submenu-items')
                 let subMenuTrans = new transition(items, 'fm-submenu-pop')
@@ -156,11 +158,14 @@ export class SubMenu{
                 }
             })
         } else {
+            throw new Error("A separated submenu does not supported for now.")
+            /*
             rootDOM::addClass('fm-submenu-separated')
             //when a submenu was inserted to DOMtree separately, the mode of menu will be "H" by default.
             scope.cascading.forEach(e => e.init(CASCADING, 'H'))
             eventsBinding('H')
             //remark
+            */
         }
     }
 }
