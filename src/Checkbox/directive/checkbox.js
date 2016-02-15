@@ -2,15 +2,11 @@ import { dependencies } from '../../external/dependencies'
 import template from '../template/template.html'
 
 
-export class Menu{
+export class Checkbox{
 
 }
 
 
-export class SubMenu{
+export class CheckboxGroup{
 
-}
-
-export class MenuItem{
-    
 }

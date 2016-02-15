@@ -50,9 +50,13 @@ let getTransitionType = (el, className) => {
     return type
 }
 
+let defaultHooks = {
+    onEnter:null,
+    onLeave:null
+}
 
 export class transition{
-    constructor(el, transitionName, initValue = false, maxTimeout = defaultTimeout){
+    constructor(el, transitionName, initValue = false, maxTimeout = defaultTimeout, hooks = defaultHooks){
         if(typeof initValue !== 'boolean'){
             throw new Error(valueTypeError)
         }
@@ -62,6 +66,7 @@ export class transition{
         this.transitionName = transitionName
         this.timeout = null
         this.maxTimeout = maxTimeout
+        this.hooks = hooks
 
         let descriptor = {
             set:newValue => {
@@ -114,6 +119,11 @@ export class transition{
         if(this.state !== true){
             return this.leave()
         }
+
+        if(typeof this.hooks.onEnter === 'function'){
+             this.hooks.onEnter()
+        }
+
         this.__stage__ = UNMOUNTED
     }
 
@@ -162,6 +172,11 @@ export class transition{
         if(this.state !== false){
             return this.enter()
         }
+
+        if(typeof this.hooks.onLeave === 'function'){
+            this.hooks.onLeave()
+        }
+
         this.__stage__ = UNMOUNTED
     }
 

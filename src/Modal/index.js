@@ -1,5 +1,5 @@
 import factory from '../external/directiveFacotry'
-import modal from './directive/modal'
+import modal from './service/modal'
 import './css/modal.scss'
 
 const component = {
@@ -8,5 +8,5 @@ const component = {
 }
 
 export default angular.module(component.namespace, component.inject)
-	.directive('fermiModal', factory.create(modal))
-	.name;
+	.service('Fermi.Modal', modal)
+	.name

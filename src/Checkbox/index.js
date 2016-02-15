@@ -1,5 +1,5 @@
 import factory from '../external/directiveFacotry'
-import { Menu, SubMenu, MenuItem } from './directive/checkbox'
+import directive from './directive/checkbox'
 import './css/checkbox.scss'
 
 const component = {
@@ -8,5 +8,5 @@ const component = {
 }
 
 export default angular.module(component.namespace, component.inject)
-	.directive('fermiDropdown', factory.create(Menu))
+	.directive('fermiCheckbox', factory.create(directive))
 	.name;

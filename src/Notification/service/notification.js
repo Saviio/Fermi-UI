@@ -30,7 +30,7 @@ let rootScope = null
 
 //custom(tmpl, scope){} 实现自定义模板
 //close 函数？
-//remark DOM leak
+//remark DOM leak check
 
 @dependencies('$compile', '$rootScope')
 export default class Notification{
@@ -80,7 +80,7 @@ export default class Notification{
     send(option){
         if(!/default|normal|success|warn|error/.test(option.type)){
             throw new Error(`
-                    Message Type is not a valid value, it should be one of following values: [default, normal, success, warn, error].`)
+                    Message Type is not a valid value, it should be setted from one of following values: [default, normal, success, warn, error].`)
             return
         }
 
