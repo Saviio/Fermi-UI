@@ -160,7 +160,7 @@ export default class Popover{
     compile($tElement, tAttrs, transclude){
         let dire = (tAttrs.placement || "top").toLowerCase()
         if(["top","bottom","left","right"].indexOf(dire) === -1){
-            throw Error("Popover direction is not in announced list (top,bottom,left,right).")
+            throw Error("Popover direction is not in announced list [top,bottom,left,right].")
         }
 
         let tmpl = popoverTmpl.replace(/#{dire}/, dire)::toDOM()

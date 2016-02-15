@@ -1,5 +1,4 @@
-import { WIN } from './browser'
-
+import { DOM as dom, WIN as win } from './browser'
 import {
     transitionProp,
     transitionEndEvent,
@@ -31,12 +30,13 @@ const classTypeCache = {}
 
 
 let getTransitionType = (el, className) => {
-    if (!transitionEndEvent || document.hidden || isHidden(el)) return
+    if (!transitionEndEvent || dom.hidden || isHidden(el)) return
 
-    let type = classTypeCache[className]
+    let type
+    if(className !== undefined) type = classTypeCache[className]
     if(type) return type
 
-    let computed = window.getComputedStyle(el)
+    let computed = win.getComputedStyle(el)
     let inline = el.style
     let transDuration = inline[`${transitionProp}Duration`] || computed[`${transitionProp}Duration`]
     if(transDuration && transDuration !== '0s'){
@@ -46,8 +46,29 @@ let getTransitionType = (el, className) => {
         if (animDuration && animDuration !== '0s') type = ANIMATION
     }
 
-    if(type) classTypeCache[className] = type
+    if(className !==undefined && type) classTypeCache[className] = type
     return type
+}
+
+let setCSScallback = (el, event, callback, timeout = defaultTimeout) => {
+    let timeoutId = null
+
+    let handler = e => {
+        if(e && e.target === el){
+            if(timeoutId !== null) clearTimeout(timeoutId)
+            el::off(event, handler)
+            cb()
+        }
+    }
+
+    el::on(event, handler)
+
+    timeoutId = setTimeout(() => {
+        el::off(event, handler)
+        cb()
+    }, timeout)
+
+    return timeoutId
 }
 
 let defaultHooks = {
@@ -181,7 +202,7 @@ export class transition{
     }
 
     setUp(event, cb){
-        let handler = e => {
+        /*let handler = e => {
             if(e && e.target === this.el){
                 if(this.timeout !== null) this.clear()
                 this.el::off(event, handler)
@@ -195,11 +216,57 @@ export class transition{
             this.el::off(event, handler)
             this.timeout = null
             cb()
-        }, this.maxTimeout)
+        }, this.maxTimeout)*/
+
+        let wrap = () => {
+            this.timeout = null
+            cb()
+        }
+
+        this.timeout = setCSScallback(this.el, event, wrap, this.maxTimeout)
     }
 
     clear(){
         clearTimeout(this.timeout)
         this.timeout = null
     }
+}
+
+
+
+export function onMotionEnd(el, cb, transitionName){
+    if(typeof el === 'function') [el, cb] = [this, el]
+    if(!isDOM(el) && !(el instanceof angular.element)) return
+    if(el instanceof angular.element) el = el[0]
+
+    /*let setUp = event => {
+        let timeout = null
+
+        let handler = e => {
+            if(e && e.target === el){
+                clearTimeout(timeout)
+                el::off(event, handler)
+                cb()
+            }
+        }
+
+        el::on(event, handler)
+        timeout = setTimeout(() => {
+            el::off(event, handler)
+            cb()
+        }, defaultTimeout)
+    }*/
+
+
+
+    setTimeout(() => {
+        if(isHidden(el)) return cb()
+
+        let type = getTransitionType(el, transitionName)
+        if(type === TRANSITION){
+            setCSScallback(el, transitionEndEvent, cb, defaultTimeout)
+        } else if(type === ANIMATION) {
+            setCSScallback(el, animationEndEvent, cb, defaultTimeout)
+        }
+    }, tick)
 }

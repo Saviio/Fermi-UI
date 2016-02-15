@@ -1,7 +1,7 @@
-import { WIN } from './browser'
+import { WIN as win } from './browser'
 
-const isWebkitTrans = WIN.ontransitionend === undefined && WIN.onwebkittransitionend !== undefined
-const isWebkitAnim = WIN.onanimationend === undefined && WIN.onwebkitanimationend !== undefined
+const isWebkitTrans = win.ontransitionend === undefined && win.onwebkittransitionend !== undefined
+const isWebkitAnim = win.onanimationend === undefined && win.onwebkitanimationend !== undefined
 
 let transitionProp = isWebkitTrans ? 'WebkitTransition' : 'transition'
 let transitionEndEvent = isWebkitTrans ? 'webkitTransitionEnd' : 'transitionend'
