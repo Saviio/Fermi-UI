@@ -1,6 +1,8 @@
 let testElem = document.createElement('div')
 let prefix = null
 let eventPrefix = null
+let reUnit = /width|height|top|left|right|bottom|margin|padding/i
+let reBool = /true|false/i
 
 export function noop(){}
 
@@ -35,7 +37,7 @@ export function getStyle(el, name, removeUnit = ""){
     }
 
     if(removeUnit !== "" && getType(style) === 'String') {
-        style = ~~style.replace(new RegExp(removeUnit),"")
+        style = ~~style.replace(new RegExp(removeUnit), "")
     }
 
     return style
@@ -67,7 +69,7 @@ export function getDOMState(el, key){
         return false
     } else if(ret === ""){
         return true
-    } else if(/true|false/i.test(ret)){
+    } else if(reBool.test(ret)){
         return !!ret
     } else if(/^\d{1,}$/.test(ret)){
         return ~~ret
@@ -395,11 +397,44 @@ export function queue(isAsync = false, interval = 0){
     return entry
 }
 
-export function isHidden(el) {
+export function isHidden(el){
   return !(el.offsetWidth || el.offsetHeight || el.getClientRects().length)
 }
 
+export function forceReflow(el) {
+    el.offsetHeight
+}
 
+export function setStyles(el, styles){
+    if(arguments.length === 1) [el, obj] = [this, el]
+    let hasCSSText = (typeof el.style.cssText) !== 'undefined'
+    let oldStyleText
+    let oldStyle = {}
+    oldStyleText = hasCSSText ? el.style.cssText : el.getAttribute('style')
+    oldStyleText.split(';').forEach(css => {
+        if(css.indexOf(':') !== -1){
+            let [key, value] = css.split(':')
+            originStyle[key.trim()] = value.trim()
+        }
+    })
+
+    let newStyle = {}
+    Object.keys(styles).forEach(key => {
+        let value = styles[key]
+        if(reUnit.test(styles[key])){
+            value += 'px'
+        }
+        newStyle[key] = value
+    })
+
+    let mergedStyle = Object.assign({}, oldStyle, newStyle)
+    let styleText = Object.keys(mergedStyle).map(key => key + ': ' + mergedStyle[key] + ';').join(' ')
+    if(hasCSSText){
+        el.style.cssText = styleText
+    } else {
+        el.setAttribute('style', styleText)
+    }
+}
 
 /*export function extend(target){
     if(!this.$new) throw new Error("caller was not a angular scope variable.")
