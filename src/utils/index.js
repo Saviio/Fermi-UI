@@ -349,6 +349,7 @@ export function def(obj, key, option){
     Object.defineProperty(obj, key, option)
 }
 
+/*
 export function setStyle(el, obj){
     if(arguments.length === 1) [el, obj] = [this, el]
     for(let i in obj){
@@ -357,6 +358,7 @@ export function setStyle(el, obj){
         }
     }
 }
+*/
 
 export function inDoc(el) {
     if(arguments.length === 0) el = this
@@ -405,8 +407,8 @@ export function forceReflow(el) {
     el.offsetHeight
 }
 
-export function setStyles(el, styles){
-    if(arguments.length === 1) [el, obj] = [this, el]
+export function setStyle(el, styles){
+    if(arguments.length === 1) [el, styles] = [this, el]
     let hasCSSText = (typeof el.style.cssText) !== 'undefined'
     let oldStyleText
     let oldStyle = {}
@@ -421,9 +423,7 @@ export function setStyles(el, styles){
     let newStyle = {}
     Object.keys(styles).forEach(key => {
         let value = styles[key]
-        if(reUnit.test(styles[key])){
-            value += 'px'
-        }
+        if(reUnit.test(styles[key])) value += 'px'
         newStyle[key] = value
     })
 
