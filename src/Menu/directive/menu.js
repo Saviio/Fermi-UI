@@ -29,10 +29,8 @@ let peekMenuEnv = ctrls => {
     return null
 }
 
-//@mode
-//@title
-//@disabled
 
+//@disabled
 export class Menu{
     constructor(){
         this.restrict = 'EA'
@@ -64,17 +62,12 @@ export class Menu{
             event.stopPropagation()
         })
 
-        //if(){
-            scope.cascading.forEach(e => {
-                e.init(CASCADING + (scope.mode === 'V' ? 24 : 0), scope.mode)
-                //if(e.type === 'submenu') e.bind()
-            })
-        //}
-
+        scope.cascading.forEach(child =>
+            child.init(CASCADING + (scope.mode === 'V' ? 24 : 0), scope.mode))
     }
 }
 
-//@cascading
+
 export class SubMenu{
     constructor(){
         this.restrict = 'EA'
@@ -118,15 +111,6 @@ export class SubMenu{
         let eventsBinding = mode => {
             if(mode === 'V'){
                 let subMenuTrans = new transition(rootDOM, 'fm-submenu-vertical', this.actived)
-                /*
-                let switchState = e => {
-                    this.actived
-                    ? rootDOM::addClass(`fm-submenu-actived`)
-                    : rootDOM::removeClass(`fm-submenu-actived`)
-
-                    this.actived = !this.actived
-                }
-                switchState()*/
                 titleDOM::on('click', e => subMenuTrans.state = !subMenuTrans.state)
             } else if(mode === 'H'){
                 let items = rootDOM::query('.fm-submenu-items')
