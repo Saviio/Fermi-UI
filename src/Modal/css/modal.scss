@@ -101,9 +101,10 @@
 }
 
 .fm-modal.fm-modal-enter{
+    display: inline-block;
     animation: fm-modal-fadeIn .5s;
 }
 
-.fm-modal.fm-modal-leave-active{
+.fm-modal.fm-modal-leave{
     animation: fm-modal-fadeOut .5s;
 }

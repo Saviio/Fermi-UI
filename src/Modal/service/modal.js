@@ -87,6 +87,14 @@ export default class Modal{
         setTimeout(() => overlayNode::remove(), 400)
     }
 
+    __remove__(id){
+        let targetModal = openedModals.filter(i => i.openedId === id)[0]
+        if(targetModal){
+            targetModal.modal.transition.state = false
+            openedModals.splice(targetModal, 1)
+        }
+    }
+
     open(options){
         if(options === undefined) throw new Error('No parameters passed in when call Fermi.Modal.open.')
         if(options.template === undefined) throw new Error(emptyTemplateError)
@@ -104,7 +112,7 @@ export default class Modal{
         if(!options.plain){
             scope = options.scope.$new()
             templateDOM = compile(template)(scope)[0]
-            scope.$apply()
+            if(!/\$apply|\$digest/.test(scope.$root.$$phase)) scope.$apply()
         } else {
             templateDOM = toDOM(template)
         }
@@ -115,7 +123,7 @@ export default class Modal{
         modalContainer.setAttribute('_FM-ModalId', openedId)
         let modalContent = modalContainer::query('.fm-modal')
         let closeBtn = modalContainer::query('.fm-close')
-        let modalTransition = new transition(modalContent, 'fm-modal',false, 300, {
+        let modalTransition = new transition(modalContent, 'fm-modal',false, 5000, {
             onLeave:() => {
                 modalContainer::remove()
                 this.__dispose__()
@@ -126,14 +134,14 @@ export default class Modal{
             }
         })
 
-        let closeFn = e => {
-            modalTransition.state = false
-            let index = openedModals.indexOf(openedId)
-            openedModals.splice(index, 1)
-        }
+        let closeFn = e => this.__remove__(openedId)
+
         closeBtn::on('click', closeFn)
         modalContainer::query('.fm-modal-content')::prepend(templateDOM)
-        openedModals.push({openedId, modal: modalContainer})
+        openedModals.push({openedId, modal: {
+            main:modalContent,
+            transition:modalTransition
+        }})
 
         body::last(modalContainer)
 
@@ -142,12 +150,11 @@ export default class Modal{
         return openedId
     }
 
-    close(){
-
+    close(id){
+        this.__remove__(id)
     }
 
     closeAll(){
-
-        this.__dispose__()
+        openedModals.forEach(i => this.close(i.openedId))
     }
 }

@@ -216,21 +216,27 @@
 }
 */
 .fm-submenu-pop-enter{
+    display:block !important;
     animation:fadeInDown .25s 0s ease-out both;
 }
+/*
 .fm-submenu-pop-enter.fm-submenu-pop-enter-active{
     display:block !important;
 }
+*/
 
 .fm-submenu-pop-entered{
     display:block !important;
 }
 
+/*
 .fm-submenu-pop-leave{
     display:block !important;
 }
+*/
 
-.fm-submenu-pop-leave.fm-submenu-pop-leave-active{
+.fm-submenu-pop-leave{
+    display:block !important;
     animation:fadeOutUp .25s 0s ease-in both;
 }
 

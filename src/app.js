@@ -61,7 +61,7 @@ app.controller(
             //$scope.schedule.refresh(tmp2)
         },3000)
 
-        let createModal = () => {
+        $scope.createModal = () => {
             return modal.open({
                 template:'#modalTemplate',
                 scope:$scope
@@ -78,7 +78,7 @@ app.controller(
             window.pop=$scope.pops
             window.selected = $scope.selected
             window.ck = $scope.ck
-            window.modal = createModal
+            window.modal = $scope.createModal
         },1000)
 
         $scope.$on('checked', data => {
