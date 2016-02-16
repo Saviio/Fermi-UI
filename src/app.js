@@ -16,6 +16,7 @@ import './Notification'
 import './Step'
 import './Pagination'
 import './Menu'
+import './Modal'
 
 //import mock data
 import scheduleItems from './scheduleItems.json'
@@ -33,12 +34,13 @@ var app=angular.module('app', [
     'Fermi.notification',
     'Fermi.step',
     'Fermi.pagination',
-    'Fermi.menu'
+    'Fermi.menu',
+    'Fermi.modal'
 ])
 
 app.controller(
-    'main',['$scope','$timeout','Fermi.Loading','Fermi.Notification',
-        function($scope,$timeout,loading, notification){
+    'main',['$scope','$timeout','Fermi.Loading','Fermi.Notification','Fermi.Modal',
+        function($scope,$timeout,loading, notification, modal){
 
         console.info('Fermi Components were loaded.')
         $scope.test=function(item){
@@ -59,6 +61,15 @@ app.controller(
             //$scope.schedule.refresh(tmp2)
         },3000)
 
+        let createModal = () => {
+
+            return modal.open({
+                template:'#modalTemplate',
+                plain:true
+            })
+
+        }
+
         $timeout(()=> {
             window.a=$scope.a,
             window.b=$scope.b,
@@ -68,6 +79,7 @@ app.controller(
             window.pop=$scope.pops
             window.selected = $scope.selected
             window.ck = $scope.ck
+            window.modal = createModal
         },1000)
 
         $scope.$on('checked', data => {

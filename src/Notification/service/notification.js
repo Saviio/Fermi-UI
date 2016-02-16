@@ -1,5 +1,5 @@
 import { dependencies } from '../../external/dependencies'
-import { DOM, BODY } from '../../utils/browser'
+import { BODY as body } from '../../utils/browser'
 import container from '../template/container.html'
 import defaultMessage from '../template/message.html'
 
@@ -26,6 +26,8 @@ let defaultConfig = {
 
 let compile = null
 let rootScope = null
+let reType = /default|normal|success|warn|error/
+let errTypeMessage = `Message Type is not a valid value, it should be set from one of following values: [default, normal, success, warn, error].`
 
 
 //custom(tmpl, scope){} 实现自定义模板
@@ -50,7 +52,7 @@ export default class Notification{
 
     __tryRender__(){
         if(this._rendered) return
-        this._container = BODY::last(container)
+        this._container = body::last(container)
         this._body = this._container::query('div')
         this._container::setStyle({
             top:this.__getConfig__('top'),
@@ -78,9 +80,8 @@ export default class Notification{
 
 
     send(option){
-        if(!/default|normal|success|warn|error/.test(option.type)){
-            throw new Error(`
-                    Message Type is not a valid value, it should be setted from one of following values: [default, normal, success, warn, error].`)
+        if(!reType.test(option.type)){
+            throw new Error(errTypeMessage)
             return
         }
 
@@ -92,7 +93,7 @@ export default class Notification{
         scope.topic = option.topic || ''
         scope.type = option.type
         scope.callback = option.callback ? option.callback : null
-        scope.destory = e => {
+        scope.close = e => {
             if(cancellId !== undefined) clearTimeout(cancellId)
             this.__remove__(e.target.parentNode, scope.callback)
             scope.$destroy()

@@ -3,7 +3,7 @@ import modal from './service/modal'
 import './css/modal.scss'
 
 const component = {
-    namespace:'Fermi.Modal'
+    namespace:'Fermi.modal',
     inject:[]
 }
 

@@ -199,6 +199,7 @@ export function isDOM(el){
 export function toDOM(el){ //remark 支持多个元素 类似<span>123</span><div>321</div>  用fragment?
     if(arguments.length === 0) el = this
     if(typeof el === 'string'){
+        el = trim(el)
         let dom = createElem('div')
         dom.innerHTML = el
         el = dom.firstChild
@@ -422,6 +423,11 @@ export function setStyle(el, styles){
     } else {
         el.setAttribute('style', styleText)
     }
+}
+
+export function trim(str){
+    if(arguments.length === 0) str = this
+    return str.replace(/^\s+|\s+$/g, '')
 }
 
 /*export function extend(target){

@@ -78,9 +78,7 @@ let defaultHooks = {
 
 export class transition{
     constructor(el, transitionName, initValue = false, maxTimeout = defaultTimeout, hooks = defaultHooks){
-        if(typeof initValue !== 'boolean'){
-            throw new Error(valueTypeError)
-        }
+        if(typeof initValue !== 'boolean') throw new Error(valueTypeError)
         let data = initValue
 
         this.el = el
