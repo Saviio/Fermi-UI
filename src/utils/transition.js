@@ -57,7 +57,7 @@ let setCSScallback = (el, event, callback, timeout = defaultTimeout) => {
         if(e && e.target === el){
             if(timeoutId !== null) clearTimeout(timeoutId)
             el::off(event, handler)
-            cb()
+            callback()
         }
     }
 
@@ -65,7 +65,7 @@ let setCSScallback = (el, event, callback, timeout = defaultTimeout) => {
 
     timeoutId = setTimeout(() => {
         el::off(event, handler)
-        cb()
+        callback()
     }, timeout)
 
     return timeoutId
@@ -234,7 +234,7 @@ export class transition{
 
 
 
-export function onMotionEnd(el, cb, transitionName){
+export function onMotionEnd(el, cb, transitionName, timeout = defaultTimeout){
     if(typeof el === 'function') [el, cb] = [this, el]
     if(!isDOM(el) && !(el instanceof angular.element)) return
     if(el instanceof angular.element) el = el[0]
@@ -264,9 +264,9 @@ export function onMotionEnd(el, cb, transitionName){
 
         let type = getTransitionType(el, transitionName)
         if(type === TRANSITION){
-            setCSScallback(el, transitionEndEvent, cb, defaultTimeout)
+            setCSScallback(el, transitionEndEvent, cb, timeout)
         } else if(type === ANIMATION) {
-            setCSScallback(el, animationEndEvent, cb, defaultTimeout)
+            setCSScallback(el, animationEndEvent, cb, timeout)
         }
     }, tick)
 }
