@@ -87,17 +87,28 @@ export default class Modal{
         setTimeout(() => overlayNode::remove(), 400)
     }
 
-    __remove__(id){
-        let targetModal = openedModals.filter(i => i.openedId === id)[0]
+    __closeModal__(id){
+        let targetModal
+        let index
+
+        for(let i = 0; i < openedModals.length; i++){
+            if(openedModals[i].openedId === id){
+                targetModal = openedModals[i]
+                index = i
+                break;
+            }
+        }
+
         if(targetModal){
             targetModal.modal.transition.state = false
-            openedModals.splice(targetModal, 1)
+            openedModals.splice(index, 1)
         }
     }
 
     open(options){
         if(options === undefined) throw new Error('No parameters passed in when call Fermi.Modal.open.')
         if(options.template === undefined) throw new Error(emptyTemplateError)
+        options.plain = options.scope === undefined ? true : false
         this.__tryRender__()
 
         let template
@@ -134,7 +145,7 @@ export default class Modal{
             }
         })
 
-        let closeFn = e => this.__remove__(openedId)
+        let closeFn = e => this.__closeModal__(openedId)
 
         closeBtn::on('click', closeFn)
         modalContainer::query('.fm-modal-content')::prepend(templateDOM)
@@ -144,14 +155,13 @@ export default class Modal{
         }})
 
         body::last(modalContainer)
-
         modalTransition.state = true
 
         return openedId
     }
 
-    close(id){
-        this.__remove__(id)
+    close(id){//bug
+        this.__closeModal__(id)
     }
 
     closeAll(){
