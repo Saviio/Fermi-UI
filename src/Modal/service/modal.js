@@ -91,6 +91,8 @@ export default class Modal{
         let targetModal
         let index
 
+
+
         for(let i = 0; i < openedModals.length; i++){
             if(openedModals[i].openedId === id){
                 targetModal = openedModals[i]
@@ -102,6 +104,7 @@ export default class Modal{
         if(targetModal){
             targetModal.modal.transition.state = false
             openedModals.splice(index, 1)
+            this.__dispose__()
         }
     }
 
@@ -137,7 +140,6 @@ export default class Modal{
         let modalTransition = new transition(modalContent, 'fm-modal',false, 5000, {
             onLeave:() => {
                 modalContainer::remove()
-                this.__dispose__()
                 if(options.hooks && typeof options.hooks.onClose === 'function'){
                     options.hooks.onClose()
                 }
