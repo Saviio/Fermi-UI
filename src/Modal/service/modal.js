@@ -46,6 +46,8 @@ private:
 
 */
 
+//tryDispose
+//自定义className + enter/leave
 const overlayId = '__modalOverlay__'
 const overlayInAnimation = 'overlay-in'
 const reSelector = /^[#|.]/
@@ -90,8 +92,6 @@ export default class Modal{
     __closeModal__(id){
         let targetModal
         let index
-
-
 
         for(let i = 0; i < openedModals.length; i++){
             if(openedModals[i].openedId === id){
