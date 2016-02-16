@@ -62,10 +62,9 @@ app.controller(
         },3000)
 
         let createModal = () => {
-
             return modal.open({
                 template:'#modalTemplate',
-                plain:true
+                scope:$scope
             })
 
         }
@@ -91,6 +90,7 @@ app.controller(
             if($scope.entity1>=100)
                 $scope.entity1=0
             $scope.entity1+=10
+            $scope.message += 1
             //console.log($scope.selectEntity)
             $timeout(rec,1000)
         }

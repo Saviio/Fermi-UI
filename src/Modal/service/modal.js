@@ -67,16 +67,18 @@ export default class Modal{
 
     __tryRender__(){
         if(this._hasOverlay) return
-        let div = createElem('div')
-        div.id = overlayId
-        this._overlayNode = body::last(div)
+
+        let overlay = createElem('div')
+        overlay.id = overlayId
+        this._overlayNode = body::last(overlay)
         this._hasOverlay = true
-        setTimeout(() => div::addClass(overlayInAnimation),17)
+        setTimeout(() =>
+            overlay::addClass(overlayInAnimation), 17)
     }
 
     __dispose__(){
-        if(!this._hasOverlay || this._overlayNode === null || !this._overlayNode::inDoc()) return
         if(openedModals.length > 0) return
+        if(!this._hasOverlay || this._overlayNode === null || !this._overlayNode::inDoc()) return
 
         let overlayNode = this._overlayNode
         overlayNode::removeClass(overlayInAnimation)
@@ -89,9 +91,8 @@ export default class Modal{
         if(options === undefined) throw new Error('No parameters passed in when call Fermi.Modal.open.')
         if(options.template === undefined) throw new Error(emptyTemplateError)
         this.__tryRender__()
-        let template
-        //debugger
 
+        let template
         template = reSelector.test(options.template)
         ? dom::query(options.template).innerHTML
         : options.template
@@ -99,26 +100,32 @@ export default class Modal{
         if(template::trim() === '') throw new Error(emptyTemplateError)
 
         let templateDOM
+        let scope = null
         if(!options.plain){
-            let scope = options.scope
+            scope = options.scope.$new()
             templateDOM = compile(template)(scope)[0]
+            scope.$apply()
         } else {
             templateDOM = toDOM(template)
         }
 
 
         let openedId = nextId()
-
-
         let modalContainer = toDOM(container)
         modalContainer.setAttribute('_FM-ModalId', openedId)
         let modalContent = modalContainer::query('.fm-modal')
         let closeBtn = modalContainer::query('.fm-close')
         let modalTransition = new transition(modalContent, 'fm-modal',false, 300, {
             onLeave:() => {
+                modalContainer::remove()
                 this.__dispose__()
+                if(options.hooks && typeof options.hooks.onClose === 'function'){
+                    options.hooks.onClose()
+                }
+                if(scope) scope.$destroy()
             }
         })
+
         let closeFn = e => {
             modalTransition.state = false
             let index = openedModals.indexOf(openedId)
@@ -129,6 +136,7 @@ export default class Modal{
         openedModals.push({openedId, modal: modalContainer})
 
         body::last(modalContainer)
+
         modalTransition.state = true
 
         return openedId
