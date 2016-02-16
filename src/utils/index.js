@@ -1,6 +1,8 @@
 let testElem = document.createElement('div')
 let prefix = null
 let eventPrefix = null
+let reUnit = /width|height|top|left|right|bottom|margin|padding/i
+let reBool = /true|false/i
 
 export function noop(){}
 
@@ -9,7 +11,7 @@ export function getCoords(el){
     if(!isDOM(el)) return
 
     let box = el.getBoundingClientRect(),
-    self= window,
+    self = window,
     doc = el.ownerDocument,
     body = doc.body,
     html = doc.documentElement,
@@ -23,8 +25,8 @@ export function getCoords(el){
 }
 
 
-export function getStyle(el, name, removeUnit = ""){
-    if(typeof el === "string") [el, name, removeUnit] = [this, el, name === undefined ? "" : name]
+export function getStyle(el, name, removedUnit = ""){
+    if(typeof el === "string") [el, name, removedUnit] = [this, el, name === undefined ? "" : name]
     if(!isDOM(el)) return
 
     var style = window.getComputedStyle ? window.getComputedStyle(el, null)[name] : el.currentStyle[name]
@@ -34,8 +36,8 @@ export function getStyle(el, name, removeUnit = ""){
         else if(name == 'height') style = el.offsetHeight
     }
 
-    if(removeUnit !== "" && getType(style) === 'String') {
-        style = ~~style.replace(new RegExp(removeUnit),"")
+    if(removedUnit !== "" && getType(style) === 'String') {
+        style = ~~style.replace(new RegExp(removedUnit), "")
     }
 
     return style
@@ -67,7 +69,7 @@ export function getDOMState(el, key){
         return false
     } else if(ret === ""){
         return true
-    } else if(/true|false/i.test(ret)){
+    } else if(reBool.test(ret)){
         return !!ret
     } else if(/^\d{1,}$/.test(ret)){
         return ~~ret
@@ -250,24 +252,24 @@ export function onMotionEnd(el, cb){
 }
 
 export function debounce(func, wait){
-    let timeout, args, context, timestamp, result
+    let timeout, args, ctx, timestamp, ret
     let later = () => {
         let last = Date.now() - timestamp
         if (last < wait && last >= 0) {
             timeout = setTimeout(later, wait - last)
         } else {
             timeout = null
-            result = func.apply(context, args)
-            if (!timeout) context = args = null
+            ret = func.apply(ctx, args)
+            if (!timeout) ctx = args = null
         }
     }
 
     return function() {
-        context = this
+        ctx = this
         args = arguments
         timestamp = Date.now()
         if (!timeout)  timeout = setTimeout(later, wait)
-        return result
+        return ret
     }
 }
 
@@ -328,9 +330,7 @@ let _FMId = 1
 export function generateFermiId(){
     let id = _FMId.toString().split('')
     let len = id.length
-    for(let i = 0; i < (5 - len); i++){
-        id.unshift("0")
-    }
+    for(let i = 0; i < (5 - len); i++) id.unshift("0")
     _FMId++
     return id.join('.')
 }
@@ -345,15 +345,6 @@ export function clamp(val, min, max){
 
 export function def(obj, key, option){
     Object.defineProperty(obj, key, option)
-}
-
-export function setStyle(el, obj){
-    if(arguments.length === 1) [el, obj] = [this, el]
-    for(let i in obj){
-        if(obj.hasOwnProperty(i)){
-            el.style[i] = obj[i]
-        }
-    }
 }
 
 export function inDoc(el) {
@@ -395,11 +386,43 @@ export function queue(isAsync = false, interval = 0){
     return entry
 }
 
-export function isHidden(el) {
+export function isHidden(el){
   return !(el.offsetWidth || el.offsetHeight || el.getClientRects().length)
 }
 
+export function forceReflow(el) {
+    if(arguments.length === 0) el = this
+    el.offsetHeight
+}
 
+export function setStyle(el, styles){
+    if(arguments.length === 1) [el, styles] = [this, el]
+    let hasCSSText = (typeof el.style.cssText) !== 'undefined'
+    let oldStyleText
+    let oldStyle = {}
+    oldStyleText = hasCSSText ? el.style.cssText : el.getAttribute('style')
+    oldStyleText.split(';').forEach(css => {
+        if(css.indexOf(':') !== -1){
+            let [key, value] = css.split(':')
+            originStyle[key.trim()] = value.trim()
+        }
+    })
+
+    let newStyle = {}
+    Object.keys(styles).forEach(key => {
+        let value = styles[key]
+        if(reUnit.test(styles[key])) value += 'px'
+        newStyle[key] = value
+    })
+
+    let mergedStyle = Object.assign({}, oldStyle, newStyle)
+    let styleText = Object.keys(mergedStyle).map(key => key + ': ' + mergedStyle[key] + ';').join(' ')
+    if(hasCSSText){
+        el.style.cssText = styleText
+    } else {
+        el.setAttribute('style', styleText)
+    }
+}
 
 /*export function extend(target){
     if(!this.$new) throw new Error("caller was not a angular scope variable.")
