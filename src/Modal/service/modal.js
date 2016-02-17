@@ -46,25 +46,23 @@ private:
 
 */
 
-//tryDispose
+
 //自定义className + enter/leave
 const overlayId = '__modalOverlay__'
-const overlayInAnimation = 'overlay-in'
+const overlayInAnimation = 'fm-overlay-In'
 const reSelector = /^[#|.]/
 const emptyTemplateError = 'Template should not be set as empty / null / undefined.'
 
 
 let openedModals = []
 let compile = null
-//let rootScope = null
 
 @dependencies('$compile')
 export default class Modal{
-    constructor($compile, $rootScope){
+    constructor($compile){
         this._hasOverlay = false
         this._overlayNode = null
         compile = $compile
-        //rootScope = $rootScope
     }
 
     __tryRender__(){
@@ -78,7 +76,7 @@ export default class Modal{
             overlay::addClass(overlayInAnimation), 17)
     }
 
-    __dispose__(){
+    __tryDispose__(){
         if(openedModals.length > 0) return
         if(!this._hasOverlay || this._overlayNode === null || !this._overlayNode::inDoc()) return
 
@@ -89,7 +87,15 @@ export default class Modal{
         setTimeout(() => overlayNode::remove(), 400)
     }
 
-    __closeModal__(id){
+    __remove__(id){
+        if(id < 0){
+            while(targetModal = openedModals.pop()){
+                targetModal.modal.transition.state = false
+            }
+            this.__tryDispose__()
+            return
+        }
+
         let targetModal
         let index
 
@@ -104,7 +110,7 @@ export default class Modal{
         if(targetModal){
             targetModal.modal.transition.state = false
             openedModals.splice(index, 1)
-            this.__dispose__()
+            this.__tryDispose__()
         }
     }
 
@@ -113,6 +119,8 @@ export default class Modal{
         if(options.template === undefined) throw new Error(emptyTemplateError)
         options.plain = options.scope === undefined ? true : false
         this.__tryRender__()
+
+        let className = options.className || 'fm-modal'
 
         let template
         template = reSelector.test(options.template)
@@ -136,8 +144,11 @@ export default class Modal{
         let modalContainer = toDOM(container)
         modalContainer.setAttribute('_FM-ModalId', openedId)
         let modalContent = modalContainer::query('.fm-modal')
+        if(className !== 'fm-modal'){
+            modalContent.className = className
+        }
         let closeBtn = modalContainer::query('.fm-close')
-        let modalTransition = new transition(modalContent, 'fm-modal',false, 5000, {
+        let modalTransition = new transition(modalContent, className, false, 5000, {
             onLeave:() => {
                 modalContainer::remove()
                 if(options.hooks && typeof options.hooks.onClose === 'function'){
@@ -147,7 +158,7 @@ export default class Modal{
             }
         })
 
-        let closeFn = e => this.__closeModal__(openedId)
+        let closeFn = e => this.__remove__(openedId)
 
         closeBtn::on('click', closeFn)
         modalContainer::query('.fm-modal-content')::prepend(templateDOM)
@@ -162,11 +173,11 @@ export default class Modal{
         return openedId
     }
 
-    close(id){//bug
-        this.__closeModal__(id)
+    close(id){
+        this.__remove__(id)
     }
 
     closeAll(){
-        openedModals.forEach(i => this.close(i.openedId))
+        this.__remove__(-1)
     }
 }

@@ -79,6 +79,7 @@ app.controller(
             window.selected = $scope.selected
             window.ck = $scope.ck
             window.modal = $scope.createModal
+            window.modalControl = modal
         },1000)
 
         $scope.$on('checked', data => {

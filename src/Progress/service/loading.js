@@ -1,5 +1,5 @@
 import template from '../template/loading.html'
-import { DOM, BODY } from '../../utils/browser'
+import { DOM as dom, BODY as body} from '../../utils/browser'
 
 import {
     query,
@@ -31,25 +31,25 @@ export default class Loading{
         this.rate = 700
     }
 
-    __dispose__(){
+    __tryDispose__(){
         if(this.$instance !== null){
             this.$instance = this.status = null
-            BODY.removeChild(DOM::query('#progress-loading-elem'))
+            body.removeChild(dom::query('#progress-loading-elem'))
         }
     }
 
-    __render__(fromZero = true){//remark
+    __tryRender__(fromZero = true){//remark
         if(this.$instance !== null) return this.$instance
 
-        if(BODY.insertAdjacentHTML){
-            BODY.insertAdjacentHTML('beforeEnd',template)
+        if(body.insertAdjacentHTML){
+            body.insertAdjacentHTML('beforeEnd',template)
         } else {
             let div = createElem('div')
             div.innerHTML = template
-            BODY.appendChild(div.firstChild)
+            body.appendChild(div.firstChild)
         }
 
-        let ins = DOM::query('#progress-loading-elem')
+        let ins = dom::query('#progress-loading-elem')
         if(ins !== null){
             this.$instance = angular.element(ins) //remark
             this.$instance.css('width',`${fromZero ? 0 : (this.status || 0) * 100}%`)
@@ -78,7 +78,7 @@ export default class Loading{
         let started = typeof this.status === 'number'
         n = !started ?  0.01 : clamp(n, 0.05, 1)
         this.status = (n >= 1 ? null : n)
-        this.__render__(!started)
+        this.__tryRender__(!started)
 
         queue(next => {
             this.$instance.css('width',`${n * 100}%`)
@@ -87,7 +87,7 @@ export default class Loading{
                 setTimeout(() => {
                     this.$instance.addClass('disappear')
                     setTimeout(() => { //onMotionEnd remark
-                        this.__dispose__()
+                        this.__tryDispose__()
                         next()
                     }, this.speed)
                 }, this.speed)

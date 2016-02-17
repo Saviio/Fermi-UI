@@ -43,7 +43,7 @@ export default class Notification{
         rootScope = $rootScope
     }
 
-    __dispose__(){
+    __tryDispose__(){
         if(this._body::queryAll('div').length > 0) return
         this._container::remove()
         this._rendered = false
@@ -71,7 +71,7 @@ export default class Notification{
                 ::removeClass(`fm-notice-show`)
                 ::onMotionEnd(() => {
                     notificationNode::remove()
-                    this.__dispose__()
+                    this.__tryDispose__()
                 })
         if(typeof callback === 'function'){
             callback()
