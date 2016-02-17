@@ -64,10 +64,23 @@ app.controller(
         $scope.createModal = () => {
             return modal.open({
                 template:'#modalTemplate',
-                scope:$scope
+                scope:$scope,
+                name:'TEST Modal',
+                title:123
             })
-
         }
+
+        $scope.$on('modal::opened', (e,modalName) => {
+            console.log(`${modalName} is opened.`)
+        })
+
+        $scope.$on('modal::leaving', (e,modalName) => {
+            console.log(`${modalName} is leaving.`)
+        })
+
+        $scope.$on('modal::leaved', (e,modalName) => {
+            console.log(`${modalName} is leaved.`)
+        })
 
         $timeout(()=> {
             window.a=$scope.a,

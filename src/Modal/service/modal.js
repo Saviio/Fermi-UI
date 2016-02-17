@@ -5,6 +5,7 @@ import {
     on,
     last,
     trim,
+    noop,
     toDOM,
     query,
     inDoc,
@@ -13,10 +14,14 @@ import {
     prepend,
     setStyle,
     addClass,
+    isPromise,
+    escapeHTML,
     createElem,
     removeClass
 } from '../../utils'
 import container from '../template/template.html'
+import confirm from '../template/confirm.html'
+
 
 /*
 
@@ -32,7 +37,8 @@ options ::= {
         onOpen: Function,
         onClose: Function
     },
-    plain:true | false by default
+    name: String | optional (support for Events: modal::opened, modal::leaving, modal::leaved)
+    title: String
 }
 
 .closeAll
@@ -47,22 +53,36 @@ private:
 */
 
 
-//自定义className + enter/leave
+
+
 const overlayId = '__modalOverlay__'
 const overlayInAnimation = 'fm-overlay-In'
 const reSelector = /^[#|.]/
 const emptyTemplateError = 'Template should not be set as empty / null / undefined.'
 
+const defaultConfirm = {
+    width:400,
+    title:'请确认',
+    content:'',
+    okText:'确认',
+    cancelText:'取消',
+    onOk:noop,
+    onCancel:noop,
+}
+
 
 let openedModals = []
 let compile = null
+let rootScope = null
 
-@dependencies('$compile')
+//support ngController
+@dependencies('$compile', '$rootScope')
 export default class Modal{
-    constructor($compile){
+    constructor($compile, $rootScope){
         this._hasOverlay = false
         this._overlayNode = null
         compile = $compile
+        rootScope = $rootScope
     }
 
     __tryRender__(){
@@ -91,6 +111,7 @@ export default class Modal{
         if(id < 0){
             while(targetModal = openedModals.pop()){
                 targetModal.modal.transition.state = false
+                if(targetModal.modal.event) targetModal.modal.event.leaving()
             }
             this.__tryDispose__()
             return
@@ -117,26 +138,36 @@ export default class Modal{
     open(options){
         if(options === undefined) throw new Error('No parameters passed in when call Fermi.Modal.open.')
         if(options.template === undefined) throw new Error(emptyTemplateError)
-        options.plain = options.scope === undefined ? true : false
+        //options.plain = options.scope === undefined ? true : false
         this.__tryRender__()
 
         let className = options.className || 'fm-modal'
+        let modalName = options.name || null
+        let title = (options.title || '').toString()
 
-        let template
-        template = reSelector.test(options.template)
+        let template = reSelector.test(options.template)
         ? dom::query(options.template).innerHTML
         : options.template
 
         if(template::trim() === '') throw new Error(emptyTemplateError)
 
         let templateDOM
-        let scope = null
-        if(!options.plain){
-            scope = options.scope.$new()
-            templateDOM = compile(template)(scope)[0]
-            if(!/\$apply|\$digest/.test(scope.$root.$$phase)) scope.$apply()
-        } else {
-            templateDOM = toDOM(template)
+        let scope = options.scope.$new()
+        //if(!options.plain){//remark
+            //scope =
+        templateDOM = compile(template)(scope)[0]
+        if(!/\$apply|\$digest/.test(scope.$root.$$phase)) scope.$apply()
+        //} else {
+            //templateDOM = toDOM(template)
+        //}
+
+        let registeredEvent = null
+        if(modalName){
+            registeredEvent = {
+                opened  : ()  => scope.$emit('modal::opened', modalName),
+                leaving : ()  => scope.$emit('modal::leaving', modalName),
+                leaved  : ()  => scope.$emit('modal::leaved', modalName)
+            }
         }
 
 
@@ -147,6 +178,11 @@ export default class Modal{
         if(className !== 'fm-modal'){
             modalContent.className = className
         }
+
+        if(title::trim() !== ''){
+            modalContent::query('.fm-modal-title').innerHTML = escapeHTML(title)
+        }
+
         let closeBtn = modalContainer::query('.fm-close')
         let modalTransition = new transition(modalContent, className, false, 5000, {
             onLeave:() => {
@@ -154,21 +190,33 @@ export default class Modal{
                 if(options.hooks && typeof options.hooks.onClose === 'function'){
                     options.hooks.onClose()
                 }
-                if(scope) scope.$destroy()
+
+                //if(scope){
+                if(registeredEvent) registeredEvent.leaved()
+                scope.$destroy()
+                //}
             }
         })
 
-        let closeFn = e => this.__remove__(openedId)
+        let closeFn = e => {
+            if(registeredEvent) registeredEvent.leaving()
+            this.__remove__(openedId)
+        }
 
         closeBtn::on('click', closeFn)
         modalContainer::query('.fm-modal-content')::prepend(templateDOM)
         openedModals.push({openedId, modal: {
             main:modalContent,
-            transition:modalTransition
+            transition:modalTransition,
+            event:registeredEvent
         }})
 
         body::last(modalContainer)
         modalTransition.state = true
+
+        if(registeredEvent){
+            registeredEvent.opened()
+        }
 
         return openedId
     }
@@ -180,4 +228,99 @@ export default class Modal{
     closeAll(){
         this.__remove__(-1)
     }
+
+
+    /*
+    特化Modal  confirm(options)
+               normal(options)
+
+    options::=
+        onOk: Function | Promise
+        onCancel: Function | Promise
+        title
+        okText
+        cancelText
+        width:400
+        content
+    */
+
+    confirm(options = {}){
+        let op = Object.assign({}, defaultConfirm, options)
+
+        let width = op.width.toString()
+        if(width.indexOf('px')) width = width.replace('px', '')
+        let scope = rootScope.$new()
+
+        scope.width = width
+        scope.content = op.content
+        scope.okText = op.okText
+        scope.cancelText = op.cancelText
+        scope.onOk = op.onOk
+
+
+        let openedId
+
+        op.scope = scope
+        op.template = confirm
+        scope.onCancel = () => {
+            if(typeof op.onCancel === 'function'){
+                let ret = op.onCancel()
+                return isPromise(ret) ? ret.then(() => this.close(openedId)) : this.close(openedId)
+            }
+            return this.close(openedId)
+        }
+
+        scope.onOk = () => {
+            if(typeof op.onOk === 'function'){
+                let ret = op.onOk()
+                return isPromise(ret) ? ret.then(() =>　this.close(openedId)) : this.close(openedId)
+            }
+            return this.close(openedId)
+        }
+
+        openedId = this.open(op)
+    }
+
+    normal(options){
+
+    }
 }
+
+
+
+
+
+
+
+/*
+//type1
+let onOk = () => console.log('ok.')
+
+
+//type2
+let onOk = () => {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => resolve(),1000)
+    })
+}
+
+
+<Modal click=onOk />
+
+
+function Modal(){}
+
+Modal.prototype.clear = function(){
+    //clean function
+}
+
+Modal.prototype.click = function(cb){
+    let ret = cb()
+    if(isPrmoise(ret)){
+        ret.then(this.clear)
+    } else {
+        this.clear()
+    }
+}
+
+*/

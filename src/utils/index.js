@@ -430,6 +430,10 @@ export function trim(str){
     return str.replace(/^\s+|\s+$/g, '')
 }
 
+export function isPromise(obj){
+    return !!obj && (typeof obj === 'object' || typeof obj === 'function') && typeof obj.then === 'function'
+}
+
 /*export function extend(target){
     if(!this.$new) throw new Error("caller was not a angular scope variable.")
     let dest = this

@@ -300,8 +300,31 @@
         </div>
     </div>
     <script id="modalTemplate" type="text/fm-template">
-        <div style="width:200px;">
-            <Fermi:buttons content="Next" ng-click="createModal()"></Fermi:buttons>
+        <div style="width:500px;">
+            <Fermi:Tabs>
+                <Fermi:Tab header="临江仙" >
+                    <div>
+                           <p>滚滚长江东逝水，浪花淘尽英雄。</p>
+                        　　<p>是非成败转头空，</p>
+                        　　<p>青山依旧在，几度夕阳红。</p>
+                        　　<p>白发渔樵江渚上，惯看秋月春风。</p>
+                        　　<p>一壶浊酒喜相逢，</p>
+                        　　<p>古今多少事，都付笑谈中。</p>
+                    </div>
+                </Fermi:Tab>
+                <Fermi:Tab header="飞鸟集" actived>
+                    <div>我们如海鸥之与波涛相遇似地，遇见了，走近了。海鸥飞去，波涛滚滚地流开，我们也分别了。
+                    </div>
+                    <div>
+                        Like the meeting of the seagulls and the waves we meet and come near.
+                        The seagulls fly off, the waves roll away and we depart.</div>
+                        <div>瞬刻的喧声，讥笑着永恒的音乐。</div>
+                        <div>The noise of the moment scoffs at the music of the Eternal.</div>
+                </Fermi:Tab>
+                <Fermi:Tab header="Disabled" disable>
+                    <div>α β Σ</div>
+                </Fermi:Tab>
+            </Fermi:Tabs>
         </div>
     </script>
 </body>
