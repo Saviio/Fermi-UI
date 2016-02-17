@@ -93,6 +93,14 @@ app.controller(
             window.ck = $scope.ck
             window.modal = $scope.createModal
             window.modalControl = modal
+            window.asyncModal = () => {
+                modal.confirm({
+                    content:'hahaha',
+                    onCancel:() => {
+                        return new Promise((res,rej) => setTimeout(() => res(),1000))
+                    }
+                })
+            }
         },1000)
 
         $scope.$on('checked', data => {

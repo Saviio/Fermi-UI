@@ -75,7 +75,24 @@ let openedModals = []
 let compile = null
 let rootScope = null
 
+class ModalInstance{
+    constructor(id, close, events){
+        this.openedId = id
+        this.DOM = null
+    }
+
+
+
+    dispose(){
+        this.DOM = null
+    }
+}
+
 //support ngController
+//close
+//opened/closed   all promise like object?
+//confirm ++ dismissed
+
 @dependencies('$compile', '$rootScope')
 export default class Modal{
     constructor($compile, $rootScope){

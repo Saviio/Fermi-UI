@@ -39,6 +39,8 @@ export default class Notification{
     constructor($compile, $rootScope){
         this._rendered = false
         this._container = null
+        this._config = defaultConfig
+
         compile = $compile
         rootScope = $rootScope
     }
@@ -55,14 +57,10 @@ export default class Notification{
         this._container = body::last(container)
         this._body = this._container::query('div')
         this._container::setStyle({
-            top:this.__getConfig__('top'),
-            right:this.__getConfig__('right')
+            top:this._config.top,
+            right:this._config.right
         })
         this._rendered = true
-    }
-
-    __getConfig__(key){
-        return (this.customConfig || defaultConfig)[key] || defaultConfig[key]
     }
 
     __remove__(notificationNode, callback){
@@ -104,18 +102,16 @@ export default class Notification{
         setTimeout(() => notification::addClass('fm-notice-show'), 50)
 
         if(option.duration !== null && option.duration !== 0){
-            let duration = option.duration || this.__getConfig__('duration')
+            let duration = option.duration || this._config.duration
             cancellId = setTimeout(() => {
                 this.__remove__(notification, scope.callback)
             }, duration * 1000)
         }
     }
 
-    config(option){
-        if(this.customConfig === undefined){
-            this.customConfig = option
-            Object.freeze(this.customConfig)
-        }
+    config(config){
+        this._config = Object.assign({}, this._config, config)
+        Object.freeze(this._config)
     }
 
     normal(message = '', topic = ''){
