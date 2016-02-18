@@ -76,16 +76,32 @@ let compile = null
 let rootScope = null
 
 class ModalInstance{
-    constructor(id, close, events){
+    constructor(id, resolves, close, events, ...restArgs){
         this.openedId = id
         this.DOM = null
+
+        resolves = Object.assign({}, resolves, ...restArgs)
+
+
+        this.closed = new Promise((resolve, reject){
+            resolves.closed = resolve
+        })
+
+        this.opened = new Promise((resolve, reject){
+            resolves.opened = resolve
+        })
+
     }
 
+    close(){
 
+    }
 
+    /*
     dispose(){
         this.DOM = null
     }
+    */
 }
 
 //support ngController
@@ -268,11 +284,14 @@ export default class Modal{
         if(width.indexOf('px')) width = width.replace('px', '')
         let scope = rootScope.$new()
 
-        scope.width = width
-        scope.content = op.content
-        scope.okText = op.okText
-        scope.cancelText = op.cancelText
-        scope.onOk = op.onOk
+        scope = {
+            ...scope,
+            width,
+            content:op.content,
+            okText:op.okText,
+            cancelText:op.cancelText,
+            onOk:op.onOk
+        }
 
 
         let openedId
