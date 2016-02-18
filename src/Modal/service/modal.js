@@ -75,26 +75,34 @@ let openedModals = []
 let compile = null
 let rootScope = null
 
+/*
+  props::=
+     id,
+     transition,
+     events
+*/
 class ModalInstance{
-    constructor(id, resolves, close, events, ...restArgs){
-        this.openedId = id
-        this.DOM = null
+    constructor(props, resolves = {}, ...restArgs){
+        this.id = props.id
 
         resolves = Object.assign({}, resolves, ...restArgs)
 
 
-        this.closed = new Promise((resolve, reject){
+        this.closed = new Promise((resolve, reject) => {
             resolves.closed = resolve
         })
 
-        this.opened = new Promise((resolve, reject){
+        this.closing = new Promise((resolve, reject) => {
+            resolves.closing = resolve
+        })
+
+        this.opened = new Promise((resolve, reject) => {
             resolves.opened = resolve
         })
 
-    }
-
-    close(){
-
+        this.close = function(){
+            props.transition.state = false
+        }
     }
 
     /*
@@ -143,26 +151,25 @@ export default class Modal{
     __remove__(id){
         if(id < 0){
             while(targetModal = openedModals.pop()){
-                targetModal.modal.transition.state = false
+                targetModal.close()
                 if(targetModal.modal.event) targetModal.modal.event.leaving()
             }
             this.__tryDispose__()
             return
         }
 
-        let targetModal
-        let index
+        let modal, index
 
         for(let i = 0; i < openedModals.length; i++){
-            if(openedModals[i].openedId === id){
-                targetModal = openedModals[i]
+            if(openedModals[i].id === id){
+                modal = openedModals[i]
                 index = i
-                break;
+                break
             }
         }
 
-        if(targetModal){
-            targetModal.modal.transition.state = false
+        if(modal){
+            modal.close()
             openedModals.splice(index, 1)
             this.__tryDispose__()
         }
@@ -205,6 +212,8 @@ export default class Modal{
 
 
         let openedId = nextId()
+        let resolves = {}
+
         let modalContainer = toDOM(container)
         modalContainer.setAttribute('_FM-ModalId', openedId)
         let modalContent = modalContainer::query('.fm-modal')
@@ -218,11 +227,16 @@ export default class Modal{
 
         let closeBtn = modalContainer::query('.fm-close')
         let modalTransition = new transition(modalContent, className, false, 5000, {
+            opEnter:() => {
+                if(resolves.opened) resolves.opened()
+            },
             onLeave:() => {
                 modalContainer::remove()
-                if(options.hooks && typeof options.hooks.onClose === 'function'){
+                /*if(options.hooks && typeof options.hooks.onClose === 'function'){
                     options.hooks.onClose()
-                }
+                }*/
+
+                if(resolves.closing) resolves.closing()
 
                 //if(scope){
                 if(registeredEvent) registeredEvent.leaved()
@@ -238,11 +252,33 @@ export default class Modal{
 
         closeBtn::on('click', closeFn)
         modalContainer::query('.fm-modal-content')::prepend(templateDOM)
+
+
+        let modalIns = new ModalInstance({
+            id:openedId,
+            transition:modalTransition
+        }, resolves)
+
+        if(options.hooks){
+            if(typeof options.hooks.onEnter === 'function'){
+                modalIns.opened.then(() => options.hooks.onEnter())
+            }
+
+            if(typeof options.hooks.onLeave === 'function'){
+                modalIns.closing.then(() => options.hooks.onLeave())
+            }
+        }
+
+
+        openedModals.push(modalIns)
+
+        /*
         openedModals.push({openedId, modal: {
             main:modalContent,
             transition:modalTransition,
             event:registeredEvent
         }})
+        */
 
         body::last(modalContainer)
         modalTransition.state = true
@@ -251,7 +287,7 @@ export default class Modal{
             registeredEvent.opened()
         }
 
-        return openedId
+        return modalIns
     }
 
     close(id){
@@ -268,8 +304,6 @@ export default class Modal{
                normal(options)
 
     options::=
-        onOk: Function | Promise
-        onCancel: Function | Promise
         title
         okText
         cancelText
@@ -284,37 +318,37 @@ export default class Modal{
         if(width.indexOf('px')) width = width.replace('px', '')
         let scope = rootScope.$new()
 
-        scope = {
-            ...scope,
-            width,
-            content:op.content,
-            okText:op.okText,
-            cancelText:op.cancelText,
-            onOk:op.onOk
-        }
 
+        scope.width = width
+        scope.content = op.content
+        scope.okText = op.okText
+        scope.cancelText = op.cancelText
 
-        let openedId
+        let openedId, modal, dismiss, ok
 
         op.scope = scope
         op.template = confirm
-        scope.onCancel = () => {
-            if(typeof op.onCancel === 'function'){
+
+
+        scope.onCancel = () => {//
+            /*if(typeof op.onCancel === 'function'){
                 let ret = op.onCancel()
                 return isPromise(ret) ? ret.then(() => this.close(openedId)) : this.close(openedId)
-            }
-            return this.close(openedId)
+            }*/
+            modal.dismiss.then(() => modal.close())
+            dismiss()
         }
 
         scope.onOk = () => {
-            if(typeof op.onOk === 'function'){
-                let ret = op.onOk()
-                return isPromise(ret) ? ret.then(() =>　this.close(openedId)) : this.close(openedId)
-            }
-            return this.close(openedId)
+            modal.ok.then(() => modal.close())
+            ok()
         }
 
-        openedId = this.open(op)
+        modal = this.open(op)
+        modal.dismiss = new Promise((resolve, reject) => dismiss = resolve)
+        modal.ok = new Promise((resolve, reject) => ok = resolve)
+
+        return modal
     }
 
     normal(options){
