@@ -28,7 +28,7 @@
 
 
 #__modalOverlay__{
-    background: rgba(0,0,0,.4);
+    background: rgba(0,0,0,.5);
     right: 0;
     top: 0;
     left:0;
@@ -110,7 +110,7 @@
     padding-bottom:15px;
     background: #fcfcfc;
     border-radius: 3px;
-    border: #7E7E7E 1px solid;
+    border: #8E8E8E 1px solid;
     box-shadow: 0px 2px 10px rgba(50, 50, 50, 0.3);
 }
 
@@ -124,26 +124,27 @@
     display: inline-block;
 }
 
-
 .fm-modal.fm-modal-enter{
     display: inline-block;
     animation: fm-modal-fadeIn .5s;
 }
 
 .fm-modal.fm-modal-leave{
-    display: inline-block;
     animation: fm-modal-fadeOut .5s;
 }
 
 
 
-.fm-modal-confirm-content{
-    border-top:1px solid #e9e9e9;
+.fm-modal-confirm-content,.fm-modal-normal-content{
     padding:16px;
-    border-bottom:1px solid #e9e9e9;
 }
 
-.fm-modal-confirm-operation{
+.fm-modal-confirm-content{
+    border-bottom:1px solid #e9e9e9;
+    border-top:1px solid #e9e9e9;
+}
+
+.fm-modal-confirm-operation,.fm-modal-normal-operation{
     margin-top: 10px;
     float: right;
 

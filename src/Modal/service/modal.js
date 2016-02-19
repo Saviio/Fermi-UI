@@ -21,6 +21,7 @@ import {
 } from '../../utils'
 import container from '../template/template.html'
 import confirm from '../template/confirm.html'
+import normal from '../template/normal.html'
 
 
 /*
@@ -52,15 +53,7 @@ private:
 
 */
 
-
-
-
-const overlayId = '__modalOverlay__'
-const overlayInAnimation = 'fm-overlay-In'
-const reSelector = /^[#|.]/
-const emptyTemplateError = 'Template should not be set as empty / null / undefined.'
-
-const defaultConfirm = {
+const defaultConfirmModal = {
     width:400,
     title:'请确认',
     content:'',
@@ -68,7 +61,25 @@ const defaultConfirm = {
     cancelText:'取消',
     onOk:noop,
     onCancel:noop,
+    plain:false
 }
+
+const defaultNormalModal = {
+    width:400,
+    title:'',
+    content:'',
+    okText:'确认',
+    onOk:noop,
+    plain:false
+}
+
+let replacePlainTag = (template, isPlain) => template.replace(/#plain\-directive#/m, isPlain ? 'ng-bind-html="content | plain"' : '')
+
+
+const overlayId = '__modalOverlay__'
+const overlayInAnimation = 'fm-overlay-In'
+const reSelector = /^[#|.]/
+const emptyTemplateError = 'Template should not be set as empty / null / undefined.'
 
 
 let openedModals = []
@@ -78,44 +89,31 @@ let rootScope = null
 /*
   props::=
      id,
-     transition,
-     events
+     transition
 */
 class ModalInstance{
     constructor(props, resolves = {}, ...restArgs){
         this.id = props.id
 
-        resolves = Object.assign({}, resolves, ...restArgs)
-
-
         this.closed = new Promise((resolve, reject) => {
             resolves.closed = resolve
-        })
-
-        this.closing = new Promise((resolve, reject) => {
-            resolves.closing = resolve
         })
 
         this.opened = new Promise((resolve, reject) => {
             resolves.opened = resolve
         })
 
-        this.close = function(){
-            props.transition.state = false
-        }
+        this.close = null
     }
-
-    /*
-    dispose(){
-        this.DOM = null
-    }
-    */
 }
 
 //support ngController
 //close
 //opened/closed   all promise like object?
 //confirm ++ dismissed
+
+
+//waitting for IMPLEMENT ngController plainContent
 
 @dependencies('$compile', '$rootScope')
 export default class Modal{
@@ -149,27 +147,15 @@ export default class Modal{
     }
 
     __remove__(id){
-        if(id < 0){
-            while(targetModal = openedModals.pop()){
-                targetModal.close()
-                if(targetModal.modal.event) targetModal.modal.event.leaving()
-            }
-            this.__tryDispose__()
-            return
-        }
-
-        let modal, index
-
+        let index
         for(let i = 0; i < openedModals.length; i++){
             if(openedModals[i].id === id){
-                modal = openedModals[i]
                 index = i
                 break
             }
         }
 
         if(modal){
-            modal.close()
             openedModals.splice(index, 1)
             this.__tryDispose__()
         }
@@ -178,7 +164,6 @@ export default class Modal{
     open(options){
         if(options === undefined) throw new Error('No parameters passed in when call Fermi.Modal.open.')
         if(options.template === undefined) throw new Error(emptyTemplateError)
-        //options.plain = options.scope === undefined ? true : false
         this.__tryRender__()
 
         let className = options.className || 'fm-modal'
@@ -191,24 +176,9 @@ export default class Modal{
 
         if(template::trim() === '') throw new Error(emptyTemplateError)
 
-        let templateDOM
         let scope = options.scope.$new()
-        //if(!options.plain){//remark
-            //scope =
-        templateDOM = compile(template)(scope)[0]
+        let templateDOM = compile(template)(scope)[0]
         if(!/\$apply|\$digest/.test(scope.$root.$$phase)) scope.$apply()
-        //} else {
-            //templateDOM = toDOM(template)
-        //}
-
-        let registeredEvent = null
-        if(modalName){
-            registeredEvent = {
-                opened  : ()  => scope.$emit('modal::opened', modalName),
-                leaving : ()  => scope.$emit('modal::leaving', modalName),
-                leaved  : ()  => scope.$emit('modal::leaved', modalName)
-            }
-        }
 
 
         let openedId = nextId()
@@ -227,30 +197,16 @@ export default class Modal{
 
         let closeBtn = modalContainer::query('.fm-close')
         let modalTransition = new transition(modalContent, className, false, 5000, {
-            opEnter:() => {
+            onEnter:() => {
                 if(resolves.opened) resolves.opened()
             },
             onLeave:() => {
                 modalContainer::remove()
-                /*if(options.hooks && typeof options.hooks.onClose === 'function'){
-                    options.hooks.onClose()
-                }*/
-
-                if(resolves.closing) resolves.closing()
-
-                //if(scope){
-                if(registeredEvent) registeredEvent.leaved()
+                if(resolves.closed) resolves.closed()
                 scope.$destroy()
-                //}
             }
         })
 
-        let closeFn = e => {
-            if(registeredEvent) registeredEvent.leaving()
-            this.__remove__(openedId)
-        }
-
-        closeBtn::on('click', closeFn)
         modalContainer::query('.fm-modal-content')::prepend(templateDOM)
 
 
@@ -259,43 +215,30 @@ export default class Modal{
             transition:modalTransition
         }, resolves)
 
-        if(options.hooks){
-            if(typeof options.hooks.onEnter === 'function'){
-                modalIns.opened.then(() => options.hooks.onEnter())
-            }
-
-            if(typeof options.hooks.onLeave === 'function'){
-                modalIns.closing.then(() => options.hooks.onLeave())
-            }
+        modalIns.close = () => {
+            modalTransition.state = false
+            this.__remove__(openedId)
         }
 
+        let closeFn = e => {
+            modalIns.close()
+        }
+
+        closeBtn::on('click', closeFn)
 
         openedModals.push(modalIns)
 
-        /*
-        openedModals.push({openedId, modal: {
-            main:modalContent,
-            transition:modalTransition,
-            event:registeredEvent
-        }})
-        */
 
         body::last(modalContainer)
         modalTransition.state = true
 
-        if(registeredEvent){
-            registeredEvent.opened()
-        }
 
         return modalIns
     }
 
-    close(id){
-        this.__remove__(id)
-    }
 
     closeAll(){
-        this.__remove__(-1)
+        openedModals.forEach(m => m.close())
     }
 
 
@@ -309,10 +252,11 @@ export default class Modal{
         cancelText
         width:400
         content
+        plain
     */
 
     confirm(options = {}){
-        let op = Object.assign({}, defaultConfirm, options)
+        let op = Object.assign({}, defaultConfirmModal, options)
 
         let width = op.width.toString()
         if(width.indexOf('px')) width = width.replace('px', '')
@@ -327,14 +271,10 @@ export default class Modal{
         let openedId, modal, dismiss, ok
 
         op.scope = scope
-        op.template = confirm
+        op.template = replacePlainTag(confirm, op.plain)
 
 
-        scope.onCancel = () => {//
-            /*if(typeof op.onCancel === 'function'){
-                let ret = op.onCancel()
-                return isPromise(ret) ? ret.then(() => this.close(openedId)) : this.close(openedId)
-            }*/
+        scope.onCancel = () => {
             modal.dismiss.then(() => modal.close())
             dismiss()
         }
@@ -352,45 +292,27 @@ export default class Modal{
     }
 
     normal(options){
+        let op = Object.assign({}, defaultNormalModal, options)
+        let width = op.width.toString()
+        if(width.indexOf('px')) width = width.replace('px', '')
+        let scope = rootScope.$new()
 
+        scope.width = width
+        scope.content = op.content
+        scope.okText = op.okText
+
+        let openedId, modal, ok
+
+        op.scope = scope
+        op.template = replacePlainTag(normal, op.plain)
+
+        scope.onOk = () => {
+            modal.ok.then(() => modal.close())
+            ok()
+        }
+
+        modal = this.open(op)
+        modal.ok = new Promise((resolve, reject) => ok = resolve)
+        return modal
     }
 }
-
-
-
-
-
-
-
-/*
-//type1
-let onOk = () => console.log('ok.')
-
-
-//type2
-let onOk = () => {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => resolve(),1000)
-    })
-}
-
-
-<Modal click=onOk />
-
-
-function Modal(){}
-
-Modal.prototype.clear = function(){
-    //clean function
-}
-
-Modal.prototype.click = function(cb){
-    let ret = cb()
-    if(isPrmoise(ret)){
-        ret.then(this.clear)
-    } else {
-        this.clear()
-    }
-}
-
-*/

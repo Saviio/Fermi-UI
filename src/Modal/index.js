@@ -4,7 +4,7 @@ import './css/modal.scss'
 
 const component = {
     namespace:'Fermi.modal',
-    inject:[]
+    inject:['Fermi.core']
 }
 
 export default angular.module(component.namespace, component.inject)

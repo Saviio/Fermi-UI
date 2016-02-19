@@ -70,17 +70,6 @@ app.controller(
             })
         }
 
-        $scope.$on('modal::opened', (e,modalName) => {
-            console.log(`${modalName} is opened.`)
-        })
-
-        $scope.$on('modal::leaving', (e,modalName) => {
-            console.log(`${modalName} is leaving.`)
-        })
-
-        $scope.$on('modal::leaved', (e,modalName) => {
-            console.log(`${modalName} is leaved.`)
-        })
 
         $timeout(()=> {
             window.a=$scope.a,
@@ -94,13 +83,22 @@ app.controller(
             window.modal = $scope.createModal
             window.modalControl = modal
             window.asyncModal = () => {
-                modal.confirm({
-                    content:'hahaha',
+                return modal.confirm({
+                    content:'<p>123</p>',
+                    plain:true,
                     onCancel:() => {
                         return new Promise((res,rej) => setTimeout(() => res(),1000))
                     }
                 })
             }
+
+            window.asyncModal2 = () => {
+                return modal.normal({
+                    content:'lolololo',
+                    width:150
+                })
+            }
+
         },1000)
 
         $scope.$on('checked', data => {
