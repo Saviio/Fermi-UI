@@ -65,11 +65,19 @@ app.controller(
             return modal.open({
                 template:'#modalTemplate',
                 scope:$scope,
-                name:'TEST Modal',
-                title:123
+                name:'TEST Modal'
             })
         }
 
+        $scope.normalModal = () => modal.normal({
+            content:'Normal Modal~~~',
+            width:200
+        })
+
+        $scope.confirmModal = () => modal.confirm({
+            content:'Confirm Modal~~~',
+            width:300
+        })
 
         $timeout(()=> {
             window.a=$scope.a,

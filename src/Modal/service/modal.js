@@ -58,9 +58,9 @@ const defaultConfirmModal = {
     title:'请确认',
     content:'',
     okText:'确认',
-    cancelText:'取消',
+    dismissText:'取消',
     onOk:noop,
-    onCancel:noop,
+    onDismiss:noop,
     plain:false
 }
 
@@ -85,6 +85,7 @@ const emptyTemplateError = 'Template should not be set as empty / null / undefin
 let openedModals = []
 let compile = null
 let rootScope = null
+let controllerGetter = null
 
 /*
   props::=
@@ -115,13 +116,14 @@ class ModalInstance{
 
 //waitting for IMPLEMENT ngController plainContent
 
-@dependencies('$compile', '$rootScope')
+@dependencies('$compile', '$controller', '$rootScope')
 export default class Modal{
-    constructor($compile, $rootScope){
+    constructor($compile, $controller, $rootScope){
         this._hasOverlay = false
         this._overlayNode = null
         compile = $compile
         rootScope = $rootScope
+        controllerGetter = $controller
     }
 
     __tryRender__(){
@@ -220,25 +222,22 @@ export default class Modal{
             this.__remove__(openedId)
         }
 
-        let closeFn = e => {
-            modalIns.close()
-        }
-
-        closeBtn::on('click', closeFn)
-
         openedModals.push(modalIns)
 
-
+        let closeFn = e => modalIns.close()
+        closeBtn::on('click', closeFn)
         body::last(modalContainer)
+
         modalTransition.state = true
-
-
         return modalIns
     }
 
 
     closeAll(){
-        openedModals.forEach(m => m.close())
+        let modal, copyRef = openedModals.slice(0)
+        while(modal = copyRef.pop()){
+            modal.close()
+        }
     }
 
 
@@ -266,15 +265,14 @@ export default class Modal{
         scope.width = width
         scope.content = op.content
         scope.okText = op.okText
-        scope.cancelText = op.cancelText
-
-        let openedId, modal, dismiss, ok
+        scope.dismissText = op.dismissText
 
         op.scope = scope
         op.template = replacePlainTag(confirm, op.plain)
 
+        let openedId, modal, dismiss, ok
 
-        scope.onCancel = () => {
+        scope.onDismiss = () => {
             modal.dismiss.then(() => modal.close())
             dismiss()
         }
@@ -285,8 +283,8 @@ export default class Modal{
         }
 
         modal = this.open(op)
-        modal.dismiss = new Promise((resolve, reject) => dismiss = resolve)
-        modal.ok = new Promise((resolve, reject) => ok = resolve)
+        modal.dismiss = new Promise(resolve => dismiss = resolve)
+        modal.ok = new Promise(resolve => ok = resolve)
 
         return modal
     }
@@ -301,10 +299,10 @@ export default class Modal{
         scope.content = op.content
         scope.okText = op.okText
 
-        let openedId, modal, ok
-
         op.scope = scope
         op.template = replacePlainTag(normal, op.plain)
+
+        let openedId, modal, ok
 
         scope.onOk = () => {
             modal.ok.then(() => modal.close())
@@ -312,7 +310,7 @@ export default class Modal{
         }
 
         modal = this.open(op)
-        modal.ok = new Promise((resolve, reject) => ok = resolve)
+        modal.ok = new Promise(resolve => ok = resolve)
         return modal
     }
 }
