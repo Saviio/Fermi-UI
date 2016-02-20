@@ -74,10 +74,28 @@ app.controller(
             width:200
         })
 
-        $scope.confirmModal = () => modal.confirm({
-            content:'Confirm Modal~~~',
-            width:300
-        })
+        $scope.confirmModal = () => {
+            let modalIns = modal.confirm({
+                content:'Confirm Modal~~~',
+                width:300
+            })
+            console.log(modalIns)
+
+            modalIns.ok.then(() => {
+                modal.normal({
+                    content:'Normal Modal No.2',
+                    width:240
+                })
+                throw new Error('error')
+            })
+            .catch(() => {
+                console.log('Error!')
+            })
+
+            modalIns.dismiss.then(() => {
+                console.log('dismiss')
+            })
+        }
 
         $timeout(()=> {
             window.a=$scope.a,

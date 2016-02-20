@@ -38,12 +38,11 @@ options ::= {
         onOpen: Function,
         onClose: Function
     },
-    name: String | optional (support for Events: modal::opened, modal::leaving, modal::leaved)
     title: String
 }
 
 .closeAll
-.close(id)
+
 
 id ::= Number
 
@@ -108,14 +107,8 @@ class ModalInstance{
     }
 }
 
-//support ngController
-//close
-//opened/closed   all promise like object?
-//confirm ++ dismissed
 
-
-//waitting for IMPLEMENT ngController plainContent
-
+//Controller IMPLEMENT ME remark
 @dependencies('$compile', '$controller', '$rootScope')
 export default class Modal{
     constructor($compile, $controller, $rootScope){
@@ -169,7 +162,7 @@ export default class Modal{
         this.__tryRender__()
 
         let className = options.className || 'fm-modal'
-        let modalName = options.name || null
+        //let modalName = options.name || null
         let title = (options.title || '').toString()
 
         let template = reSelector.test(options.template)
@@ -248,7 +241,7 @@ export default class Modal{
     options::=
         title
         okText
-        cancelText
+        dismissText
         width:400
         content
         plain
