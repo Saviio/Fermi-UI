@@ -239,7 +239,7 @@ export default class Modal{
         }
 
         openedModals.push(modalIns)
-        
+
         closeBtn::on('click',  e => modalIns.close())
         body::last(modalContainer)
 
@@ -277,7 +277,7 @@ export default class Modal{
             width:width,
             content:options.content,
             okText:options.okText,
-            dismissTextoptions.dismissText,
+            dismissText:options.dismissText,
             onDismiss: () => {
                 modal.dismiss.then(() => modal.close())
                 dismiss()
@@ -288,8 +288,8 @@ export default class Modal{
             }
         })
 
-        op.scope = scope
-        op.template = replacePlainTag(confirm, options.plain)
+        options.scope = scope
+        options.template = replacePlainTag(confirm, options.plain)
 
         modal = this.open(options)
         modal.dismiss = new Promise(resolve => dismiss = resolve)
