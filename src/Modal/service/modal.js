@@ -11,6 +11,7 @@ import {
     inDoc,
     remove,
     nextId,
+    getType,
     prepend,
     setStyle,
     addClass,
@@ -38,11 +39,13 @@ options ::= {
         onOpen: Function,
         onClose: Function
     },
+    controller:String,
+    name: String | optional (support for Events: modal::opened, modal::leaving, modal::leaved)
     title: String
 }
 
 .closeAll
-
+.close(id)
 
 id ::= Number
 
@@ -94,21 +97,20 @@ let controllerGetter = null
 class ModalInstance{
     constructor(props, resolves = {}, ...restArgs){
         this.id = props.id
-
-        this.closed = new Promise((resolve, reject) => {
-            resolves.closed = resolve
-        })
-
-        this.opened = new Promise((resolve, reject) => {
-            resolves.opened = resolve
-        })
-
+        this.closed = new Promise(resolve => resolves.closed = resolve)
+        this.opened = new Promise(resolve => resolves.opened = resolve)
         this.close = null
     }
 }
 
+//support ngController
+//close
+//opened/closed   all promise like object?
+//confirm ++ dismissed
 
-//Controller IMPLEMENT ME remark
+
+//waitting for IMPLEMENT ngController plainContent
+
 @dependencies('$compile', '$controller', '$rootScope')
 export default class Modal{
     constructor($compile, $controller, $rootScope){
@@ -117,6 +119,10 @@ export default class Modal{
         compile = $compile
         rootScope = $rootScope
         controllerGetter = $controller
+
+
+        window.controllerGetter = $controller
+        window.rootScope = rootScope
     }
 
     __tryRender__(){
@@ -170,10 +176,32 @@ export default class Modal{
         : options.template
 
         if(template::trim() === '') throw new Error(emptyTemplateError)
+        let $template = angular.element(template)
 
-        let scope = options.scope.$new()
-        let templateDOM = compile(template)(scope)[0]
-        if(!/\$apply|\$digest/.test(scope.$root.$$phase)) scope.$apply()
+        let modalScope = (options.scope || rootScope).$new()
+        if(options.controller::getType() === 'String'){
+            let alias =
+                options.controllerAs::getType() === 'String'
+                ? options.controllerAs
+                : null
+
+            let ctrl = controllerGetter(
+                options.controller,
+                {
+                    $scope: modalScope,
+                    $element: $template
+                },
+                false,
+                alias
+            )
+
+            if(alias !== null) modalScope[alias] = ctrl
+            ctrl.$scope = modalScope
+        }
+
+
+        let templateDOM = compile($template)(modalScope)[0]
+        if(!/\$apply|\$digest/.test(modalScope.$root.$$phase)) modalScope.$apply()
 
 
         let openedId = nextId()
@@ -198,7 +226,7 @@ export default class Modal{
             onLeave:() => {
                 modalContainer::remove()
                 if(resolves.closed) resolves.closed()
-                scope.$destroy()
+                modalScope.$destroy()
             }
         })
 
@@ -241,7 +269,7 @@ export default class Modal{
     options::=
         title
         okText
-        dismissText
+        cancelText
         width:400
         content
         plain

@@ -125,6 +125,16 @@ app.controller(
                 })
             }
 
+            window.ctrlModal = () => {
+                return modal.open({
+                    template:'#modalTemplate',
+                    scope:$scope,
+                    name:'TEST Modal',
+                    controller:'test',
+                    controllerAs:'check'
+                })
+            }
+
         },1000)
 
         $scope.$on('checked', data => {
@@ -189,4 +199,8 @@ app.controller(
         }, 10);
 
         $scope.output = item => console.log(item)
+}])
+
+app.controller('test', [function(){
+    this.a = 1
 }])
