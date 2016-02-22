@@ -239,9 +239,8 @@ export default class Modal{
         }
 
         openedModals.push(modalIns)
-
-        let closeFn = e => modalIns.close()
-        closeBtn::on('click', closeFn)
+        
+        closeBtn::on('click',  e => modalIns.close())
         body::last(modalContainer)
 
         modalTransition.state = true
@@ -251,9 +250,7 @@ export default class Modal{
 
     closeAll(){
         let modal, copyRef = openedModals.slice(0)
-        while(modal = copyRef.pop()){
-            modal.close()
-        }
+        while(modal = copyRef.pop()) modal.close()
     }
 
 
@@ -271,34 +268,30 @@ export default class Modal{
     */
 
     confirm(options = {}){
-        let op = Object.assign({}, defaultConfirmModal, options)
-
-        let width = op.width.toString()
-        if(width.indexOf('px')) width = width.replace('px', '')
+        options = Object.assign({}, defaultConfirmModal, options)
+        let width = options.width.toString().replace('px', '')
         let scope = rootScope.$new()
-
-
-        scope.width = width
-        scope.content = op.content
-        scope.okText = op.okText
-        scope.dismissText = op.dismissText
-
-        op.scope = scope
-        op.template = replacePlainTag(confirm, op.plain)
-
         let modal, dismiss, ok
 
-        scope.onDismiss = () => {
-            modal.dismiss.then(() => modal.close())
-            dismiss()
-        }
+        angular.extend(scope, {
+            width:width,
+            content:options.content,
+            okText:options.okText,
+            dismissTextoptions.dismissText,
+            onDismiss: () => {
+                modal.dismiss.then(() => modal.close())
+                dismiss()
+            },
+            onOk: () => {
+                modal.ok.then(() => modal.close())
+                ok()
+            }
+        })
 
-        scope.onOk = () => {
-            modal.ok.then(() => modal.close())
-            ok()
-        }
+        op.scope = scope
+        op.template = replacePlainTag(confirm, options.plain)
 
-        modal = this.open(op)
+        modal = this.open(options)
         modal.dismiss = new Promise(resolve => dismiss = resolve)
         modal.ok = new Promise(resolve => ok = resolve)
 
@@ -306,27 +299,27 @@ export default class Modal{
     }
 
     normal(options){
-        let op = Object.assign({}, defaultNormalModal, options)
-        let width = op.width.toString()
-        if(width.indexOf('px')) width = width.replace('px', '')
+        options = Object.assign({}, defaultNormalModal, options)
+        let width = options.width.toString().replace('px', '')
         let scope = rootScope.$new()
-
-        scope.width = width
-        scope.content = op.content
-        scope.okText = op.okText
-
-        op.scope = scope
-        op.template = replacePlainTag(normal, op.plain)
-
         let modal, ok
 
-        scope.onOk = () => {
-            modal.ok.then(() => modal.close())
-            ok()
-        }
+        angular.extend(scope, {
+            width: width,
+            content: options.content,
+            okText: options.okText,
+            onOk: () => {
+                modal.ok.then(() => modal.close())
+                ok()
+            }
+        })
 
-        modal = this.open(op)
+        options.scope = scope
+        options.template = replacePlainTag(normal, options.plain)
+
+        modal = this.open(options)
         modal.ok = new Promise(resolve => ok = resolve)
+
         return modal
     }
 }
