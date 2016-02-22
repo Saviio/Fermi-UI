@@ -127,7 +127,7 @@ app.controller(
 
             window.ctrlModal = () => {
                 return modal.open({
-                    template:'#modalTemplate',
+                    template:'#modalTemplate2',
                     scope:$scope,
                     name:'TEST Modal',
                     controller:'test',
@@ -202,5 +202,5 @@ app.controller(
 }])
 
 app.controller('test', [function(){
-    this.a = 1
+    this.a = 'ControllerAs Modal Test'
 }])

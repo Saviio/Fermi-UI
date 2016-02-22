@@ -40,6 +40,7 @@ options ::= {
         onClose: Function
     },
     controller:String,
+    controllerAs:String,
     name: String | optional (support for Events: modal::opened, modal::leaving, modal::leaved)
     title: String
 }
@@ -109,8 +110,6 @@ class ModalInstance{
 //confirm ++ dismissed
 
 
-//waitting for IMPLEMENT ngController plainContent
-
 @dependencies('$compile', '$controller', '$rootScope')
 export default class Modal{
     constructor($compile, $controller, $rootScope){
@@ -119,10 +118,6 @@ export default class Modal{
         compile = $compile
         rootScope = $rootScope
         controllerGetter = $controller
-
-
-        window.controllerGetter = $controller
-        window.rootScope = rootScope
     }
 
     __tryRender__(){
@@ -179,13 +174,13 @@ export default class Modal{
         let $template = angular.element(template)
 
         let modalScope = (options.scope || rootScope).$new()
-        if(options.controller::getType() === 'String'){
+        if(options.controller::getType() === 'String' || options.controller::getType() === 'Array'){
             let alias =
                 options.controllerAs::getType() === 'String'
                 ? options.controllerAs
                 : null
 
-            let ctrl = controllerGetter(
+            let controller = controllerGetter(
                 options.controller,
                 {
                     $scope: modalScope,
@@ -195,8 +190,8 @@ export default class Modal{
                 alias
             )
 
-            if(alias !== null) modalScope[alias] = ctrl
-            ctrl.$scope = modalScope
+            if(alias !== null) modalScope[alias] = controller
+            controller.$scope = modalScope
         }
 
 
@@ -291,7 +286,7 @@ export default class Modal{
         op.scope = scope
         op.template = replacePlainTag(confirm, op.plain)
 
-        let openedId, modal, dismiss, ok
+        let modal, dismiss, ok
 
         scope.onDismiss = () => {
             modal.dismiss.then(() => modal.close())
@@ -323,7 +318,7 @@ export default class Modal{
         op.scope = scope
         op.template = replacePlainTag(normal, op.plain)
 
-        let openedId, modal, ok
+        let modal, ok
 
         scope.onOk = () => {
             modal.ok.then(() => modal.close())
