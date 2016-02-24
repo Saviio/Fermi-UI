@@ -5,3 +5,4 @@ animated.css
 dist
 diff.js
 diff.py
+diff.async.py
