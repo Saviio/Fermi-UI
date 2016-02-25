@@ -1,5 +1,12 @@
 @import '../../theme.scss';
 
+.fm-checkbox-container{
+    > .fm-checkbox-label{
+        &:hover{
+            cursor: pointer;
+        }
+    }
+}
 
 
 .fm-checkbox{
@@ -84,6 +91,12 @@
             &:hover{
                 cursor: not-allowed !important;
             }
+        }
+    }
+
+    > .fm-checkbox-label{
+        &:hover{
+            cursor: not-allowed !important;
         }
     }
 }

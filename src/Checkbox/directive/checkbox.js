@@ -46,15 +46,19 @@ export class Checkbox{
         this.checked = this.rootDOM::props('default') || false
         this.disabled = !!(this.rootDOM::props('disabled') || false)
 
+        let disable = () => {
+            this.disabled = true
+            this.rootDOM.setAttribute('disabled', 'disabled')
+        }
+
+        let allow = () => {
+            this.disabled = false
+            this.rootDOM.removeAttribute('disabled')
+        }
+
         scope.control = {
-            disable:() => {
-                this.disabled = true
-                this.rootDOM.setAttribute('disabled', 'disabled')
-            },
-            allow:() => {
-                this.disabled = false
-                this.rootDOM.removeAttribute('disabled')
-            }
+            disable,
+            allow
         }
 
         Object.defineProperty(scope.control,'checked', {
