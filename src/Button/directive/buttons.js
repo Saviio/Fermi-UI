@@ -28,6 +28,7 @@ export default class Buttons {
                 scope.$apply()
             }
         }
+        
         let done = () => {
             if(scope.loading){
                 $elem.removeClass('loading')

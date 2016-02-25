@@ -300,6 +300,13 @@
             <Fermi:buttons content="Normal Modal" ng-click="normalModal()"></Fermi:buttons>
             <Fermi:buttons content="Confirm Modal" ng-click="confirmModal()"></Fermi:buttons>
         </div>
+
+        <div id="fermiCheckbox" style="padding:30px;width:500px;">
+            <p>Checkbox</p>
+            <Fermi:checkbox label="选项1" default="true" control="checkbox" onchange="output" disabled></Fermi:checkbox>
+            <Fermi:checkbox label="选项2" disabled></Fermi:checkbox>
+            <Fermi:checkbox label="选项3" default="false"></Fermi:checkbox>
+        </div>
     </div>
     <script id="modalTemplate" type="text/fm-template">
         <div style="width:500px;">

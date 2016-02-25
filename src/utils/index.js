@@ -70,7 +70,7 @@ export function getDOMState(el, key){
     } else if(ret === ""){
         return true
     } else if(reBool.test(ret)){
-        return !!ret
+        return ret === 'true'
     } else if(/^\d{1,}$/.test(ret)){
         return ~~ret
     }

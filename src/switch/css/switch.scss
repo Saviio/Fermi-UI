@@ -1,3 +1,5 @@
+@import '../../theme.scss';
+
 .switch *{
     box-sizing: border-box;
 }
@@ -23,8 +25,8 @@
         left:0;
 
         &:checked + span {
-            border: 1px solid #17a82d;
-            background-color: #1bb933;
+            border: 1px solid $form-component-border;
+            background-color: $form-component-background;
             &:hover{
                 cursor: pointer;
             }

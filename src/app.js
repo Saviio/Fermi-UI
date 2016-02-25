@@ -17,11 +17,12 @@ import './Step'
 import './Pagination'
 import './Menu'
 import './Modal'
+import './Checkbox'
 
 //import mock data
 import scheduleItems from './scheduleItems.json'
 
-var app=angular.module('app', [
+var app = angular.module('app', [
     'Fermi.switch',
     'Fermi.schedule',
     'Fermi.tooltip',
@@ -35,7 +36,8 @@ var app=angular.module('app', [
     'Fermi.step',
     'Fermi.pagination',
     'Fermi.menu',
-    'Fermi.modal'
+    'Fermi.modal',
+    'Fermi.checkbox'
 ])
 
 app.controller(
@@ -53,9 +55,10 @@ app.controller(
 
         $scope.message="test"
         $scope.tmp=scheduleItems[0]
+        $scope.checkbox
 
         var tmp2=scheduleItems[1]
-
+        $scope.checkboxOnChange = v => console.log(v)
 
         $timeout(function(){
             //$scope.schedule.refresh(tmp2)
@@ -134,6 +137,8 @@ app.controller(
                     controllerAs:'check'
                 })
             }
+
+            window.checkbox = $scope.checkbox
 
         },1000)
 
