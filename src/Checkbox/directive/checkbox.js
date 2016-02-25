@@ -2,16 +2,13 @@ import { dependencies } from '../../external/dependencies'
 import template from '../template/template.html'
 import {
     on,
+    noop,
     query,
     addClass,
     removeClass,
     getDOMState
 } from '../../utils'
 
-//disabled
-//checked
-//onChange
-//default
 
 class fakeEvent{
     constructor(checked){
@@ -21,7 +18,6 @@ class fakeEvent{
     }
 
     preventDefault(){}
-
     stopPropagation(){}
 }
 
@@ -44,45 +40,37 @@ export class Checkbox{
         return this.link
     }
 
-    link(scope, $elem, attrs, ctrl){
-        let checked
-        this.input.checked = checked = this.rootDOM::getDOMState('default') || false
-        if(checked) this.check()
-        let disabled = !!(this.rootDOM::getDOMState('disabled') || false)
-
-
-        let handler = e => {
-            e.stopPropagation()
-
-            if(disabled) return
-            if(checked === e.target.checked) return
-
-            checked = e.target.checked
-            checked ? this.check() : this.unCheck()
-
-            if(typeof scope.onchange === 'function'){
-                scope.onchange(checked)
-            }
-        }
-
-        this.input::on('change', handler)
+    @dependencies('$scope')
+    controller(scope){
+        this.checked = this.rootDOM::getDOMState('default') || false
+        this.disabled = !!(this.rootDOM::getDOMState('disabled') || false)
 
         scope.control = {
             disable:() => {
-                disabled = true
-                this.disable()
+                this.disabled = true
+                this.rootDOM.setAttribute('disabled', 'disabled')
             },
             allow:() => {
-                disabled = false
-                this.allow()
+                this.disabled = false
+                this.rootDOM.removeAttribute('disabled')
             }
         }
 
         Object.defineProperty(scope.control,'checked', {
-            get:() => checked,
-            set:(value) => handler(new fakeEvent(value))
+            get:() => this.checked,
+            set:(value) => this.handle(new fakeEvent(value))
         })
 
+        this.callback = typeof scope.onchange === 'function'
+        ? scope.onchange
+        : noop
+    }
+
+    link(scope, $elem, attrs, ctrl){
+        this.input.checked = this.checked
+        if(this.checked) this.check()
+
+        this.input::on('change', ::this.handle)
     }
 
     check(){
@@ -93,11 +81,14 @@ export class Checkbox{
         this.checkboxElem::removeClass('fm-checkbox-checked')
     }
 
-    disable(){
-        this.rootDOM.setAttribute('disabled', 'disabled')
-    }
+    handle(e){
+        e.stopPropagation()
+        e.preventDefault()
 
-    allow(){
-        this.rootDOM.removeAttribute('disabled')
+        if(this.disabled || this.checked === e.target.checked) return
+
+        this.checked = e.target.checked
+        this.checked ? this.check() : this.unCheck()
+        this.callback(this.checked)
     }
 }
