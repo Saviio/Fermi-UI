@@ -1,14 +1,13 @@
 import { dependencies } from '../../external/dependencies'
 import tabs from '../template/tabs.html'
 import tab from '../template/tab.html'
-import {getDOMState} from '../../utils'
+import { props } from '../../utils'
 
 export class Tabs{
     constructor(){
         this.replace  = true
         this.restrict = 'EA'
         this.template = tabs
-        //this.controller.$inject = ['$scope']
         this.transclude = true
         this.scope = {}
     }
@@ -70,8 +69,8 @@ export class Tab{
 
     link(scope, $element, attrs, parentCtrl){
         let header  = attrs.header
-        let disable = $element::getDOMState('disable')
-        let actived = $element::getDOMState('actived')
+        let disable = $element::props('disable')
+        let actived = $element::props('actived')
 
         let contentState = null
 

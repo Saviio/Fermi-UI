@@ -7,6 +7,7 @@ import {
     on,
     noop,
     query,
+    props,
     queue,
     prepend,
     queryAll,
@@ -81,8 +82,8 @@ export class SubMenu{
     }
 
     compile($tElement, tAttrs, transclude){
-        this.isCascading = $tElement::getDOMState('cascading') || true
-        this.actived = $tElement::getDOMState('actived') || false
+        this.isCascading = $tElement::props('cascading') || true
+        this.actived = $tElement::props('actived') || false
         return this.link
     }
 
@@ -182,7 +183,7 @@ export class MenuItem{
         })
 
         rootDOM::on('click', () => {
-            let isDisabled = rootDOM::getDOMState('disabled')
+            let isDisabled = rootDOM::props('disabled')
             if(isDisabled || parentMode === 'H') return
             scope.$emit('menuItem::selected', rootDOM)
         })

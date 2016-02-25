@@ -1,6 +1,6 @@
 import { dependencies } from '../../external/dependencies'
 import template from '../template/circle.html'
-import {getDOMState} from '../../utils'
+import { props } from '../../utils'
 
 //Todo 半圆形
 @dependencies('$compile')
@@ -43,7 +43,7 @@ export default class circle{
         let outer = attrs.outer || '#488fcd' //outer background-color
         let shape = attrs.shape || 'round'
         let showinfo = !!(attrs.showinfo || false)
-        let isProgress = $elem::getDOMState('progress')
+        let isProgress = $elem::props('progress')
         let radius = null
 
         let moveTo = size / 2

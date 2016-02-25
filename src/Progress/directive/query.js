@@ -1,6 +1,6 @@
 import { dependencies } from '../../external/dependencies'
 import template from '../template/query.html'
-import { detechPrefix, getDOMState } from '../../utils'
+import { detechPrefix, props } from '../../utils'
 
 @dependencies('$timeout')
 export default class Query{
@@ -8,7 +8,6 @@ export default class Query{
         this.replace = true
         this.restrict = 'EA'
         this.template = template
-        //this.controller.$inject = ['$scope']
         this.scope = {
             control: '=',
             callback: '='
@@ -31,7 +30,7 @@ export default class Query{
 
     link(scope, $element, attrs, ctrl){
         let { prefix, eventPrefix } = detechPrefix()
-        let actived = $element::getDOMState('actived')
+        let actived = $element::props('actived')
 
         $element.bind(eventPrefix + 'TransitionEnd',() => { //onMotionEnd
             if(!actived) $element.addClass('hide')

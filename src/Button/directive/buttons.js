@@ -1,6 +1,6 @@
 import { dependencies } from '../../external/dependencies'
 import template from '../template/template.html'
-import {getDOMState} from '../../utils'
+import { props } from '../../utils'
 
 //IE9 pointer-event 没有兼容性 remark
 export default class Buttons {
@@ -18,7 +18,7 @@ export default class Buttons {
 
     @dependencies('$scope', '$attrs', '$element')
     controller(scope, attrs, $elem){
-        let isLoading = $elem::getDOMState('loading')
+        let isLoading = $elem::props('loading')
         scope.loading = isLoading
 
         let loading = () => {
@@ -28,7 +28,7 @@ export default class Buttons {
                 scope.$apply()
             }
         }
-        
+
         let done = () => {
             if(scope.loading){
                 $elem.removeClass('loading')

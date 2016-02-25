@@ -5,6 +5,7 @@ import {
     last,
     range,
     query,
+    props,
     addClass,
     removeClass,
     getDOMState
@@ -27,7 +28,7 @@ export default class Pagination {
         let elem = $tElement[0]
         this.prevLabel = elem::query('.fm-pagination-prev')
         this.nextLabal = elem::query('.fm-pagination-next')
-        this.hasJumper = elem::getDOMState('jumper')
+        this.hasJumper = elem::props('jumper')
         if(this.hasJumper){
             let jumper =
             `<div class="fm-pagination-jumper">

@@ -434,6 +434,54 @@ export function isPromise(obj){
     return !!obj && (typeof obj === 'object' || typeof obj === 'function') && typeof obj.then === 'function'
 }
 
+
+export function props(el, key){//remark
+    if(typeof el === 'string') [el, key] = [this, el]
+
+    let attr = null
+    if(el instanceof angular.element) {
+        attr = ::el.attr
+    } else if(isDOM(el)) {
+        attr = ::el.getAttribute
+    } else {
+        throw new Error("Element was not specified.")
+    }
+
+    let ret = attr(key)
+
+    if(ret == undefined){
+        return false
+    } else if(ret === ""){
+        return true
+    } else if(reBool.test(ret)){
+        return ret === 'true'
+    } else if(/^\d{1,}$/.test(ret)){
+        return ~~ret
+    }
+
+    return ret
+}
+
+/*
+export function setAttr(el, key, value){
+    if(arguments.length === 2 && typeof el ==='string') [el, key, value] = [this, el, key]
+    if(arguments.length === 1) [el, key] = [this, el]
+    el.setAttribute(key, value)
+    return el
+}
+
+export function getAttr(el, key){
+    if(arguments.length === 1) [el, key] = [this, el]
+    return el.getAttribute(key)
+}
+
+export function removeAttr(el, key){
+    if(arguments.length === 1) [el, key] = [this, el]
+     el.removeAttr(key)
+    return el
+}
+*/
+
 /*export function extend(target){
     if(!this.$new) throw new Error("caller was not a angular scope variable.")
     let dest = this

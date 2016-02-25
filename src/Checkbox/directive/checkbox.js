@@ -4,6 +4,7 @@ import {
     on,
     noop,
     query,
+    props,
     addClass,
     removeClass,
     getDOMState
@@ -42,8 +43,8 @@ export class Checkbox{
 
     @dependencies('$scope')
     controller(scope){
-        this.checked = this.rootDOM::getDOMState('default') || false
-        this.disabled = !!(this.rootDOM::getDOMState('disabled') || false)
+        this.checked = this.rootDOM::props('default') || false
+        this.disabled = !!(this.rootDOM::props('disabled') || false)
 
         scope.control = {
             disable:() => {

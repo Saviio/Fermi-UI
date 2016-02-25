@@ -4,6 +4,7 @@ import option from '../template/option.html'
 import {
     on,
     query,
+    props,
     remove,
     replace,
     prepend,
@@ -74,9 +75,9 @@ export class Select {
 
     compile($tElement, tAttrs, transclude){
         let elem = $tElement[0]
-        let isSearch = $tElement::getDOMState('search')
-        let isMulti = $tElement::getDOMState('multi')
-        let isTags = $tElement::getDOMState('tags')
+        let isSearch = $tElement::props('search')
+        let isMulti = $tElement::props('multi')
+        let isTags = $tElement::props('tags')
 
         this.select = elem::query('.select-inner')
         this.dropdown = elem::query('.select-dropdown')
@@ -212,7 +213,7 @@ export class Option {
             scope.value = attrs.value
         }
 
-        let isSelected = $elem::getDOMState('selected')
+        let isSelected = $elem::props('selected')
 
         let option = {
             item:scope.value,
@@ -222,7 +223,7 @@ export class Option {
 
 
         $elem.bind('click', () => {
-            let isDisabled = $elem::getDOMState('disabled')
+            let isDisabled = $elem::props('disabled')
             if(isDisabled) return
 
             if(parentCtrl.mode === 'multi' || parentCtrl.mode === 'tags'){

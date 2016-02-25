@@ -8,6 +8,7 @@ import {
     escapeHTML,
     getCoords,
     query,
+    props,
     createElem,
     prepend,
     toDOM,
@@ -105,9 +106,9 @@ export default class Popover{
         scope.$layer = $ngLayer
 
         let init = () => {
-            let actived = $element::getDOMState('actived')
-            let offset = $element::getDOMState('offset')
-            let hasClose = $element::getDOMState('close')
+            let actived = $element::props('actived')
+            let offset = $element::props('offset')
+            let hasClose = $element::props('close')
             let event = attr.action || 'click'
 
             if(!/click|hover|focus|manual/.test(event)){
@@ -164,7 +165,7 @@ export default class Popover{
         }
 
         let tmpl = popoverTmpl.replace(/#{dire}/, dire)::toDOM()
-        if($tElement::getDOMState('close')){
+        if($tElement::props('close')){
             tmpl::prepend('<button class="fm-close">×</button>')
         }
 
