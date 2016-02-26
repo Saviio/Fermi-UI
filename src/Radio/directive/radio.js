@@ -120,7 +120,7 @@ export class RadioGroup{
         exports.mode = GROUP
     }
 
-    link(){
+    link(scope, $elem, attrs, ctrl){
         let items = Array.prototype.slice.call(this.group::queryAll('input[type=radio]'), 0)
         let name = scope.name || generateUID()
         items.forEach(i =>
