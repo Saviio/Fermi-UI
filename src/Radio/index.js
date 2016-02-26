@@ -1,12 +1,13 @@
 import factory from '../external/directiveFacotry'
-import directive from './directive/radio'
+import { Radio, RadioGroup } from './directive/radio'
 import './css/radio.scss'
 
 const component = {
-    namespace:'Fermi.Radio'
+    namespace:'Fermi.radio',
     inject:[]
 }
 
 export default angular.module(component.namespace, component.inject)
-	.directive('fermiRadio', factory.create(directive))
+	.directive('fermiRadio', factory.create(Radio))
+    .directive('fermiRadiogroup', factory.create(RadioGroup))
 	.name;

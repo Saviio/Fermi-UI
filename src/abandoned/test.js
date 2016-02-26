@@ -634,3 +634,173 @@ Modal.prototype.click = function(cb){
 }
 
 */
+
+
+
+export class Radio{
+    constructor(){
+        this.restrict = 'EA'
+        this.replace = true
+        this.scope = {
+            onchange:'=?',
+            label:'@',
+            control:'=?',
+            name:'@'
+        }
+        this.template = template
+        this.refRadioGroup = []
+    }
+
+    compile($tElement, tAttrs, transclude){
+        this.rootDOM = $tElement[0]
+        this.radioElem = this.rootDOM::query('.fm-radio')
+        this.input = this.rootDOM::query('[type=radio]')
+        return this.link
+    }
+
+    @dependencies('$scope')
+    controller(scope){
+
+        let disable = () => {}
+        let allow = () => {}
+
+        scope.control = {
+            disable,
+            allow,
+        }
+
+
+        this.callback = typeof scope.onchange === 'function'
+        ? scope.onchange
+        : noop
+    }
+
+    link(scope, $elem, attrs, ctrl){
+        let defaultValue
+        this.input.value = this.rootDOM::props('default')
+        this.refRadioGroup = []
+        if(scope.name !== undefined || scope.name !== null){
+            setTimeout(() => {
+                let ret = dom::queryAll(`.fm-radio > input[type=radio][name=${scope.name}]`)
+                for(let i = 0; i < ret.length ; i++) this.refRadioGroup.push(ret[i])
+            }, 0)
+        } else {
+            this.refRadioGroup.push(this.input)
+        }
+
+        this.input::on('click', ::this.handle)
+    }
+
+    choose(){
+        this.radioElem::addClass('fm-radio-checked')
+    }
+
+    handle(e){
+        this.refRadioGroup.forEach(i => {
+            if(i !== this.input){
+                i.parentNode::removeClass('fm-radio-checked')
+            } else {
+                this.choose()
+            }
+        })
+
+        this.callback(this.input.value)
+    }
+}
+
+
+
+
+import { dependencies } from '../../external/dependencies'
+import template from '../template/template.html'
+import { DOM as dom } from '../../utils/browser'
+import {
+    on,
+    noop,
+    props,
+    query,
+    addClass,
+    queryAll,
+    removeClass
+} from '../../utils'
+
+
+const SEPARATED = 1
+const GROUP = 2
+
+//disable
+//default
+//onchange
+
+export class Radio{
+    constructor(){
+        this.restrict = 'EA'
+        this.replace = true
+        this.scope = {
+            onchange:'=?',
+            label:'@',
+            control:'=?',
+            name:'@'
+        }
+        this.template = template
+    }
+
+    compile($tElement, tAttrs, transclude){
+        this.rootDOM = $tElement[0]
+        this.radioElem = this.rootDOM::query('.fm-radio')
+        this.input = this.rootDOM::query('[type=radio]')
+        return this.link
+    }
+
+    @dependencies('$scope')
+    controller(scope){
+
+        let disable = () => {}
+        let allow = () => {}
+
+        scope.control = {
+            disable,
+            allow,
+        }
+
+
+        this.callback = typeof scope.onchange === 'function'
+        ? scope.onchange
+        : noop
+
+        if(scope.name !== undefined || scope.name !==null){
+            Object.defineProperty(this, 'refRadioGroup', {
+                set:() => {},
+                get:() => [].slice.call(dom::queryAll(`.fm-radio > input[type=radio][name=${scope.name}]`),0)
+            })
+        } else {
+            this.refRadioGroup = this.input
+        }
+    }
+
+    link(scope, $elem, attrs, ctrl){
+        this.input.value = this.rootDOM::props('default')
+        this.input::on('click', ::this.handle)
+    }
+
+    choose(){
+        this.radioElem::addClass('fm-radio-checked')
+    }
+
+    handle(e){
+        this.refRadioGroup.forEach(i => {
+            if(i !== this.input){
+                i.parentNode::removeClass('fm-radio-checked')
+            } else {
+                this.choose()
+            }
+        })
+
+        this.callback(this.input.value)
+    }
+}
+
+
+export class RadioGroup{
+
+}

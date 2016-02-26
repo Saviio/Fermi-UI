@@ -18,6 +18,8 @@ import './Pagination'
 import './Menu'
 import './Modal'
 import './Checkbox'
+import './Radio'
+
 
 //import mock data
 import scheduleItems from './scheduleItems.json'
@@ -37,7 +39,8 @@ var app = angular.module('app', [
     'Fermi.pagination',
     'Fermi.menu',
     'Fermi.modal',
-    'Fermi.checkbox'
+    'Fermi.checkbox',
+    'Fermi.radio'
 ])
 
 app.controller(

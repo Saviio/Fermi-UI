@@ -2,6 +2,7 @@
 
 .fm-checkbox-container{
     > .fm-checkbox-label{
+        user-select:none;
         &:hover{
             cursor: pointer;
         }

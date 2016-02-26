@@ -34,15 +34,16 @@ export class Checkbox{
         this.template = template
     }
 
-    compile($tElement, tAttrs, transclude){
+    /*compile($tElement, tAttrs, transclude){
         this.rootDOM = $tElement[0]
+        return this.link
+    }*/
+
+    @dependencies('$scope', '$element')
+    controller(scope, $element){
+        this.rootDOM = $element[0]
         this.checkboxElem = this.rootDOM::query('.fm-checkbox')
         this.input = this.rootDOM::query('input[type=checkbox]')
-        return this.link
-    }
-
-    @dependencies('$scope')
-    controller(scope){
         this.checked = this.rootDOM::props('default') || false
         this.disabled = !!(this.rootDOM::props('disabled') || false)
 
