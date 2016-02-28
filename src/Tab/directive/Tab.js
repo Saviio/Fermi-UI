@@ -69,7 +69,7 @@ export class Tab{
 
     link(scope, $element, attrs, parentCtrl){
         let header  = attrs.header
-        let disable = $element::props('disable')
+        let disable = $element::props('disable')//remark
         let actived = $element::props('actived')
 
         let contentState = null
@@ -80,7 +80,7 @@ export class Tab{
         }
 
         Object.defineProperty(item, 'actived', {
-            get:() => { contentState },
+            get:() => { return contentState } ,
             set:(newValue) => {
                 if(contentState === newValue) return
                 newValue ? $element.removeClass('hide').addClass('show') : $element.removeClass('show').addClass('hide')
