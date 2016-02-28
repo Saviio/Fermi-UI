@@ -45,7 +45,7 @@ var app = angular.module('app', [
 
 app.controller(
     'main',['$scope','$timeout','Fermi.Loading','Fermi.Notification','Fermi.Modal',
-        function($scope,$timeout,loading, notification, modal){
+        function($scope, $timeout, loading, notification, modal){
 
         console.info('Fermi Components were loaded.')
         $scope.test=function(item){
@@ -59,12 +59,13 @@ app.controller(
         $scope.message="test"
         $scope.tmp=scheduleItems[0]
         $scope.checkbox
+        $scope.radio = {}
 
         var tmp2=scheduleItems[1]
         $scope.checkboxOnChange = v => console.log(v)
 
         $timeout(function(){
-            //$scope.schedule.refresh(tmp2)
+            $scope.schedule.refresh(tmp2)
         },3000)
 
         $scope.createModal = () => {
@@ -142,6 +143,7 @@ app.controller(
             }
 
             window.checkbox = $scope.checkbox
+            window.radio = $scope.radio
 
         },1000)
 
@@ -207,8 +209,38 @@ app.controller(
         }, 10);
 
         $scope.output = item => console.log(item)
+        setTimeout(() => {
+            var root = angular.element(document.getElementsByTagName('body'))
+            var watchers = []
+
+            var f = element => {
+                angular.forEach(['$scope', '$isolateScope'], scopeProperty => {
+                    if (element.data() && element.data().hasOwnProperty(scopeProperty)) {
+                        angular.forEach(element.data()[scopeProperty].$$watchers,  watcher => watchers.push(watcher))
+                    }
+                })
+
+                angular.forEach(element.children(), childElement => f(angular.element(childElement)))
+            }
+
+            f(root)
+
+            console.log("total watchers: " + (new Set(watchers)).size)
+        }, 1)
+
 }])
 
 app.controller('test', [function(){
     this.a = 'ControllerAs Modal Test'
+}])
+
+
+app.controller('secondCtrl', ['$timeout', function($timeout){
+    this.radio1 = {}
+    this.radio2 = {}
+    this.radio3 = {}
+
+    $timeout(() => {
+        window.rradio = [this.radio1, this.radio2, this.radio3]
+    }, 10);
 }])

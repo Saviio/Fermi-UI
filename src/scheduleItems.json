@@ -31,6 +31,15 @@
                 "comment": "Duration:120 Mins",
                 "starttime": "2015-07-24T15:00:00"
             }
+        ],
+        "Wednesday": [
+            {
+                "title": "TOFc",
+                "duration": 120,
+                "comment": "Duration:60 Mins",
+                "starttime": "2015-07-24T17:00:00",
+                "color":"#999"
+            }
         ]
     },
     {
@@ -104,16 +113,11 @@
         ],
         "Wednesday": [
             {
-                "title": "TOF",
-                "duration": 120,
+                "title": "CCC",
+                "duration": 60,
                 "comment": "Duration:60 Mins",
-                "starttime": "2015-07-24T17:00:00"
-            },
-            {
-                "title": "IELTS",
-                "duration": 120,
-                "comment": "Duration:120 Mins",
-                "starttime": "2015-07-24T09:05:00"
+                "starttime": "2015-07-24T17:00:00",
+                "color":"#ccc"
             }
         ]
     }

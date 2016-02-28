@@ -328,16 +328,20 @@ export function is(v1, v2){
 }
 
 let _FMId = 1
-export function generateFermiId(){
+export function generateFermiId(){ //remark nextFid
+    _FMId++
     let id = _FMId.toString().split('')
     let len = id.length
     for(let i = 0; i < (5 - len); i++) id.unshift("0")
-    _FMId++
     return id.join('.')
 }
 
 export function nextId(){
     return _FMId++
+}
+
+export function nextUid(){ // remar => nextUid
+   return '_F' + ("0000" + (Math.random() * Math.pow(36,6) << 0).toString(36)).slice(-6) + nextId()
 }
 
 export function clamp(val, min, max){
@@ -361,9 +365,6 @@ export function range(size, start = 0){
     return arr
 }
 
-export function generateUID(){
-   return '_F' + ("0000" + (Math.random() * Math.pow(36,6) << 0).toString(36)).slice(-6) + nextId()
-}
 
 
 export function queue(isAsync = false, interval = 0){
@@ -461,56 +462,3 @@ export function props(el, key){//remark
 
     return ret
 }
-
-/*
-export function setAttr(el, key, value){
-    if(arguments.length === 2 && typeof el ==='string') [el, key, value] = [this, el, key]
-    if(arguments.length === 1) [el, key] = [this, el]
-    el.setAttribute(key, value)
-    return el
-}
-
-export function getAttr(el, key){
-    if(arguments.length === 1) [el, key] = [this, el]
-    return el.getAttribute(key)
-}
-
-export function removeAttr(el, key){
-    if(arguments.length === 1) [el, key] = [this, el]
-     el.removeAttr(key)
-    return el
-}
-*/
-
-/*export function extend(target){
-    if(!this.$new) throw new Error("caller was not a angular scope variable.")
-    let dest = this
-    let ignore = []
-    if(target.constructor){
-        let re = /(?:this\.)(\w+)/gm
-        let source = target.constructor.toString()
-        source.match(re).forEach(e => ignore.push(e.substr(5)))
-    }
-
-    for (let key in target) {
-        if (!dest[key] && ignore.indexOf(key) ===-1 && target.hasOwnProperty(key)) {
-            dest[key] = target[key]
-        }
-    }
-
-    export function toggleClass(el, namespace, state, suffix){
-        if(arguments.length === 3) [el, namespace, state, suffix] = [this, el, namespace, state]
-
-        return function(){
-
-            state
-            ? el::replaceClass('hide', namespace + '-' + suffix['true'])
-            : el::replaceClass(namespace + '-' + suffix['true'], namespace + '-' + suffix['false'])::onMotionEnd(() => {
-                //debugger
-                el::replaceClass(namespace + '-' + suffix['false'], 'hide')
-            })
-
-            state = !state
-        }
-    }
-}*/

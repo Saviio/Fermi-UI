@@ -2,7 +2,7 @@ import { dependencies } from '../../external/dependencies'
 import template from '../template/template.html'
 import popoverTmpl from '../template/popover.html'
 import {
-    generateUID,
+    nextUid,
     getDOMState,
     getStyle,
     escapeHTML,
@@ -198,8 +198,8 @@ export default class Popover{
         }
 
         let triggerBtn = rootDOM::query(trigger)
-        let uid = generateUID()
-        triggerBtn.setAttribute(uid,'')
+        let uid = nextUid()
+        triggerBtn.setAttribute(uid, '')
 
         let css = `
             ${escapeHTML(trigger)}[${uid}]+div.popover > .popover-arrow:after{

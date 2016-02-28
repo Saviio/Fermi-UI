@@ -13,7 +13,6 @@ export default class Buttons {
         }
         this.transclude = true
         this.template = template
-        //this.controller.$inject = ['$scope','$attrs','$element']
     }
 
     @dependencies('$scope', '$attrs', '$element')
@@ -25,7 +24,7 @@ export default class Buttons {
             if(!scope.loading){
                 $elem.addClass('loading')
                 scope.loading = true
-                scope.$apply()
+                scope.$apply() //remark ,change to digest
             }
         }
 

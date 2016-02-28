@@ -36,7 +36,7 @@ export default class circle{
         }
     }
 
-    link(scope,$elem,attrs,ctrl){
+    link(scope, $elem, attrs, ctrl){
         let size = attrs.size || 100
         let strokeWidth = attrs.strokeWidth || 4
         let inner = attrs.inner || '#e9e9e9' //inner background-color
@@ -68,7 +68,7 @@ export default class circle{
 
         if(isProgress){
             let className = 'progress-success'
-            scope.$watch('ngModel',(newValue,oldValue) => {
+            scope.$watch('ngModel',(newValue, oldValue) => { //remark 不要在watch里做DOM 操作
                 scope.check()
                 newValue >= 100 ? $elem.addClass(className) : $elem.removeClass(className)
             })

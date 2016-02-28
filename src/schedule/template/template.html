@@ -3,8 +3,8 @@
         <tbody>
             <tr>
                 <td></td>
-                <td ng-repeat="content in hebdomThead" class="schedule-thead">
-                    {{content}}
+                <td ng-repeat="content in ::headers" class="schedule-thead">
+                    {{::content}}
                 </td>
             </tr>
         </tbody>
@@ -13,32 +13,31 @@
         <table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0"  class="schedule-main">
             <tbody>
                 <tr height="1">
-                    <td>
-                    </td>
+                    <td></td>
                     <td colspan="7">
                         <div class="schedule-hours-wrapper">
                             <div class="schedule-hours">
-                                <div ng-repeat="n in [] | range:period.length track by $index" ng-style="test()" class="schedule-cell"></div>
+                                <div ng-repeat="n in ::[] | range:period.length track by $index" class="schedule-cell"></div>
                             </div>
                         </div>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <div ng-repeat="time in period track by $index" class="schedule-time-pri">
-                            {{time}}
+                        <div ng-repeat="time in ::period track by $index" class="schedule-time-pri">
+                            {{::time}}
                         </div>
                     </td>
-                    <td ng-repeat="day in [] | range:hebdomThead.length track by $index" ng-init="parentIndex=$index">
-                        <div ng-repeat="evt in [] | range:period.length track by $index" class="schedule-grid">
-                            <div class="schedule-event" ng-style="::calculateHeight(hebdom[parentIndex][$index])" ng-if="hebdom[parentIndex] && hebdom[parentIndex][$index].title!=undefined">
-                                <div class="schedule-event-tag" ng-style="::calculateColor(hebdom[parentIndex][$index])" ></div>
+                    <td ng-repeat="day in ::[] | range:headers.length track by $index" ng-init="parentIndex=$index">
+                        <div ng-repeat="evt in ::[] | range:period.length track by $index" class="schedule-grid">
+                            <div class="schedule-event" style="{{hebdom[parentIndex][$index].height}}" ng-if="hebdom[parentIndex][$index].title != undefined">
+                                <div class="schedule-event-tag" style="{{hebdom[parentIndex][$index].color}}" ></div>
                                 <div class="schedule-event-content">
                                     <div>
-                                        {{ hebdom[parentIndex][$index].title }}
+                                        {{hebdom[parentIndex][$index].title}}
                                     </div>
                                     <div>
-                                        {{ hebdom[parentIndex][$index].comment }}
+                                        {{hebdom[parentIndex][$index].comment}}
                                     </div>
                                 </div>
                             </div>

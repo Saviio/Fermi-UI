@@ -7,8 +7,8 @@ export default class Schedule{
         this.restrict = 'EA'
         this.replace = true
         this.scope = {
-            head:'=',
-            degree:'=',
+            headers:'=?',
+            period:'=?',
             start:'@',
             tag:'@',
             control:'=',
@@ -16,16 +16,15 @@ export default class Schedule{
         }
         this.transclude = true
         this.template = template
-        //this.controller.$inject=['$scope']
     }
 
     @dependencies('$scope')
     controller(scope){
-        scope.hebdomThead= scope.head || [
-            'Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'
+        scope.headers = scope.headers || [
+            'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'
         ]
 
-        scope.period = scope.degree || [
+        scope.period = scope.period || [
             '9 am','10 am','11 am','12 pm','13 pm','14 pm','15 pm','16 pm','17 pm','18 pm','19 pm','20 pm','21 pm','22 pm'
         ]
 
@@ -35,12 +34,27 @@ export default class Schedule{
             : scope.start
         )()
 
-        scope.thKey = scope.hebdomThead.map(e => e.toLowerCase())
-
+        scope.thKey = scope.headers.map(e => e.toLowerCase())
         scope.hebdom = {}
 
-        let transform = (set, key) => {
+        let reColor = color => {
+            let defaultCSS = '#0089C5'
+            if(color) return `background-color:${color}`
+            else if(scope.tag) return `background-color:${scope.tag}`
+            else return `background-color:${defaultCSS}`
+        }
 
+        let reHeight = (minutes, duration) => {
+            if(minutes === undefined || duration === undefined ) return ''
+
+            let skew = 0, height = null
+            if(minutes) skew = minutes/60
+            height = duration/60
+
+            return `height:${height * 100}%;top:${skew * 100}%;`
+        }
+
+        let transform = (set, key) => {
             let re  = {
                     STR:/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})/,
                     DATE:/\/Date\((\d+)\)\//g,
@@ -50,9 +64,10 @@ export default class Schedule{
 
             key = key || 'starttime'
 
-            set.forEach((k,i) => {
 
-                let time=undefined
+            set.forEach((k, i) => {
+
+                let time = undefined
 
                 if(re.STR.test(k[key])){
                     time = new Date(0)
@@ -74,15 +89,18 @@ export default class Schedule{
 
                 let t = k.$hours-start
                 k.$idx = t
+                k.color = reColor(k.color)
+                k.height = reHeight(k.$minutes, k.duration)
                 ret[t] = k
             })
+
 
             return ret
         }
 
-        scope.calculateColor = evt =>{
+        scope.calculateColor = evt => {
             if(evt){
-                let defaultCSS='#0089C5'
+                let defaultCSS = '#0089C5'
                 if(evt.color) return {'background-color':`${evt.color}`}
                 else if(scope.tag) return {'background-color':`${scope.tag}`}
                 else return {'background-color':`${defaultCSS}`}
@@ -94,7 +112,6 @@ export default class Schedule{
 
             let skew = 0, height = null
             if(evt.$minutes) skew = evt.$minutes/60
-
             height = evt.duration/60
 
             return {
@@ -110,7 +127,7 @@ export default class Schedule{
                     if(set.hasOwnProperty(i)){
                         let index = scope.thKey.indexOf(i.toLowerCase())
                         if(index > -1){
-                            scope.hebdom[index] = transform(set[i],key)
+                            scope.hebdom[index] = transform(set[i], key)
                         }
                     }
                 }

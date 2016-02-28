@@ -39,7 +39,7 @@
 </head>
 <body>
     <div class="clearfix"> Hello, Fermi </div>
-    <div class="main" ng-controller="main" style="margin-bottom:200px;">
+    <div class="main" ng-controller="main" >
         <div ng-style="che()"></div>
         <div id="breadcrumb">
             <p>面包屑导航</p>
@@ -168,24 +168,21 @@
         <div id="fermiSelect" style="padding:30px;">
             <p>Select</p>
             <Fermi:Select style="width:180px;" ng-model="selectEntity" search id="really">
-                <Fermi:Option ng-repeat="item in list" value="item.name">{{item.name}}</Fermi:Option>
+                <Fermi:Option ng-repeat="item in ::list track by $index" value="::item.name">{{item.name}}</Fermi:Option>
                 <Fermi:Option value="Rose" selected>Rose</Fermi:Option>
             </Fermi:Select>
             <Fermi:Select style="width:180px;" ng-model="selectEntity3" id="really">
-                <Fermi:Option ng-repeat="item in list" value="item.name">{{item.name}}</Fermi:Option>
+                <Fermi:Option ng-repeat="item in ::list track by $index" value="::item.name">{{item.name}}</Fermi:Option>
                 <Fermi:Option value="Rose" disabled="true">Rose</Fermi:Option>
             </Fermi:Select>
 
             <Fermi:Select style="width:250px;" ng-model="selectEntity2" multi id="sure" control="selected">
-                <Fermi:Option ng-repeat="item in list" value="item.name">{{item.name}}</Fermi:Option>
+                <Fermi:Option ng-repeat="item in ::list track by $index" value="::item.name">{{item.name}}</Fermi:Option>
                 <Fermi:Option value="Rose" selected>Rose</Fermi:Option>
-            <!--    <Fermi:Option value="Titanic">Titanic</Fermi:Option>
-                <Fermi:Option value="Jack">Jack</Fermi:Option>
-                <Fermi:Option value="Rose">Rose</Fermi:Option> -->
             </Fermi:Select>
 
             <Fermi:Select style="width:250px;" ng-model="selectEntity4" tags id="sure" control="ck">
-                <Fermi:Option ng-repeat="item in list" value="item.name">{{item.name}}</Fermi:Option>
+                <Fermi:Option ng-repeat="item in ::list track by $index" value="::item.name">{{item.name}}</Fermi:Option>
                 <Fermi:Option value="Rose" disabled>Rose</Fermi:Option>
             </Fermi:Select>
         </div>
@@ -262,7 +259,7 @@
                 <Fermi:Submenu title="分组1">
                     <Fermi:Submenu title="分组2" >
                         <Fermi:Submenu title="分组2" >
-                            <Fermi:Menuitem>测试6ssssssssssssssssssssssssssssssssssssssssssssssss</Fermi:Menuitem>
+                            <Fermi:Menuitem>测试6测试6测试6测试6测试6测试6</Fermi:Menuitem>
                             <Fermi:Menuitem>测试7</Fermi:Menuitem>
                             <Fermi:Menuitem>测试8</Fermi:Menuitem>
                         </Fermi:Submenu>
@@ -290,10 +287,8 @@
                     <Fermi:Menuitem>测试8</Fermi:Menuitem>
                 </Fermi:Submenu>
            </Fermi:Menu>
-
-
-
         </div>
+
         <div id="fermiModal" style="padding:30px;width:500px;">
             <p>Modal</p>
             <Fermi:buttons content="Modal" ng-click="createModal()"></Fermi:buttons>
@@ -303,18 +298,19 @@
 
         <div id="fermiCheckbox" style="padding:30px;width:500px;">
             <p>Checkbox</p>
-            <Fermi:checkbox label="选项1" default="true" control="checkbox" onchange="output" ></Fermi:checkbox>
-            <Fermi:checkbox label="选项2" disabled></Fermi:checkbox>
+            <Fermi:checkbox label="选项1" default="true"  onchange="output" ></Fermi:checkbox>
+            <Fermi:checkbox label="选项2" disabled control='checkbox'></Fermi:checkbox>
             <Fermi:checkbox label="选项3" default="false" ></Fermi:checkbox>
         </div>
-
+    </div>
+    <div ng-controller="secondCtrl as secCtrl">
         <div id="fermiRadio" style="padding:30px;width:500px;">
             <p>Radio</p>
             <Fermi:radioGroup>
-                <Fermi:radio label="选项1" default="1"></Fermi:radio>
-                <Fermi:radio label="选项2" default="2"></Fermi:radio>
+                <Fermi:radio label="选项1" value="1"  control="secCtrl.radio1" checked></Fermi:radio>
+                <Fermi:radio label="选项2" value="2"  checked="false" control="secCtrl.radio2"></Fermi:radio>
             </Fermi:radioGroup>
-            <Fermi:radio label="选项2" default="2" name="test1"></Fermi:radio>
+            <Fermi:radio label="选项3" value="3" control="secCtrl.radio3"></Fermi:radio>
         </div>
     </div>
     <script id="modalTemplate" type="text/fm-template">

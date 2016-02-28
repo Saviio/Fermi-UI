@@ -1,5 +1,6 @@
 import { dependencies } from '../../external/dependencies'
 import template from '../template/template.html'
+import fakeEvent from '../../external/fakeEvent'
 import {
     on,
     noop,
@@ -11,16 +12,7 @@ import {
 } from '../../utils'
 
 
-class fakeEvent{
-    constructor(checked){
-        this.target = {
-            checked:!!checked
-        }
-    }
 
-    preventDefault(){}
-    stopPropagation(){}
-}
 
 export class Checkbox{
     constructor(){
@@ -34,26 +26,23 @@ export class Checkbox{
         this.template = template
     }
 
-    /*compile($tElement, tAttrs, transclude){
-        this.rootDOM = $tElement[0]
-        return this.link
-    }*/
-
     @dependencies('$scope', '$element')
     controller(scope, $element){
         this.rootDOM = $element[0]
         this.checkboxElem = this.rootDOM::query('.fm-checkbox')
         this.input = this.rootDOM::query('input[type=checkbox]')
-        this.checked = this.rootDOM::props('default') || false
-        this.disabled = !!(this.rootDOM::props('disabled') || false)
+        this.input.disabled = this.disabled = !!(this.rootDOM::props('disabled') || false)
+        this.input.checked = this.rootDOM::props('default') || false
 
         let disable = () => {
             this.disabled = true
+            this.input.disabled = true
             this.rootDOM.setAttribute('disabled', 'disabled')
         }
 
         let allow = () => {
             this.disabled = false
+            this.input.disabled = false
             this.rootDOM.removeAttribute('disabled')
         }
 
@@ -63,7 +52,7 @@ export class Checkbox{
         }
 
         Object.defineProperty(scope.control,'checked', {
-            get:() => this.checked,
+            get:() => this.input.checked,
             set:(value) => this.handle(new fakeEvent(value))
         })
 
@@ -73,9 +62,7 @@ export class Checkbox{
     }
 
     link(scope, $elem, attrs, ctrl){
-        this.input.checked = this.checked
-        if(this.checked) this.check()
-
+        if(this.input.checked) this.check()
         this.input::on('change', ::this.handle)
     }
 
@@ -89,12 +76,8 @@ export class Checkbox{
 
     handle(e){
         e.stopPropagation()
-        e.preventDefault()
-
-        if(this.disabled || this.checked === e.target.checked) return
-
-        this.checked = e.target.checked
-        this.checked ? this.check() : this.unCheck()
-        this.callback(this.checked)
+        if(this.disabled) return
+        e.target.checked ? this.check() : this.unCheck()
+        this.callback(e.target.checked)
     }
 }

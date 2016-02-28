@@ -804,3 +804,58 @@ export class Radio{
 export class RadioGroup{
 
 }
+
+
+
+/*
+export function setAttr(el, key, value){
+    if(arguments.length === 2 && typeof el ==='string') [el, key, value] = [this, el, key]
+    if(arguments.length === 1) [el, key] = [this, el]
+    el.setAttribute(key, value)
+    return el
+}
+
+export function getAttr(el, key){
+    if(arguments.length === 1) [el, key] = [this, el]
+    return el.getAttribute(key)
+}
+
+export function removeAttr(el, key){
+    if(arguments.length === 1) [el, key] = [this, el]
+     el.removeAttr(key)
+    return el
+}
+*/
+
+/*export function extend(target){
+    if(!this.$new) throw new Error("caller was not a angular scope variable.")
+    let dest = this
+    let ignore = []
+    if(target.constructor){
+        let re = /(?:this\.)(\w+)/gm
+        let source = target.constructor.toString()
+        source.match(re).forEach(e => ignore.push(e.substr(5)))
+    }
+
+    for (let key in target) {
+        if (!dest[key] && ignore.indexOf(key) ===-1 && target.hasOwnProperty(key)) {
+            dest[key] = target[key]
+        }
+    }
+
+    export function toggleClass(el, namespace, state, suffix){
+        if(arguments.length === 3) [el, namespace, state, suffix] = [this, el, namespace, state]
+
+        return function(){
+
+            state
+            ? el::replaceClass('hide', namespace + '-' + suffix['true'])
+            : el::replaceClass(namespace + '-' + suffix['true'], namespace + '-' + suffix['false'])::onMotionEnd(() => {
+                //debugger
+                el::replaceClass(namespace + '-' + suffix['false'], 'hide')
+            })
+
+            state = !state
+        }
+    }
+}*/

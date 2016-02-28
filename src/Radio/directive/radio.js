@@ -8,10 +8,10 @@ import {
     props,
     query,
     nextId,
+    nextUid,
     addClass,
     queryAll,
-    removeClass,
-    generateUID
+    removeClass
 } from '../../utils'
 
 
@@ -19,7 +19,7 @@ const SEPARATED = 1
 const GROUP = 2
 
 //disable
-//default
+//checked
 //onchange
 //value
 
@@ -31,54 +31,75 @@ export class Radio{
         this.scope = {
             onchange:'=?',
             label:'@',
-            control:'=?',
-            name:'@'
+            control:'=?'
         }
         this.template = template
         this.require = '?^^fermiRadiogroup'
     }
 
 
-    @dependencies('$scope')
-    controller(scope){
+    @dependencies('$scope', '$element')
+    controller(scope, $element){//手动管理value?
+        this.rootDOM = $element[0]
+        this.radioElem = this.rootDOM::query('.fm-radio')
+        this.input = this.rootDOM::query('[type=radio]')
+
         let disable = () => {}
         let allow = () => {}
-
         scope.control = {
             disable,
             allow,
         }
 
-
         this.callback = typeof scope.onchange === 'function'
         ? scope.onchange
         : noop
+
+        Object.defineProperty(scope.control, 'checked', {
+            set:(value) => !!value ? this.input.click() : this.unCheck(),
+            get:() => this.input.checked
+        })
+
+        scope.$on('destory', () => this.scope = null)
     }
 
 
     link(scope, $elem, attrs, ctrl){
-        this.rootDOM = $elem[0]
-        this.radioElem = this.rootDOM::query('.fm-radio')
-        this.input = this.rootDOM::query('[type=radio]')
         this.input.value = this.rootDOM::props('value')
-        this.input::on('click', ::this.handle(scope))
         this.mode = (ctrl && ctrl.mode) || SEPARATED
+        this.scope = scope
+        this.input::on('click', ::this.handle)
+        if(this.mode === GROUP && typeof ctrl.callback === 'function'){
+            //如果radio被group元素包裹，并且父元素中声明了onchange函数则忽略radio元素上的onchange函数
+            this.callback = ctrl.callback
+        }
+
+        if(this.rootDOM::props('checked')){
+            scope.control.checked = true
+            this.rootDOM.removeAttribute('checked')
+        }
     }
 
-    choose(){
+    check(){
         this.radioElem::addClass('fm-radio-checked')
     }
 
-    handle(scope){
-        return e => {
-            //debugger
-            this.choose()
-            this.callback(this.input.value)
-            if(this.mode === GROUP){
-                scope.$emit('radio::selected', this.input)
-            }
+    unCheck(){
+        this.radioElem::removeClass('fm-radio-checked')
+        //change the state of native radio component manually.
+        this.input.checked = false
+    }
 
-        }.bind(this)
+    handle(e){
+        e.stopPropagation()
+
+        this.check()
+        this.callback(this.input.value)
+        if(this.mode === GROUP){
+            this.scope.$emit('radio::selected', this.input)
+        } /*else if(this.scope.name) {
+            this.scope.$root.$broadcast(`radio::${this.scope.name}::selected`, this.input)
+        }*/
     }
 }
 
@@ -87,9 +108,7 @@ export class RadioGroup{
     constructor(){
         this.scope = {
             onchange:'=?',
-            label:'@',
-            control:'=?',
-            name:'@'
+            control:'=?'
         }
         this.restrict = 'EA'
         this.replace = true
@@ -104,8 +123,8 @@ export class RadioGroup{
 
     @dependencies('$scope')
     controller(scope){
-        scope.$on('radio::selected', (e, target) => {
-            let radioItems = [].slice.call(this.group::queryAll('input[type=radio]'), 0)
+        let handle = (e, target) => {
+            let radioItems = Array.from(this.group::queryAll('input[type=radio]'))
             radioItems.forEach(i => {
                 if(target !== i){
                     i.parentNode::removeClass('fm-radio-checked')
@@ -113,7 +132,10 @@ export class RadioGroup{
             })
 
             e.stopPropagation()
-        })
+        }.bind(this)
+
+        scope.$on('radio::selected', handle)
+        //if(scope.name) scope.$on(`radio::${scope.name}::selected`, handle)
     }
 
     passing(exports, scope){
@@ -121,9 +143,8 @@ export class RadioGroup{
     }
 
     link(scope, $elem, attrs, ctrl){
-        let items = Array.prototype.slice.call(this.group::queryAll('input[type=radio]'), 0)
-        let name = scope.name || generateUID()
-        items.forEach(i =>
-            setTimeout(() => i.setAttribute('name', name), 0))
+        let items = Array.from(this.group::queryAll('input[type=radio]'))
+        let uid = nextUid()
+        items.forEach(i => i.setAttribute('name', uid))
     }
 }
