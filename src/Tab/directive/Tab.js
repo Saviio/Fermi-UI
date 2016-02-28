@@ -27,8 +27,8 @@ export class Tabs{
         }
     }
 
-    link(scope, elem, attrs, ctrl){
-        let ul = elem.find('ul')
+    link(scope, $elem, attrs, ctrl){
+        let ul = $elem.find('ul')
 
         ul.bind('click',evt => {
             let target = evt.target
@@ -79,8 +79,8 @@ export class Tab{
             disable:false
         }
 
-        Object.defineProperty(item,'actived',{
-            get:() => contentState,
+        Object.defineProperty(item, 'actived', {
+            get:() => { contentState },
             set:(newValue) => {
                 if(contentState === newValue) return
                 newValue ? $element.removeClass('hide').addClass('show') : $element.removeClass('show').addClass('hide')

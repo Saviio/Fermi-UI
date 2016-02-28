@@ -12,10 +12,9 @@ export default class Tooltips{
         }
         this.template = `<span ng-transclude></span>`
     }
+    controller(){}
 
-    controller($scope){}
-
-    link(scope,$elem,attr,ctrl){
+    link(scope, $elem, attr, ctrl){
 
         ctrl.container = null
         ctrl.parent = null
