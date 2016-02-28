@@ -19,7 +19,7 @@ export class Checkbox{
         this.restrict = 'EA'
         this.replace = true
         this.scope = {
-            onchange:'=?',
+            change:'=?',
             label:'@',
             control:'=?'
         }
@@ -35,14 +35,12 @@ export class Checkbox{
         this.input.checked = this.rootDOM::props('default') || false
 
         let disable = () => {
-            this.disabled = true
-            this.input.disabled = true
+            this.disabled = this.input.disabled = true
             this.rootDOM.setAttribute('disabled', 'disabled')
         }
 
         let allow = () => {
-            this.disabled = false
-            this.input.disabled = false
+            this.disabled = this.input.disabled = false
             this.rootDOM.removeAttribute('disabled')
         }
 
@@ -56,8 +54,8 @@ export class Checkbox{
             set:(value) => this.handle(new fakeEvent(value))
         })
 
-        this.callback = typeof scope.onchange === 'function'
-        ? scope.onchange
+        this.callback = typeof scope.change === 'function'
+        ? scope.change
         : noop
     }
 
@@ -75,7 +73,7 @@ export class Checkbox{
     }
 
     handle(e){
-        e.stopPropagation()
+        //e.stopPropagation()
         if(this.disabled) return
         e.target.checked ? this.check() : this.unCheck()
         this.callback(e.target.checked)

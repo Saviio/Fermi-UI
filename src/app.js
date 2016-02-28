@@ -240,7 +240,18 @@ app.controller('secondCtrl', ['$timeout', function($timeout){
     this.radio2 = {}
     this.radio3 = {}
 
+    this.group = {}
+
+    this.testFn = value => {
+        console.log('Group output: ' + value)
+    }
+
+    this.testFn2 = value => {
+        console.log('Single Radio output: ' + value)
+    }
+
     $timeout(() => {
         window.rradio = [this.radio1, this.radio2, this.radio3]
+        window.radioGroup = this.group
     }, 10);
 }])

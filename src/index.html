@@ -220,8 +220,8 @@
 
         <div id="fermiPagination" style="padding:30px;width:500px;">
             <p>Pagination</p>
-            <Fermi:Pagination size=45 cursor=1 onchange="output" jumper></Fermi:Pagination>
-            <Fermi:Pagination size=9 cursor=9 onchange="output"></Fermi:Pagination>
+            <Fermi:Pagination size=45 cursor=1 change="output" jumper></Fermi:Pagination>
+            <Fermi:Pagination size=9 cursor=9 change="output"></Fermi:Pagination>
         </div>
 
         <div id="fermiMenu" style="padding:30px;width:500px;">
@@ -298,7 +298,7 @@
 
         <div id="fermiCheckbox" style="padding:30px;width:500px;">
             <p>Checkbox</p>
-            <Fermi:checkbox label="选项1" default="true"  onchange="output" ></Fermi:checkbox>
+            <Fermi:checkbox label="选项1" default="true"  change="output" ></Fermi:checkbox>
             <Fermi:checkbox label="选项2" disabled control='checkbox'></Fermi:checkbox>
             <Fermi:checkbox label="选项3" default="false" ></Fermi:checkbox>
         </div>
@@ -306,11 +306,11 @@
     <div ng-controller="secondCtrl as secCtrl">
         <div id="fermiRadio" style="padding:30px;width:500px;">
             <p>Radio</p>
-            <Fermi:radioGroup>
-                <Fermi:radio label="选项1" value="1"  control="secCtrl.radio1" checked></Fermi:radio>
-                <Fermi:radio label="选项2" value="2"  checked="false" control="secCtrl.radio2"></Fermi:radio>
+            <Fermi:radioGroup control="secCtrl.group" change="secCtrl.testFn">
+                <Fermi:radio label="选项1" value="1"  control="secCtrl.radio1" checked change="secCtrl.testFn2"></Fermi:radio>
+                <Fermi:radio label="选项2" value="2"  control="secCtrl.radio2"></Fermi:radio>
             </Fermi:radioGroup>
-            <Fermi:radio label="选项3" value="3" control="secCtrl.radio3"></Fermi:radio>
+            <Fermi:radio label="选项3" value="3" control="secCtrl.radio3" change="secCtrl.testFn2"></Fermi:radio>
         </div>
     </div>
     <script id="modalTemplate" type="text/fm-template">

@@ -17,7 +17,7 @@ export default class Pagination {
         this.restrict = 'EA'
         this.replace = true
         this.scope = {
-            onchange:'=?',
+            change:'=?',
             size:'=',
             cursor:'=?'
         }
@@ -54,7 +54,7 @@ export default class Pagination {
             if(item === '...') return
             scope.current = item
             _renderPages()
-            if(exec) typeof scope.onchange === 'function' && scope.onchange(item)
+            if(exec) typeof scope.change === 'function' && scope.change(item)
         }
 
         let _renderPages = () => {

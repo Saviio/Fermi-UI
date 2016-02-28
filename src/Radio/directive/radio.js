@@ -29,7 +29,7 @@ export class Radio{
         this.restrict = 'EA'
         this.replace = true
         this.scope = {
-            onchange:'=?',
+            change:'=?',
             label:'@',
             control:'=?'
         }
@@ -39,20 +39,29 @@ export class Radio{
 
 
     @dependencies('$scope', '$element')
-    controller(scope, $element){//手动管理value?
+    controller(scope, $element){
         this.rootDOM = $element[0]
         this.radioElem = this.rootDOM::query('.fm-radio')
         this.input = this.rootDOM::query('[type=radio]')
+        this.input.disabled = this.disabled = !!(this.rootDOM::props('disabled') || false)
 
-        let disable = () => {}
-        let allow = () => {}
+        let disable = () => {
+            this.disabled = this.input.disabled = true
+            this.rootDOM.setAttribute('disabled', 'disabled')
+        }
+
+        let allow = () => {
+            this.disabled = this.input.disabled = false
+            this.rootDOM.removeAttribute('disabled')
+        }
+
         scope.control = {
             disable,
             allow,
         }
 
-        this.callback = typeof scope.onchange === 'function'
-        ? scope.onchange
+        this.callback = typeof scope.change === 'function'
+        ? scope.change
         : noop
 
         Object.defineProperty(scope.control, 'checked', {
@@ -65,17 +74,18 @@ export class Radio{
 
 
     link(scope, $elem, attrs, ctrl){
+        this.scope = scope
         this.input.value = this.rootDOM::props('value')
         this.mode = (ctrl && ctrl.mode) || SEPARATED
-        this.scope = scope
         this.input::on('click', ::this.handle)
         if(this.mode === GROUP && typeof ctrl.callback === 'function'){
-            //如果radio被group元素包裹，并且父元素中声明了onchange函数则忽略radio元素上的onchange函数
+            //如果radio被group元素包裹，并且父元素中声明了change函数则忽略radio元素上的change函数
             this.callback = ctrl.callback
         }
 
         if(this.rootDOM::props('checked')){
-            scope.control.checked = true
+            this.check()
+            this.pop()
             this.rootDOM.removeAttribute('checked')
         }
     }
@@ -91,15 +101,18 @@ export class Radio{
     }
 
     handle(e){
-        e.stopPropagation()
+        //e.stopPropagation()
+        if(this.disabled) return
 
         this.check()
         this.callback(this.input.value)
+        this.pop()
+    }
+
+    pop(){
         if(this.mode === GROUP){
             this.scope.$emit('radio::selected', this.input)
-        } /*else if(this.scope.name) {
-            this.scope.$root.$broadcast(`radio::${this.scope.name}::selected`, this.input)
-        }*/
+        }
     }
 }
 
@@ -107,7 +120,7 @@ export class Radio{
 export class RadioGroup{
     constructor(){
         this.scope = {
-            onchange:'=?',
+            change:'=?', //remark
             control:'=?'
         }
         this.restrict = 'EA'
@@ -123,6 +136,7 @@ export class RadioGroup{
 
     @dependencies('$scope')
     controller(scope){
+        let value = null
         let handle = (e, target) => {
             let radioItems = Array.from(this.group::queryAll('input[type=radio]'))
             radioItems.forEach(i => {
@@ -131,15 +145,22 @@ export class RadioGroup{
                 }
             })
 
+            value = target.value
             e.stopPropagation()
         }.bind(this)
 
         scope.$on('radio::selected', handle)
-        //if(scope.name) scope.$on(`radio::${scope.name}::selected`, handle)
+        Object.defineProperty(scope.control, 'value', {
+            get:() => value,
+            set:() => {}
+        })
     }
 
     passing(exports, scope){
         exports.mode = GROUP
+        exports.callback = typeof scope.change === 'function'
+        ? scope.change
+        : noop
     }
 
     link(scope, $elem, attrs, ctrl){
