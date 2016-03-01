@@ -79,14 +79,22 @@ export class Select {
     controller(scope, attrs){
         if(this.mode === 'multi' || this.mode ==='tags'){
             scope.ngModel = []
+            scope.tagsRef = []
+        } else {
+            scope.$on('option::selected', (e, target) => {
+                let options = Array.from(this.dropdown::queryAll('ul > li'))
+                options.forEach(i => {
+                    if(i !== target) i.removeAttribute('selected')
+                })
+
+                e.stopPropagation()
+            })
         }
 
         scope.remove = (index, e) => {
-            let option = scope.ngModel.splice(index, 1).pop()
-            if(option.$elem !== null){
-                option.$elem.removeClass('tagged')
-                option.$elem.removeAttr('selected')
-            }
+            scope.ngModel.splice(index, 1).pop()
+            let elem = scope.tagsRef.splice(index, 1).pop()
+            elem::removeClass('tagged').removeAttribute('selected')
             e.stopPropagation()
         }
 
@@ -172,23 +180,21 @@ export class Select {
     }
 
     passing(exports, scope){
-        exports.select = (option, init = false) => {
+        exports.select = (option, elem) => {
             if(this.mode === 'multi' || this.mode === 'tags' ){
                 if(scope.ngModel.every(existOption => existOption !== option)){
                     scope.ngModel.push(option)
-                    //option.$elem.addClass('tagged')
-                    //option.$elem.attr('selected', true)
+                    scope.tagsRef.push(elem)
                 }
             } else {
                 scope.ngModel = option
-                if(!init) scope.showOptionList()
             }
 
             if(!/\$apply|\$digest/.test(scope.$root.$$phase)){
                 scope.$apply()
             }
         }
-
+        exports.showList = () => scope.showOptionList()
         exports.mode = this.mode
     }
 }
@@ -214,8 +220,7 @@ export class Option {
         let isSelected = $elem::props('selected')
         let option = {
             item:scope.value,
-            data:scope.data || {value: scope.value},
-            $elem:$elem
+            data:scope.data || {value: scope.value}
         }
 
         rootDOM::on('click', e => {
@@ -223,18 +228,18 @@ export class Option {
             if(disabled) return
 
             if(parentCtrl.mode !== 'multi' && parentCtrl.mode !== 'tags'){
-                $elem.parent().children().removeAttr('selected')
-                //emit a angular event
+                scope.$emit('option::selected', rootDOM)
+                parentCtrl.showList()
             } else {
                 rootDOM::addClass('tagged')
             }
 
             rootDOM.setAttribute('selected', true)
-            parentCtrl.select(option)
+            parentCtrl.select(option, rootDOM)
         })
 
         if(isSelected){
-            parentCtrl.select(option, true)
+            parentCtrl.select(option)
         }
     }
 }
