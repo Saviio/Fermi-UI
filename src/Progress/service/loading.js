@@ -1,61 +1,47 @@
 import template from '../template/loading.html'
 import { DOM as dom, BODY as body} from '../../utils/browser'
-
+import { onMotionEnd } from '../../utils/transition'
 import {
+    last,
+    clamp,
     query,
-    createElem,
-    clamp
+    queue,
+    setStyle,
+    addClass,
+    createElem
 } from '../../utils'
 
 
-let queue = (function() {//remark
-    let waiting = []
-
-    let next = () => {
-        let fn = waiting.shift()
-        if(fn) fn(next)
-    }
-
-    return fn => {
-        waiting.push(fn)
-        if (waiting.length === 1) next()
-    }
-})()
+let q = queue()
 
 export default class Loading{
-
     constructor(){
         this.status = null
         this.speed = 200
-        this.$instance = null
+        this.instance = null
         this.rate = 700
     }
 
     __tryDispose__(){
-        if(this.$instance !== null){
-            this.$instance = this.status = null
+        if(this.instance !== null){
+            this.instance = this.status = null
             body.removeChild(dom::query('#progress-loading-elem'))
         }
     }
 
-    __tryRender__(fromZero = true){//remark
-        if(this.$instance !== null) return this.$instance
-
-        if(body.insertAdjacentHTML){
-            body.insertAdjacentHTML('beforeEnd',template)
-        } else {
-            let div = createElem('div')
-            div.innerHTML = template
-            body.appendChild(div.firstChild)
-        }
+    __tryRender__(fromZero = true){
+        if(this.instance !== null) return this.instance
+        body::last(template)
 
         let ins = dom::query('#progress-loading-elem')
         if(ins !== null){
-            this.$instance = angular.element(ins) //remark
-            this.$instance.css('width',`${fromZero ? 0 : (this.status || 0) * 100}%`)
-            this.$instance.css('transition',`width ${this.speed}ms ease-out, opacity ${this.speed}ms linear`)
-            //ins.offsetWidth
-            return this.$instance
+            ins::setStyle({
+                transition: `width ${this.speed}ms ease-out, opacity ${this.speed}ms linear`,
+                width:`${fromZero ? 0 : (this.status || 0) * 100}%`
+            })
+
+            this.instance = ins
+            return this.instance
         }
     }
 
@@ -80,16 +66,19 @@ export default class Loading{
         this.status = (n >= 1 ? null : n)
         this.__tryRender__(!started)
 
-        queue(next => {
-            this.$instance.css('width',`${n * 100}%`)
+        q(next => {
+            this.instance::setStyle({
+                'width':`${n * 100}%`
+            })
 
             if (n >= 1) {
                 setTimeout(() => {
-                    this.$instance.addClass('disappear')
-                    setTimeout(() => { //onMotionEnd remark
-                        this.__tryDispose__()
-                        next()
-                    }, this.speed)
+                    this.instance
+                        ::addClass('fm-progress-loading-disappear')
+                        ::onMotionEnd(() => {
+                            this.__tryDispose__()
+                            next()
+                        }, 'fm-progress-loading-disappear')
                 }, this.speed)
             } else {
                 setTimeout(next, this.speed)
@@ -104,6 +93,6 @@ export default class Loading{
     }
 
     done(){
-        if(this.$instance) this.set(1)
+        if(this.instance) this.set(1)
     }
 }

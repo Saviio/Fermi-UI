@@ -149,7 +149,6 @@ export class SubMenu{
             //when a submenu was inserted to DOMtree separately, the mode of menu will be "H" by default.
             scope.cascading.forEach(e => e.init(CASCADING, 'H'))
             eventsBinding('H')
-            //remark
             */
         }
     }

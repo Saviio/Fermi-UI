@@ -1,4 +1,5 @@
 import { dependencies } from '../../external/dependencies'
+import { onMotionEnd, transition } from '../../utils/transition'
 import select from '../template/select.html'
 import option from '../template/option.html'
 import {
@@ -13,11 +14,12 @@ import {
     getStyle,
     addClass,
     queryAll,
-    onMotionEnd,
     getDOMState,
     removeClass,
     replaceClass
 } from '../../utils'
+
+
 
 
 //do not use ngModel
@@ -32,46 +34,6 @@ export class Select {
         }
         this.transclude = true
     }
-
-    @dependencies('$scope', '$attrs')
-    controller(scope, attrs){
-        if(this.mode === 'multi' || this.mode ==='tags'){
-            scope.ngModel = []
-        }
-
-        scope.remove = (index, e) => {
-            let option = scope.ngModel.splice(index, 1).pop()
-            if(option.$elem !== null){
-                option.$elem.removeClass('tagged')
-                option.$elem.removeAttr('selected')
-            }
-            e.stopPropagation()
-        }
-
-        let selected = () => {
-            if(scope.ngModel::getType() !== 'Array') {
-                return {
-                    item:scope.ngModel.item,
-                    data:scope.ngModel.data
-                }
-            } else {
-                let list = []
-                for(var i = 0; i< scope.ngModel.length; i++){
-                    let model = scope.ngModel[i]
-                    list.push({
-                        item:model.item,
-                        data:model.data
-                    })
-                }
-                return list
-            }
-        }
-
-        scope.control = {
-            selected
-        }
-    }
-
 
     compile($tElement, tAttrs, transclude){
         let elem = $tElement[0]
@@ -113,6 +75,59 @@ export class Select {
         return this.link
     }
 
+    @dependencies('$scope', '$attrs')
+    controller(scope, attrs){
+        if(this.mode === 'multi' || this.mode ==='tags'){
+            scope.ngModel = []
+        }
+
+        scope.remove = (index, e) => {
+            let option = scope.ngModel.splice(index, 1).pop()
+            if(option.$elem !== null){
+                option.$elem.removeClass('tagged')
+                option.$elem.removeAttr('selected')
+            }
+            e.stopPropagation()
+        }
+
+        let selected = () => {
+            if(scope.ngModel::getType() !== 'Array') {
+                return {
+                    item:scope.ngModel.item,
+                    data:scope.ngModel.data
+                }
+            } else {
+                let list = []
+                for(var i = 0; i< scope.ngModel.length; i++){
+                    let model = scope.ngModel[i]
+                    list.push({
+                        item:model.item,
+                        data:model.data
+                    })
+                }
+                return list
+            }
+        }
+
+        scope.control = {
+            selected
+        }
+
+        let actived = false
+        let listTransition = new transition(this.dropdown, 'fm-select-list', actived)
+
+        scope.switchDropdownState = () => {
+            if(this.icon){
+                !listTransition.state
+                ? this.icon::addClass('fm-icon-actived')
+                : this.icon::removeClass('fm-icon-actived')
+            }
+
+            listTransition.state = !listTransition.state
+        }
+    }
+
+
     link(scope, $elem, attrs, ctrl){
         if(this.searchInput){
             let fn = debounce(() => {
@@ -131,20 +146,6 @@ export class Select {
             this.searchInput::on('input', fn)
         }
 
-        let expanded = false
-        scope.switchDropdownState = () => { //移到controller上 remark
-            expanded = !expanded
-            if(expanded){
-                this.icon && this.icon::addClass('expanded')
-                this.dropdown::replaceClass('select-dropdown-hidden', 'select-dropdown-fadeIn')
-            } else {
-                this.icon && this.icon::removeClass('expanded')
-                this.dropdown
-                    ::replaceClass('select-dropdown-fadeIn', 'select-dropdown-fadeOut')
-                    ::onMotionEnd(() =>
-                        this.dropdown::replaceClass('select-dropdown-fadeOut', 'select-dropdown-hidden'))
-            }
-        }
 
         this.select::on('click', scope.switchDropdownState)
         if(this.mode === 'tags'){
@@ -223,8 +224,8 @@ export class Option {
 
 
         $elem.bind('click', () => {
-            let isDisabled = $elem::props('disabled')
-            if(isDisabled) return
+            let disabled = $elem::props('disabled')
+            if(disabled) return
 
             if(parentCtrl.mode === 'multi' || parentCtrl.mode === 'tags'){
                 $elem.attr('selected', true)

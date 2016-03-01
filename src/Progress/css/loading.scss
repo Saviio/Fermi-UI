@@ -6,7 +6,7 @@ $progress-bg-color:#147EE6;
     top:0px;
     left:-5px;
     width:100%;
-    z-index:9999;
+    z-index:99999;
     height:2px;
     border-radius:1px;
     transform:translateZ(0);
@@ -35,4 +35,9 @@ $progress-bg-color:#147EE6;
         right:0px;
         clip:rect(-6px,22px,14px,10px);
     }
+}
+
+
+.fm-progress-loading-disappear{
+    opacity:0 !important;
 }

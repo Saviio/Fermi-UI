@@ -21,7 +21,7 @@ export class breadcrumbItem {
     constructor(){
         this.restrict = 'EA'
         this.replace = true
-        this.require = '^fermiBreadcrumb'
+        this.require = '^fermiCrumb'
         this.scope = {
             item:'='
         }

@@ -29,7 +29,6 @@ export default class Popover{
         }
         this.transclude = true
         this.template = template
-        //this.controller.$inject = ['$scope']
     }
 
     @dependencies('$scope')
@@ -51,7 +50,6 @@ export default class Popover{
     }
 
     link(scope, $element, attr, ctrl){
-        //("Popover component can only support for single element."
         let rootDOM = $element[0]
         let layerElem = rootDOM::query('.popover')
         let trigger = rootDOM::query(attr.trigger)
@@ -170,7 +168,6 @@ export default class Popover{
         }
 
         $tElement.append(tmpl)
-
         if(tAttrs.trigger == undefined){
             throw new Error("No trigger element was binded for popover component.")
         }

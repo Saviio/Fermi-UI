@@ -52,7 +52,7 @@ app.controller(
             console.log(item)
         }
 
-        //window.loading=loading
+        window.loading = loading
         window.notification = notification
         $scope.notification = notification
 
@@ -115,6 +115,7 @@ app.controller(
             window.ck = $scope.ck
             window.modal = $scope.createModal
             window.modalControl = modal
+            window.query = $scope.entity2
             window.asyncModal = () => {
                 return modal.confirm({
                     content:'<p>123</p>',

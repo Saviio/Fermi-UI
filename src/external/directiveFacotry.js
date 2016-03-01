@@ -1,5 +1,5 @@
 import cache from '../utils/cache'
-import { generateFermiId } from '../utils'
+import { nextFid } from '../utils'
 
 
 //为了看起来比较“完整”的支持使用ES6 Class 来编写Angular Directive，因此做了些小技巧来保证开发体验是一致的，directive的controller方法会在运行时多传入一个或两个依赖。
@@ -22,7 +22,7 @@ export default class DirectiveFactory {
 					let ins = new Directive(...args)
 					let [$elem, ...restArgs] = compileArgs
 					let postLink = compileOrg.apply(ins, compileArgs)
-					let fmId = generateFermiId()
+					let fmId = nextFid()
 					_cache.add(fmId, ins)
 					$elem.attr(FermiIdenitifer, fmId)
 
@@ -45,7 +45,7 @@ export default class DirectiveFactory {
 						caller = _cache.remove(fmId)
 						$elem.removeAttr(FermiIdenitifer)
 					} else {
-						caller = new Directive(...args) //remark 更换了顺序，review
+						caller = new Directive(...args) 
 					}
 
 					linkOrg.apply(caller, linkArgs)
@@ -80,7 +80,7 @@ export default class DirectiveFactory {
 						caller = _cache.get(fmId)
 					} else {
 						caller = new Directive(...args)
-						fmId = generateFermiId()
+						fmId = nextFid()
 						_cache.add(fmId, caller)
 						$elem.attr(FermiIdenitifer, fmId)
 					}
@@ -109,7 +109,7 @@ export default class DirectiveFactory {
 						caller = _cache.get(fmId)
 					} else {
 						caller = new Directive(...args)
-						let id = generateFermiId()
+						let id = nextFid()
 						_cache.add(id, caller)
 						$elem.attr(FermiIdenitifer, id)
 					}

@@ -31,7 +31,6 @@ let errTypeMessage = `Message Type is not a valid value, it should be set from o
 
 
 //custom(tmpl, scope){} 实现自定义模板
-//close 函数？
 //remark DOM leak check
 
 @dependencies('$compile', '$rootScope')
@@ -57,8 +56,8 @@ export default class Notification{
         this._container = body::last(container)
         this._body = this._container::query('div')
         this._container::setStyle({
-            top:this._config.top,
-            right:this._config.right
+            top:this._config.top.indexOf('px') < -1 ? this._config.top + 'px' : this._config.top,
+            right:this._config.right.indexOf('px') < -1 ? this._config.right + 'px' : this._config.right
         })
         this._rendered = true
     }

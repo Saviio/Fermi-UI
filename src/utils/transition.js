@@ -10,6 +10,7 @@ import {
     on,
     off,
     noop,
+    isDOM,
     isHidden,
     addClass,
     setStyle,
@@ -155,10 +156,6 @@ export class transition{
             return this.leaveNext()
         }
 
-        /*
-        this.__stage__ = UNMOUNTED
-        return*/
-
         this.el::removeClass(`${this.transitionName}-entered`)
         this.el::addClass(`${this.transitionName}-leave`)
         setTimeout(() => {
@@ -233,7 +230,7 @@ export class transition{
 
 
 export function onMotionEnd(el, cb, transitionName, timeout = defaultTimeout){
-    if(typeof el === 'function') [el, cb] = [this, el]
+    if(typeof el === 'function') [el, cb, transitionName, timeout] = [this, el, cb, timeout]
     if(!isDOM(el) && !(el instanceof angular.element)) return
     if(el instanceof angular.element) el = el[0]
 
@@ -256,11 +253,11 @@ export function onMotionEnd(el, cb, transitionName, timeout = defaultTimeout){
     }*/
 
 
-
     setTimeout(() => {
         if(isHidden(el)) return cb()
 
         let type = getTransitionType(el, transitionName)
+
         if(type === TRANSITION){
             setCSScallback(el, transitionEndEvent, cb, timeout)
         } else if(type === ANIMATION) {

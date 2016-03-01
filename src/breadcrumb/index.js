@@ -10,6 +10,6 @@ const component = {
 }
 
 export default angular.module(component.namespace, component.inject)
-	.directive('fermiBreadcrumb', factory.create(breadcrumb)) //remark crumb & crumbItem
-    .directive('fermiBreadcrumbitem', factory.create(breadcrumbItem))
+	.directive('fermiCrumb', factory.create(breadcrumb)) 
+    .directive('fermiCrumbitem', factory.create(breadcrumbItem))
 	.name;

@@ -1,8 +1,16 @@
 import { dependencies } from '../../external/dependencies'
 import template from '../template/query.html'
-import { detechPrefix, props } from '../../utils'
+import {
+    props,
+    addClass,
+    removeClass
+} from '../../utils'
 
-@dependencies('$timeout')
+import {
+    onMotionEnd
+} from '../../utils/transition'
+
+
 export default class Query{
     constructor($timeout){
         this.replace = true
@@ -12,14 +20,13 @@ export default class Query{
             control: '=',
             callback: '='
         }
-        this.$timeout = $timeout
     }
 
     @dependencies('$scope')
     controller(scope){
         scope.control={
             hide:function(execCallback = false){
-                if(typeof $scope.callback === 'function' && execCallback){
+                if(typeof scope.callback === 'function' && execCallback){
                     scope.callback()
                 }
                 scope.hide()
@@ -29,26 +36,28 @@ export default class Query{
     }
 
     link(scope, $element, attrs, ctrl){
-        let { prefix, eventPrefix } = detechPrefix()
-        let actived = $element::props('actived')
-
-        $element.bind(eventPrefix + 'TransitionEnd',() => { //onMotionEnd
-            if(!actived) $element.addClass('hide')
-        })
+        let rootDOM = $element[0]
+        let actived = rootDOM::props('actived')
 
         scope.show = () => {
-            $element.removeClass('hide')
-            this.$timeout(() => $element.addClass('progress-query-show'), 10)
+            rootDOM::removeClass('hide')
+            setTimeout(() =>
+                rootDOM::addClass('progress-query-show'), 10)
             actived = true
         }
 
         scope.hide = () => {
-            this.$timeout(() => $element.removeClass('progress-query-show'), 10)
+            setTimeout(() =>{
+                rootDOM
+                    ::removeClass('progress-query-show')
+                    ::onMotionEnd(() => {
+                        if(!actived) rootDOM::addClass('hide')
+                    }, 'progress-query-show')
+            }, 10)
             actived = false
         }
+
 
         if(actived) scope.show()
     }
 }
-
-//Query.$inject=['$timeout']

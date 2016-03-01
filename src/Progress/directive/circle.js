@@ -2,6 +2,8 @@ import { dependencies } from '../../external/dependencies'
 import template from '../template/circle.html'
 import { props } from '../../utils'
 
+const PI = 3.1415926535898
+
 //Todo 半圆形
 @dependencies('$compile')
 export default class circle{
@@ -20,8 +22,6 @@ export default class circle{
 
     @dependencies('$scope')
     controller(scope){
-        const PI = 3.1415926535898
-
         scope.dashOffset = () => {
             const C = scope.radius * 2 * PI
             return {
@@ -30,10 +30,6 @@ export default class circle{
             }
         }
 
-        scope.check = () => {
-            if(scope.ngModel > 100) scope.ngModel = 100
-            else if(scope.ngModel < 0) scope.ngModel = 0
-        }
     }
 
     link(scope, $elem, attrs, ctrl){
@@ -56,7 +52,7 @@ export default class circle{
             paths[i].setAttribute('stroke-width', strokeWidth)
         }
 
-        paths[paths.length-1].setAttribute('stroke-linecap',shape)
+        paths[paths.length - 1].setAttribute('stroke-linecap', shape)
 
         if(showinfo){
             let format = (attrs.format || '${percent}').replace('${percent}', $0 => '{{ngModel}}')
@@ -66,11 +62,32 @@ export default class circle{
             this.$compile(innerDIV.find('span'))(scope)
         }
 
+
         if(isProgress){
-            let className = 'progress-success'
-            scope.$watch('ngModel',(newValue, oldValue) => { //remark 不要在watch里做DOM 操作
-                scope.check()
-                newValue >= 100 ? $elem.addClass(className) : $elem.removeClass(className)
+            let inProgress = scope.ngModal >= 100
+            let success = () => {
+                $elem.addClass('progress-success')
+                inProgress = false
+            }
+
+            let notComplete = () => {
+                $elem.removeClass('progress-success')
+                inProgress = true
+            }
+
+            let valueCheck = () => {
+                if(scope.ngModel > 100) scope.ngModel = 100
+                else if(scope.ngModel < 0) scope.ngModel = 0
+            }
+
+            scope.$watch('ngModel',(newValue, oldValue) => {
+                if(newValue === oldValue) return
+                valueCheck()
+                if(newValue >= 100 && inProgress){
+                    setTimeout(success, 0)
+                } else if(!inProgress && newValue < 100){
+                    setTimeout(notComplete, 0)
+                }
             })
         }
 
