@@ -109,13 +109,10 @@ export class Select {
             }
         }
 
-        scope.control = {
-            selected
-        }
-
+        scope.control = { selected }
         let listTransition = new transition(this.dropdown, 'fm-select-list', false)
 
-        scope.switchDropdownState = () => {
+        scope.showOptionList = () => {
             if(this.icon){
                 !listTransition.state
                 ? this.icon::addClass('fm-icon-actived')
@@ -146,7 +143,7 @@ export class Select {
         }
 
 
-        this.select::on('click', scope.switchDropdownState)
+        this.select::on('click', scope.showOptionList)
         if(this.mode === 'tags'){
             let renderTag = value => {
                 scope.ngModel.push({item:value, data:{value}, $elem:null})
@@ -160,7 +157,7 @@ export class Select {
                 e.preventDefault()
                 if(value !== ''){
                     if(scope.ngModel.every(existOption => existOption.item !== value)){
-                        scope.$digest(() => renderTag(value))
+                        scope.$apply(() => renderTag(value))
                     } else {
                         this.tagInput.innerHTML = '&nbsp;'
                     }
@@ -169,7 +166,7 @@ export class Select {
             this.tagInput::on('blur', e => {
                 let value = this.tagInput.innerText.trim()
                 if(value === '') return
-                scope.$digest(() => renderTag(value))
+                scope.$apply(() => renderTag(value))
             })
         }
     }
@@ -179,12 +176,12 @@ export class Select {
             if(this.mode === 'multi' || this.mode === 'tags' ){
                 if(scope.ngModel.every(existOption => existOption !== option)){
                     scope.ngModel.push(option)
-                    option.$elem.addClass('tagged')
-                    option.$elem.attr('selected', true)
+                    //option.$elem.addClass('tagged')
+                    //option.$elem.attr('selected', true)
                 }
             } else {
                 scope.ngModel = option
-                if(!init) scope.switchDropdownState()
+                if(!init) scope.showOptionList()
             }
 
             if(!/\$apply|\$digest/.test(scope.$root.$$phase)){
@@ -209,30 +206,30 @@ export class Option {
     }
 
     link(scope, $elem, attrs, parentCtrl){
+        let rootDOM = $elem[0]
         if(typeof attrs.value === "string" && scope.value === undefined){
             scope.value = attrs.value
         }
 
         let isSelected = $elem::props('selected')
-
         let option = {
             item:scope.value,
             data:scope.data || {value: scope.value},
             $elem:$elem
         }
 
-
-        $elem.bind('click', () => {
-            let disabled = $elem::props('disabled')
+        rootDOM::on('click', e => {
+            let disabled = rootDOM::props('disabled')
             if(disabled) return
 
-            if(parentCtrl.mode === 'multi' || parentCtrl.mode === 'tags'){
-                $elem.attr('selected', true)
-            } else {
+            if(parentCtrl.mode !== 'multi' && parentCtrl.mode !== 'tags'){
                 $elem.parent().children().removeAttr('selected')
-                $elem.attr('selected', true)
-            } //emit a angular event
+                //emit a angular event
+            } else {
+                rootDOM::addClass('tagged')
+            }
 
+            rootDOM.setAttribute('selected', true)
             parentCtrl.select(option)
         })
 
