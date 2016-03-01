@@ -113,8 +113,7 @@ export class Select {
             selected
         }
 
-        let actived = false
-        let listTransition = new transition(this.dropdown, 'fm-select-list', actived)
+        let listTransition = new transition(this.dropdown, 'fm-select-list', false)
 
         scope.switchDropdownState = () => {
             if(this.icon){
@@ -161,7 +160,7 @@ export class Select {
                 e.preventDefault()
                 if(value !== ''){
                     if(scope.ngModel.every(existOption => existOption.item !== value)){
-                        scope.$apply(() => renderTag(value))
+                        scope.$digest(() => renderTag(value))
                     } else {
                         this.tagInput.innerHTML = '&nbsp;'
                     }
@@ -170,7 +169,7 @@ export class Select {
             this.tagInput::on('blur', e => {
                 let value = this.tagInput.innerText.trim()
                 if(value === '') return
-                scope.$apply(() => renderTag(value))
+                scope.$digest(() => renderTag(value))
             })
         }
     }
@@ -181,7 +180,7 @@ export class Select {
                 if(scope.ngModel.every(existOption => existOption !== option)){
                     scope.ngModel.push(option)
                     option.$elem.addClass('tagged')
-                    option.$elem.attr('selected',true)
+                    option.$elem.attr('selected', true)
                 }
             } else {
                 scope.ngModel = option
@@ -232,7 +231,7 @@ export class Option {
             } else {
                 $elem.parent().children().removeAttr('selected')
                 $elem.attr('selected', true)
-            }
+            } //emit a angular event
 
             parentCtrl.select(option)
         })

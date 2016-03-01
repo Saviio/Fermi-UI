@@ -2,6 +2,7 @@ import { dependencies } from '../../external/dependencies'
 import { BODY as body } from '../../utils/browser'
 import container from '../template/container.html'
 import defaultMessage from '../template/message.html'
+import { onMotionEnd } from '../../utils/transition'
 
 import{
     on,
@@ -14,8 +15,7 @@ import{
     setStyle,
     queryAll,
     addClass,
-    removeClass,
-    onMotionEnd
+    removeClass
 } from '../../utils'
 
 let defaultConfig = {
@@ -69,7 +69,8 @@ export default class Notification{
                 ::onMotionEnd(() => {
                     notificationNode::remove()
                     this.__tryDispose__()
-                })
+                }, 'fm-notice-show')
+                
         if(typeof callback === 'function'){
             callback()
         }
