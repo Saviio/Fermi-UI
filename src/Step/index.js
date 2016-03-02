@@ -1,4 +1,4 @@
-import factory from '../external/componentFactory'
+import factory from '../external/buildFactory'
 import {Steps, Step} from './directive/step'
 
 import './css/step.scss'
@@ -9,6 +9,6 @@ const component = {
 }
 
 export default angular.module(component.namespace, component.inject)
-	.directive('fermiSteps', factory.create(Steps))
-    .directive('fermiStep', factory.create(Step))
+	.directive('fermiSteps', factory.component(Steps))
+    .directive('fermiStep', factory.component(Step))
 	.name;

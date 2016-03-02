@@ -1,4 +1,4 @@
-import factory from '../external/componentFactory'
+import factory from '../external/buildFactory'
 import fermiDefault from './FermiDefault'
 import fermiRangeFilter from './RangeFilter'
 import fermiPlainFilter from './PlainFilter'
@@ -7,7 +7,7 @@ import * as utils from '../utils'
 
 
 export default angular.module('Fermi.core', [])
-	.directive('fermiDefault', (...args) => new fermiDefault(...args))
+	.directive('fermiDefault', factory.directive(fermiDefault))
     .filter('range', fermiRangeFilter)
 	.filter('plain', fermiPlainFilter)
     //.factory('fermi.Utils',() => utils)

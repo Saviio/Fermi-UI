@@ -1,4 +1,4 @@
-import factory from '../external/componentFactory'
+import factory from '../external/buildFactory'
 import {Select,Option} from './directive/select'
 import './css/select.scss'
 
@@ -9,6 +9,6 @@ const component = {
 }
 
 export default angular.module(component.namespace, component.inject)
-	.directive('fermiSelect', factory.create(Select))
-    .directive('fermiOption', factory.create(Option))
+	.directive('fermiSelect', factory.component(Select))
+    .directive('fermiOption', factory.component(Option))
 	.name;

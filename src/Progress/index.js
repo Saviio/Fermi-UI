@@ -1,4 +1,4 @@
-import factory from '../external/componentFactory'
+import factory from '../external/buildFactory'
 import line from './directive/line'
 import query from './directive/query'
 import loading from './service/loading'
@@ -13,10 +13,10 @@ const component = {
     namespace:'Fermi.progress',
     inject:[]
 }
-//.directive('fermiLoadingbar',factory.create(test))
+//.directive('fermiLoadingbar',factory.component(test))
 export default angular.module(component.namespace, component.inject)
-	.directive('fermiLine', factory.create(line))
-    .directive('fermiQuery',factory.create(query))
-    .directive('fermiCircle',factory.create(circle))
+	.directive('fermiLine', factory.component(line))
+    .directive('fermiQuery',factory.component(query))
+    .directive('fermiCircle',factory.component(circle))
     .service('Fermi.Loading',loading)
 	.name;

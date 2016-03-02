@@ -1,4 +1,4 @@
-import factory from '../external/componentFactory'
+import factory from '../external/buildFactory'
 import { Menu, SubMenu, MenuItem } from './directive/menu'
 import './css/menu.scss'
 
@@ -8,7 +8,7 @@ const component = {
 }
 
 export default angular.module(component.namespace, component.inject)
-	.directive('fermiMenu', factory.create(Menu))
-    .directive('fermiSubmenu', factory.create(SubMenu))
-    .directive('fermiMenuitem', factory.create(MenuItem))
+	.directive('fermiMenu', factory.component(Menu))
+    .directive('fermiSubmenu', factory.component(SubMenu))
+    .directive('fermiMenuitem', factory.component(MenuItem))
 	.name;

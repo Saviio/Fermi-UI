@@ -22,7 +22,7 @@ export function nextFid(){
     let id = _FMId.toString().split('')
     let len = id.length
     for(let i = 0; i < (5 - len); i++) id.unshift("0")
-    return id.join('.')
+    return id.join('.').toString()
 }
 
 export function nextId(){

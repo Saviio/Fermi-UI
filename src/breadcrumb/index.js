@@ -1,4 +1,4 @@
-import factory from '../external/componentFactory'
+import factory from '../external/buildFactory'
 import { breadcrumb, breadcrumbItem } from './directive/breadcrumb'
 
 import './css/breadcrumb.scss'
@@ -10,6 +10,6 @@ const component = {
 }
 
 export default angular.module(component.namespace, component.inject)
-	.directive('fermiCrumb', factory.create(breadcrumb))
-    .directive('fermiCrumbitem', factory.create(breadcrumbItem))
+	.directive('fermiCrumb', factory.component(breadcrumb))
+    .directive('fermiCrumbitem', factory.component(breadcrumbItem))
 	.name;

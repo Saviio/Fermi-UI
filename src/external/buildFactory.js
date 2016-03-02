@@ -7,11 +7,11 @@ import { nextFid } from '../utils'
 //可能在某些corner case可能会导致工作失常，尚在斟酌中。
 
 const FermiIdenitifer = 'data-fermiId'
-let _cache = new cache() //remark 考虑一下究竟是不是需要在DOM上tag，还是干脆以DOM为key做数据映射  domRef
+let _cache = new Map() //remark 考虑一下究竟是不是需要在DOM上tag，还是干脆以DOM为key做数据映射  domRef
 
-window.ca=_cache
+
 export default class Factory {
-	static create(Directive) {
+	static component(Directive) {
 		let factory = function (...args) {
 			let instance = new Directive(...args)
 
@@ -22,7 +22,7 @@ export default class Factory {
 					let [$elem, ...restArgs] = compileArgs
 					let postLink = compileOrg.apply(ins, compileArgs)
 					let fmId = nextFid()
-					_cache.add(fmId, ins)
+					_cache.set(fmId, ins)
 					$elem.attr(FermiIdenitifer, fmId)
 
 
@@ -33,7 +33,7 @@ export default class Factory {
 						}
 
 						$elem.removeAttr(FermiIdenitifer)
-						_cache.remove(fmId)
+						_cache.delete(fmId)
 					}
 				}
 			} else if(typeof instance.link === 'function') {
@@ -43,7 +43,8 @@ export default class Factory {
 					let fmId = $elem.attr(FermiIdenitifer)
 					let caller
 					if(fmId !== undefined){
-						caller = _cache.remove(fmId)
+						caller = _cache.get(fmId)
+						_cache.delete(fmId)
 						$elem.removeAttr(FermiIdenitifer)
 					} else {
 						caller = new Directive(...args)
@@ -83,7 +84,7 @@ export default class Factory {
 					} else {
 						caller = new Directive(...args)
 						fmId = nextFid()
-						_cache.add(fmId, caller)
+						_cache.set(fmId, caller)
 						$elem.attr(FermiIdenitifer, fmId)
 					}
 
@@ -95,7 +96,7 @@ export default class Factory {
 
 					if(typeof instance.link !== 'function' && fmId !== undefined){
 
-						_cache.remove(fmId)
+						_cache.delete(fmId)
 						$elem.removeAttr(FermiIdenitifer)
 					}
 				}
@@ -113,7 +114,7 @@ export default class Factory {
 					} else {
 						caller = new Directive(...args)
 						fmId = nextFid()
-						_cache.add(fmId, caller)
+						_cache.set(fmId, caller)
 						$elem.attr(FermiIdenitifer, fmId)
 					}
 					instance.passing.apply(caller, [this])
@@ -121,7 +122,7 @@ export default class Factory {
 
 					if(typeof instance.link !== 'function' && fmId !== undefined){
 						$elem.removeAttr(FermiIdenitifer)
-					    _cache.remove(fmId)
+					    _cache.delete(fmId)
 					}
 				}
 
@@ -133,5 +134,9 @@ export default class Factory {
 
 		factory.$inject = Directive.$inject || []
 		return factory
+	}
+
+	static directive(Directive){
+		return (...args) => new Directive(...args)
 	}
 }

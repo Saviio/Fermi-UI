@@ -1,4 +1,4 @@
-import factory from '../external/componentFactory'
+import factory from '../external/buildFactory'
 import { Checkbox } from './directive/checkbox'
 import './css/checkbox.scss'
 
@@ -8,5 +8,5 @@ const component = {
 }
 
 export default angular.module(component.namespace, component.inject)
-	.directive('fermiCheckbox', factory.create(Checkbox))
+	.directive('fermiCheckbox', factory.component(Checkbox))
 	.name;

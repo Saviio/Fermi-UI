@@ -1,4 +1,4 @@
-import factory from '../external/componentFactory'
+import factory from '../external/buildFactory'
 import { Menu, SubMenu, MenuItem } from './directive/dropdown'
 import './css/dropdown.scss'
 
@@ -8,5 +8,5 @@ const component = {
 }
 
 export default angular.module(component.namespace, component.inject)
-	.directive('fermiDropdown', factory.create(Menu))
+	.directive('fermiDropdown', factory.component(Menu))
 	.name;
