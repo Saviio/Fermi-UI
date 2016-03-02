@@ -165,13 +165,25 @@ button.fm-close{
 
 
 @keyframes fadeInDown {
-    from{opacity: 0;transform:translateY(-10px);}
-    to{opacity: 100;transform:translateY(0);}
+    0% {
+        opacity: 0;
+        transform:translateY(-10px);
+    }
+    100% {
+        opacity: 100;
+        transform:translateY(0);
+    }
 }
 
 @keyframes fadeOutUp {
-    from{opacity: 100;transform:translateY(0px);}
-    to{opacity: 0;transform:translateY(-10px);}
+    0% {
+        opacity: 100;
+        transform:translateY(0px);
+    }
+    100% {
+        opacity: 0;
+        transform:translateY(-10px);
+    }
 }
 
 

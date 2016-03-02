@@ -239,7 +239,7 @@ export class Option {
         })
 
         if(isSelected){
-            parentCtrl.select(option)
+            parentCtrl.select(option, rootDOM)
         }
     }
 }
