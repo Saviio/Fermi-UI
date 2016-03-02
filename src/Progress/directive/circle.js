@@ -46,7 +46,7 @@ export default class circle{
         scope.radius = radius = moveTo - (strokeWidth / 2)
         let paths = $elem.find('path')
 
-        for(let i = 0;i < paths.length; i++){ //remark
+        for(let i = 0;i < paths.length; i++){
             paths[i].setAttribute('d',`M ${moveTo},${moveTo} m 0,-${radius} a ${radius},${radius} 0 1 1 0,${radius * 2} a ${radius},${radius} 0 1 1 0,-${radius * 2}`)
             paths[i].setAttribute('stroke', i === 0 ? inner : outer)
             paths[i].setAttribute('stroke-width', strokeWidth)

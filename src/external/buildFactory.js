@@ -1,4 +1,3 @@
-import cache from '../utils/cache'
 import { nextFid } from '../utils'
 
 
@@ -7,7 +6,7 @@ import { nextFid } from '../utils'
 //可能在某些corner case可能会导致工作失常，尚在斟酌中。
 
 const FermiIdenitifer = 'data-fermiId'
-let _cache = new Map() //remark 考虑一下究竟是不是需要在DOM上tag，还是干脆以DOM为key做数据映射  domRef
+let _cache = new Map()
 
 
 export default class Factory {

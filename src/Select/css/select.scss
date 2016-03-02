@@ -19,7 +19,7 @@
         padding-left:10px;
         padding-right:24px;
         width:100%;
-        border:#ccc 1px solid;
+        border:$form-border 1px solid;
         border-radius:3px;
         position:relative;
         transition:border-color 0.5s ease;
@@ -43,7 +43,7 @@
         .tags-selection{
             list-style: none;
             height: 100%;
-            min-height: 24px;
+            min-height: $height+(-6px);
             li{
                 display: inline-block;
                 margin-right: 4px;
@@ -94,10 +94,9 @@
         width:100%;
         background-color:#fff;
         position:absolute;
-        //top:$height + 2px;
         margin-top: 5px;
-        box-shadow:0px 1px 2px rgba(220, 220, 220, 0.7);
-        border:rgba(204, 204, 204, 0.65) solid 1px;
+        //box-shadow:0px 1px 2px rgba(220, 220, 220, 0.7);
+        border:$form-border solid 1px;
         opacity:0;
         z-index:9999;
 
@@ -115,7 +114,6 @@
                 height:26px;
                 line-height:26px;
                 cursor:pointer;
-                //padding:7px 33px 7px 16px;
                 user-select:none;
                 &:hover{
                     background-color:$hover-color !important;
@@ -141,8 +139,6 @@
             input {
                 outline:none;
                 width:95%;
-                /*margin-left:10px;
-                margin-right:10px;*/
                 height:28px;
                 line-height:28px;
                 padding:4px 7px;
@@ -155,21 +151,6 @@
     }
 }
 
-
-/*
-.select-dropdown-fadeIn{
-    animation:fadeInDown 0.3s 0s ease both;
-}
-
-.select-dropdown-fadeOut{
-    animation:fadeOutUp 0.3s 0s ease both;
-}
-
-.select-dropdown-hidden{
-    display:none;
-}
-
-*/
 
 .fm-select-list-enter{
     display: block !important;
@@ -187,15 +168,15 @@
 
 
 .select-wrapper-normal{
-    @include select-wrapper-base
+    @include select-wrapper-base(38px)
 }
 
 .select-wrapper-small{
-    @include select-wrapper-base(26px)
+    @include select-wrapper-base(28px)
 }
 
 .select-wrapper-large{
-    @include select-wrapper-base(36px)
+    @include select-wrapper-base(46px)
 }
 
 .select-wrapper-normal[tags],.select-wrapper-large[tags],.select-wrapper-small[tags]{
