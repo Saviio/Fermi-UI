@@ -170,14 +170,14 @@ button.fm-close{
         transform:translateY(-10px);
     }
     100% {
-        opacity: 100;
+        opacity: 1;
         transform:translateY(0);
     }
 }
 
 @keyframes fadeOutUp {
     0% {
-        opacity: 100;
+        opacity: 1;
         transform:translateY(0px);
     }
     100% {
