@@ -1,4 +1,4 @@
-import factory from '../external/directiveFacotry'
+import factory from '../external/componentFactory'
 import { Radio, RadioGroup } from './directive/radio'
 import './css/radio.scss'
 

@@ -1,5 +1,6 @@
 import template from '../template/template.html'
 
+
 export class breadcrumb{
     constructor(){
         this.restrict = 'EA'

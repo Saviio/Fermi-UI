@@ -1,5 +1,5 @@
 
-import factory from '../external/directiveFacotry'
+import factory from '../external/componentFactory'
 import directive from './directive/tooltips'
 import '../core'
 import './css/tooltips.scss'

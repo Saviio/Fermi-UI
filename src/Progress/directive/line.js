@@ -6,17 +6,17 @@ import {
     removeClass
 } from '../../utils'
 
-export default class{
+export default class Line{
     constructor(){
         this.replace = true
         this.restrict = 'EA'
-        this.template = template
         this.require = '^ngModel'
         this.scope = {
             success:'=',
             ngModel:'=', //remark value
             label:'@'
         }
+        this.template = template
     }
 
     compile($tElement, tAttrs, transclude){

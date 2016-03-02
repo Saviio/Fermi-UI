@@ -120,7 +120,7 @@ export class Radio{
 export class RadioGroup{
     constructor(){
         this.scope = {
-            change:'=?', 
+            change:'=?',
             control:'=?'
         }
         this.restrict = 'EA'

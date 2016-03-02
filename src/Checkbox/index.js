@@ -1,4 +1,4 @@
-import factory from '../external/directiveFacotry'
+import factory from '../external/componentFactory'
 import { Checkbox } from './directive/checkbox'
 import './css/checkbox.scss'
 

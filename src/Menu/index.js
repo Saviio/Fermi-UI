@@ -1,4 +1,4 @@
-import factory from '../external/directiveFacotry'
+import factory from '../external/componentFactory'
 import { Menu, SubMenu, MenuItem } from './directive/menu'
 import './css/menu.scss'
 

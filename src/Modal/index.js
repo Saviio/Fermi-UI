@@ -1,4 +1,4 @@
-import factory from '../external/directiveFacotry'
+import factory from '../external/componentFactory'
 import modal from './service/modal'
 import './css/modal.scss'
 

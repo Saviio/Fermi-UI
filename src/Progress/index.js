@@ -1,4 +1,4 @@
-import factory from '../external/directiveFacotry'
+import factory from '../external/componentFactory'
 import line from './directive/line'
 import query from './directive/query'
 import loading from './service/loading'

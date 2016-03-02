@@ -1,4 +1,4 @@
-import factory from '../external/directiveFacotry'
+import factory from '../external/componentFactory'
 import {Select,Option} from './directive/select'
 import './css/select.scss'
 

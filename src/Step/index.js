@@ -1,4 +1,4 @@
-import factory from '../external/directiveFacotry'
+import factory from '../external/componentFactory'
 import {Steps, Step} from './directive/step'
 
 import './css/step.scss'

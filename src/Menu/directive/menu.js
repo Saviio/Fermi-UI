@@ -87,8 +87,8 @@ export class SubMenu{
         return this.link
     }
 
-    @dependencies('$scope','$sce')
-    controller(scope, $sce){
+    @dependencies('$scope')
+    controller(scope){
         scope.cascading = []
         this.title = scope.title
     }
@@ -101,6 +101,7 @@ export class SubMenu{
         let rootDOM = $elem[0]
         let titleDOM = rootDOM::query('.fm-submenu-title')
         let children = rootDOM::query('.fm-submenu-items')
+
 
         if(this.title === undefined || this.title === ""){
             titleDOM::addClass('hide')

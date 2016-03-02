@@ -206,34 +206,16 @@
     }
 }
 
-/*
-.fm-submenu-pop-enter{//remark 把select控件也改成toggle的形式
-    animation:fadeInDown .3s 0s ease-out both;
-}
 
-.fm-submenu-pop-leave{
-    animation:fadeOutUp .3s 0s ease-in both;
-}
-*/
 .fm-submenu-pop-enter{
     display:block !important;
     animation:fadeInDown .25s 0s ease-out both;
 }
-/*
-.fm-submenu-pop-enter.fm-submenu-pop-enter-active{
-    display:block !important;
-}
-*/
+
 
 .fm-submenu-pop-entered{
     display:block !important;
 }
-
-/*
-.fm-submenu-pop-leave{
-    display:block !important;
-}
-*/
 
 .fm-submenu-pop-leave{
     display:block !important;

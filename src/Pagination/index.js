@@ -1,4 +1,4 @@
-import factory from '../external/directiveFacotry'
+import factory from '../external/componentFactory'
 import directive from './directive/pagination'
 import './css/pagination.scss'
 

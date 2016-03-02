@@ -9,12 +9,11 @@ import { nextFid } from '../utils'
 const FermiIdenitifer = 'data-fermiId'
 let _cache = new cache() //remark 考虑一下究竟是不是需要在DOM上tag，还是干脆以DOM为key做数据映射  domRef
 
-
-export default class DirectiveFactory {
+window.ca=_cache
+export default class Factory {
 	static create(Directive) {
 		let factory = function (...args) {
 			let instance = new Directive(...args)
-
 
 			if (typeof instance.compile === 'function') {
 				let compileOrg = instance.compile
@@ -26,11 +25,13 @@ export default class DirectiveFactory {
 					_cache.add(fmId, ins)
 					$elem.attr(FermiIdenitifer, fmId)
 
+
 					return (...linkArgs) => {
 						let [scope, $elem, ...restArgs] = linkArgs
 						if(postLink !== undefined){
 							postLink.apply(ins, linkArgs)
 						}
+
 						$elem.removeAttr(FermiIdenitifer)
 						_cache.remove(fmId)
 					}
@@ -45,7 +46,7 @@ export default class DirectiveFactory {
 						caller = _cache.remove(fmId)
 						$elem.removeAttr(FermiIdenitifer)
 					} else {
-						caller = new Directive(...args) 
+						caller = new Directive(...args)
 					}
 
 					linkOrg.apply(caller, linkArgs)
@@ -76,6 +77,7 @@ export default class DirectiveFactory {
 
 					let fmId = $elem.attr(FermiIdenitifer)
 					let caller
+
 					if(fmId !== undefined){
 						caller = _cache.get(fmId)
 					} else {
@@ -92,8 +94,9 @@ export default class DirectiveFactory {
 					}
 
 					if(typeof instance.link !== 'function' && fmId !== undefined){
-						$elem.removeAttr(FermiIdenitifer)
+
 						_cache.remove(fmId)
+						$elem.removeAttr(FermiIdenitifer)
 					}
 				}
 
@@ -109,11 +112,17 @@ export default class DirectiveFactory {
 						caller = _cache.get(fmId)
 					} else {
 						caller = new Directive(...args)
-						let id = nextFid()
-						_cache.add(id, caller)
-						$elem.attr(FermiIdenitifer, id)
+						fmId = nextFid()
+						_cache.add(fmId, caller)
+						$elem.attr(FermiIdenitifer, fmId)
 					}
 					instance.passing.apply(caller, [this])
+
+
+					if(typeof instance.link !== 'function' && fmId !== undefined){
+						$elem.removeAttr(FermiIdenitifer)
+					    _cache.remove(fmId)
+					}
 				}
 
 				instance.controller.$inject = ['$scope', '$element']

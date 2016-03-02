@@ -1,4 +1,4 @@
-import factory from '../external/directiveFacotry'
+import factory from '../external/componentFactory'
 import { Tabs, Tab } from './directive/Tab'
 
 import './css/Tab.scss'
