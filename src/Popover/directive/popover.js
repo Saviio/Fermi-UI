@@ -164,6 +164,7 @@ export default class Popover{
 
         let tmpl = popoverTmpl.replace(/#{dire}/, dire)::toDOM()
         if($tElement::props('close')){
+            //debugger
             tmpl::prepend('<button class="fm-close">×</button>')
         }
 
