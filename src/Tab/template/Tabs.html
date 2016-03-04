@@ -1,7 +1,9 @@
 <div>
     <ul class="nav nav-tabs nav-active">
-        <li ng-repeat="header in items track by $index" ng-class="{'nav-active': header.actived, 'disable':header.disable}">
-            <a href="javascript:;" data-index="{{::$index}}">{{::header.display}}</a>
+        <li ng-repeat="header in items track by $index" class="{{header.actived ? 'nav-active' : header.disabled ? 'disabled' : ''}}">
+            <a href="javascript:;" data-index="{{::$index}}">
+                {{::header.display}}
+            </a>
         </li>
     </ul>
     <div ng-transclude class="tab-container">

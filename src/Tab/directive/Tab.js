@@ -1,7 +1,15 @@
 import { dependencies } from '../../external/dependencies'
 import tabs from '../template/tabs.html'
 import tab from '../template/tab.html'
-import { props } from '../../utils'
+import {
+    on,
+    off,
+    props,
+    query,
+    queryAll,
+    addClass,
+    removeClass
+ } from '../../utils'
 
 export class Tabs{
     constructor(){
@@ -12,47 +20,44 @@ export class Tabs{
         this.scope = {}
     }
 
-    @dependencies('$scope')
-    controller(scope){
+    @dependencies('$scope', '$element')
+    controller(scope, $elem){
+        this.rootDOM = $elem[0]
         scope.items = []
-        scope.activedItem = null
 
-        scope.switchState = index => {
-            if (scope.items[index].disable) return
-
-            scope.$apply(() => {
-                scope.activedItem = scope.items[index]
-                scope.items.forEach((e,i) => e.actived = (i === index))
+        scope.onSelect = index => {
+            if(scope.items[index].disabled) return
+            Array.from(this.rootDOM::queryAll('.tab-panel')).forEach((e, i) => {
+                setTimeout(() => index === i ? e::removeClass('show') : e::addClass('show'), 0)
+                scope.items[i].actived = (index === i)
+                if(!/\$apply|\$digest/.test(scope.$root.$$phase)) scope.$digest()
             })
         }
     }
 
     link(scope, $elem, attrs, ctrl){
-        let ul = $elem.find('ul')
+        this.rootDOM = $elem[0]
+        let ul = this.rootDOM::query('ul')
 
-        ul.bind('click',evt => {
+        let delegate = evt => {
             let target = evt.target
-
             if(target.tagName === 'A'){
-                let node = angular.element(evt.target)
-                let index = ~~node.attr('data-index')
-                scope.switchState(index)
-            }
-        })
-
-        let activedItem = scope.items.filter(e => e.actived)
-
-        if(scope.items.length > 0 && activedItem.length === 0){
-            scope.items[0].actived = true
-        } else {
-            for(let i = 0; i< activedItem.length-1; i++){
-                activedItem[i].active = false
+                let index = ~~(target.getAttribute('data-index'))
+                scope.onSelect(index)
             }
         }
+
+        ul::on('click', delegate)
+
+        scope.$on('destory', () =>
+            ul::off('click', delegate))
     }
 
     passing(exports, scope){
-        exports.addItem = item => scope.items.push(item)
+        exports.addItem = item => {
+            let index = scope.items.push(item)
+            if(item.actived) scope.onSelect(index - 1)
+        }
     }
 }
 
@@ -68,31 +73,11 @@ export class Tab{
 
 
     link(scope, $element, attrs, parentCtrl){
-        let header  = attrs.header
-        let disable = $element::props('disable')//remark
-        let actived = $element::props('actived')
-
-        let contentState = null
-
         let item = {
-            display:null,
-            disable:false
+            display : attrs.header,
+            disabled: $element::props('disabled'),
+            actived : $element::props('actived')
         }
-
-        Object.defineProperty(item, 'actived', {
-            get:() => { return contentState } ,
-            set:(newValue) => {
-                if(contentState === newValue) return
-                newValue ? $element.removeClass('hide').addClass('show') : $element.removeClass('show').addClass('hide')
-                contentState = newValue
-            },
-            enumerable: true,
-            configurable: false
-        })
-
-        item.actived = actived
-        item.display = header
-        item.disable = disable
 
         parentCtrl.addItem(item)
     }
