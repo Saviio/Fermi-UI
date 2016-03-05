@@ -7,12 +7,11 @@ $large-font-size:14px;
 $default-font-size:12px;
 $small-font-size:12px;
 $hover-color:#eaf8fe;
-$form-actived-background:#5CC000;
-$form-actived-border:darken($form-actived-background, 3%);
 $form-border:rgba(37,40,43,0.1);
 $color:#47525d;
 $black:#3d464d;
 $grey:rgba(37,40,43,0.1);
+$green:#5CC000;
 
 @mixin slideUp {
     max-height: 0px;

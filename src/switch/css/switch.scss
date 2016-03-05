@@ -25,8 +25,8 @@
         left:0;
 
         &:checked + span {
-            border: 1px solid $form-actived-border;
-            background-color: $form-actived-background;
+            border: 1px solid darken($green, 3%);
+            background-color: $green;
             &:hover{
                 cursor: pointer;
             }
