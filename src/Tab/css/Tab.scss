@@ -1,4 +1,5 @@
-.nav{
+.fm-nav{
+    border-bottom:1px solid #ddd;
     &:before{
         display:table;
         content: " "
@@ -16,17 +17,20 @@
             display: block;
             border-radius: 4px 4px 0 0;
             transition: background 0.2s ease-out;
+            &:hover{
+                background-color: #eee;
+            }
         }
         display:inline-block;
         margin-bottom:-1px;
         position:relative;
-        bottom:-1px;
+        //bottom:-1px;
     }
 
     list-style:none;
     padding-left:0;
     margin-bottom:15px;
-    li.disabled{
+    li.fm-disabled{
         a{
             &:hover,&:focus{
                 cursor: not-allowed;
@@ -37,28 +41,21 @@
             }
         }
     }
-}
 
-.nav-tabs{
-    border-bottom:1px solid #ddd;
-}
-
-.nav li a{
-    &:hover{
-        background-color: #eee;
+    > li.fm-nav-active {
+        > a{
+            cursor: default;
+            background-color: #fff;
+            border:1px solid #ddd;
+            border-bottom-color: transparent;
+            color:#555;
+        }
     }
 }
 
-.nav > li.nav-active > a{
-    cursor: default;
-    background-color: #fff;
-    border:1px solid #ddd;
-    border-bottom-color: transparent;
-    color:#555;
-}
 
-.tab-container{
-    > .tab-panel{
+.fm-tab-container{
+    > .fm-tab-panel{
         display: none;
     }
 }

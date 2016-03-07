@@ -27,11 +27,13 @@ export class Tabs{
 
         scope.onSelect = index => {
             if(scope.items[index].disabled) return
-            Array.from(this.rootDOM::queryAll('.tab-panel')).forEach((e, i) => {
-                setTimeout(() => index === i ? e::removeClass('show') : e::addClass('show'), 0)
-                scope.items[i].actived = (index === i)
-                if(!/\$apply|\$digest/.test(scope.$root.$$phase)) scope.$digest()
-            })
+            setTimeout(() => {
+                Array.from(this.rootDOM::queryAll('.fm-tab-panel')).forEach((e, i) => {
+                     index === i ? e::addClass('show') : e::removeClass('show')
+                    scope.items[i].actived = (index === i)
+                    if(!/\$apply|\$digest/.test(scope.$root.$$phase)) scope.$digest()
+                })
+            }, 0)
         }
     }
 
@@ -51,12 +53,25 @@ export class Tabs{
 
         scope.$on('destory', () =>
             ul::off('click', delegate))
+
+        let init = false
+        for(let i = scope.items.length -1; i >= 0 ; i--){
+            if(scope.items[i].actived){
+                 scope.onSelect(i)
+                 init = true
+                 break
+            }
+        }
+        if(!init) scope.onSelect(0)
+        //debugger
+
+
     }
 
     passing(exports, scope){
         exports.addItem = item => {
             let index = scope.items.push(item)
-            if(item.actived) scope.onSelect(index - 1)
+            //if(item.actived) scope.onSelect(index - 1)
         }
     }
 }
@@ -73,10 +88,11 @@ export class Tab{
 
 
     link(scope, $element, attrs, parentCtrl){
+        //debugger
         let item = {
             display : attrs.header,
             disabled: $element::props('disabled'),
-            actived : $element::props('actived')
+            actived : $element::props('actived') || false
         }
 
         parentCtrl.addItem(item)

@@ -172,6 +172,7 @@ export default class Modal{
 
         if(template::trim() === '') throw new Error(emptyTemplateError)
         let $template = angular.element(template)
+        
 
         let modalScope = (options.scope || rootScope).$new()
         if(options.controller::getType() === 'String' || options.controller::getType() === 'Array'){

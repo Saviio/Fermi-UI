@@ -1,9 +1,12 @@
 import { dependencies } from '../../external/dependencies'
 import template from '../template/template.html'
+import loader from '../template/loader.svg'
 import {
     props,
     addClass,
 } from '../../utils'
+
+const loadingClass = 'fm-button-loading'
 
 //IE9 pointer-event 没有兼容性 remark
 export default class Buttons {
@@ -24,19 +27,17 @@ export default class Buttons {
         scope.loading = this.isLoading
 
         let loading = () => {
-            if(!scope.loading){
-                $elem.addClass('loading')
-                scope.loading = true
-                scope.$digest() 
-            }
+            if(scope.loading) return
+            $elem.addClass(loadingClass)
+            scope.loading = true
+            scope.$digest()
         }
 
         let done = () => {
-            if(scope.loading){
-                $elem.removeClass('loading')
-                scope.loading = false
-                scope.$digest()
-            }
+            if(!scope.loading) return
+            $elem.removeClass(loadingClass)
+            scope.loading = false
+            scope.$digest()
         }
 
         let disable = () => $elem.attr('disabled', true)
@@ -44,10 +45,10 @@ export default class Buttons {
 
 
         scope.control = {
-            disable,
+            done,
             allow,
-            loading,
-            done
+            disable,
+            loading
         }
     }
 
@@ -56,8 +57,8 @@ export default class Buttons {
         let size = (attrs.size || 'default').toLowerCase()
         let type = (attrs.type || 'default').toLowerCase()
 
-        if(size !== 'default') $elem.addClass(`buttons-${size}`)
-        $elem.addClass(`buttons-${type}`)
-        if(this.isLoading) rootDOM::addClass('loading')
+        if(size !== 'default') rootDOM::addClass(`buttons-${size}`)
+        rootDOM::addClass(`buttons-${type}`)
+        if(this.isLoading) rootDOM::addClass(loadingClass)
     }
 }

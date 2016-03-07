@@ -1,11 +1,11 @@
 <div>
-    <ul class="nav nav-tabs nav-active">
-        <li ng-repeat="header in items track by $index" class="{{header.actived ? 'nav-active' : header.disabled ? 'disabled' : ''}}">
+    <ul class="fm-nav">
+        <li ng-repeat="header in items track by $index" class="{{header.actived ? 'fm-nav-active' : header.disabled ? 'fm-disabled' : ''}}">
             <a href="javascript:;" data-index="{{::$index}}">
                 {{::header.display}}
             </a>
         </li>
     </ul>
-    <div ng-transclude class="tab-container">
+    <div ng-transclude class="fm-tab-container">
     </div>
 </div>

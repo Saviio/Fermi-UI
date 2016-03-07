@@ -3,6 +3,7 @@ import angular from 'angular'
 import './fermi.scss'
 
 //import Fermi.components
+import './Core'
 import './Switch'
 import './Schedule'
 import './Tooltips'

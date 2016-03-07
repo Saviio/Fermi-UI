@@ -5,6 +5,7 @@ $small-btn-height:0px;
 
 
 @mixin loading($size){
+    /*
     .btn-loader {
         position: relative;
         text-indent: -9999em;
@@ -15,8 +16,8 @@ $small-btn-height:0px;
 
     .btn-loader,.btn-loader:after{
         border-radius: 50%;
-        width: $size+3px;
-        height: $size+3px;
+        width: $size + 3px;
+        height: $size + 3px;
     }
     &.loading{
         opacity:0.75;
@@ -36,29 +37,50 @@ $small-btn-height:0px;
             border-left: 0.2em solid #ffffff;
         }
     }
+    */
 }
+
+@mixin loader($size){
+    &.fm-button-loading{
+        padding-top:0px !important;
+        padding-bottom: 0px !important;
+        .fm-button-loader{
+            width: 16px;
+            padding-top: 1.5px;
+            height: $size+(-5px);
+            fill:$primary-btn-background;
+        }
+        pointer-events:none;
+    }
+
+    &.buttons-primary{
+        .fm-button-loader{
+            fill:#fff !important;
+        }
+    }
+}
+
+
 
 
 button.buttons-default{
     text-decoration: none;
-    //line-height: $buttonHeight;
     display:inline-block;
     font-family: "Helvetica Neue",Helvetica,"Hiragino Sans GB","Microsoft YaHei",SimSun,sans-serif;
     color:$default-btn-color;
     background-color:$default-btn-background;
-    border:darken($default-btn-background,20%) solid 1px;
+    border:darken($default-btn-background, 20%) solid 1px;
     padding-left:3px;
     padding-right:3px;
     text-align:center;
-    -webkit-user-select:none;
+    user-select:none;
     transition: color ease-in-out 100ms,background-color ease-in-out 100ms,border-color ease-in-out 100ms;
     border-radius: 3px;
-    //box-shadow: 0px 1px 2px rgba(0,0,0,0.25);
     font-size:12px;
     font-weight:normal;
     touch-action:manipulation;
     cursor:pointer;
-    padding:4px 15px;
+    padding:8px 12px;
     outline: none;
     vertical-align:middle;
     letter-spacing:normal;
@@ -79,34 +101,36 @@ button.buttons-default{
         box-shadow: 0 0 0 1px rgba(0,0,0,0) inset, 0 0 6px rgba(0,0,0,.35) inset;
     }
 
-    @include loading($default-font-size);
+    @include loader(34px);
+
 }
 
 button.buttons-primary{
     @extend button.buttons-default;
     color:$primary-btn-color;
     background-color:$primary-btn-background;
-    border:darken($primary-btn-background,10%) solid 1px;
+    border:darken($primary-btn-background, 10%) solid 1px;
 
     &:hover,&:visited{
         color:$primary-btn-color;
         text-decoration: none;
     }
+
     &:hover{
-        background: darken($primary-btn-background,5%);
+        background: darken($primary-btn-background, 5%);
     }
 }
 
 button.buttons-large{
-    padding:5px 15px 5px 15px;
+    padding:10px 14px;
     font-size:14px;
-    @include loading($large-font-size)
+    @include loader(41px)
 }
 
 button.buttons-small{
-    padding:1px 7px;
+    padding:4px 8px;
     font-size:12px;
-    @include loading($small-font-size)
+    @include loader(26px)
 }
 
 button[disabled],button[disabled]:hover{
@@ -123,7 +147,7 @@ button[disabled]:active{
 }
 
 
-
+/*
 
 @keyframes btn-loader {
   0% {
@@ -133,3 +157,4 @@ button[disabled]:active{
     transform: rotate(360deg);
   }
 }
+*/

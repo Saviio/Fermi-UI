@@ -32,6 +32,7 @@ let errTypeMessage = `Message Type is not a valid value, it should be set from o
 
 //custom(tmpl, scope){} 实现自定义模板
 //remark DOM leak check
+//remark use compile cloneFn
 
 @dependencies('$compile', '$rootScope')
 export default class Notification{
@@ -70,7 +71,7 @@ export default class Notification{
                     notificationNode::remove()
                     this.__tryDispose__()
                 }, 'fm-notice-show')
-                
+
         if(typeof callback === 'function'){
             callback()
         }
