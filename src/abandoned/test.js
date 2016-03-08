@@ -1337,3 +1337,42 @@ export default class Factory {
 }
 
 /**/
+
+
+/*TEST CODE*/
+import {
+    transitionProp,
+    transitionEndEvent,
+    animationProp,
+    animationEndEvent
+} from '../../utils/transitionEvents'
+let aaa = true
+/*TEST CODE*/
+
+            /*TEST CODE*/
+            let des = `
+                Direction: ${this.placement}
+                Popover:
+                    left:${left},
+                    top :${top},
+                Button:
+                    height:${triggerBtn.height/2},
+                    width :${triggerBtn.width/2}
+                Layer:
+                    height:${layer.height/2},
+                    width :${layer.width/2}
+
+                Layer:state:
+                    ${s}
+                Layer:HTML:
+                    ${a}
+            `
+            if(aaa){
+                let computed = window.getComputedStyle(layerElem)
+                let inline = layerElem.style
+                let transDuration = inline[`${transitionProp}Duration`] || computed[`${transitionProp}Duration`]
+                console.log(transDuration)
+                console.log(des)
+                aaa=false
+            }
+            /*TEST CODE*/

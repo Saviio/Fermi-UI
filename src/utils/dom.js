@@ -44,6 +44,19 @@ export function getStyle(el, name, removedUnit = ""){
     return style
 }
 
+export function hasClass(el, cls){
+    if(typeof el === 'string') [el, cls] = [this, el]
+    if(!isDOM(el)) return
+    let clsList
+    if (el.classList) {
+        clsList = Array.from(el.classList)
+    } else {
+        clsList = (el.getAttribute('class') || '').split(' ')
+    }
+
+    return clsList.indexOf(cls) > -1
+}
+
 export function addClass(el, cls){
     if(typeof el === 'string') [el, cls] = [this, el]
     if(!isDOM(el)) return
@@ -177,7 +190,7 @@ export function inDoc(el) {
 }
 
 
-export function toDOM(el){ //remark 支持多个元素 类似<span>123</span><div>321</div>  用fragment?
+export function toDOM(el){
     if(arguments.length === 0) el = this
     if(typeof el === 'string'){
         el = trim(el)
@@ -188,7 +201,6 @@ export function toDOM(el){ //remark 支持多个元素 类似<span>123</span><di
             fragment.appendChild(dom.firstChild)
         }
         el = fragment.childNodes.length === 1 ? fragment.childNodes[0] : fragment
-
     }
 
     return el
@@ -288,6 +300,8 @@ export function props(el, key){
 
     if(ret == undefined){
         return false
+    } else if(key === 'disabled' && ret === 'disabled'){
+        return true
     } else if(ret === ""){
         return true
     } else if(reBool.test(ret)){

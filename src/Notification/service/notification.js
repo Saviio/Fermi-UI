@@ -24,7 +24,7 @@ let defaultConfig = {
     duration:4.5
 }
 
-let compile = null
+
 let rootScope = null
 let reType = /default|normal|success|warn|error/
 let errTypeMessage = `Message Type is not a valid value, it should be set from one of following values: [default, normal, success, warn, error].`
@@ -32,7 +32,6 @@ let errTypeMessage = `Message Type is not a valid value, it should be set from o
 
 //custom(tmpl, scope){} 实现自定义模板
 //remark DOM leak check
-//remark use compile cloneFn
 
 @dependencies('$compile', '$rootScope')
 export default class Notification{
@@ -40,8 +39,8 @@ export default class Notification{
         this._rendered = false
         this._container = null
         this._config = defaultConfig
+        this.compiledTmpl = $compile(defaultMessage)
 
-        compile = $compile
         rootScope = $rootScope
     }
 
@@ -72,9 +71,7 @@ export default class Notification{
                     this.__tryDispose__()
                 }, 'fm-notice-show')
 
-        if(typeof callback === 'function'){
-            callback()
-        }
+        if(typeof callback === 'function') callback()
     }
 
 
@@ -98,16 +95,18 @@ export default class Notification{
             scope.$destroy()
         }
 
-        let content = compile(defaultMessage)(scope)[0]
-        let notification = this._body::prepend(content)
-        setTimeout(() => notification::addClass('fm-notice-show'), 50)
+        this.compiledTmpl(scope, cloneNode => {
+            let content = cloneNode[0]
+            let notification = this._body::prepend(content)
+            setTimeout(() => notification::addClass('fm-notice-show'), 50)
 
-        if(option.duration !== null && option.duration !== 0){
-            let duration = option.duration || this._config.duration
-            cancellId = setTimeout(() => {
-                this.__remove__(notification, scope.callback)
-            }, duration * 1000)
-        }
+            if(option.duration !== null && option.duration !== 0){
+                let duration = option.duration || this._config.duration
+                cancellId = setTimeout(() => {
+                    this.__remove__(notification, scope.callback)
+                }, duration * 1000)
+            }
+        })
     }
 
     config(config){

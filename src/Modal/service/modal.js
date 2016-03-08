@@ -172,9 +172,10 @@ export default class Modal{
 
         if(template::trim() === '') throw new Error(emptyTemplateError)
         let $template = angular.element(template)
-        
 
-        let modalScope = (options.scope || rootScope).$new()
+        let passInScope = (options.scope || rootScope)
+        passInScope = passInScope.__NEW__ ? passInScope : passInScope.$new()
+        let modalScope = passInScope
         if(options.controller::getType() === 'String' || options.controller::getType() === 'Array'){
             let alias =
                 options.controllerAs::getType() === 'String'
@@ -274,6 +275,14 @@ export default class Modal{
         let scope = rootScope.$new()
         let modal, dismiss, ok
 
+        scope.__NEW__ = true
+
+        /*TEST CODE*/
+        let okBtn = {}, dismissBtn = {}
+        scope.okBtn = okBtn
+        scope.dismissBtn = dismissBtn
+        /*TEST CODE*/
+
         angular.extend(scope, {
             width:width,
             content:options.content,
@@ -284,7 +293,10 @@ export default class Modal{
                 dismiss()
             },
             onOk: () => {
-                modal.ok.then(() => modal.close())
+                modal.ok.then((v) => {
+                    debugger
+                    modal.close()
+                })
                 ok()
             }
         })
@@ -295,7 +307,11 @@ export default class Modal{
         modal = this.open(options)
         modal.dismiss = new Promise(resolve => dismiss = resolve)
         modal.ok = new Promise(resolve => ok = resolve)
-
+        /*TEST CODE*/
+        modal.okBtn = okBtn
+        modal.dismissBtn = dismissBtn
+        modal.scope = scope
+        /*TEST CODE*/
         return modal
     }
 

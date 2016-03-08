@@ -2,8 +2,11 @@ import { dependencies } from '../../external/dependencies'
 import template from '../template/template.html'
 import loader from '../template/loader.svg'
 import {
+    on,
     props,
+    hasClass,
     addClass,
+    removeClass
 } from '../../utils'
 
 const loadingClass = 'fm-button-loading'
@@ -21,28 +24,50 @@ export default class Buttons {
         this.template = template
     }
 
-    @dependencies('$scope', '$attrs', '$element')
+    compile(tElement){
+        this.rootDOM = tElement[0]
+        return this.link
+    }
+
+    @dependencies('$scope', '$attrs')
     controller(scope, attrs, $elem){
         this.isLoading = $elem::props('loading')
+        this.disabled = $elem::props('disabled')
         scope.loading = this.isLoading
 
-        let loading = () => {
-            if(scope.loading) return
-            $elem.addClass(loadingClass)
+        let disable = fn => {
+            this.disabled = true
+            this.rootDOM.setAttribute('disabled', true)
+            this.rootDOM::addClass('fm-button-disabled')
+            if(typeof fn === 'function') fn()
+        }
+        let allow = fn=> {
+            this.disabled = false
+            this.rootDOM.removeAttribute('disabled')
+            this.rootDOM::removeClass('fm-button-disabled')
+            if(typeof fn === 'function') fn()
+        }
+
+        let loading = (force = false) => {
+            if(scope.loading && !force) return
+            this.rootDOM::addClass(loadingClass)
             scope.loading = true
-            scope.$digest()
+            if(!this.disabled){
+                //set disable on DOM to prevent eventlistener will not be fired when button is in loading.
+                this.rootDOM.setAttribute('disabled', true)
+            }
+            if(!/\$apply|\$digest/.test(scope.$root.$$phase)) scope.$digest()
         }
 
-        let done = () => {
-            if(!scope.loading) return
-            $elem.removeClass(loadingClass)
+        let done = (force = false) => {
+            if(!scope.loading && !force) return
+            this.rootDOM::removeClass(loadingClass)
             scope.loading = false
-            scope.$digest()
+            if(!this.disabled){
+                this.rootDOM.removeAttribute('disabled')
+            }
+            if(!/\$apply|\$digest/.test(scope.$root.$$phase)) scope.$digest()
         }
-
-        let disable = () => $elem.attr('disabled', true)
-        let allow = () => $elem.removeAttr('disabled')
-
 
         scope.control = {
             done,
@@ -53,12 +78,11 @@ export default class Buttons {
     }
 
     link(scope, $elem, attrs, ctrl){
-        let rootDOM = $elem[0]
         let size = (attrs.size || 'default').toLowerCase()
         let type = (attrs.type || 'default').toLowerCase()
 
-        if(size !== 'default') rootDOM::addClass(`buttons-${size}`)
-        rootDOM::addClass(`buttons-${type}`)
-        if(this.isLoading) rootDOM::addClass(loadingClass)
+        if(size !== 'default') this.rootDOM::addClass(`buttons-${size}`)
+        this.rootDOM::addClass(`buttons-${type}`)
+        if(this.isLoading) scope.control.loading(true)
     }
 }

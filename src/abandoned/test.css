@@ -1,0 +1,47 @@
+@mixin loading($size){
+    /*
+    .btn-loader {
+        position: relative;
+        text-indent: -9999em;
+        transform: translateZ(0);
+        animation: btn-loader 1.1s infinite linear;
+        border-radius: 50%;
+    }
+
+    .btn-loader,.btn-loader:after{
+        border-radius: 50%;
+        width: $size + 3px;
+        height: $size + 3px;
+    }
+    &.loading{
+        opacity:0.75;
+        pointer-events:none;
+    }
+
+    &.buttons-default{
+        .btn-loader {
+            border:0.2em solid rgba(140, 140, 140, 0.37);
+            border-left: 0.2em solid $primary-btn-background;
+        }
+    }
+
+    &.buttons-primary{
+        .btn-loader{
+            border: 0.2em solid rgba(255, 255, 255, 0.2);
+            border-left: 0.2em solid #ffffff;
+        }
+    }
+    */
+}
+
+/*
+
+@keyframes btn-loader {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+*/

@@ -4,63 +4,65 @@ $large-btn-height:50px;
 $small-btn-height:0px;
 
 
-@mixin loading($size){
-    /*
-    .btn-loader {
-        position: relative;
-        text-indent: -9999em;
-        transform: translateZ(0);
-        animation: btn-loader 1.1s infinite linear;
-        border-radius: 50%;
-    }
 
-    .btn-loader,.btn-loader:after{
-        border-radius: 50%;
-        width: $size + 3px;
-        height: $size + 3px;
-    }
-    &.loading{
-        opacity:0.75;
-        pointer-events:none;
-    }
-
-    &.buttons-default{
-        .btn-loader {
-            border:0.2em solid rgba(140, 140, 140, 0.37);
-            border-left: 0.2em solid $primary-btn-background;
-        }
-    }
-
-    &.buttons-primary{
-        .btn-loader{
-            border: 0.2em solid rgba(255, 255, 255, 0.2);
-            border-left: 0.2em solid #ffffff;
-        }
-    }
-    */
-}
 
 @mixin loader($size){
     &.fm-button-loading{
         padding-top:0px !important;
         padding-bottom: 0px !important;
+        background-color:$default-btn-background;
+        border:darken($default-btn-background, 20%) solid 1px;
+
         .fm-button-loader{
             width: 16px;
             padding-top: 1.5px;
             height: $size+(-5px);
             fill:$primary-btn-background;
         }
-        pointer-events:none;
+        //pointer-events:none;
+        &:active{
+            box-shadow: none;
+        }
+
+        &:hover{
+            background: $default-btn-background;
+            cursor: initial;
+        }
     }
 
-    &.buttons-primary{
+    &.buttons-primary.fm-button-loading{
+        background: $primary-btn-background !important;
+        border:darken($primary-btn-background, 10%) solid 1px !important;
+
         .fm-button-loader{
             fill:#fff !important;
+        }
+
+        &:hover{
+            background: $primary-btn-background !important;
+            border:darken($primary-btn-background, 10%) solid 1px !important;
         }
     }
 }
 
 
+@mixin disable(){
+    &.buttons-primary.fm-button-disabled[disabled=true],
+    &.buttons-default.fm-button-disabled[disabled=true],
+    &.buttons-primary.fm-button-disabled[disabled=disabled],
+    &.buttons-default.fm-button-disabled[disabled=disabled]{
+        color:#ccc !important;
+        background-color:#f3f5f7 !important;
+        border-color:#d9d9d9 !important;
+    }
+
+    &.buttons-primary.fm-button-disabled[disabled=true],
+    &.buttons-primary.fm-button-disabled[disabled=disabled]{
+        .fm-button-loader{
+            fill:#ccc !important;
+        }
+    }
+}
 
 
 button.buttons-default{
@@ -74,7 +76,7 @@ button.buttons-default{
     padding-right:3px;
     text-align:center;
     user-select:none;
-    transition: color ease-in-out 100ms,background-color ease-in-out 100ms,border-color ease-in-out 100ms;
+    transition: color ease-in-out 100ms, background-color ease-in-out 100ms, border-color ease-in-out 100ms, width ease-in-out 100ms;
     border-radius: 3px;
     font-size:12px;
     font-weight:normal;
@@ -86,7 +88,6 @@ button.buttons-default{
     letter-spacing:normal;
     word-spacing:normal;
     white-space:nowrap;
-
 
     &:hover,&:visited{
         color:$default-btn-color;
@@ -102,7 +103,7 @@ button.buttons-default{
     }
 
     @include loader(34px);
-
+    @include disable;
 }
 
 button.buttons-primary{
@@ -119,25 +120,53 @@ button.buttons-primary{
     &:hover{
         background: darken($primary-btn-background, 5%);
     }
+
+
 }
 
 button.buttons-large{
     padding:10px 14px;
     font-size:14px;
     @include loader(41px)
+    @include disable;
 }
 
 button.buttons-small{
     padding:4px 8px;
     font-size:12px;
     @include loader(26px)
+    @include disable;
 }
 
-button[disabled],button[disabled]:hover{
-    color:#ccc;
-    background-color:#f3f5f7;
-    border-color:#d9d9d9;
+
+button[disabled=true],
+button[disabled=true]:hover,
+button[disabled=disabled],
+button[disabled=disabled]:hover,{
+    color:#ccc !important;
+    background-color:#f3f5f7 !important;
+    border-color:#d9d9d9 !important;
 }
+
+/*
+.fm-button-disabled[disabled],
+.fm-button-disabled[disabled]:hover,
+.fm-button-disabled[disabled=true],
+.fm-button-disabled[disabled=true]:hover,
+{
+    color:#ccc !important;
+    background-color:#f3f5f7 !important;
+    border-color:#d9d9d9 !important;
+}
+*/
+/*
+button.buttons-primary[disabled],button.buttons-default[disabled], button.buttons-primary[disabled]:hover,button.buttons-default[disabled]:hover{
+    color:#ccc !important;
+    background-color:#f3f5f7 !important;
+    border-color:#d9d9d9 !important;
+}
+*/
+
 
 button[disabled]:hover{
     cursor: not-allowed;
@@ -145,16 +174,3 @@ button[disabled]:hover{
 button[disabled]:active{
     box-shadow:none;
 }
-
-
-/*
-
-@keyframes btn-loader {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-*/

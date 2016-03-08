@@ -61,6 +61,7 @@ app.controller(
         $scope.tmp=scheduleItems[0]
         $scope.checkbox
         $scope.radio = {}
+        $scope.z
 
         var tmp2=scheduleItems[1]
         $scope.checkboxOnChange = v => console.log(v)
@@ -89,16 +90,28 @@ app.controller(
             })
             console.log(modalIns)
 
+
             modalIns.ok.then(() => {
-                modal.normal({
-                    content:'Normal Modal No.2',
-                    width:240
+                console.log(arguments)
+                return new Promise((res, rej) => {
+                    modalIns.scope.okBtn.loading()
+                    debugger
+                    setTimeout(() => {
+                        modal.normal({
+                            content:'Normal Modal No.2',
+                            width:240
+                        })
+                        modalIns.scope.okBtn.done()
+                        res()
+                    }, 5000)
                 })
-                throw new Error('error')
             })
-            .catch(() => {
-                console.log('Error!')
+            .catch(e => {
+                console.log(e)
             })
+
+
+
 
             modalIns.dismiss.then(() => {
                 console.log('dismiss')
