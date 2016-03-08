@@ -66,8 +66,8 @@
 
 .fm-checkbox-checked{
     .fm-checkbox-inner{
-        border-color:$form-actived-border;
-        background: $form-actived-background;
+        border-color:darken($green, 3%);
+        background:$green;
 
         &:after{
             transform: rotate(45deg) scale(1);

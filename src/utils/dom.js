@@ -4,6 +4,8 @@ let testElem = document.createElement('div')
 let reUnit = /width|height|top|left|right|bottom|margin|padding/i
 let reBool = /true|false/i
 let fragmentType = 11
+let fetchLastEl = node => node.type === fragmentType ? node.lastChild : node
+let fetchFirstEl = node => node.type === fragmentType ? node.firstChild : node
 
 export function getCoords(el){
     if(el === undefined) el = this
@@ -114,16 +116,11 @@ export function off(el, event, cb){
     return el
 }
 
-/*
-export function splitElem(nodes){
-    if(nodes.child)
-}
-*/
 
 export function before(target, el){
     if(arguments.length === 1) [target, el] = [this, target]
     el = toDOM(el)
-    let lastEl = el.lastChild
+    let lastEl = fetchLastEl(el)
     target.parentNode.insertBefore(el, target)
     return lastEl
 }
@@ -132,21 +129,21 @@ export function before(target, el){
 export function after(target, el){
     if(arguments.length === 1) [target, el] = [this, target]
     el = toDOM(el)
-    let lastEl = el.lastChild
+    let lastEl = fetchLastEl(el)
     return target.nextSibling? before(target.nextSibling, el) : target.parentNode.appendChild(el), lastEl
 }
 
 export function prepend(target, el){
     if(arguments.length === 1) [target, el] = [this, target]
     el = toDOM(el)
-    let firstEl = el.firstChild
+    let firstEl = fetchFirstEl(el)
     return target.firstChild ? target.firstChild::before(el) : target.appendChild(el), firstEl
 }
 
 export function last(target, el){
     if(arguments.length === 1) [target, el] = [this, target]
     el = toDOM(el)
-    let lastEl = el.lastChild
+    let lastEl = fetchLastEl(el)
     return target.length > 0 ? target.lastChild::after(el) : target.appendChild(el), lastEl
 }
 
@@ -155,15 +152,16 @@ export function remove(el){
     el.parentNode.removeChild(el)
 }
 
-export function replace(target, el){ //remark
+export function replace(target, el){
     if(arguments.length === 1) [target, el] = [this, target]
     el = toDOM(el)
 
+    let lastEl = fetchLastEl(el)
     let parent = target.parentNode
     if(parent){
         parent.replaceChild(el, target)
     }
-    return el
+    return lastEl
 }
 
 export function isDOM(el){
@@ -178,34 +176,34 @@ export function inDoc(el) {
     return doc === el || doc === parent || !!(parent && parent.nodeType === 1 && (doc.contains(parent)))
 }
 
+
 export function toDOM(el){ //remark 支持多个元素 类似<span>123</span><div>321</div>  用fragment?
     if(arguments.length === 0) el = this
     if(typeof el === 'string'){
         el = trim(el)
         let dom = createElem('div')
-
         let fragment = document.createDocumentFragment()
         dom.innerHTML = el
         while(dom.firstChild){
             fragment.appendChild(dom.firstChild)
         }
-        
         el = fragment.childNodes.length === 1 ? fragment.childNodes[0] : fragment
 
-        /*
-        dom.innerHTML = el
-        el = dom.firstChild
-        */
     }
 
     return el
 }
 
 /*
-function fragmentFromString(strHTML) {
-    var temp = document.createElement('template');
-    temp.innerHTML = strHTML;
-    return temp.content;
+//not supported in old browsers
+export function toDOM(el) {
+    if(arguments.length === 0) el = this
+    if(typeof el === 'string'){
+        var temp = document.createElement('template');
+        temp.innerHTML = strHTML;
+        return temp.content;
+    }
+    return el
 }
 */
 
@@ -271,6 +269,7 @@ export function setStyle(el, styles){
     } else {
         el.setAttribute('style', styleText)
     }
+    return el
 }
 
 export function props(el, key){
