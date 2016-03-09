@@ -11,9 +11,9 @@ export default class circle{
         this.replace = true
         this.restrict = 'EA'
         this.template = template
-        this.require = '^ngModel'
+        //this.require = '^ngModel'
         this.scope = {
-            ngModel:'=',
+            value:'=',
             label:'@'
         }
 
@@ -26,7 +26,7 @@ export default class circle{
             const C = scope.radius * 2 * PI
             return {
                 'stroke-dasharray'  : `${C}px ${C}px`,
-                'stroke-dashoffset' : `${C - C * scope.ngModel / 100}`
+                'stroke-dashoffset' : `${C - C * scope.value / 100}`
             }
         }
 
@@ -40,6 +40,7 @@ export default class circle{
         let shape = attrs.shape || 'round'
         let showinfo = !!(attrs.showinfo || false)
         let isProgress = $elem::props('progress')
+        let defaultValue = ~~($elem::props('default')  || 0)
         let radius = null
 
         let moveTo = size / 2
@@ -55,7 +56,7 @@ export default class circle{
         paths[paths.length - 1].setAttribute('stroke-linecap', shape)
 
         if(showinfo){
-            let format = (attrs.format || '${percent}').replace('${percent}', $0 => '{{ngModel}}')
+            let format = (attrs.format || '${percent}').replace('${percent}', $0 => '{{value}}')
             let unit   =  typeof attrs.unit === 'string' ? attrs.unit : '%'
             let tmpl   = `<span>${format} ${unit ? '<sup>'+unit+'</sup>' :''}</span>`
             let innerDIV = $elem.find('div').append(tmpl)
@@ -76,11 +77,11 @@ export default class circle{
             }
 
             let valueCheck = () => {
-                if(scope.ngModel > 100) scope.ngModel = 100
-                else if(scope.ngModel < 0) scope.ngModel = 0
+                if(scope.value > 100) scope.value = 100
+                else if(scope.value < 0) scope.value = 0
             }
 
-            scope.$watch('ngModel',(newValue, oldValue) => {
+            scope.$watch('value',(newValue, oldValue) => {
                 if(newValue === oldValue) return
                 valueCheck()
                 if(newValue >= 100 && inProgress){

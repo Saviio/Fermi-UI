@@ -8,7 +8,7 @@ import * as utils from '../utils'
 
 
 export default angular.module('Fermi.core', [])
-	.directive('fermiDefault', factory.directive(fermiDefault))
+	//.directive('fermiDefault', factory.directive(fermiDefault))
 	.directive('disabled', factory.directive(fermiDisable))
     .filter('range', fermiRangeFilter)
 	.filter('plain', fermiPlainFilter)

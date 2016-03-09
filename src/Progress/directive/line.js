@@ -1,7 +1,9 @@
 import { dependencies } from '../../external/dependencies'
 import template from '../template/line.html'
 import {
+    props,
     query,
+    getType,
     addClass,
     removeClass
 } from '../../utils'
@@ -10,10 +12,10 @@ export default class Line{
     constructor(){
         this.replace = true
         this.restrict = 'EA'
-        this.require = '^ngModel'
+        //this.require = '^ngModel'
         this.scope = {
             success:'=',
-            ngModel:'=', //remark value
+            value:'=', //remark value
             label:'@'
         }
         this.template = template
@@ -30,13 +32,17 @@ export default class Line{
     @dependencies('$scope')
     controller(scope){}
 
-    link(scope, $element, attrs, ctrl){
+    link(scope, $elem, attrs, ctrl){
+        let defaultValue = ~~($elem::props('default')  || 0)
+
+        scope.value = defaultValue
+
         let valueCheck = function(){
-            if(scope.ngModel > 100) scope.ngModel = 100
-            else if(scope.ngModel < 0) scope.ngModel = 0
+            if(scope.value > 100) scope.value = 100
+            else if(scope.value < 0) scope.value = 0
         }
 
-        let inProgress = scope.ngModel >= 100
+        let inProgress = scope.value >= 100
 
         let success = () => {
             this.rootDOM::addClass('progress-success')
@@ -47,7 +53,7 @@ export default class Line{
             this.rootDOM::removeClass('progress-success')
         }
 
-        scope.$watch('ngModel', (newValue, oldValue) => {
+        scope.$watch('value', (newValue, oldValue) => {
             if(newValue === oldValue) return
             valueCheck()
             if(newValue >= 100 && inProgress){

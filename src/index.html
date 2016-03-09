@@ -55,8 +55,8 @@
 
         <div id="fermiswitch">
             <p>开关器</p>
-            <Fermi:switch ng-model="item" ng-click="test(item)" fermi-default="true"></Fermi:switch>
-            <Fermi:switch ng-model="item" ng-click="test(item2)" fermi-default="false"></Fermi:switch>
+            <Fermi:switch value="item" ng-click="test(item)" default="true"></Fermi:switch>
+            <Fermi:switch value="item" ng-click="test(item2)" default="false"></Fermi:switch>
         </div>
 
         <div id="fermiTooltips" >
@@ -80,13 +80,13 @@
         <div id="fermiProgress">
             <p>Progress bar</p>
             <div style="width:500px">
-                <Fermi:Line ng-model="entity1" fermi-default="100"></Fermi:Line>
+                <Fermi:Line value="entity1" default="100"></Fermi:Line>
                 <Fermi:Query control="entity2" actived></Fermi:Query>
                 <div style="width:132px;height:132px;display:inline-block">
-                    <Fermi:Circle ng-model="entity1" size="100" stroke-width="6" fermi-default="10" showInfo=true progress></Fermi:Circle>
+                    <Fermi:Circle value="entity1" size="100" stroke-width="6"  showInfo=true progress></Fermi:Circle>
                 </div>
                 <div style="width:132px;height:132px;display:inline-block">
-                    <Fermi:Circle ng-model="entity3" size="100" stroke-width="6" shape="rect" outer="#ccc"></Fermi:Circle>
+                    <Fermi:Circle value="entity3" size="100"  stroke-width="6" shape="rect" outer="#ccc"></Fermi:Circle>
                 </div>
             </div>
         </div>

@@ -90,9 +90,9 @@ app.controller(
                 width:300
             })
             //console.log(modalIns)
-            modalIns.prevent = true
+            //modalIns.prevent = true
             modalIns.ok.then((ok, dismiss) => {
-                ok.loading()
+                /*ok.loading()
                 return new Promise(res => {
                     setTimeout(() => {
                         modal.normal({
@@ -104,6 +104,10 @@ app.controller(
                 }).then(() => {
                     ok.done()
                     modalIns.close()
+                })*/
+                modal.normal({
+                    content:'Another Modal No.3',
+                    width:240
                 })
             })
             .catch(e => {
@@ -165,9 +169,9 @@ app.controller(
             console.log('ROOT')
         })
 
-
+        //$scope.entity1 = 0
         var rec=()=>{
-            if($scope.entity1>=100)
+                if($scope.entity1>=100)
                 $scope.entity1=0
             $scope.entity1+=10
             $scope.message += 1
@@ -181,7 +185,7 @@ app.controller(
 
         loading.start()
 
-        $scope.entity3=55
+        $scope.entity3 = 45
         $scope.selectEntity=null
         $scope.list=[
             { category: 'meat', name: 'Pepperoni' },

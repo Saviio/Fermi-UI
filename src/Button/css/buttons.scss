@@ -12,7 +12,7 @@ $small-btn-height:0px;
         padding-bottom: 0px !important;
         background-color:$default-btn-background;
         border:darken($default-btn-background, 20%) solid 1px;
-        
+
         .fm-button-loader{
             width: 16px;
             padding-top: 1.5px;
@@ -91,6 +91,7 @@ button.buttons-default{
     letter-spacing:normal;
     word-spacing:normal;
     white-space:nowrap;
+    height:34px;
 
     &:hover,&:visited{
         color:$default-btn-color;
@@ -123,13 +124,12 @@ button.buttons-primary{
     &:hover{
         background: darken($primary-btn-background, 5%);
     }
-
-
 }
 
 button.buttons-large{
     padding:10px 14px;
     font-size:14px;
+    height: 41px;
     @include loader(41px)
     @include disable;
 }
@@ -137,6 +137,7 @@ button.buttons-large{
 button.buttons-small{
     padding:4px 8px;
     font-size:12px;
+    height: 26px;
     @include loader(26px)
     @include disable;
 }

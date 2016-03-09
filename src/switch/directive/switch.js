@@ -1,21 +1,27 @@
+import { props } from '../../utils'
 import template from '../template/template.html'
 
+
+const trueBool = /(true)/i
 export default class Switch {
     constructor(){
         this.restrict = 'EA'
         this.replace = true
-        this.require = '^ngModel'
         this.scope = {
-            ngModel:'=',
+            value:'=',
             label:'@'
         }
         this.transclude = true
         this.template = template
     }
 
-    link(scope,$elem,attr,ctrl){
+    link(scope, $elem, attr, ctrl){
+        let defaultValue = $elem::props('default')
+        scope.value = defaultValue
         $elem.children()
             .find('span')
-            .bind('click',() => scope.ngModel = !scope.ngModel)
+            .bind('click',() => {
+                scope.value = !scope.value
+            })
     }
 }
