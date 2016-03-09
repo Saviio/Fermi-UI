@@ -8,7 +8,6 @@ import { nextFid } from '../utils'
 const FermiIdenitifer = 'data-fermiId'
 let _cache = new Map()
 
-
 export default class Factory {
 	static component(Directive) {
 		let factory = function (...args) {
@@ -23,7 +22,6 @@ export default class Factory {
 					let fmId = nextFid()
 					_cache.set(fmId, ins)
 					$elem.attr(FermiIdenitifer, fmId)
-
 
 					return (...linkArgs) => {
 						let [scope, $elem, ...restArgs] = linkArgs

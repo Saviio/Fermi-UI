@@ -70,11 +70,9 @@ export default class Popover{
     }
 
     link(scope, $element, attr, ctrl){
-
         this.rootDOM = $element[0]
         let layerElem = this.rootDOM::query('.popover')
         let trigger = this.rootDOM::query(attr.trigger)
-
 
         if(trigger === undefined){
             throw new Error("trigger element cannot be finded in component scope.")
@@ -121,7 +119,7 @@ export default class Popover{
                     return
             }
 
-            $ngLayer.css({left,top})
+            $ngLayer.css({ left, top })
         }
 
         scope.$layer = $ngLayer

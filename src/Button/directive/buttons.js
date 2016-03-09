@@ -11,7 +11,7 @@ import {
 
 const loadingClass = 'fm-button-loading'
 
-//IE9 pointer-event 没有兼容性 remark
+
 export default class Buttons {
     constructor(){
         this.restrict = 'EA'
@@ -24,13 +24,9 @@ export default class Buttons {
         this.template = template
     }
 
-    compile(tElement){
-        this.rootDOM = tElement[0]
-        return this.link
-    }
-
-    @dependencies('$scope', '$attrs')
+    @dependencies('$scope', '$attrs', '$element')
     controller(scope, attrs, $elem){
+        this.rootDOM = $elem[0]
         this.isLoading = $elem::props('loading')
         this.disabled = $elem::props('disabled')
         scope.loading = this.isLoading
@@ -41,7 +37,7 @@ export default class Buttons {
             this.rootDOM::addClass('fm-button-disabled')
             if(typeof fn === 'function') fn()
         }
-        let allow = fn=> {
+        let allow = fn => {
             this.disabled = false
             this.rootDOM.removeAttribute('disabled')
             this.rootDOM::removeClass('fm-button-disabled')
@@ -80,7 +76,8 @@ export default class Buttons {
     link(scope, $elem, attrs, ctrl){
         let size = (attrs.size || 'default').toLowerCase()
         let type = (attrs.type || 'default').toLowerCase()
-
+        //debugger
+        //console.log(this.rootDOM)
         if(size !== 'default') this.rootDOM::addClass(`buttons-${size}`)
         this.rootDOM::addClass(`buttons-${type}`)
         if(this.isLoading) scope.control.loading(true)

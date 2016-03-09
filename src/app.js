@@ -83,39 +83,38 @@ app.controller(
             width:200
         })
 
+
         $scope.confirmModal = () => {
             let modalIns = modal.confirm({
                 content:'Confirm Modal~~~',
                 width:300
             })
-            console.log(modalIns)
-
-
-            modalIns.ok.then(() => {
-                console.log(arguments)
-                return new Promise((res, rej) => {
-                    modalIns.scope.okBtn.loading()
-                    debugger
+            //console.log(modalIns)
+            modalIns.prevent = true
+            modalIns.ok.then((ok, dismiss) => {
+                ok.loading()
+                return new Promise(res => {
                     setTimeout(() => {
                         modal.normal({
-                            content:'Normal Modal No.2',
+                            content:'Another Modal No.3',
                             width:240
                         })
-                        modalIns.scope.okBtn.done()
                         res()
-                    }, 5000)
+                    }, 3000)
+                }).then(() => {
+                    ok.done()
+                    modalIns.close()
                 })
             })
             .catch(e => {
                 console.log(e)
             })
 
-
-
-
-            modalIns.dismiss.then(() => {
+            modalIns.dismiss.then((ok, dismiss) => {
                 console.log('dismiss')
+                modalIns.close()
             })
+
         }
 
         $timeout(()=> {

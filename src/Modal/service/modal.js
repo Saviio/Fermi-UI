@@ -101,6 +101,7 @@ class ModalInstance{
         this.closed = new Promise(resolve => resolves.closed = resolve)
         this.opened = new Promise(resolve => resolves.opened = resolve)
         this.close = null
+        this.isClosed = false
     }
 }
 
@@ -236,8 +237,11 @@ export default class Modal{
         }, resolves)
 
         modalIns.close = () => {
-            modalTransition.state = false
-            this.__remove__(openedId)
+            if(!modalIns.isClosed){
+                modalTransition.state = false
+                this.__remove__(openedId)
+                modalIns.isClosed = true
+            }
         }
 
         openedModals.push(modalIns)
@@ -277,27 +281,22 @@ export default class Modal{
 
         scope.__NEW__ = true
 
-        /*TEST CODE*/
-        let okBtn = {}, dismissBtn = {}
-        scope.okBtn = okBtn
-        scope.dismissBtn = dismissBtn
-        /*TEST CODE*/
-
         angular.extend(scope, {
             width:width,
             content:options.content,
             okText:options.okText,
             dismissText:options.dismissText,
             onDismiss: () => {
-                modal.dismiss.then(() => modal.close())
-                dismiss()
+                if(!modal.prevent){
+                    modal.dismiss.then(() => modal.close())
+                }
+                dismiss(scope.okBtn, scope.dismissBtn)
             },
             onOk: () => {
-                modal.ok.then((v) => {
-                    debugger
-                    modal.close()
-                })
-                ok()
+                if(!modal.prevent){
+                    modal.ok.then(() => modal.close())
+                }
+                ok(scope.okBtn, scope.dismissBtn)
             }
         })
 
@@ -307,11 +306,8 @@ export default class Modal{
         modal = this.open(options)
         modal.dismiss = new Promise(resolve => dismiss = resolve)
         modal.ok = new Promise(resolve => ok = resolve)
-        /*TEST CODE*/
-        modal.okBtn = okBtn
-        modal.dismissBtn = dismissBtn
-        modal.scope = scope
-        /*TEST CODE*/
+        modal.prevent = false
+
         return modal
     }
 
@@ -326,8 +322,10 @@ export default class Modal{
             content: options.content,
             okText: options.okText,
             onOk: () => {
-                modal.ok.then(() => modal.close())
-                ok()
+                if(!modal.prevent){
+                    modal.ok.then(() => modal.close())
+                }
+                ok(scope.okBtn)
             }
         })
 

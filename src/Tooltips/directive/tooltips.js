@@ -11,6 +11,7 @@ export default class Tooltips{
             offset:'@'
         }
         this.template = `<span ng-transclude></span>`
+        this.replace = true
     }
     controller(){}
 
