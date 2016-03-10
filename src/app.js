@@ -90,9 +90,9 @@ app.controller(
                 width:300
             })
             //console.log(modalIns)
-            //modalIns.prevent = true
+            modalIns.prevent = true
             modalIns.ok.then((ok, dismiss) => {
-                /*ok.loading()
+                ok.loading()
                 return new Promise(res => {
                     setTimeout(() => {
                         modal.normal({
@@ -104,11 +104,11 @@ app.controller(
                 }).then(() => {
                     ok.done()
                     modalIns.close()
-                })*/
-                modal.normal({
+                })
+                /*modal.normal({
                     content:'Another Modal No.3',
                     width:240
-                })
+                })*/
             })
             .catch(e => {
                 console.log(e)

@@ -12,10 +12,9 @@ export default class Line{
     constructor(){
         this.replace = true
         this.restrict = 'EA'
-        //this.require = '^ngModel'
         this.scope = {
-            success:'=',
-            value:'=', //remark value
+            success:'=?',
+            value:'=',
             label:'@'
         }
         this.template = template

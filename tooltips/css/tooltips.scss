@@ -1,24 +1,5 @@
 @import '../../theme.scss';
 
-.fm-tooltip{
-    position: relative;
-    display: inline;
-    .fm-tooltip-wrapper{
-        position: absolute;
-        //display: none;
-        //display: none;
-    }
-
-    .fm-tooltip-elem{
-        display: inline-block;
-        vertical-align: top;
-    }
-}
-
-
-
-
-
 .tooltip{
     position: absolute;
     z-index: 999;
