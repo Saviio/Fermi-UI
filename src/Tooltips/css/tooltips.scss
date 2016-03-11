@@ -3,10 +3,16 @@
 .fm-tooltip{
     position: relative;
     display: inline;
+
     .fm-tooltip-wrapper{
         position: absolute;
-        //display: none;
-        //display: none;
+        z-index: 9999;
+        display: none;
+        font-size: 12px;
+        line-height: 1.5;
+        opacity: 0;
+        transform: scale(0.1) translateZ(0);
+        transition: transform 300ms cubic-bezier(0.08, 0.82, 0.17, 1),opacity 300ms ease-out;
     }
 
     .fm-tooltip-elem{
@@ -15,13 +21,41 @@
     }
 }
 
+//.fm-tooltip
+.fm-tooltip-effect-enter,.fm-tooltip-effect-entered{
+    display: block !important;
+}
+
+.fm-tooltip-effect-enter-active,.fm-tooltip-effect-entered{
+    opacity: 0.9 !important;
+    transform: scale(1) !important;
+}
+
+.fm-tooltip-effect-leave{
+    display: block !important;
+}
+/*
+.fm-select-list-enter{
+    display: block !important;
+    animation:fadeInDown 0.3s 0s ease both;
+}
+.fm-select-list-entered{
+    opacity: 1 !important;
+    display: block !important;
+}
+.fm-select-list-leave{
+    display: block !important;
+    animation:fadeOutUp 0.3s 0s ease both;
+}
 
 
+*/
 
 
+/*
 .tooltip{
     position: absolute;
-    z-index: 999;
+    z-index: 9999;
     display: block;
     visibility: visible;
     font-size: 12px;
@@ -30,7 +64,7 @@
     visibility:visible;
     transition: transform 500ms cubic-bezier(0.08, 0.82, 0.17, 1),opacity 300ms ease-out;
 }
-
+*/
 .tooltip-arrow{
     position:absolute;
     width: 0;
@@ -46,16 +80,26 @@
 }
 
 .tooltip-top {
-  padding: 0px 0 9px 0;
+    > .fm-tooltip-wrapper{
+        padding: 0px 0 9px 0;
+    }
 }
 .tooltip-right {
-  padding: 0 0px 0 9px;
+    > .fm-tooltip-wrapper{
+        padding: 0 0px 0 9px;
+    }
+
 }
 .tooltip-bottom {
-  padding: 9px 0 0px 0;
+    > .fm-tooltip-wrapper{
+        padding: 9px 0 0px 0;
+    }
+
 }
 .tooltip-left {
-  padding: 0 9px 0 0px;
+    > .fm-tooltip-wrapper{
+        padding: 0 9px 0 0px;
+    }
 }
 
 .tooltip-left .tooltip-arrow{

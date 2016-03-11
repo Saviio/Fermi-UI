@@ -11,7 +11,7 @@ import {
 
 const loadingClass = 'fm-button-loading'
 
-
+//button svg animation IE9
 export default class Buttons {
     constructor(){
         this.restrict = 'EA'

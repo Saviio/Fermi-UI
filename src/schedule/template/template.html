@@ -30,8 +30,8 @@
                     </td>
                     <td ng-repeat="day in ::[] | range:headers.length track by $index" ng-init="parentIndex=$index">
                         <div ng-repeat="evt in ::[] | range:period.length track by $index" class="schedule-grid">
-                            <div class="schedule-event" style="{{hebdom[parentIndex][$index].height}}" ng-if="hebdom[parentIndex][$index].title != undefined">
-                                <div class="schedule-event-tag" style="{{hebdom[parentIndex][$index].color}}" ></div>
+                            <div class="schedule-event" ng-attr-style={{hebdom[parentIndex][$index].height}} ng-if="hebdom[parentIndex][$index].title != undefined">
+                                <div class="schedule-event-tag" ng-attr-style="{{hebdom[parentIndex][$index].color}}" ></div>
                                 <div class="schedule-event-content">
                                     <div>
                                         {{hebdom[parentIndex][$index].title}}

@@ -81,7 +81,6 @@ button.buttons-default{
     user-select:none;
     transition: color ease-in-out 100ms, background-color ease-in-out 100ms, border-color ease-in-out 100ms, width ease-in-out 100ms;
     border-radius: 3px;
-    font-size:12px;
     font-weight:normal;
     touch-action:manipulation;
     cursor:pointer;
@@ -92,6 +91,8 @@ button.buttons-default{
     word-spacing:normal;
     white-space:nowrap;
     height:34px;
+    font-size:12px;
+    
 
     &:hover,&:visited{
         color:$default-btn-color;

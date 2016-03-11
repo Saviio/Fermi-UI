@@ -32,7 +32,7 @@ export function getStyle(el, name, removedUnit = ""){
 
     var style = window.getComputedStyle ? window.getComputedStyle(el, null)[name] : el.currentStyle[name]
 
-    if((name === 'width' || name === 'height') && style === 'auto'){
+    if((name === 'width' || name === 'height')){
         if(name == 'width') style = el.offsetWidth
         else if(name == 'height') style = el.offsetHeight
     }
@@ -280,6 +280,33 @@ export function setStyle(el, styles){
         el.style.cssText = styleText
     } else {
         el.setAttribute('style', styleText)
+    }
+    return el
+}
+
+export function removeStyle(el, shouldRemovedStyles){
+    if(arguments.length === 1) [el, shouldRemovedStyles] = [this, el]
+
+    let hasCSSText = (typeof el.style.cssText) !== 'undefined'
+    let styleText, style = {}
+
+    let ignoreKeys = Object.keys(shouldRemovedStyles)
+    styleText = hasCSSText ? el.style.cssText : el.getAttribute('style')
+    styleText.split(';').forEach(css => {
+        if(css.indexOf(':') !== -1){
+            let [key, value] = css.split(':')
+            key = key.trim()
+            if(ignoreKeys.indexOf(key) === -1){
+                style[key.trim()] = value.trim()
+            }
+        }
+    })
+
+    let newStyleText = Object.keys(style).map(key => key + ': ' + style[key] + ';').join(' ')
+    if(hasCSSText){
+        el.style.cssText = newStyleText
+    } else {
+        el.setAttribute('style', newStyleText)
     }
     return el
 }

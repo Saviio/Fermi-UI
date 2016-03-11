@@ -1,6 +1,6 @@
 <div>
     <ul class="fm-nav">
-        <li ng-repeat="header in items track by $index" class="{{header.actived ? 'fm-nav-active' : header.disabled ? 'fm-disabled' : ''}}">
+        <li ng-repeat="header in items track by $index" ng-attr-class="{{header.actived ? 'fm-nav-active' : header.disabled ? 'fm-disabled' : ''}}">
             <a href="javascript:;" data-index="{{::$index}}">
                 {{::header.display}}
             </a>
