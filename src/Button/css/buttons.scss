@@ -3,7 +3,9 @@
 $large-btn-height:50px;
 $small-btn-height:0px;
 
-
+.loa{
+    animation:rotate360 700ms linear infinite;
+}
 
 
 @mixin loader($size){
@@ -15,9 +17,11 @@ $small-btn-height:0px;
 
         .fm-button-loader{
             width: 16px;
-            padding-top: 1.5px;
-            height: $size+(-5px);
+            //padding-top: 1.5px;
+            //height: $size+(-5px);
+            height:100%;
             fill:$primary-btn-background;
+            animation:rotate360 700ms linear infinite;
         }
 
         &:active{
@@ -92,7 +96,7 @@ button.buttons-default{
     white-space:nowrap;
     height:34px;
     font-size:12px;
-    
+
 
     &:hover,&:visited{
         color:$default-btn-color;

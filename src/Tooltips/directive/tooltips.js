@@ -58,7 +58,7 @@ export default class Tooltips{
                 let display = 'block', opacity = 1, transform = 'scale(1)'
                 tooltipBody::setStyle({ display, opacity, transform })
                 tooltipBody::forceReflow()
-                debugger
+                //debugger
                 reset = true
             }
 
