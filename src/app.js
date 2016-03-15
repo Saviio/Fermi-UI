@@ -170,13 +170,14 @@ app.controller(
         })
 
         //$scope.entity1 = 0
-        var rec=()=>{
-                if($scope.entity1>=100)
-                $scope.entity1=0
-            $scope.entity1+=10
+
+        var rec= () => {
+            if($scope.entity1 >= 100)
+            $scope.entity1 = 0
+            $scope.entity1 += 10
             $scope.message += 1
             //console.log($scope.selectEntity)
-            $timeout(rec,1000)
+            $timeout(rec, 1000)
         }
 
         $timeout(rec,100)
@@ -272,4 +273,6 @@ app.controller('secondCtrl', ['$timeout', function($timeout){
         window.rradio = [this.radio1, this.radio2, this.radio3]
         window.radioGroup = this.group
     }, 10);
+
+    this.test3='hahaha'
 }])

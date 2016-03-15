@@ -16,7 +16,6 @@ import {
 
  import { transition } from '../../utils/transition'
 
-//不要放在全局 remark
 @dependencies('$compile')
 export default class Tooltips{
     constructor($compile){
@@ -31,15 +30,6 @@ export default class Tooltips{
         this.replace = true
     }
 
-    @dependencies('$scope')
-    controller(scope){
-        scope.close = (force = false) => {
-            if(force) scope.isOpen = false
-            else if(scope.isOpen !== false) scope.isOpen = !scope.isOpen
-            scope.tooltip::addClass('pop-disappear-animation')
-        }
-    }
-
     link(scope, $elem, attr, ctrl){
         let actived = $elem::props('actived')
         let rootDOM = $elem[0]
@@ -52,14 +42,13 @@ export default class Tooltips{
         scope.tooltip = tooltipBody
 
         setTimeout(() => {
-            let reset = false
+            let init = false
 
             if(isHidden(tooltipBody)){
                 let display = 'block', opacity = 1, transform = 'scale(1)'
                 tooltipBody::setStyle({ display, opacity, transform })
                 tooltipBody::forceReflow()
-                //debugger
-                reset = true
+                init = true
             }
 
             let trig = {
@@ -72,8 +61,6 @@ export default class Tooltips{
                 width: tooltipBody::getStyle('width', 'px')
             }
 
-            console.log("tooltip: " + JSON.stringify(tooltip))
-            console.log("trig: " + JSON.stringify(trig))
 
             let left, top
             switch (placement) {
@@ -98,7 +85,7 @@ export default class Tooltips{
             }
 
             tooltipBody::setStyle({ left, top })
-            if(reset){
+            if(init){
                 let display, opacity, transform
                 tooltipBody::removeStyle({ display, opacity, transform })
             }

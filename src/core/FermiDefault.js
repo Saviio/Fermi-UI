@@ -9,8 +9,7 @@ export default class FermiDefaultDirective{
 
     @dependencies('$scope', '$attrs', '$parse')
     controller($scope, $attrs, $parse){
-        let idf = $attrs.ngModel
-        let val = $scope[idf]
+        let val = $scope[$attrs.ngModel]
         if(val == undefined){
             val = $attrs.fermiDefault
             if(val === undefined) val = $attrs.value
