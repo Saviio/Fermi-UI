@@ -1,28 +1,29 @@
 @import '../../theme.scss';
 
-$progress-line-height:5px;
-.progress-line{
+$line-height:5px;
+
+.#{$prefixCls}-progress-line{
     position:relative;
 }
 
-.progress-success .progress-line-padding{
+.#{$prefixCls}-progress-success .#{$prefixCls}-progress-line-padding{
     background-color:#77B91B;
 }
 
-.progress-line-background{
+.#{$prefixCls}-progress-line-background{
     width:100%;
-    height:$progress-line-height;
+    height:$line-height;
     background-color:rgba($primary-background,0.1);
 }
 
-.progress-line-padding{
-    height: $progress-line-height;
+.#{$prefixCls}-progress-line-padding{
+    height: $line-height;
     border-radius:100px;
     background-color:$primary-background;
     transition: all 300ms cubic-bezier(0.08, 0.82, 0.17, 1);
 }
 
-.progress-line-inner{
+.#{$prefixCls}-progress-line-inner{
     display:inline-block;
     width:100%;
     background-color:rgba($primary-background,0.3);
@@ -30,9 +31,8 @@ $progress-line-height:5px;
         display:none;
     }
 }
-//animation:query .8s infinite cubic-bezier(.39,.575,.565,1)
-//animation:query2 1.6s infinite cubic-bezier(.39,.575,.565,1)
-.progress-line-text{
+
+.#{$prefixCls}-progress-line-text{
     text-align:left;
     width:35px;
     margin-left:10px;
@@ -42,7 +42,7 @@ $progress-line-height:5px;
     right:0;
 }
 
-.progress-line-wrap{
+.#{$prefixCls}-progress-line-wrapper{
     margin-right:45px;
     font-size:12px;
 }

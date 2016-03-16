@@ -25,7 +25,7 @@ export default class Loading{
     __tryDispose__(){
         if(this.instance !== null){
             this.instance = this.status = null
-            body.removeChild(dom::query('#progress-loading-elem'))
+            body.removeChild(dom::query('#fm-progress-loading-elem'))
         }
     }
 
@@ -33,7 +33,7 @@ export default class Loading{
         if(this.instance !== null) return this.instance
         body::last(template)
 
-        let ins = dom::query('#progress-loading-elem')
+        let ins = dom::query('#fm-progress-loading-elem')
         if(ins !== null){
             ins::setStyle({
                 transition: `width ${this.speed}ms ease-out, opacity ${this.speed}ms linear`,
@@ -74,11 +74,11 @@ export default class Loading{
             if (n >= 1) {
                 setTimeout(() => {
                     this.instance
-                        ::addClass('fm-progress-loading-disappear')
+                        ::addClass('fm-progress-loading-hide')
                         ::onMotionEnd(() => {
                             this.__tryDispose__()
                             next()
-                        }, 'fm-progress-loading-disappear')
+                        }, 'fm-progress-loading-hide')
                 }, this.speed)
             } else {
                 setTimeout(next, this.speed)

@@ -11,7 +11,6 @@ export default class circle{
         this.replace = true
         this.restrict = 'EA'
         this.template = template
-        //this.require = '^ngModel'
         this.scope = {
             value:'=',
             label:'@'

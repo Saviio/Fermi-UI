@@ -47,7 +47,7 @@ export class Select {
         this.select = this.rootDOM::query('.fm-select-inner')
         this.optionList = this.rootDOM::query('.fm-select-optionList')
         this.icon = this.rootDOM::query('.fm-select-icon')
-        this.size = ($tElement::props('size') || 'normal').toLowerCase()
+        this.size = ($tElement::props('size') || 'default').toLowerCase()
 
         if(!(isMulti || isTags) && isSearch){
             let searchTmpl = '<div><input placeholder="输入"/></div>'
@@ -154,7 +154,7 @@ export class Select {
             })
             this.searchInput::on('input', fn)
         }
-        
+
         this.rootDOM::addClass(`fm-select-wrapper-${this.size}`)
         this.select::on('click', scope.showOptionList)
 

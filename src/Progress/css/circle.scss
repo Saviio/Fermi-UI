@@ -1,12 +1,13 @@
 @import '../../theme.scss';
-.progress-circle-wrapper{
+
+.#{$prefixCls}-progress-circle-wrapper{
     display:inline-block;
     margin-right:8px;
     margin-bottom:5px;
     width: 100%;
     height: 100%;
 
-    .progress-circle-inner{
+    .#{$prefixCls}-progress-circle-inner{
         position:relative;
         span{
             width:100%;
@@ -33,8 +34,10 @@
     }
 }
 
-.progress-success .progress-circle-inner svg > path{
-    &:last-child{
-        stroke:#77B91B !important;
+.#{$prefixCls}-progress-success{
+    .#{$prefixCls}-progress-circle-inner svg > path{
+        &:last-child{
+            stroke:#77B91B !important;
+        }
     }
 }

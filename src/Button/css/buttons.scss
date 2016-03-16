@@ -3,22 +3,16 @@
 $large-btn-height:50px;
 $small-btn-height:0px;
 
-.loa{
-    animation:rotate360 700ms linear infinite;
-}
-
 
 @mixin loader($size){
-    &.fm-button-loading{
+    &.#{$prefixCls}-button-loading{
         padding-top:0px !important;
         padding-bottom: 0px !important;
         background-color:$default-btn-background;
         border:darken($default-btn-background, 20%) solid 1px;
 
-        .fm-button-loader{
+        .#{$prefixCls}-button-loader{
             width: 16px;
-            //padding-top: 1.5px;
-            //height: $size+(-5px);
             height:100%;
             fill:$primary-btn-background;
             animation:rotate360 700ms linear infinite;
@@ -34,11 +28,11 @@ $small-btn-height:0px;
         }
     }
 
-    &.buttons-primary.fm-button-loading{
+    &.#{$prefixCls}-buttons-primary.#{$prefixCls}-button-loading{
         background: $primary-btn-background !important;
         border:darken($primary-btn-background, 10%) solid 1px !important;
 
-        .fm-button-loader{
+        .#{$prefixCls}-button-loader{
             fill:#fff !important;
         }
 
@@ -51,10 +45,10 @@ $small-btn-height:0px;
 
 
 @mixin disable(){
-    &.buttons-primary.fm-button-disabled[disabled=true],
-    &.buttons-default.fm-button-disabled[disabled=true],
-    &.buttons-primary.fm-button-disabled[disabled=disabled],
-    &.buttons-default.fm-button-disabled[disabled=disabled]{
+    &.#{$prefixCls}-buttons-primary.#{$prefixCls}-button-disabled[disabled=true],
+    &.#{$prefixCls}-buttons-default.#{$prefixCls}-button-disabled[disabled=true],
+    &.#{$prefixCls}-buttons-primary.#{$prefixCls}-button-disabled[disabled=disabled],
+    &.#{$prefixCls}-buttons-default.#{$prefixCls}-button-disabled[disabled=disabled]{
         color:#ccc !important;
         background-color:#f3f5f7 !important;
         border-color:#d9d9d9 !important;
@@ -63,8 +57,8 @@ $small-btn-height:0px;
         }
     }
 
-    &.buttons-primary.fm-button-disabled[disabled=true],
-    &.buttons-primary.fm-button-disabled[disabled=disabled]{
+    &.#{$prefixCls}-buttons-primary.#{$prefixCls}-button-disabled[disabled=true],
+    &.#{$prefixCls}-buttons-primary.#{$prefixCls}-button-disabled[disabled=disabled]{
         .fm-button-loader{
             fill:#ccc !important;
         }
@@ -72,7 +66,7 @@ $small-btn-height:0px;
 }
 
 
-button.buttons-default{
+button.#{$prefixCls}-buttons-default{
     text-decoration: none;
     display:inline-block;
     font-family: "Helvetica Neue",Helvetica,"Hiragino Sans GB","Microsoft YaHei",SimSun,sans-serif;
@@ -116,8 +110,8 @@ button.buttons-default{
     @include disable;
 }
 
-button.buttons-primary{
-    @extend button.buttons-default;
+button.#{$prefixCls}-buttons-primary{
+    @extend button.#{$prefixCls}-buttons-default;
     color:$primary-btn-color;
     background-color:$primary-btn-background;
     border:darken($primary-btn-background, 10%) solid 1px;
@@ -132,7 +126,7 @@ button.buttons-primary{
     }
 }
 
-button.buttons-large{
+button.#{$prefixCls}-buttons-large{
     padding:10px 14px;
     font-size:14px;
     height: 41px;
@@ -140,7 +134,7 @@ button.buttons-large{
     @include disable;
 }
 
-button.buttons-small{
+button.#{$prefixCls}-buttons-small{
     padding:4px 8px;
     font-size:12px;
     height: 26px;
@@ -148,7 +142,7 @@ button.buttons-small{
     @include disable;
 }
 
-
+/*
 button[disabled=true],
 button[disabled=true]:hover,
 button[disabled=disabled],
@@ -157,7 +151,7 @@ button[disabled=disabled]:hover,{
     background-color:#f3f5f7 !important;
     border-color:#d9d9d9 !important;
 }
-
+*/
 /*
 .fm-button-disabled[disabled],
 .fm-button-disabled[disabled]:hover,

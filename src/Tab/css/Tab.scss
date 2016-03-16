@@ -1,12 +1,16 @@
-.fm-nav{
+@import '../../theme.scss';
+
+.#{$prefixCls}-nav{
     border-bottom:1px solid #ddd;
     &:before{
         display:table;
         content: " "
     }
+
     &:after{
         clear:both;
     }
+
     li{
         a{
             color:#337ab7;
@@ -21,16 +25,17 @@
                 background-color: #eee;
             }
         }
+
         display:inline-block;
         margin-bottom:-1px;
         position:relative;
-        //bottom:-1px;
     }
 
     list-style:none;
     padding-left:0;
     margin-bottom:15px;
-    li.fm-disabled{
+
+    li.#{$prefixCls}-disabled{
         a{
             &:hover,&:focus{
                 cursor: not-allowed;
@@ -42,7 +47,7 @@
         }
     }
 
-    > li.fm-nav-active {
+    > li.#{$prefixCls}-nav-active {
         > a{
             cursor: default;
             background-color: #fff;
@@ -54,8 +59,8 @@
 }
 
 
-.fm-tab-container{
-    > .fm-tab-panel{
+.#{$prefixCls}-tab-container{
+    > .#{$prefixCls}-tab-panel{
         display: none;
     }
 }

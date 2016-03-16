@@ -1,10 +1,7 @@
 @import '../../theme.scss';
 
-.switch *{
-    box-sizing: border-box;
-}
 
-.switch{
+.#{$prefixCls}-switch{
     position: relative;
     margin-right: 10px;
     display: inline-block;
@@ -59,8 +56,6 @@
             content:" ";
             position: absolute;
             top: 1px;
-            /*right:60%;*/
-            /*transform: translateX(10%);*/
             left:50%;
             transform: translateX(-100%);
             width: 20px;

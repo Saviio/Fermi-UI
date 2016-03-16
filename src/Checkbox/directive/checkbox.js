@@ -73,7 +73,6 @@ export class Checkbox{
     }
 
     handle(e){
-        //e.stopPropagation()
         if(this.disabled) return
         e.target.checked ? this.check() : this.unCheck()
         this.callback(e.target.checked)

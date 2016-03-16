@@ -23,7 +23,7 @@ export default class Line{
     compile($tElement, tAttrs, transclude){
         this.rootDOM = $tElement[0]
         let unit = tAttrs.unit || '%'
-        let binding = this.rootDOM::query('.progress-line-text')
+        let binding = this.rootDOM::query('.fm-progress-line-text')
         binding.innerHTML += unit
         return this.link
     }
@@ -44,12 +44,12 @@ export default class Line{
         let inProgress = scope.value >= 100
 
         let success = () => {
-            this.rootDOM::addClass('progress-success')
+            this.rootDOM::addClass('fm-progress-success')
             if(typeof scope.success === 'function') scope.success()
         }
 
         let notComplete = () => {
-            this.rootDOM::removeClass('progress-success')
+            this.rootDOM::removeClass('fm-progress-success')
         }
 
         scope.$watch('value', (newValue, oldValue) => {

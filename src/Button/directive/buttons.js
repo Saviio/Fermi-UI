@@ -11,7 +11,6 @@ import {
 
 const loadingClass = 'fm-button-loading'
 
-//button svg animation IE9
 export default class Buttons {
     constructor(){
         this.restrict = 'EA'
@@ -76,10 +75,9 @@ export default class Buttons {
     link(scope, $elem, attrs, ctrl){
         let size = (attrs.size || 'default').toLowerCase()
         let type = (attrs.type || 'default').toLowerCase()
-        //debugger
-        //console.log(this.rootDOM)
-        if(size !== 'default') this.rootDOM::addClass(`buttons-${size}`)
-        this.rootDOM::addClass(`buttons-${type}`)
+
+        if(size !== 'default') this.rootDOM::addClass(`fm-buttons-${size}`)
+        this.rootDOM::addClass(`fm-buttons-${type}`)
         if(this.isLoading) scope.control.loading(true)
     }
 }

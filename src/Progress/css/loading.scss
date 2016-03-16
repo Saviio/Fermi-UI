@@ -1,8 +1,8 @@
 @import '../../theme.scss';
-$progress-bg-color:#147EE6;
 
 
-.progress-loading{
+
+.#{$prefixCls}-progress-loading{
     position:fixed;
     top:0px;
     left:-5px;
@@ -11,7 +11,7 @@ $progress-bg-color:#147EE6;
     height:2px;
     border-radius:1px;
     transform:translateZ(0);
-    background-color:$progress-bg-color;
+    background-color:#147EE6;
     opacity:1;
 
     dd,dt{
@@ -19,7 +19,7 @@ $progress-bg-color:#147EE6;
         top:0px;
         height:2px;
         border-radius:100%;
-        box-shadow:#{$progress-bg-color} 1px 0 6px 1px;
+        box-shadow:#147EE6 1px 0 6px 1px;
         animation:pulse 2s ease-out 0s infinite;
     }
 
@@ -39,6 +39,6 @@ $progress-bg-color:#147EE6;
 }
 
 
-.fm-progress-loading-disappear{
+.fm-progress-loading-hide{
     opacity:0 !important;
 }

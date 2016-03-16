@@ -1,10 +1,10 @@
 @import '../../theme.scss';
 
-.fm-tooltip{
+.#{$prefixCls}-tooltip{
     position: relative;
     display: inline;
 
-    .fm-tooltip-wrapper{
+    .#{$prefixCls}-tooltip-wrapper{
         position: absolute;
         z-index: 9999;
         display: none;
@@ -15,41 +15,25 @@
         transition: transform 300ms cubic-bezier(0.08, 0.82, 0.17, 1),opacity 300ms ease-out;
     }
 
-    .fm-tooltip-elem{
+    .#{$prefixCls}-tooltip-elem{
         display: inline-block;
         vertical-align: top;
     }
 }
 
 //.fm-tooltip
-.fm-tooltip-effect-enter,.fm-tooltip-effect-entered{
+.#{$prefixCls}-tooltip-effect-enter,.#{$prefixCls}-tooltip-effect-entered{
     display: block !important;
 }
 
-.fm-tooltip-effect-enter-active,.fm-tooltip-effect-entered{
+.#{$prefixCls}-tooltip-effect-enter-active,.#{$prefixCls}-tooltip-effect-entered{
     opacity: 0.9 !important;
     transform: scale(1) !important;
 }
 
-.fm-tooltip-effect-leave{
+.#{$prefixCls}-tooltip-effect-leave{
     display: block !important;
 }
-/*
-.fm-select-list-enter{
-    display: block !important;
-    animation:fadeInDown 0.3s 0s ease both;
-}
-.fm-select-list-entered{
-    opacity: 1 !important;
-    display: block !important;
-}
-.fm-select-list-leave{
-    display: block !important;
-    animation:fadeOutUp 0.3s 0s ease both;
-}
-
-
-*/
 
 
 /*
@@ -65,7 +49,7 @@
     transition: transform 500ms cubic-bezier(0.08, 0.82, 0.17, 1),opacity 300ms ease-out;
 }
 */
-.tooltip-arrow{
+.#{$prefixCls}-tooltip-arrow{
     position:absolute;
     width: 0;
     height: 0;
@@ -74,35 +58,35 @@
 }
 
 
-.tooltip.tooltip-hidden{
+.#{$prefixCls}-tooltip.#{$prefixCls}-tooltip-hidden{
     transform: scale(0.1) translateZ(0);
     opacity: 0;
 }
 
-.tooltip-top {
+.#{$prefixCls}-tooltip-top {
     > .fm-tooltip-wrapper{
         padding: 0px 0 9px 0;
     }
 }
-.tooltip-right {
+.#{$prefixCls}-tooltip-right {
     > .fm-tooltip-wrapper{
         padding: 0 0px 0 9px;
     }
 
 }
-.tooltip-bottom {
+.#{$prefixCls}-tooltip-bottom {
     > .fm-tooltip-wrapper{
         padding: 9px 0 0px 0;
     }
 
 }
-.tooltip-left {
+.#{$prefixCls}-tooltip-left {
     > .fm-tooltip-wrapper{
         padding: 0 9px 0 0px;
     }
 }
 
-.tooltip-left .tooltip-arrow{
+.#{$prefixCls}-tooltip-left .#{$prefixCls}-tooltip-arrow{
     top:50%;
     right:5px;
     margin-top:-5px;
@@ -110,7 +94,7 @@
     border-left-color:$black;
 }
 
-.tooltip-top .tooltip-arrow{
+.#{$prefixCls}-tooltip-top .#{$prefixCls}-tooltip-arrow{
     bottom:5px;
     left:50%;
     margin-left:-5px;
@@ -119,7 +103,7 @@
 }
 
 
-.tooltip-right .tooltip-arrow{
+.#{$prefixCls}-tooltip-right .#{$prefixCls}-tooltip-arrow{
     top:50%;
     left:5px;
     margin-top:-5px;
@@ -127,7 +111,7 @@
     border-right-color:$black;
 }
 
-.tooltip-bottom .tooltip-arrow{
+.#{$prefixCls}-tooltip-bottom .#{$prefixCls}-tooltip-arrow{
     top:5px;
     left:50%;
     margin-left:-5px;
@@ -135,7 +119,7 @@
     border-bottom-color:$black;
 }
 
-.tooltip-content{
+.#{$prefixCls}-tooltip-content{
     max-width: 250px;
     padding: 8px 10px;
     color:#fff;

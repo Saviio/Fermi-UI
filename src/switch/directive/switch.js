@@ -2,7 +2,6 @@ import { props } from '../../utils'
 import template from '../template/template.html'
 
 
-const trueBool = /(true)/i
 export default class Switch {
     constructor(){
         this.restrict = 'EA'

@@ -38,21 +38,22 @@ export default class Query{
     link(scope, $element, attrs, ctrl){
         let rootDOM = $element[0]
         let actived = rootDOM::props('actived')
-
+        let showCls = 'fm-progress-query-show'
+        
         scope.show = () => {
             rootDOM::removeClass('hide')
             setTimeout(() =>
-                rootDOM::addClass('progress-query-show'), 10)
+                rootDOM::addClass(showCls), 10)
             actived = true
         }
 
         scope.hide = () => {
             setTimeout(() =>{
                 rootDOM
-                    ::removeClass('progress-query-show')
+                    ::removeClass(showCls)
                     ::onMotionEnd(() => {
                         if(!actived) rootDOM::addClass('hide')
-                    }, 'progress-query-show')
+                    }, showCls)
             }, 10)
             actived = false
         }
