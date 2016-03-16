@@ -29,7 +29,6 @@ export default class CleanStyleDirective{
     link(scope, $elem, attrs){
         let init = false
         scope.$watch(attrs.cleanStyle, (newValue, oldValue) => {
-            console.log(newValue)
             if(oldValue && newValue !== oldValue){
                 $elem.attr('style', newValue)
             }

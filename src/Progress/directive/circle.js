@@ -66,12 +66,12 @@ export default class circle{
         if(isProgress){
             let inProgress = scope.ngModal >= 100
             let success = () => {
-                $elem.addClass('progress-success')
+                $elem.addClass('fm-progress-success')
                 inProgress = false
             }
 
             let notComplete = () => {
-                $elem.removeClass('progress-success')
+                $elem.removeClass('fm-progress-success')
                 inProgress = true
             }
 
