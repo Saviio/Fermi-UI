@@ -2,8 +2,11 @@ import { dependencies } from '../../external/dependencies'
 import { onMotionEnd, transition } from '../../utils/transition'
 import select from '../template/select.html'
 import option from '../template/option.html'
+import tags from '../template/tags.html'
 import {
     on,
+    last,
+    toDOM,
     query,
     props,
     remove,
@@ -36,39 +39,39 @@ export class Select {
     }
 
     compile($tElement, tAttrs, transclude){
-        let elem = $tElement[0]
         let isSearch = $tElement::props('search')
         let isMulti = $tElement::props('multi')
         let isTags = $tElement::props('tags')
 
-        this.select = elem::query('.select-inner')
-        this.dropdown = elem::query('.select-dropdown')
-        this.icon = elem::query('.select-icon')
-
+        this.rootDOM = $tElement[0]
+        this.select = this.rootDOM::query('.fm-select-inner')
+        this.optionList = this.rootDOM::query('.fm-select-optionList')
+        this.icon = this.rootDOM::query('.fm-select-icon')
+        this.size = ($tElement::props('size') || 'normal').toLowerCase()
 
         if(!(isMulti || isTags) && isSearch){
             let searchTmpl = '<div><input placeholder="输入"/></div>'
-            this.searchInput = this.dropdown
+            this.searchInput = this.optionList
                                     ::prepend(searchTmpl)
                                     ::query('input')
         }
 
         if(isMulti || isTags){
             this.mode = isTags ? 'tags' : 'multi'
-            let tagsTmpl =
-            `<ul class="tags-selection">
-                <li ng-repeat="model in ngModel track by $index" ng-click="remove($index, $event)">
-                    <span>{{model.item}}</span>
-                    <span class="tag-remove">×</span>
-                </li>
-                ${isTags ? '<li class="tag-input"><span contenteditable="true">&nbsp;</span></li>' : ''}
-            </ul>`
-            let selection = this.select::query('.select-selection')
-            this.select::addClass('select-tags')
-            selection::replace(tagsTmpl)
+            let tagsDOM = toDOM(tags)
+            if(isTags){
+                tagsDOM::last(`
+                    <li class="fm-tag-input">
+                        <span contenteditable="true">&nbsp;</span>
+                    </li>
+                `)
+            }
+            let selection = this.select::query('.fm-select-selection')
+            this.select::addClass('fm-select-tags')
+            selection::replace(tagsDOM)
             this.icon = this.icon::remove()
             if(isTags){
-                this.tagInput = elem::query('.tag-input > span')
+                this.tagInput = this.rootDOM::query('.fm-tag-input > span')
             }
         }
 
@@ -82,7 +85,7 @@ export class Select {
             scope.tagsRef = []
         } else {
             scope.$on('option::selected', (e, target) => {
-                let options = Array.from(this.dropdown::queryAll('ul > li'))
+                let options = Array.from(this.optionList::queryAll('ul > li'))
                 options.forEach(i => {
                     if(i !== target) i.removeAttribute('selected')
                 })
@@ -93,24 +96,26 @@ export class Select {
 
         scope.remove = (index, e) => {
             scope.ngModel.splice(index, 1).pop()
-            let elem = scope.tagsRef.splice(index, 1).pop()
-            elem::removeClass('tagged').removeAttribute('selected')
+            if(this.mode !== 'tags'){
+                let elem = scope.tagsRef.splice(index, 1).pop()
+                elem::removeClass('tagged').removeAttribute('selected')
+            }
             e.stopPropagation()
         }
 
         let selected = () => {
             if(scope.ngModel::getType() !== 'Array') {
                 return {
-                    item:scope.ngModel.item,
-                    data:scope.ngModel.data
+                    item: scope.ngModel.item,
+                    data: scope.ngModel.data
                 }
             } else {
                 let list = []
                 for(var i = 0; i< scope.ngModel.length; i++){
                     let model = scope.ngModel[i]
                     list.push({
-                        item:model.item,
-                        data:model.data
+                        item: model.item,
+                        data: model.data
                     })
                 }
                 return list
@@ -118,7 +123,7 @@ export class Select {
         }
 
         scope.control = { selected }
-        let listTransition = new transition(this.dropdown, 'fm-select-list', false)
+        let listTransition = new transition(this.optionList, 'fm-select-list', false)
 
         scope.showOptionList = () => {
             if(this.icon){
@@ -135,7 +140,7 @@ export class Select {
     link(scope, $elem, attrs, ctrl){
         if(this.searchInput){
             let fn = debounce(() => {
-                let options = this.dropdown::queryAll('span')
+                let options = this.optionList::queryAll('span')
                 let val = this.searchInput.value
 
                 let cb1 = e => {
@@ -149,13 +154,15 @@ export class Select {
             })
             this.searchInput::on('input', fn)
         }
-
-
+        
+        this.rootDOM::addClass(`fm-select-wrapper-${this.size}`)
         this.select::on('click', scope.showOptionList)
+
         if(this.mode === 'tags'){
             let renderTag = value => {
                 scope.ngModel.push({item:value, data:{value}, $elem:null})
                 this.tagInput.innerHTML = '&nbsp;'
+                scope.$apply()
             }
 
             this.select::on('click', () => this.tagInput.focus())
@@ -165,16 +172,17 @@ export class Select {
                 e.preventDefault()
                 if(value !== ''){
                     if(scope.ngModel.every(existOption => existOption.item !== value)){
-                        scope.$apply(() => renderTag(value))
+                        renderTag(value)
                     } else {
                         this.tagInput.innerHTML = '&nbsp;'
                     }
                 }
             })
+
             this.tagInput::on('blur', e => {
                 let value = this.tagInput.innerText.trim()
                 if(value === '') return
-                scope.$apply(() => renderTag(value))
+                renderTag(value)
             })
         }
     }

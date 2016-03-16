@@ -1,10 +1,13 @@
+@import '../../theme.scss';
+
+
 #fm-notification-container{
     position: fixed;
     z-index: 99999;
     margin-right: 25px;
     width: 350px;
 
-    .fm-notice{
+    .#{$prefixCls}-notice{
         padding:15px;
         border-radius: 3px;
         box-shadow: 0 1px 4px rgba(220, 220, 220, 0.7);
@@ -27,59 +30,59 @@
             margin-top:-30px;
         }
 
-        div > h3, div > .fm-notice-content {
+        div > h3, div > .#{$prefixCls}-notice-content {
             margin-left: 60px;
         }
 
 
-        > .fm-close {
+        > .#{$prefixCls}-close {
             position: absolute;
             right:5px;
             top:2px;
         }
     }
 
-    .fm-noticeStatus-normal{
+    .#{$prefixCls}-noticeStatus-normal{
         border:1px solid #7DBCE0;
         background: #CDE8F6;
-        h3,.fm-notice-content, div > i:before{
+        h3,.#{$prefixCls}-notice-content, div > i:before{
             color:#447EAF;
         }
     }
 
-    .fm-noticeStatus-success{
+    .#{$prefixCls}-noticeStatus-success{
         border:1px solid #AFCDA4;
         background: #DDF3D5;
-        h3,.fm-notice-content, div > i:before{
+        h3,.#{$prefixCls}-notice-content, div > i:before{
             color:#597151;
         }
     }
 
-    .fm-noticeStatus-warn{
+    .#{$prefixCls}-noticeStatus-warn{
         border:1px solid #D8CF82;
         background: #F8F4D5;
 
-        h3,.fm-notice-content, div > i:before{
+        h3,.#{$prefixCls}-notice-content, div > i:before{
             color:#96722E;
         }
     }
 
-    .fm-noticeStatus-error{
+    .#{$prefixCls}-noticeStatus-error{
         border:1px solid #BE8181;
         background: #ECC8C5;
 
-        h3,.fm-notice-content, div > i:before{
+        h3,.#{$prefixCls}-notice-content, div > i:before{
             color:#B4302B;
         }
     }
 
-    .fm-noticeStatus-default{
-        div > .fm-notice-content, div > h3 {
+    .#{$prefixCls}-noticeStatus-default{
+        div > .#{$prefixCls}-notice-content, div > h3 {
             margin-left:0px;
         }
     }
 
-    .fm-notice-show{
+    .#{$prefixCls}-notice-show{
         right:0px;
     }
 

@@ -8,12 +8,12 @@
     position:relative;
     vertical-align:top;
 
-    .select-tags{
+    .#{$prefixCls}-select-tags{
         padding-right: 10px !important;
         padding-bottom: 4px;
     }
 
-    .select-inner{
+    .#{$prefixCls}-select-inner{
         min-height:$height+(-2px);
         line-height:$height+(-2px);
         padding-left:10px;
@@ -28,7 +28,7 @@
             border-color:$primary-background;
         }
 
-        .select-icon{
+        .#{$prefixCls}-select-icon{
             position:absolute;
             right:0px;
             transition: transform 300ms ease;
@@ -36,11 +36,11 @@
             height: 100%;
         }
 
-        .fm-icon-actived{
-            @include rotate180;
+        .#{$prefixCls}-icon-actived{
+            @include trans-rotate180;
         }
 
-        .tags-selection{
+        .#{$prefixCls}-tags-selection{
             list-style: none;
             height: 100%;
             min-height: $height+(-6px);
@@ -58,7 +58,7 @@
                 margin-top: 4px;
                 box-sizing: content-box;
                 cursor:pointer;
-                .tag-remove{
+                .#{$prefixCls}-tag-remove{
                     cursor:pointer;
                     opacity: 0.7;
                     cursor: pointer;
@@ -68,7 +68,7 @@
                     }
                 }
             }
-            .tag-input{
+            .#{$prefixCls}-tag-input{
                 background: none;
                 border: none;
                 >span{
@@ -80,7 +80,7 @@
         }
     }
 
-    .select-selection{
+    .#{$prefixCls}-select-selection{
         width:100%;
         .select-selection-current{
             width:100%;
@@ -94,16 +94,14 @@
         vertical-align:top;
     }
 
-    .select-dropdown{
+    .#{$prefixCls}-select-optionList{
         width:100%;
         background-color:#fff;
         position:absolute;
         margin-top: 5px;
-        //box-shadow:0px 1px 2px rgba(220, 220, 220, 0.7);
         border:$form-border solid 1px;
         opacity:0;
         z-index:9999;
-
         padding-top:5px;
         padding-bottom:5px;
         border-radius:3px;
@@ -151,38 +149,36 @@
                 color:#777;
             }
         }
-
     }
 }
 
 
-.fm-select-list-enter{
+.#{$prefixCls}-select-list-enter{
     display: block !important;
     animation:fadeInDown 0.3s 0s ease both;
 }
-.fm-select-list-entered{
+.#{$prefixCls}-select-list-entered{
     opacity: 1 !important;
     display: block !important;
 }
-.fm-select-list-leave{
+.#{$prefixCls}-select-list-leave{
     display: block !important;
     animation:fadeOutUp 0.3s 0s ease both;
 }
 
 
-
-.select-wrapper-normal{
+.#{$prefixCls}-select-wrapper-normal{
     @include select-wrapper-base(38px)
 }
 
-.select-wrapper-small{
+.#{$prefixCls}-select-wrapper-small{
     @include select-wrapper-base(28px)
 }
 
-.select-wrapper-large{
+.#{$prefixCls}-select-wrapper-large{
     @include select-wrapper-base(46px)
 }
 
-.select-wrapper-normal[tags],.select-wrapper-large[tags],.select-wrapper-small[tags]{
+.#{$prefixCls}-select-wrapper-normal[tags],.#{$prefixCls}-select-wrapper-large[tags],.#{$prefixCls}-select-wrapper-small[tags]{
     cursor:text;
 }

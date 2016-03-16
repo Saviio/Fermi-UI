@@ -1,12 +1,12 @@
 @import '../../theme.scss';
 
-.fm-radio-group{
+.#{$prefixCls}-radio-group{
     display:inline-block;
     vertical-align:top;
 }
 
-.fm-radio-container{
-    > .fm-radio-label{
+.#{$prefixCls}-radio-container{
+    > .#{$prefixCls}-radio-label{
         user-select:none;
         &:hover{
             cursor: pointer;
@@ -14,8 +14,8 @@
     }
 }
 
-.fm-radio-container{
-    .fm-radio{
+.#{$prefixCls}-radio-container{
+    .#{$prefixCls}-radio{
         white-space: nowrap;
         outline: none;
         display: inline-block;
@@ -24,7 +24,7 @@
         vertical-align: middle;
         cursor: pointer;
 
-        .fm-radio-inner{
+        .#{$prefixCls}-radio-inner{
             position: relative;
             top: 0;
             left: 0;
@@ -70,9 +70,9 @@
 }
 
 
-.fm-radio-container{
-    .fm-radio-checked{
-        .fm-radio-inner{
+.#{$prefixCls}-radio-container{
+    .#{$prefixCls}-radio-checked{
+        .#{$prefixCls}-radio-inner{
             &:after{
                 transform: scale(1);
                 opacity: 1;
@@ -82,8 +82,8 @@
     }
 }
 
-.fm-radio-container[disabled="disabled"],.fm-radio-container[disabled="true"]{
-    .fm-radio-inner{
+.#{$prefixCls}-radio-container[disabled="disabled"],.#{$prefixCls}-radio-container[disabled="true"]{
+    .#{$prefixCls}-radio-inner{
         border-color:#d9d9d9 !important;
         background-color: #f3f3f3 !important;
         &:after{
@@ -94,7 +94,7 @@
         }
     }
 
-    .fm-radio{
+    .#{$prefixCls}-radio{
         input{
             &:hover{
                 cursor: not-allowed !important;
@@ -102,7 +102,7 @@
         }
     }
 
-    > .fm-radio-label{
+    > .#{$prefixCls}-radio-label{
         &:hover{
             cursor: not-allowed !important;
         }

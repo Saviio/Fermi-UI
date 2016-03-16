@@ -1,6 +1,6 @@
 @import '../../theme.scss';
 
-@keyframes fm-modal-fadeIn {
+@keyframes #{$prefixCls}-modal-fadeIn {
     0% {
         opacity: 0;
         transform: translateY(-40px);
@@ -12,7 +12,7 @@
     }
 }
 
-@keyframes fm-modal-fadeOut {
+@keyframes #{$prefixCls}-modal-fadeOut {
     0% {
         opacity: 1;
         transform: translateY(0);
@@ -40,11 +40,11 @@
     user-select:none;
 }
 
-#__modalOverlay__.fm-overlay-In{
+#__modalOverlay__.#{$prefixCls}-overlay-In{
     opacity: 1;
 }
 
-.fm-header{
+.#{$prefixCls}-header{
     height: 30px;
     width: 100%;
     line-height: 30px;
@@ -53,21 +53,21 @@
     overflow: hidden;
     text-overflow: ellipsis;
 
-    .fm-modal-title{
+    .#{$prefixCls}-modal-title{
         color:rgb(102, 102, 102);
         font-size: 14px;
         font-weight: bold;
     }
 }
 
-.fm-modal .fm-close{
+.#{$prefixCls}-modal .#{$prefixCls}-close{
     float:right;
     line-height: 30px;
     outline: none;
 }
 
 
-.fm-modal-container{
+.#{$prefixCls}-modal-container{
 	overflow:hidden;
 	width:100%;
 	height:100%;
@@ -79,31 +79,31 @@
     z-index: 10000;
 }
 
-.fm-modal-container *{
+.#{$prefixCls}-modal-container *{
     text-align: left;
 }
 
-.fm-modal-container:after,.fm-modal-container > span{
+.#{$prefixCls}-modal-container:after,.#{$prefixCls}-modal-container > span{
 	display:inline-block;
 	height:100%;
 	vertical-align:middle;
 }
 
-.fm-modal-container:after{
+.#{$prefixCls}-modal-container:after{
 	content:'';
 }
 
-.fm-modal-container > .fm-modal{
+.#{$prefixCls}-modal-container > .#{$prefixCls}-modal{
 	display:inline-block;
 	vertical-align:middle;
 	font-size:12px;
 }
 
-.fm-modal-container .fm-modal-content{
+.#{$prefixCls}-modal-container .#{$prefixCls}-modal-content{
     text-align: left;
 }
 
-.fm-modal-container .fm-modal{
+.#{$prefixCls}-modal-container .#{$prefixCls}-modal{
     padding-left:15px;
     padding-right:15px;
     //padding-top:25px;
@@ -114,37 +114,37 @@
     box-shadow: 0px 2px 10px rgba(50, 50, 50, 0.3);
 }
 
-.fm-modal-container > .fm-modal{
+.#{$prefixCls}-modal-container > .#{$prefixCls}-modal{
     display: none;
     position: relative;
 }
 
 
-.fm-modal.fm-modal-enter-active,.fm-modal.fm-modal-entered,.fm-modal.fm-modal-leave{
+.#{$prefixCls}-modal.#{$prefixCls}-modal-enter-active,.#{$prefixCls}-modal.#{$prefixCls}-modal-entered,.#{$prefixCls}-modal.#{$prefixCls}-modal-leave{
     display: inline-block;
 }
 
-.fm-modal.fm-modal-enter{
+.#{$prefixCls}-modal.#{$prefixCls}-modal-enter{
     display: inline-block;
     animation: fm-modal-fadeIn .5s;
 }
 
-.fm-modal.fm-modal-leave{
+.#{$prefixCls}-modal.#{$prefixCls}-modal-leave{
     animation: fm-modal-fadeOut .5s;
 }
 
 
 
-.fm-modal-confirm-content,.fm-modal-normal-content{
+.#{$prefixCls}-modal-confirm-content,.#{$prefixCls}-modal-normal-content{
     padding:16px;
 }
 
-.fm-modal-confirm-content{
+.#{$prefixCls}-modal-confirm-content{
     border-bottom:1px solid #e9e9e9;
     border-top:1px solid #e9e9e9;
 }
 
-.fm-modal-confirm-operation,.fm-modal-normal-operation{
+.#{$prefixCls}-modal-confirm-operation,.#{$prefixCls}-modal-normal-operation{
     margin-top: 10px;
     float: right;
 

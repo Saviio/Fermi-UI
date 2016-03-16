@@ -28,7 +28,7 @@ export default class CleanStyleDirective{
 
     link(scope, $elem, attrs){
         let init = false
-        scope.$watchCollection(attrs.cleanStyle, (newValue, oldValue) => {
+        scope.$watch(attrs.cleanStyle, (newValue, oldValue) => {
             if(oldValue && newValue !== oldValue){
                 $elem.attr('style', newValue)
             }
@@ -37,7 +37,7 @@ export default class CleanStyleDirective{
                 $elem.attr('style', newValue)
                 init = true
             }
-        })
+        }, true)
 
         $elem.removeAttr('clean-style')
     }

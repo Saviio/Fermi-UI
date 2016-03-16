@@ -1,38 +1,38 @@
-<div class="schedule-container">
-    <table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0"  class="schedule-head">
+<div class="fm-schedule-container">
+    <table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0"  class="fm-schedule-head">
         <tbody>
             <tr>
                 <td></td>
-                <td ng-repeat="content in ::headers" class="schedule-thead">
+                <td ng-repeat="content in ::headers" class="fm-schedule-thead">
                     {{::content}}
                 </td>
             </tr>
         </tbody>
     </table>
-    <div class="schedule-wrapper">
-        <table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0"  class="schedule-main">
+    <div class="fm-schedule-wrapper">
+        <table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0"  class="fm-schedule-main">
             <tbody>
                 <tr height="1">
                     <td></td>
                     <td colspan="7">
-                        <div class="schedule-hours-wrapper">
-                            <div class="schedule-hours">
-                                <div ng-repeat="n in ::[] | range:period.length track by $index" class="schedule-cell"></div>
+                        <div class="fm-schedule-hours-wrapper">
+                            <div class="fm-schedule-hours">
+                                <div ng-repeat="n in ::[] | range:period.length track by $index" class="fm-schedule-cell"></div>
                             </div>
                         </div>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <div ng-repeat="time in ::period track by $index" class="schedule-time-pri">
+                        <div ng-repeat="time in ::period track by $index" class="fm-schedule-time-pri">
                             {{::time}}
                         </div>
                     </td>
                     <td ng-repeat="day in ::[] | range:headers.length track by $index" ng-init="parentIndex=$index">
-                        <div ng-repeat="evt in ::[] | range:period.length track by $index" class="schedule-grid">
-                            <div class="schedule-event" clean-style="hebdom[parentIndex][$index].height" ng-if="hebdom[parentIndex][$index].title != undefined">
-                                <div class="schedule-event-tag" clean-style="hebdom[parentIndex][$index].color" ></div> <!--remark attr.$observe-->
-                                <div class="schedule-event-content">
+                        <div ng-repeat="evt in ::[] | range:period.length track by $index" class="fm-schedule-grid">
+                            <div class="fm-schedule-event" clean-style="hebdom[parentIndex][$index].height" ng-if="hebdom[parentIndex][$index].title != undefined">
+                                <div class="fm-schedule-event-tag" clean-style="hebdom[parentIndex][$index].color" ></div> <!--remark attr.$observe-->
+                                <div class="fm-schedule-event-content">
                                     <div>
                                         {{hebdom[parentIndex][$index].title}}
                                     </div>

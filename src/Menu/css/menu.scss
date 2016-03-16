@@ -2,11 +2,11 @@
 
 
 @mixin SubMenu{
-    .fm-submenu-container{
+    .#{$prefixCls}-submenu-container{
         width:100%;
         position: relative;
 
-        > .fm-submenu-title {
+        > .#{$prefixCls}-submenu-title {
             > .menu-icon{
                 position: absolute;
                 right:0px;
@@ -22,33 +22,33 @@
             }
         }
 
-        > .fm-submenu-items{
-            @include slideUp;
+        > .#{$prefixCls}-submenu-items{
+            @include trans-slideUp;
         }
     }
     /*
-    .fm-submenu-actived{
-        > .fm-submenu-title > .menu-icon{
+    .#{$prefixCls}-submenu-actived{
+        > .#{$prefixCls}-submenu-title > .menu-icon{
             @include rotate180;
         }
 
-        > .fm-submenu-items{
+        > .#{$prefixCls}-submenu-items{
             @include slideDown;
         }
     }*/
 
-    .fm-submenu-vertical-entered{
-        > .fm-submenu-title > .menu-icon{
-            @include rotate180;
+    .#{$prefixCls}-submenu-vertical-entered{
+        > .#{$prefixCls}-submenu-title > .menu-icon{
+            @include trans-rotate180;
         }
-        > .fm-submenu-items{
-            @include slideDown;
+        > .#{$prefixCls}-submenu-items{
+            @include trans-slideDown;
         }
     }
 }
 
 @mixin base{
-    .fm-submenu-title{
+    .#{$prefixCls}-submenu-title{
         height: 42px;
         line-height: 42px;
         user-select:none;
@@ -59,7 +59,7 @@
         }
     }
 
-    .fm-menu-item{
+    .#{$prefixCls}-menu-item{
         width: initial;
         height: 42px;
         line-height: 42px;
@@ -85,7 +85,7 @@
        width:100%;
        z-index:100;
 
-        .fm-submenu-title{
+        .#{$prefixCls}-submenu-title{
            border:none;
            height:50px;
            line-height:50px;
@@ -108,7 +108,7 @@
        }
 
 
-       .fm-menu-item{
+       .#{$prefixCls}-menu-item{
            padding:0 10px;
            text-align:center;
            border:none;
@@ -116,16 +116,16 @@
 }
 
 
-.fm-menu-container-V{
+.#{$prefixCls}-menu-container-V{
     border-right:#e9e9e9 1px solid;
     @include base;
-    > .fm-submenu-container{
+    > .#{$prefixCls}-submenu-container{
         left:1px;
     }
     @include SubMenu;
 }
 
-.fm-menu-container-H{
+.#{$prefixCls}-menu-container-H{
     @include base;
 
     height:50px;
@@ -133,24 +133,24 @@
     border-bottom:1px solid #e9e9e9;
 
 
-    .fm-submenu-container{
+    .#{$prefixCls}-submenu-container{
         @include menu-pop;
     }
 
-    > .fm-submenu-container{
+    > .#{$prefixCls}-submenu-container{
         width:auto ;
         min-width:110px;
 
-        > .fm-submenu-items{
+        > .#{$prefixCls}-submenu-items{
            margin-top:10px;
            max-height:none;
        }
     }
 
-    .fm-submenu-container{ //二级及以上
+    .#{$prefixCls}-submenu-container{ //二级及以上
         position: relative;
         display:block;
-        > .fm-submenu-items{
+        > .#{$prefixCls}-submenu-items{
             overflow:visible;
             box-shadow:0px 1px 2px rgba(220, 220, 220, 0.7);
             border:#e9e9e9 1px solid;
@@ -167,17 +167,17 @@
         }
     }
 
-    > .fm-submenu-container{ //一级菜单
+    > .#{$prefixCls}-submenu-container{ //一级菜单
         position: static;
         display:inline-block;
-        > .fm-submenu-items{
+        > .#{$prefixCls}-submenu-items{
             position:relative;
             margin-left: auto;
             z-index:100;
         }
     }
 
-    > .fm-menu-item{
+    > .#{$prefixCls}-menu-item{
         border-right:none;
         border-bottom:rgba($primary-background, 0) solid 3px;
         height:50px;
@@ -198,7 +198,7 @@
     }
 }
 
-.fm-menu-item[disabled="disabled"]{
+.#{$prefixCls}-menu-item[disabled="disabled"]{
     cursor: not-allowed !important;
     color:#ccc;
     &:hover{
@@ -207,17 +207,17 @@
 }
 
 
-.fm-submenu-pop-enter{
+.#{$prefixCls}-submenu-pop-enter{
     display:block !important;
     animation:fadeInDown .25s 0s ease-out both;
 }
 
 
-.fm-submenu-pop-entered{
+.#{$prefixCls}-submenu-pop-entered{
     display:block !important;
 }
 
-.fm-submenu-pop-leave{
+.#{$prefixCls}-submenu-pop-leave{
     display:block !important;
     animation:fadeOutUp .25s 0s ease-in both;
 }
@@ -226,14 +226,14 @@
 
 
 
-.fm-submenu-separated{
+.#{$prefixCls}-submenu-separated{
     @include base;
     @include menu-pop;
     width:auto;
     position: static;
     z-index:90;
 
-    .fm-submenu-title{
+    .#{$prefixCls}-submenu-title{
         height: 42px;
         line-height: 42px;
         user-select:none;
@@ -248,7 +248,7 @@
         }
     }
 
-    .fm-submenu-items{
+    .#{$prefixCls}-submenu-items{
         overflow:visible;
         box-shadow:0px 1px 2px rgba(220, 220, 220, 0.7);
         border:#e9e9e9 1px solid;
@@ -261,7 +261,7 @@
         border-radius:2px;
     }
 
-    > .fm-submenu-items{
+    > .#{$prefixCls}-submenu-items{
         position:relative;
         margin-left: auto;
         z-index:100;
@@ -270,13 +270,13 @@
         overflow:visible;
     }
 
-    .fm-submenu-container{
+    .#{$prefixCls}-submenu-container{
         position:relative;
     }
 }
 
 
-.fm-menu-item-selected{
+.#{$prefixCls}-menu-item-selected{
     color:$primary-background;
     border-right:$primary-background 2px solid;
 }

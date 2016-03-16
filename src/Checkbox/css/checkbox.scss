@@ -1,7 +1,7 @@
 @import '../../theme.scss';
 
-.fm-checkbox-container{
-    > .fm-checkbox-label{
+.#{$prefixCls}-checkbox-container{
+    > .#{$prefixCls}-checkbox-label{
         user-select:none;
         &:hover{
             cursor: pointer;
@@ -10,7 +10,7 @@
 }
 
 
-.fm-checkbox{
+.#{$prefixCls}-checkbox{
     white-space: nowrap;
     cursor: pointer;
     outline: none;
@@ -19,7 +19,7 @@
     position: relative;
     vertical-align: middle;
 
-    .fm-checkbox-inner{
+    .#{$prefixCls}-checkbox-inner{
         position: relative;
         top: 0;
         left: 0;
@@ -64,8 +64,8 @@
 }
 
 
-.fm-checkbox-checked{
-    .fm-checkbox-inner{
+.#{$prefixCls}-checkbox-checked{
+    .#{$prefixCls}-checkbox-inner{
         border-color:darken($green, 3%);
         background:$green;
 
@@ -75,8 +75,8 @@
     }
 }
 
-.fm-checkbox-container[disabled="disabled"],.fm-checkbox-container[disabled="true"]{
-    .fm-checkbox-inner{
+.#{$prefixCls}-checkbox-container[disabled="disabled"],.#{$prefixCls}-checkbox-container[disabled="true"]{
+    .#{$prefixCls}-checkbox-inner{
         border-color:#d9d9d9 !important;
         background-color: #f3f3f3 !important;
         &:after{
@@ -87,7 +87,7 @@
         }
     }
 
-    .fm-checkbox{
+    .#{$prefixCls}-checkbox{
         input{
             &:hover{
                 cursor: not-allowed !important;
@@ -95,7 +95,7 @@
         }
     }
 
-    > .fm-checkbox-label{
+    > .#{$prefixCls}-checkbox-label{
         &:hover{
             cursor: not-allowed !important;
         }

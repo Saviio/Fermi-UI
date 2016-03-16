@@ -1,7 +1,12 @@
 import { dependencies } from '../../external/dependencies'
 import template from '../template/template.html'
 
-//add track-by 优化
+
+const reStr = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})/
+const reDate = /\/Date\((\d+)\)\//g
+const reTimeStamp = /^\d{1,}$/
+
+
 export default class Schedule{
     constructor(){
         this.restrict = 'EA'
@@ -11,8 +16,8 @@ export default class Schedule{
             period:'=?',
             start:'@',
             tag:'@',
-            control:'=',
-            events:'='
+            control:'=?',
+            events:'=?'
         }
         this.transclude = true
         this.template = template
@@ -55,47 +60,38 @@ export default class Schedule{
         }
 
         let transform = (set, key) => {
-            let re  = {
-                    STR:/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})/,
-                    DATE:/\/Date\((\d+)\)\//g,
-                    TIMESTAMPT:/^\d{1,}$/
-                },
-                ret = {}
+            let result = {}
 
             key = key || 'starttime'
 
-
             set.forEach((k, i) => {
-
-                let time = undefined
-
-                if(re.STR.test(k[key])){
+                let time
+                if(reStr.test(k[key])){
                     time = new Date(0)
-                    let info = k[key].match(re.STR)
+                    let info = k[key].match(reStr)
                     time.setYear(info[1])
                     time.setMonth(info[2]-1)
                     time.setDate(info[3])
                     time.setHours(info[4])
                     time.setMinutes(info[5])
                     time.setSeconds(info[6])
-                } else if (re.DATE.test(k[key])){
-                    time = new Date(k[key].match(re.STR)[1])
-                } else if (re.TIMESTAMPT.test(k[key])){
+                } else if (reDate.test(k[key])){
+                    time = new Date(k[key].match(reStr)[1])
+                } else if (reTimeStamp.test(k[key])){
                     time = new Date(parseInt(k[key]))
                 }
 
-                k.$hours = time.getHours()
-                k.$minutes = time.getMinutes()
+                k._hours = time.getHours()
+                k._minutes = time.getMinutes()
 
-                let t = k.$hours-start
-                k.$idx = t
+                let t = k._hours-start
+                k._idx = t
                 k.color = reColor(k.color)
-                k.height = reHeight(k.$minutes, k.duration)
-                ret[t] = k
+                k.height = reHeight(k._minutes, k.duration)
+                result[t] = k
             })
 
-
-            return ret
+            return result
         }
 
         scope.calculateColor = evt => {
@@ -111,8 +107,8 @@ export default class Schedule{
             if(evt == null) return
 
             let skew = 0, height = null
-            if(evt.$minutes) skew = evt.$minutes/60
-            height = evt.duration/60
+            if(evt._minutes) skew = evt._minutes / 60
+            height = evt.duration / 60
 
             return {
                 height:`${height * 100}%`,

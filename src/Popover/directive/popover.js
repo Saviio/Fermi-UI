@@ -56,14 +56,14 @@ export default class Popover{
         scope.open = () => {
             if(scope.isOpen === false){
                 scope.isOpen = !scope.isOpen
-                scope.$layer.removeClass('pop-disappear-animation')
+                scope.$layer.removeClass('pop-disappear-animation') //remark
             }
         }
 
         scope.close = (force = false) => {
             if(force) scope.isOpen = false
             else if(scope.isOpen !== false) scope.isOpen = !scope.isOpen
-            scope.$layer.addClass('pop-disappear-animation')
+            scope.$layer.addClass('pop-disappear-animation')//remark
         }
 
         scope.toggle = () => scope.isOpen ? scope.close() : scope.open()
@@ -153,7 +153,7 @@ export default class Popover{
 
         if(event !== 'manual'){
             trigger::on(event, () => {
-                if(!scope.isOpen) setLocation() //优化
+                if(!scope.isOpen) setLocation() //remark优化
                 scope.toggle()
             })
         }

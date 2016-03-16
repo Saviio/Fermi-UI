@@ -1,13 +1,13 @@
 @import "../../theme.scss";
 
 @mixin Step($size, $iconSize){
-    .fm-steps-item{
+    .#{$prefixCls}-steps-item{
         display: inline-block;
         vertical-align:top;
         position: relative;
         padding-left: 10px;
         overflow: hidden;
-        > .fm-steps-icon{
+        > .#{$prefixCls}-steps-icon{
             padding-right: 10px;
             display: inline-block;
             background-color: #fff;
@@ -27,7 +27,7 @@
             }
         }
 
-        > .fm-steps-sq {
+        > .#{$prefixCls}-steps-sq {
             //margin-top: -9px !important;
             &:before{
                 content:attr(data-step);
@@ -43,7 +43,7 @@
             }
         }
 
-        .fm-steps-title {
+        .#{$prefixCls}-steps-title {
             font-weight: bold;
             font-size:$iconSize - 2px;
             margin-left: -3px;
@@ -56,7 +56,7 @@
             z-index: 100;
         }
 
-        .fm-steps-line{
+        .#{$prefixCls}-steps-line{
             position: absolute;;
             left:10px;
             top:0px;
@@ -83,13 +83,13 @@
             }
         }
 
-        .fm-steps-description{
+        .#{$prefixCls}-steps-description{
             margin-left: $size + 10px;
         }
     }
 
-    .fm-steps-state-checked{
-        .fm-steps-line{
+    .#{$prefixCls}-steps-state-checked{
+        .#{$prefixCls}-steps-line{
             > i {
                 &:after{
                     background-color: $primary-btn-background;
@@ -99,8 +99,8 @@
         }
     }
 
-    .fm-steps-state-waiting{
-        > .fm-steps-icon {
+    .#{$prefixCls}-steps-state-waiting{
+        > .#{$prefixCls}-steps-icon {
             &:before{
                 background-color:#fff;
                 color:#ccc;
@@ -109,9 +109,9 @@
         }
     }
 
-    .fm-steps-item{
+    .#{$prefixCls}-steps-item{
         &:last-child{
-            .fm-steps-line{
+            .#{$prefixCls}-steps-line{
                 > i {
                     display:none;
                 }
@@ -122,17 +122,17 @@
 
 
 @mixin Vertical($size){
-    .fm-steps-item{
+    .#{$prefixCls}-steps-item{
         display: block;
-        > .fm-steps-line{
+        > .#{$prefixCls}-steps-line{
             height: 100%;
             width: 24px;
         }
     }
-    .fm-steps-item{
+    .#{$prefixCls}-steps-item{
         display: block;
         margin-bottom: 10px;
-        > .fm-steps-line{
+        > .#{$prefixCls}-steps-line{
             height: 100%;
             width: $size;
             > i {
@@ -147,13 +147,13 @@
             }
         }
 
-        > .fm-steps-icon{
+        > .#{$prefixCls}-steps-icon{
             padding-bottom: 10px;
         }
     }
 
-    .fm-steps-state-checked{
-        .fm-steps-line{
+    .#{$prefixCls}-steps-state-checked{
+        .#{$prefixCls}-steps-line{
             > i {
                 &:after{
                     background-color: $primary-btn-background;
@@ -164,26 +164,26 @@
     }
 }
 
-.fm-steps-container{
+.#{$prefixCls}-steps-container{
     width: 100%;
     margin: auto;
     padding-top:5px;
     padding-bottom:5px;
 
-    .fm-steps-H-small{
+    .#{$prefixCls}-steps-H-small{
         @include Step(18px, 14px);
     }
 
-    .fm-steps-H-normal{
+    .#{$prefixCls}-steps-H-normal{
         @include Step(24px, 16px);
     }
 
-    .fm-steps-V-small{
+    .#{$prefixCls}-steps-V-small{
         @include Step(18px, 14px);
         @include Vertical(18px);
     }
 
-    .fm-steps-V-normal{
+    .#{$prefixCls}-steps-V-normal{
         @include Step(24px, 16px);
         @include Vertical(24px);
     }
