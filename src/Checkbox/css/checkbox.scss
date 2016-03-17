@@ -18,7 +18,7 @@
     line-height: 1;
     position: relative;
     vertical-align: middle;
-    
+
     .#{$prefixCls}-checkbox-inner{
         position: relative;
         top: 0;
@@ -75,7 +75,8 @@
     }
 }
 
-.#{$prefixCls}-checkbox-container[disabled="disabled"],.#{$prefixCls}-checkbox-container[disabled="true"]{
+.#{$prefixCls}-checkbox-container[disabled="disabled"],
+.#{$prefixCls}-checkbox-container[disabled="true"]{
     .#{$prefixCls}-checkbox-inner{
         border-color:#d9d9d9 !important;
         background-color: #f3f3f3 !important;

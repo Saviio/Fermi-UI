@@ -1,11 +1,11 @@
 @import '../../theme.scss';
 
 
-.fm-pagination{
+.#{$prefixCls}-pagination{
     height: 25px;
     float: right;
     margin:5px 0px;
-    .fm-pagination-pages{
+    .#{$prefixCls}-pagination-pages{
         display:inline-block;
         vertical-align:top;
         ul{
@@ -30,7 +30,7 @@
                 }
             }
 
-            > .fm-pagination-current{
+            > .#{$prefixCls}-pagination-current{
                 background-color: $primary-background;
                 color:#fff;
                 &:hover{
@@ -39,7 +39,7 @@
                 }
             }
 
-            > .fm-pagination-next, > .fm-pagination-prev {
+            > .#{$prefixCls}-pagination-next, > .#{$prefixCls}-pagination-prev {
                 &:before{
                     font-size: 24px;
                 }
@@ -50,7 +50,7 @@
                 }
             }
 
-            > .fm-pagination-more {
+            > .#{$prefixCls}-pagination-more {
                 font-weight: bold;
                 font-size: 16px;
                 line-height: 17px;
@@ -61,12 +61,12 @@
             }
         }
     }
-    .fm-pagination-jumper{
+    .#{$prefixCls}-pagination-jumper{
         display:inline-block;
         vertical-align:top;
         height:25px;
         margin-left:5px;
-        .fm-pagination-jumper-input{
+        .#{$prefixCls}-pagination-jumper-input{
             outline:none;
             border:1px solid #d9d9d9;
             border-radius:3px;
