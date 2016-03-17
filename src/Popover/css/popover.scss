@@ -1,5 +1,6 @@
-$offset: 8px;
+@import '../../theme.scss';
 
+$offset: 8px;
 
 @function unary-direction($dire){
     @if $dire=="top" {
@@ -28,10 +29,7 @@ $offset: 8px;
     }
 
     @if $dire=="top" or $dire=="bottom"{
-        border-top: none;
-        border-bottom: none;
-        border-left:none;
-        border-right:none;
+        border:none;
         left:50%;
         #{unary-direction($dire)}:0px;
 
@@ -46,7 +44,6 @@ $offset: 8px;
 
         &:before{
             border-#{$dire}-color:$bkBg;
-            //margin-#{unary-direction($dire)}:-$offset;
             #{unary-direction($dire)}:-$offset;
         }
 
@@ -54,13 +51,9 @@ $offset: 8px;
             border-#{$dire}-color:$ftBg;
             #{unary-direction($dire)}:-$offset+1px;
         }
-
     }
     @else if $dire=="left" or $dire=="right"{
-        border-left: none;
-        border-right: none;
-        border-top: none;
-        border-bottom: none;
+        border:none;
         top:50%;
         #{unary-direction($dire)}:0px;
 
@@ -69,7 +62,7 @@ $offset: 8px;
             border-bottom:$offset+(-0.5px) solid transparent;
             border-#{$dire}:$offset solid;
             top:0px;
-            margin-top:-($offset+1)/2;
+            margin-top:-($offset + 1)/2;
             position: absolute;
         }
 
@@ -85,7 +78,7 @@ $offset: 8px;
     }
 }
 
-.popover{
+.#{$prefixCls}-popover{
     max-width: 500px;
     min-width: 150px;
     position: absolute;
@@ -94,11 +87,13 @@ $offset: 8px;
     border-radius: 3px;
     box-shadow: 0 1px 3px rgba(220, 220, 220, 0.7);
     box-sizing: border-box;
-    transition:transform 300ms cubic-bezier(0.08, 0.82, 0.17, 1),opacity 300ms ease-out;
-    opacity:1;
+    transition:transform 300ms cubic-bezier(0.08, 0.8, 0.17, 1),opacity 300ms ease-out;
+    opacity:0;
     visibility:visible;
+    display: none;
+    transform: scale(0.1) translateZ(0);
 
-    .popover-title{
+    .#{$prefixCls}-popover-title{
         padding:5px 14px;
         background-color:#F6F6F6;
         font-size: 12px;
@@ -106,20 +101,20 @@ $offset: 8px;
         border-top-left-radius: 3px;
     }
 
-    .popover-content > *{
+    .#{$prefixCls}-popover-content > *{
         padding:14px 14px;
     }
 
-    .popover-content{
+    .#{$prefixCls}-popover-content{
         overflow-x: hidden;
         border-radius: 3px;
     }
-    .popover-title + .popover-content{
+    .#{$prefixCls}-popover-title + .#{$prefixCls}-popover-content{
         border-top-right-radius: none;
         border-top-left-radius: none;
     }
 
-    button.fm-close{
+    button.#{$prefixCls}-close{
         margin-right: 3px;
         outline: none;
     }
@@ -127,26 +122,41 @@ $offset: 8px;
 
 
 
-.popover-element{
+.#{$prefixCls}-popover-element{
     position:relative;
 }
 
-.popover-arrow{
+.#{$prefixCls}-popover-arrow{
     position:absolute;
 }
 
-.popover-top > .popover-arrow{
+.#{$prefixCls}-popover-top > .#{$prefixCls}-popover-arrow{
     @include arrow-direction("top")
 }
 
-.popover-bottom > .popover-arrow{
+.#{$prefixCls}-popover-bottom > .#{$prefixCls}-popover-arrow{
     @include arrow-direction("bottom")
 }
 
-.popover-left > .popover-arrow{
+.#{$prefixCls}-popover-left > .#{$prefixCls}-popover-arrow{
     @include arrow-direction("left")
 }
 
-.popover-right > .popover-arrow{
+.#{$prefixCls}-popover-right > .#{$prefixCls}-popover-arrow{
     @include arrow-direction("right")
+}
+
+.#{$prefixCls}-popover-effect-enter,
+.#{$prefixCls}-popover-effect-entered{
+    display: block !important;
+}
+
+.#{$prefixCls}-popover-effect-enter-active,
+.#{$prefixCls}-popover-effect-entered{
+    opacity: 1 !important;
+    transform: scale(1) !important;
+}
+
+.#{$prefixCls}-popover-effect-leave{
+    display: block !important;
 }

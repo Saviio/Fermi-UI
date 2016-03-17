@@ -31,7 +31,6 @@ let peekMenuEnv = ctrls => {
 }
 
 
-//@disabled
 export class Menu{
     constructor(){
         this.restrict = 'EA'

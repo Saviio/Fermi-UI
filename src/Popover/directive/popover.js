@@ -1,23 +1,35 @@
 import { dependencies } from '../../external/dependencies'
-import { DOM } from '../../utils/browser'
+import { DOM as dom } from '../../utils/browser'
 import template from '../template/template.html'
 import popoverTmpl from '../template/popover.html'
 import {
-    nextUid,
-    isHidden,
-    getDOMState,
-    getStyle,
-    escapeHTML,
-    getCoords,
+    on,
+    toDOM,
     query,
     props,
-    createElem,
     prepend,
-    toDOM,
-    on
+    nextUid,
+    isHidden,
+    setStyle,
+    getStyle,
+    getCoords,
+    escapeHTML,
+    createElem,
+    forceReflow,
+    getDOMState,
+    removeStyle
 } from '../../utils'
+ import { transition } from '../../utils/transition'
 
+const reEvent = /click|hover|focus|manual/
+const reAutoHide = /auto|true/i
+const reDirection = /top|bottom|left|right/
+const reOffset =  /^\d{1,}$/
 
+const unSupportDirection = 'Popover direction is not in announced list [top,bottom,left,right].'
+const unSupportEvent = 'Event is not supported, it should one of the following values: [click, hover, focus, manual].'
+const noTriggerSpecified = 'No trigger element was binded for popover component.'
+const noTriggerFound = 'Trigger element cannot be found in component scope.'
 
 //add disable function
 export default class Popover{
@@ -34,145 +46,115 @@ export default class Popover{
 
     compile($tElement, tAttrs, transclude){
         let dire = (tAttrs.placement || "top").toLowerCase()
-        if(["top", "bottom", "left", "right"].indexOf(dire) === -1){
-            throw Error("Popover direction is not in announced list [top,bottom,left,right].")
-        }
+        if(!reDirection.test(dire)) throw Error(unSupportDirection)
 
         let tmpl = popoverTmpl.replace(/#{dire}/, dire)::toDOM()
         if($tElement::props('close')){
-            tmpl::prepend('<button class="fm-close">×</button>')
+            tmpl::prepend('<button class="fm-close" ng-click="close()">×</button>')
         }
 
         $tElement.append(tmpl)
-        if(tAttrs.trigger == undefined){
-            throw new Error("No trigger element was binded for popover component.")
-        }
+        if(tAttrs.trigger == undefined) throw new Error(noTriggerSpecified)
 
         return this.link
     }
 
     @dependencies('$scope')
     controller(scope){
-        scope.open = () => {
-            if(scope.isOpen === false){
-                scope.isOpen = !scope.isOpen
-                scope.$layer.removeClass('pop-disappear-animation') //remark
-            }
-        }
-
-        scope.close = (force = false) => {
-            if(force) scope.isOpen = false
-            else if(scope.isOpen !== false) scope.isOpen = !scope.isOpen
-            scope.$layer.addClass('pop-disappear-animation')//remark
-        }
-
-        scope.toggle = () => scope.isOpen ? scope.close() : scope.open()
+        scope.open = () => this.popoverTrans.state = true
+        scope.close = () => this.popoverTrans.state = false
+        scope.toggle = () => this.popoverTrans.state ? scope.close() : scope.open()
     }
 
     link(scope, $element, attr, ctrl){
         this.rootDOM = $element[0]
-        let layerElem = this.rootDOM::query('.popover')
+        let popoverElem = this.rootDOM::query('.fm-popover')
         let trigger = this.rootDOM::query(attr.trigger)
 
-        if(trigger === undefined){
-            throw new Error("trigger element cannot be finded in component scope.")
-        }
+        if(trigger === undefined) throw new Error(noTriggerFound)
 
         this.rootDOM::prepend(trigger)
         this.placement = attr.placement.toLowerCase()
         this.triggerLiteral = attr.trigger
-        let $ngLayer = angular.element(layerElem)
 
+        let actived = $element::props('actived')
+        let offset = $element::props('offset')
+        let event = attr.action || 'click'
 
-        var setLocation = () => {
-            let offset = scope.offset
+        if(!reEvent.test(event)){
+            throw new Error(unSupportEvent)
+        } else if(event === 'hover'){
+            event = 'mouseenter'
+        } else if(event === 'manual'){
+            scope.manual = {
+                open:scope.open,
+                close:scope.close
+            }
+        }
 
-            let triggerBtn = {
+        if(reAutoHide.test(attr.hide)){
+            let expr = event === 'mouseenter' ? 'mouseleave' : 'blur'
+            trigger::on(expr, ::scope.close)
+        }
+
+        if(event !== 'manual'){
+            trigger::on(event, ::scope.toggle)
+        }
+
+        this.offset = reOffset.test(offset) ? offset : 5
+        this.title = attr.title
+        this.popoverTrans = new transition(popoverElem, 'fm-popover-effect', actived)
+
+        let arrowColor = attr.arrow || null
+
+        setTimeout(() => {
+            let init = false
+
+            if(isHidden(popoverElem)){
+                let display = 'block', opacity = 1, transform = 'scale(1)'
+                popoverElem::setStyle({ display, opacity, transform })
+                popoverElem::forceReflow()
+                init = true
+            }
+
+            let trig = {
                 height:trigger::getStyle('height','px'),
                 width:trigger::getStyle('width','px')
             }
 
-            let layer = {
-                height:layerElem::getStyle('height','px'),
-                width:layerElem::getStyle('width','px')
+            let popover = {
+                height:popoverElem::getStyle('height','px'),
+                width:popoverElem::getStyle('width','px')
             }
 
             let left , top
             switch (this.placement) {
                 case 'top':
-                    left = `${-layer.width / 2 + triggerBtn.width / 2}px`
-                    top = `${-layer.height + (-10) + (-offset)}px`
+                    left = `${-popover.width / 2 + trig.width / 2}px`
+                    top = `${-popover.height + (-10) + (-this.offset)}px`
                     break
                 case 'bottom':
-                    left = `${-layer.width / 2 + triggerBtn.width / 2}px`
-                    top = `${triggerBtn.height + 10 + offset}px`
+                    left = `${-popover.width / 2 + trig.width / 2}px`
+                    top = `${trig.height + 10 + this.offset}px`
                     break
                 case 'left':
-                    left = `${-layer.width + (-10) + (-offset)}px`
-                    top = `${triggerBtn.height / 2 - layer.height / 2}px`
+                    left = `${-popover.width + (-10) + (-this.offset)}px`
+                    top = `${trig.height / 2 - popover.height / 2}px`
                     break
                 case 'right':
-                    left = `${triggerBtn.width + 10 + offset}px`
-                    top = `${triggerBtn.height / 2 - layer.height / 2}px`
+                    left = `${trig.width + 10 + this.offset}px`
+                    top = `${trig.height / 2 - popover.height / 2}px`
                     break
                 default:
                     return
             }
 
-            $ngLayer.css({ left, top })
-        }
-
-        scope.$layer = $ngLayer
-
-
-        let actived = $element::props('actived')
-        let offset = $element::props('offset')
-        let hasClose = $element::props('close')
-        let event = attr.action || 'click'
-
-        if(!/click|hover|focus|manual/.test(event)){
-            throw new Error("Event is not supported, it should one of the following values: [click, hover, focus, manual]")
-        } else if(event === 'hover'){
-            event = 'mouseenter'
-        } else if(event === 'manual'){
-            scope.manual = {
-                open:scope.open.bind(scope),
-                close:scope.close.bind(scope)
+            popoverElem::setStyle({ left, top})
+            if(init){
+                let display, opacity, transform
+                popoverElem::removeStyle({ display, opacity, transform })
             }
-        }
-
-        scope.offset = /^\d{1,}$/.test(offset) ? offset : 5
-        scope.isOpen = actived
-
-
-        if(/auto|true/i.test(attr.hide)){
-            trigger::on(event === 'mouseenter'
-                ? 'mouseleave'
-                : 'blur', () => scope.close(true))
-        }
-
-        if(event !== 'manual'){
-            trigger::on(event, () => {
-                if(!scope.isOpen) setLocation() //remark优化
-                scope.toggle()
-            })
-        }
-
-
-        if(!actived) scope.close(true)
-
-        if(hasClose){
-            let closeBtn = this.rootDOM::query('.popover > .fm-close')
-            closeBtn::on('click', () => scope.close(true))
-        }
-
-        let arrowColor = attr.arrow || null
-        this.title = attr.title
-
-        setTimeout(() => {
-            setLocation()
-            setTimeout(() =>
-                this.reColor(arrowColor), 0)
+            this.reColor(arrowColor)
         }, 0)
     }
 
@@ -182,19 +164,19 @@ export default class Popover{
         let trigger = this.triggerLiteral
         if(color === null){
             let selector = dire === 'bottom' && this.title
-            ? "+.popover > .popover-title"
-            : "+.popover > .popover-content > *"
+            ? '+.fm-popover > .fm-popover-title'
+            : '+.fm-popover > .fm-popover-content > *'
 
-            let dom = this.rootDOM::query(trigger + selector)
-            color = dom::getStyle('background-color')
+            let popoverMainElem = this.rootDOM::query(trigger + selector)
+            color = popoverMainElem::getStyle('background-color')
         }
 
-        let style = DOM::query('#__arrowColor__')
+        let style = dom::query('#__arrowColor__')
 
         if(style === null){
             style = createElem('style')
-            style.id = "__arrowColor__"
-            DOM::query('head').appendChild(style)
+            style.id = '__arrowColor__'
+            dom::query('head').appendChild(style)
         }
 
         let triggerBtn = this.rootDOM::query(trigger)
@@ -202,7 +184,7 @@ export default class Popover{
         triggerBtn.setAttribute(uid, '')
 
         let css = `
-            ${escapeHTML(trigger)}[${uid}] + div.popover > .popover-arrow:after{
+            ${escapeHTML(trigger)}[${uid}] + div.fm-popover > .fm-popover-arrow:after{
                 border-${escapeHTML(dire)}-color:${color};
             }
         `

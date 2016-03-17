@@ -6,8 +6,10 @@ $line-height:5px;
     position:relative;
 }
 
-.#{$prefixCls}-progress-success .#{$prefixCls}-progress-line-padding{
-    background-color:#77B91B;
+.#{$prefixCls}-progress-success{
+    .#{$prefixCls}-progress-line-padding{
+        background-color:#77B91B;
+    }
 }
 
 .#{$prefixCls}-progress-line-background{

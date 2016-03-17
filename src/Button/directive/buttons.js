@@ -79,5 +79,6 @@ export default class Buttons {
         if(size !== 'default') this.rootDOM::addClass(`fm-buttons-${size}`)
         this.rootDOM::addClass(`fm-buttons-${type}`)
         if(this.isLoading) scope.control.loading(true)
+        if(this.disabled) scope.control.disable()
     }
 }

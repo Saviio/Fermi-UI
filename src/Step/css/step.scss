@@ -28,7 +28,6 @@
         }
 
         > .#{$prefixCls}-steps-sq {
-            //margin-top: -9px !important;
             &:before{
                 content:attr(data-step);
                 font-size:12px;

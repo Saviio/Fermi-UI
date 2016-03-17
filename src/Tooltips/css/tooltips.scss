@@ -21,12 +21,13 @@
     }
 }
 
-//.fm-tooltip
-.#{$prefixCls}-tooltip-effect-enter,.#{$prefixCls}-tooltip-effect-entered{
+.#{$prefixCls}-tooltip-effect-enter,
+.#{$prefixCls}-tooltip-effect-entered{
     display: block !important;
 }
 
-.#{$prefixCls}-tooltip-effect-enter-active,.#{$prefixCls}-tooltip-effect-entered{
+.#{$prefixCls}-tooltip-effect-enter-active,
+.#{$prefixCls}-tooltip-effect-entered{
     opacity: 0.9 !important;
     transform: scale(1) !important;
 }
@@ -36,19 +37,6 @@
 }
 
 
-/*
-.tooltip{
-    position: absolute;
-    z-index: 9999;
-    display: block;
-    visibility: visible;
-    font-size: 12px;
-    line-height: 1.5;
-    opacity: 0.9;
-    visibility:visible;
-    transition: transform 500ms cubic-bezier(0.08, 0.82, 0.17, 1),opacity 300ms ease-out;
-}
-*/
 .#{$prefixCls}-tooltip-arrow{
     position:absolute;
     width: 0;

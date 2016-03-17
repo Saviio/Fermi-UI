@@ -160,7 +160,7 @@ export class Select {
 
         if(this.mode === 'tags'){
             let renderTag = value => {
-                scope.ngModel.push({item:value, data:{value}, $elem:null})
+                scope.ngModel.push({ item: value, data: { value }, $elem: null })
                 this.tagInput.innerHTML = '&nbsp;'
                 scope.$apply()
             }

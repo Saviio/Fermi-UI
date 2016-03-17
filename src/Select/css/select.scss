@@ -166,7 +166,6 @@
     animation:fadeOutUp 0.3s 0s ease both;
 }
 
-
 .#{$prefixCls}-select-wrapper-default{
     @include select-wrapper-base(38px)
 }
@@ -179,6 +178,8 @@
     @include select-wrapper-base(46px)
 }
 
-.#{$prefixCls}-select-wrapper-normal[tags],.#{$prefixCls}-select-wrapper-large[tags],.#{$prefixCls}-select-wrapper-small[tags]{
+.#{$prefixCls}-select-wrapper-normal[tags],
+.#{$prefixCls}-select-wrapper-large[tags],
+.#{$prefixCls}-select-wrapper-small[tags]{
     cursor:text;
 }
