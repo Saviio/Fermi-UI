@@ -17,17 +17,17 @@
             text-decoration:none;
             padding:10px 15px;
             margin-right:2px;
-            border:1px solid transparent;
+            //border:1px solid transparent;
             display: block;
             border-radius: 4px 4px 0 0;
             transition: background 0.2s ease-out;
             &:hover{
-                background-color: #eee;
+                //background-color: #eee;
             }
         }
 
         display:inline-block;
-        margin-bottom:-1px;
+        margin-bottom:-1.5px;
         position:relative;
     }
 
@@ -39,10 +39,10 @@
         a{
             &:hover,&:focus{
                 cursor: not-allowed;
-                border-top:1px solid #ddd;
+                /*border-top:1px solid #ddd;
                 border-left:1px solid #ddd;
                 border-right:1px solid #ddd;
-                background-color: transparent;
+                background-color: transparent;*/
             }
         }
     }
@@ -50,9 +50,10 @@
     > li.#{$prefixCls}-nav-active {
         > a{
             cursor: default;
-            background-color: #fff;
-            border:1px solid #ddd;
-            border-bottom-color: transparent;
+            //background-color: #fff;
+            //border:1px solid #ddd;
+            //border-bottom-color: transparent;
+            border-bottom: 2px solid $primary-background;
             color:#555;
         }
     }

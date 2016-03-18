@@ -66,7 +66,7 @@
 
 .#{$prefixCls}-checkbox-checked{
     .#{$prefixCls}-checkbox-inner{
-        border-color:darken($green, 3%);
+        border-color:darken($green, 5%);
         background:$green;
 
         &:after{
