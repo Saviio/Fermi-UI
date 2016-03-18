@@ -104,14 +104,7 @@ section {
     display: block !important;
 }
 
-.disappear{
-    opacity:0 !important;
-}
 
-.pop-disappear-animation{
-    opacity:0.3 !important;
-    transform:scale(0) translateZ(0);
-}
 
 
 .#{$prefixCls}-close{
@@ -137,6 +130,18 @@ button.#{$prefixCls}-close{
     cursor: pointer;
     background: transparent;
     border: 0;
+}
+
+input{
+    padding:7px;
+    border:1px solid darken($default-btn-background, 14%);
+    border-radius: 3px;
+    height: 36px;
+    line-height: 36px;
+    color:#47525d;
+    &:focus{
+        outline: none;
+    }
 }
 
 

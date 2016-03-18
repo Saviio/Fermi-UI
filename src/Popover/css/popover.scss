@@ -96,7 +96,7 @@ $offset: 8px;
     background-clip: padding-box;
 
     .#{$prefixCls}-popover-title{
-        padding:5px 14px;
+        padding:5px 10px;
         background-color:#F6F6F6;
         font-size: 12px;
         border-top-right-radius: 3px;
@@ -104,7 +104,7 @@ $offset: 8px;
     }
 
     .#{$prefixCls}-popover-content > *{
-        padding:14px 14px;
+        padding:10px 10px;
     }
 
     .#{$prefixCls}-popover-content{

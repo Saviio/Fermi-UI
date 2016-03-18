@@ -143,9 +143,9 @@
                     <Fermi:buttons id="btn5" content="No title and hover to trigger" ></Fermi:buttons>
                     <div style="background-color:#fff">NO TITLE</div>
                 </Fermi:Popover>
-                <Fermi:Popover placement="top" hide=auto trigger="#btn6" close action="focus">
+                <Fermi:Popover placement="top" hide=auto trigger="#btn6"  action="focus">
                     <input id="btn6" style="padding:5px" value="focus to trigger"></input>
-                    <div style="background-color:#ccc">Hello world!</div>
+                    <div style="background-color:#fff">Hello world!</div>
                 </Fermi:Popover>
                 <Fermi:Popover placement="Bottom" hide=auto trigger="#btn7" close action="manual" manual="pops">
                     <input id="btn7" style="padding:5px" value="manual to trigger"></input>
@@ -156,7 +156,7 @@
 
         <div id="fermiButtons" style="padding:30px">
             <p>Buttons</p>
-            <Fermi:buttons content="大号按钮" size="large" type="primary" control="a" ng-click="output(1)"></Fermi:buttons>
+            <Fermi:buttons content="大号按钮" size="large" type="danger" control="a" ng-click="output(1)"></Fermi:buttons>
             <Fermi:buttons content="默认大小" type="primary" loading control="b"></Fermi:buttons>
             <Fermi:buttons content="小号按钮" size="small" type="primary"  control="c"></Fermi:buttons>
             <Fermi:buttons content="大号按钮" size="large" loading  control="d"></Fermi:buttons>

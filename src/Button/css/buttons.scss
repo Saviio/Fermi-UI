@@ -9,7 +9,7 @@ $small-btn-height:0px;
         padding-top:0px !important;
         padding-bottom: 0px !important;
         background-color:$default-btn-background;
-        border:darken($default-btn-background, 20%) solid 1px;
+        border:darken($default-btn-background, 14%) solid 1px;
 
         .#{$prefixCls}-button-loader{
             width: 16px;
@@ -41,13 +41,29 @@ $small-btn-height:0px;
             border:darken($primary-btn-background, 10%) solid 1px !important;
         }
     }
+
+    &.#{$prefixCls}-buttons-danger.#{$prefixCls}-button-loading{
+        background: $danger-btn-background !important;
+        border:darken($danger-btn-background, 10%) solid 1px !important;
+
+        .#{$prefixCls}-button-loader{
+            fill:#800000 !important;
+        }
+
+        &:hover{
+            background: $danger-btn-background!important;
+            border:darken($danger-btn-background, 10%) solid 1px !important;
+        }
+    }
 }
 
 
 @mixin disable(){
     &.#{$prefixCls}-buttons-primary.#{$prefixCls}-button-disabled[disabled=true],
+    &.#{$prefixCls}-buttons-danger.#{$prefixCls}-button-disabled[disabled=true],
     &.#{$prefixCls}-buttons-default.#{$prefixCls}-button-disabled[disabled=true],
     &.#{$prefixCls}-buttons-primary.#{$prefixCls}-button-disabled[disabled=disabled],
+    &.#{$prefixCls}-buttons-danger.#{$prefixCls}-button-disabled[disabled=disabled],
     &.#{$prefixCls}-buttons-default.#{$prefixCls}-button-disabled[disabled=disabled]{
         color:#ccc !important;
         background-color:#f3f5f7 !important;
@@ -58,7 +74,9 @@ $small-btn-height:0px;
     }
 
     &.#{$prefixCls}-buttons-primary.#{$prefixCls}-button-disabled[disabled=true],
-    &.#{$prefixCls}-buttons-primary.#{$prefixCls}-button-disabled[disabled=disabled]{
+    &.#{$prefixCls}-buttons-primary.#{$prefixCls}-button-disabled[disabled=disabled],
+    &.#{$prefixCls}-buttons-danger.#{$prefixCls}-button-disabled[disabled=true],
+    &.#{$prefixCls}-buttons-danger.#{$prefixCls}-button-disabled[disabled=disabled]{
         .fm-button-loader{
             fill:#ccc !important;
         }
@@ -72,7 +90,7 @@ button.#{$prefixCls}-buttons-default{
     font-family: "Helvetica Neue",Helvetica,"Hiragino Sans GB","Microsoft YaHei",SimSun,sans-serif;
     color:$default-btn-color;
     background-color:$default-btn-background;
-    border:darken($default-btn-background, 20%) solid 1px;
+    border:darken($default-btn-background, 14%) solid 1px;
     padding-left:3px;
     padding-right:3px;
     text-align:center;
@@ -88,7 +106,7 @@ button.#{$prefixCls}-buttons-default{
     letter-spacing:normal;
     word-spacing:normal;
     white-space:nowrap;
-    height:34px;
+    height:36px;
     font-size:12px;
     line-height: 100%;
 
@@ -123,6 +141,22 @@ button.#{$prefixCls}-buttons-primary{
 
     &:hover{
         background: darken($primary-btn-background, 5%);
+    }
+}
+
+button.#{$prefixCls}-buttons-danger{
+    @extend button.#{$prefixCls}-buttons-default;
+    color:$danger-btn-color;
+    background-color:$danger-btn-background;
+    border:darken($danger-btn-background, 10%) solid 1px;
+
+    &:hover,&:visited{
+        color:$danger-btn-color;
+        text-decoration: none;
+    }
+
+    &:hover{
+        background: darken($danger-btn-background, 5%);
     }
 }
 

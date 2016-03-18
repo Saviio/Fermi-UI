@@ -25,7 +25,7 @@
         transition:border-color 0.5s ease;
 
         &:hover{
-            border-color:$primary-background;
+            border-color:lighten($primary-background, 25%);;
         }
 
         .#{$prefixCls}-select-icon{
@@ -167,7 +167,7 @@
 }
 
 .#{$prefixCls}-select-wrapper-default{
-    @include select-wrapper-base(38px)
+    @include select-wrapper-base(36px)
 }
 
 .#{$prefixCls}-select-wrapper-small{
