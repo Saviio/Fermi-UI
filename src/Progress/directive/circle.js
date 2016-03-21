@@ -1,6 +1,9 @@
 import { dependencies } from '../../external/dependencies'
 import template from '../template/circle.html'
-import { props } from '../../utils'
+import {
+    props,
+    setStyle
+} from '../../utils'
 
 const PI = 3.1415926535898
 
@@ -34,8 +37,8 @@ export default class circle{
     link(scope, $elem, attrs, ctrl){
         let size = attrs.size || 100
         let strokeWidth = attrs.strokeWidth || 4
-        let inner = attrs.inner || '#e9e9e9' //inner background-color
-        let outer = attrs.outer || '#488fcd' //outer background-color
+        let inner = attrs.inner
+        let outer = attrs.outer
         let shape = attrs.shape || 'round'
         let showinfo = !!(attrs.showinfo || false)
         let isProgress = $elem::props('progress')
@@ -48,11 +51,17 @@ export default class circle{
 
         for(let i = 0;i < paths.length; i++){
             paths[i].setAttribute('d',`M ${moveTo},${moveTo} m 0,-${radius} a ${radius},${radius} 0 1 1 0,${radius * 2} a ${radius},${radius} 0 1 1 0,-${radius * 2}`)
-            paths[i].setAttribute('stroke', i === 0 ? inner : outer)
             paths[i].setAttribute('stroke-width', strokeWidth)
         }
 
         paths[paths.length - 1].setAttribute('stroke-linecap', shape)
+        if(inner){
+            paths[0]::setStyle({ 'stroke': inner })
+        }
+
+        if(outer){
+            paths[1]::setStyle({ 'stroke': outer })
+        }
 
         if(showinfo){
             let format = (attrs.format || '${percent}').replace('${percent}', $0 => '{{value}}')

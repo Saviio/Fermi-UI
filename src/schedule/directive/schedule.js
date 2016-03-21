@@ -43,10 +43,8 @@ export default class Schedule{
         scope.hebdom = {}
 
         let reColor = color => {
-            let defaultCSS = '#0089C5'
             if(color) return `background-color:${color}`
             else if(scope.tag) return `background-color:${scope.tag}`
-            else return `background-color:${defaultCSS}`
         }
 
         let reHeight = (minutes, duration) => {

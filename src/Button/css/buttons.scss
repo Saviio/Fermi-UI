@@ -47,7 +47,7 @@ $small-btn-height:0px;
         border:darken($danger-btn-background, 10%) solid 1px !important;
 
         .#{$prefixCls}-button-loader{
-            fill:#800000 !important;
+            fill:#fff !important;
         }
 
         &:hover{

@@ -58,11 +58,13 @@
                 margin-top: 4px;
                 box-sizing: content-box;
                 cursor:pointer;
+                //color:$primary-btn-background;
                 .#{$prefixCls}-tag-remove{
                     cursor:pointer;
                     opacity: 0.7;
                     cursor: pointer;
                     font-family: "Open Sans", sans-serif;
+                    color:#777;
                     &:hover{
                         color: #404040;
                     }
