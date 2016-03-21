@@ -15,7 +15,7 @@ html,body{
         line-height: 80px;
         float: right;
     }
-    background-color:rgba(0,0,0,.3);
+    background-color:rgba(0,0,0,.45);
     border-bottom:none;
     color:#eee;
     z-index:999;
@@ -23,7 +23,6 @@ html,body{
 
 #view{
     #intro{
-
         font-size:3rem;
         background:url('../img/header.jpg');
         height:600px;
@@ -43,7 +42,7 @@ html,body{
                 font-family:'TitilliumWeb-Bold' !important;
             }
             > #start{
-                background:#EA6D09;
+                background:#404F6B;
                 border:none;
                 > span {
                     font-family:'TitilliumWeb-Bold' !important;
