@@ -5,15 +5,18 @@ import template from './template'
 
 import './Fermi-UI/fermi.scss'
 import './css/app.scss'
+import './font/fonts.scss'
 
 import './Fermi-UI/Menu'
 import './Fermi-UI/Progress'
+import './Fermi-UI/Button'
 
 
 let app = angular.module('Fermi', [
     'ui.router',
     'Fermi.menu',
-    'Fermi.progress'
+    'Fermi.progress',
+    'Fermi.buttons'
 ])
 
 app.run(['$rootScope','Fermi.Loading', ($root, Loading) => {

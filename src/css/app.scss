@@ -1,3 +1,5 @@
+
+
 html,body{
     margin:0px;
     padding: 0px;
@@ -21,7 +23,32 @@ html,body{
 
 #view{
     #intro{
+
+        font-size:3rem;
         background:url('../img/header.jpg');
         height:600px;
+        padding-top:80px;
+        position:relative;
+        color:#fff;
+        > #container{
+            width:1020px;
+            text-align:center;
+            height:410px;
+            padding-top:140px;
+            position:absolute;
+            top:50%;
+            left:50%;
+            transform:translate(-50%, -50%);
+            > div {
+                font-family:'TitilliumWeb-Bold' !important;
+            }
+            > #start{
+                background:#EA6D09;
+                border:none;
+                > span {
+                    font-family:'TitilliumWeb-Bold' !important;
+                }
+            }
+        }
     }
 }
