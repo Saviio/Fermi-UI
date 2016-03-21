@@ -22,7 +22,7 @@ app.run(['$rootScope','Fermi.Loading', ($root, Loading) => {
     })
 
     $root.$on('$viewContentLoaded', e => {
-        setTimeout(() => Loading.inc(90).done(), 500)
+        setTimeout(() => Loading.inc(90).done(), 100)
     })
 }])
 
