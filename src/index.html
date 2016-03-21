@@ -4,15 +4,15 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <meta charset = 'UTF-8'>
     <title>Fermi.UI - Yet another angular based UI library</title>
+    <base href="/">
 </head>
 <body>
     <div>
-        <header>
-            <a ui-sref='index'>首页</a>
-            <a ui-sref='component'>组件</a>
-            <!--<a ui-sref='color'>色彩</a>-->
-        </header>
-        <section ui-view></section>
+        <Fermi:Menu mode='H' id='header'>
+            <Fermi:Menuitem class='menuItem' ui-sref='documentation'>文档</Fermi:Menuitem>
+            <Fermi:Menuitem class='menuItem' ui-sref='index'>首页</Fermi:Menuitem>
+        </Fermi:Menu>
+        <section ui-view id='view'></section>
         <footer></footer>
     </div>
 </body>

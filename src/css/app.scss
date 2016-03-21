@@ -1,0 +1,20 @@
+html,body{
+    margin:0px;
+    padding: 0px;
+}
+
+#header{
+    width: 100%;
+    height: 80px;
+    position: fixed;
+    top:0px;
+    .menuItem{
+        height: 100%;
+        line-height: 80px;
+        float: right;
+    }
+}
+
+#view{
+    margin-top: 80px;
+}

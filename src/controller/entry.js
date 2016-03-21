@@ -1,12 +1,8 @@
 import { dependencies } from '../external/dependencies'
 
-
-
+@dependencies('Fermi.Loading')
 export default class entry{
-    constructor(){
-        
+    constructor(loading){
+        //loading.start()
     }
-
-
-
 }

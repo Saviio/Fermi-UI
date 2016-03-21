@@ -1,11 +1,9 @@
 import entry from './entry.html'
-import design from './design.html'
-import components from './components.html'
+import documentation from './documentation.html'
 
 let template = {
     entry,
-    design,
-    components
+    documentation
 }
 
 export default template
