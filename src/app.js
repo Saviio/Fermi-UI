@@ -26,7 +26,7 @@ app.run(['$rootScope','Fermi.Loading', ($root, Loading) => {
     })
 }])
 
-
+app.controller('entry', entry)
 
 app.config(['$locationProvider', $location => $location.html5Mode(true)])
 
@@ -41,7 +41,7 @@ app.config([
             .state('index', {
                 url:'/',
                 template:template.entry,
-                controller:entry,
+                controller:'entry',
                 controllerAs:'Index'
             })
             .state('documentation', {
