@@ -6,6 +6,7 @@ import {
     clamp,
     query,
     queue,
+    remove,
     setStyle,
     addClass,
     createElem
@@ -25,7 +26,8 @@ export default class Loading{
     __tryDispose__(){
         if(this.instance !== null){
             this.instance = this.status = null
-            body.removeChild(dom::query('#fm-progress-loading-elem'))
+            let elem = dom::query('#fm-progress-loading-elem')
+            if(elem) elem::remove()
         }
     }
 
