@@ -8,12 +8,18 @@
 </head>
 <body>
     <div>
-        <Fermi:Menu mode='H' id='header'>
-            <Fermi:Menuitem class='menuItem' ui-sref='documentation'>文档</Fermi:Menuitem>
-            <Fermi:Menuitem class='menuItem' ui-sref='index'>首页</Fermi:Menuitem>
-        </Fermi:Menu>
+        <header>
+            <Fermi:Menu mode='H' id='header'>
+                <Fermi:Menuitem class='menuItem' ui-sref='documentation'>文档</Fermi:Menuitem>
+                <Fermi:Menuitem class='menuItem' ui-sref='index'>首页</Fermi:Menuitem>
+            </Fermi:Menu>
+        </header>
         <section ui-view id='view'></section>
-        <footer></footer>
+        <footer>
+            <div id="footer">
+                
+            </div>
+        </footer>
     </div>
 </body>
 </html>

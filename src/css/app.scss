@@ -25,6 +25,7 @@ html,body{
     #intro{
         font-size:3rem;
         background:url('../img/header.jpg');
+        background-position: center;
         height:600px;
         padding-top:80px;
         position:relative;
@@ -42,7 +43,7 @@ html,body{
                 font-family:'TitilliumWeb-Bold' !important;
             }
             > #start{
-                background:#404F6B;
+                background:#3683c6;
                 border:none;
                 > span {
                     font-family:'TitilliumWeb-Bold' !important;
@@ -50,4 +51,14 @@ html,body{
             }
         }
     }
+}
+
+
+#footer{
+    height: 205px;
+    background-color: #424a54;
+    position: absolute;
+    bottom:0px;
+    left:0px;
+    width: 100%;
 }
