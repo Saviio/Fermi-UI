@@ -41,6 +41,7 @@ html,body{
             transform:translate(-50%, -50%);
             > div {
                 font-family:'TitilliumWeb-Bold' !important;
+                text-shadow: 2px 2px 2px #424a54;
             }
             > #start{
                 background:#3683c6;
@@ -55,7 +56,7 @@ html,body{
 
 
 #footer{
-    height: 205px;
+    height: 90px;
     background-color: #424a54;
     position: absolute;
     bottom:0px;
