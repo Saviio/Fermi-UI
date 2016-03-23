@@ -1,6 +1,6 @@
 import angular from 'angular'
-import uiRouter from 'ui-router'
-import { entry } from './controller'
+import uiRouter from 'angular-ui-router'
+import { home } from './controller'
 import template from './template'
 
 import './Fermi-UI/fermi.scss'
@@ -19,9 +19,15 @@ let app = angular.module('Fermi', [
     'Fermi.buttons'
 ])
 
-app.run(['$rootScope','Fermi.Loading', ($root, Loading) => {
-    $root.$on('$locationChangeStart', e => {
-        Loading.start()
+app.run(['$rootScope', 'Fermi.Loading', '$window', ($root, Loading) => {
+
+    $root.$on('$stateChangeStart',(e, toState) => {
+        if(toState.external){
+            e.preventDefault()
+            window.open(toState.redirectTo, '_blank')
+        } else {
+            Loading.start()
+        }
     })
 
     $root.$on('$viewContentLoaded', e => {
@@ -29,7 +35,7 @@ app.run(['$rootScope','Fermi.Loading', ($root, Loading) => {
     })
 }])
 
-app.controller('entry', entry)
+app.controller('home', home)
 
 app.config(['$locationProvider', $location => $location.html5Mode(true)])
 
@@ -39,20 +45,28 @@ app.config([
     ($stateProvider, $urlRouter) => {
         $urlRouter.otherwise('/404')
 
-
         $stateProvider
-            .state('index', {
+            .state('home', {
                 url:'/',
-                template:template.entry,
-                controller:'entry',
-                controllerAs:'Index'
+                template:template.home,
+                controller:'home',
+                controllerAs:'Home'
             })
             .state('documentation', {
                 url:'/documentation',
                 template:template.documentation
             })
+            .state('404', {
+                url:'/404',
+                template:template.page404
+            })
+            .state('github', {
+                url:'/github',
+                external: true,
+                redirectTo:'https://github.com/saviio/Fermi.UI'
+            })
 
-        $urlRouter.when('/index', '/')
+        $urlRouter.when('/home', '/')
         $urlRouter.when('', '/')
     }
 ])

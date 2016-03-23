@@ -1,7 +1,7 @@
-import entry from './entry'
+import home from './home'
 
 let controller = {
-    entry
+    home
 }
 
 export default controller

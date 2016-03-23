@@ -1,9 +1,11 @@
-import entry from './entry.html'
+import home from './home.html'
 import documentation from './documentation.html'
+import page404 from './404.html'
 
 let template = {
-    entry,
-    documentation
+    home,
+    documentation,
+    page404
 }
 
 export default template

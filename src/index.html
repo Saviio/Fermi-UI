@@ -7,17 +7,28 @@
     <base href="/">
 </head>
 <body>
-    <div>
+    <div id="wrapper">
         <header>
             <Fermi:Menu mode='H' id='header'>
+                <Fermi:Menuitem class='menuItem' ui-sref='github'>Github</Fermi:Menuitem>
                 <Fermi:Menuitem class='menuItem' ui-sref='documentation'>Docummentation</Fermi:Menuitem>
-                <Fermi:Menuitem class='menuItem' ui-sref='index'>Home</Fermi:Menuitem>
+                <Fermi:Menuitem class='menuItem' ui-sref='home'>Home</Fermi:Menuitem>
             </Fermi:Menu>
         </header>
         <section ui-view id='view'></section>
         <footer>
             <div id="footer">
-
+                <ul>
+                    <li >
+                        <a ui-sref='documentation'>Documentation</a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="https://github.com/Saviio/Fermi.UI/issues">Report Issue</a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="http://weibo.com/u/1644776253">Contact</a>
+                    </li>
+                </ul>
             </div>
         </footer>
     </div>
