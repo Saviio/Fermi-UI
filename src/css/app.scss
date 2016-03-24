@@ -29,11 +29,11 @@ html,body{
 #view{
     padding-bottom: 90px;
     padding-top:80px;
-    #intro{
+    #title{
         font-size:3rem;
         background:url('../img/header.jpg');
         background-position: center;
-        height:600px;
+        height:750px;
         margin-top:-80px;
         position:relative;
         color:#fff;
@@ -62,29 +62,34 @@ html,body{
     }
 
     #content{
-        width: 1020px;
-        margin: auto;
         position: relative;
 
         > div {
+            min-height:600px;
             position: relative;
             > .detail{
-                position: absolute;
+                width: 1020px;
+                margin: auto;
+                position: relative;
                 top: 50%;
                 left:0px;
                 transform: translate(0%, -50%);
-                width: 400px;
-                > p {
-                    margin-bottom: 8px;
-                    font-family:'TitilliumWeb' !important;
-                    font-size: 14px;
+                //width: 400px;
+                > .intro{
+                    position:relative;
+                    > p {
+                        margin-bottom: 8px;
+                        font-family:'TitilliumWeb' !important;
+                        font-size: 14px;
+                        width:400px;
+                    }
                 }
+
             }
             h2{
                 display: inline-block;
                 vertical-align: top;
-                font-weight: bold;
-                font-family:'TitilliumWeb' !important;
+                font-family:'TitilliumWeb-Bold' !important;
                 margin-bottom: 15px;
                 color:rgba(88, 96, 101, 0.70);
             }
@@ -98,15 +103,22 @@ html,body{
             width: 100%;
         }
 
+        > #feature2{
+            background-color:#F1F5F7;
+            height:300px;
+        }
+
         >#feature3{
             height: 365px;
             position: relative;
 
             img{
-                display: inline-block;
-                vertical-align: top;
+                //display: inline-block;
+                //vertical-align: top;
                 position: absolute;
-                right: 10px;
+                right: 0px;
+                top:50%;
+                transform:translate(0%, -50%);
             }
 
         }
@@ -141,9 +153,9 @@ html,body{
                 cursor: pointer;
             }
             a{
-                font-family:'TitilliumWeb' !important;
+                font-family:'TitilliumWeb-Bold' !important;
                 font-weight: 700;
-                font-size: 12px;
+                font-size: 14px;
                 text-decoration: none;
                 color:#ccc;
                 height: 100%;
