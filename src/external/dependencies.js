@@ -1,6 +1,6 @@
 
 export function dependencies(...injection){
-    return function(target, key, descriptor){
+    return target => {
         target.$inject = injection
     }
 }
