@@ -2,25 +2,33 @@ import angular from 'angular'
 import uiRouter from 'angular-ui-router'
 import { home } from './controller'
 import template from './template'
+import './directive/ng-highlight'
 
 import './Fermi-UI/fermi.scss'
-import './css/app.scss'
-import './font/fonts.scss'
-
 import './Fermi-UI/Menu'
 import './Fermi-UI/Progress'
 import './Fermi-UI/Button'
 
 
+
+import './css/app.scss'
+import './css/tomorrow.scss'
+import './font/fonts.scss'
+
+
+
+const body = document.body
+
 let app = angular.module('Fermi', [
+    'HighlightGrammer',
     'ui.router',
     'Fermi.menu',
     'Fermi.progress',
     'Fermi.buttons'
 ])
 
-app.run(['$rootScope', 'Fermi.Loading', '$window', ($root, Loading) => {
 
+app.run(['$rootScope', 'Fermi.Loading', '$window', ($root, Loading) => {
     $root.$on('$stateChangeStart',(e, toState) => {
         if(toState.external){
             e.preventDefault()
@@ -30,15 +38,15 @@ app.run(['$rootScope', 'Fermi.Loading', '$window', ($root, Loading) => {
         }
     })
 
-    $root.$on('$viewContentLoaded', e => {
-        setTimeout(() => Loading.inc(90).done(), 100)
+    $root.$on('$viewContentLoaded', (e, toState) => {
+        setTimeout(() => Loading.inc(.9).done(), 100)
+        //hljs.initHighlightingOnLoad()
     })
 }])
 
 app.controller('home', home)
 
 app.config(['$locationProvider', $location => $location.html5Mode(true)])
-
 app.config([
     '$stateProvider',
     '$urlRouterProvider',
@@ -58,7 +66,9 @@ app.config([
             })
             .state('404', {
                 url:'/404',
-                template:template.page404
+                template:template.page404,
+                onEnter:() => body.classList.add('page-not-found'),
+                onExit:() => body.classList.remove('page-not-found')
             })
             .state('github', {
                 url:'/github',
@@ -67,6 +77,7 @@ app.config([
             })
 
         $urlRouter.when('/home', '/')
+        $urlRouter.when('/index', '/')
         $urlRouter.when('', '/')
     }
 ])

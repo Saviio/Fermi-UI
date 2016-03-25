@@ -1,4 +1,4 @@
-<div id="title">
+<div id="title" ng-init="Home.test()">
     <div id="container">
         <h1>Fermi.UI - Yet another Angular UI library</h1>
         <Fermi:buttons id="start" content="npm install Fermi-UI --save" type="primary" size="large"></Fermi:buttons>
@@ -10,21 +10,13 @@
             <div class="intro">
                 <h2>Reuseable & Nestable</h2>
                 <p>
-                    Fermi-UI is a set of components that implements with AngularJS. The main purpose of this project is to make developers are able to build a Angular based application speedly and conveniently.
+                    Fermi-UI is a set of components that implements with AngularJS. The main purpose of this project is to make developers are able to build a Angular based application quickly and conveniently.
                 </p>
                 <p>
-                    Thus, Fermi-UI offered about 17 components. And each component can be used or combined flexibly in a variety of scenarios. It can help developer to enhance and build a much stronger UI function.
+                    Thus, Fermi-UI offered about 17 components. And each component can be used or combined flexibly in a variety of scenarios. It can help developer to get a much stronger UI function.
                 </p>
             </div>
-        </div>
-    </div>
-    <div id="feature2">
-        <div class="detail">
-            <div class="intro">
-                <h2>Workflow</h2>
-                <p></p>
-            </div>
-
+            <img src="../img/buildingUI.jpg" width="520px"/>
         </div>
     </div>
     <div id="feature3">
@@ -36,6 +28,30 @@
             </div>
             <img src="../img/declarative.png" width="600px"/>
         </div>
-
     </div>
+    <div id="feature2">
+        <div class="detail">
+            <div class="intro" ng-highlight>
+                <h2>Workflow</h2>
+                <p>
+                    Fermi-UI was built on top of some the trendiest web development stack like webpack, ES6 & part of ES7 features, SASS.
+                </p>
+                <p>
+                    It will be easy to import them to project:
+                </p>
+                <pre><code class="javascript">
+                    import 'Fermi-UI/Menu'
+                    let app = angular.module('app', ['Fermi.menu'])
+                </code></pre>
+                <p>
+                    import styles:
+                </p>
+                <pre><code>
+                    import 'Fermi-UI/index.css'
+                </code></pre>
+            </div>
+            <img src="../img/circle.png" width="600px"/>
+        </div>
+    </div>
+
 </div>

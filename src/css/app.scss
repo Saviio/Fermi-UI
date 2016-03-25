@@ -3,6 +3,7 @@
 html,body{
     margin:0px;
     padding: 0px;
+    //font:100%/1.5 'TitilliumWeb';
 }
 
 #wrapper{
@@ -13,7 +14,7 @@ html,body{
 #header{
     width: 100%;
     height: 80px;
-    position: fixed;
+    position: absolute;
     top:0px;
     .menuItem{
         height: 100%;
@@ -65,7 +66,7 @@ html,body{
         position: relative;
 
         > div {
-            min-height:600px;
+            min-height:500px;
             position: relative;
             > .detail{
                 width: 1020px;
@@ -77,11 +78,34 @@ html,body{
                 //width: 400px;
                 > .intro{
                     position:relative;
-                    > p {
+                    > p{
                         margin-bottom: 8px;
                         font-family:'TitilliumWeb' !important;
-                        font-size: 14px;
+                        font-size: 16px;
                         width:400px;
+                    }
+                    >pre{
+                        font-size: 12px;
+                        width:400px;
+                        background: #fff;
+                        border-radius: 3px;
+                        margin: 1em 0;
+                        line-height: 1;
+                        code{
+                            font-family:'TitilliumWeb' !important;
+                            white-space:pre;
+                            //margin-top: -1em;
+                            display: block;
+                            line-height: 1.4;
+                            border:rgb(230, 230, 230) 1px solid;
+                            border-radius: 3px;
+                            > span{
+                                font-family:'TitilliumWeb' !important;
+                            }
+                        }
+                        code.hljs{
+                            background:whitesmoke;
+                        }
                     }
                 }
 
@@ -89,32 +113,65 @@ html,body{
             h2{
                 display: inline-block;
                 vertical-align: top;
-                font-family:'TitilliumWeb-Bold' !important;
+                font-family:'TitilliumWeb' !important;
                 margin-bottom: 15px;
-                color:rgba(88, 96, 101, 0.70);
+                //color:rgba(88, 96, 101, 0.70);
+                //color:rgb(86, 149, 197);
+                color:#617686;
+                font-size: 2.5rem;
+                font-weight: 400;
             }
         }
 
         > #feature1{
-            background:url('../img/reuseable.jpg') no-repeat;
+            //background:url('../img/reuseable.jpg') no-repeat;
             height: 316px;
             background-color: #fff;
             background-position: center;
             width: 100%;
+            position: relative;
+
+            img{
+                position: absolute;
+                right: 0px;
+                top:50%;
+                transform:translate(0%, -50%);
+            }
         }
 
         > #feature2{
-            background-color:#F1F5F7;
+            //background-color:#F1F5F7;
+            background: #fff;
             height:300px;
+
+            h2 {
+
+            }
+            .intro{
+                //float: right;
+            }
+
+            img{
+                position: absolute;
+                right: 0px;
+                top:50%;
+                transform:translate(0%, -50%);
+            }
         }
 
         >#feature3{
             height: 365px;
             position: relative;
+            background: #2A333E;
+
+
+            div {
+                h2{
+                    color:#fff;
+                }
+            }
 
             img{
-                //display: inline-block;
-                //vertical-align: top;
                 position: absolute;
                 right: 0px;
                 top:50%;
@@ -181,6 +238,9 @@ html,body{
         margin-left: 30px;
     }
 }
+.page-not-found{
+    background-color: #dfdeda;
+}
 
 #notFound{
     background: #F7F7F7;
@@ -217,6 +277,11 @@ html,body{
 
         }
     }
+}
+
+#yoda{
+    background: url('../img/yoda.jpg') no-repeat;
+    background-position: center;
 }
 
 #circle404{
