@@ -138,6 +138,44 @@ html,body{
             margin-bottom: 30px;
         }
 
+        #progress{
+            border-radius:3px;
+            width:420px;
+            margin:40px 25px;
+            height:75px;
+            background:#fff;
+            box-shadow:0 1px 2px rgba(37, 40, 43, 0.1);
+
+            #progress-tag{
+                background: #2DBCA4;
+                color: #fff;
+                border-radius: 3px;
+                padding: 3px 5px;
+            }
+
+
+
+            > div {
+                padding: 3px 5px;
+                margin: 13px 10px;
+                display: inline-block;
+                vertical-align: top;
+                margin-bottom:5px;
+                font-family:'TitilliumWeb' !important;
+                color:#495b6d;
+                > span{
+                    font-family:'TitilliumWeb' !important;
+                }
+            }
+
+            #progress-ui{
+                width:394px;
+                margin-top:2px;
+                padding-left:0px;
+                padding-right:0px;
+            }
+        }
+
         #popover{
             margin-top: -45px;
         }
@@ -267,7 +305,7 @@ html,body{
             background-position: center;
             width: 100%;
             position: relative;
-            padding-bottom: 77px;
+            padding-bottom: 120px;
 
             /*img{
                 position: absolute;
@@ -275,33 +313,36 @@ html,body{
                 top:50%;
                 transform:translate(0%, -50%);
             }*/
+            >.detail{
+                margin-top:30px;
+            }
 
             img{
                 float: right;
             }
 
             .intro {
-                padding-top: 77px;
+                margin-top: 100px;
             }
         }
 
         > #feature2{
             //background-color:#F1F5F7;
             background: #fff;
-            height:300px;
+            //height:300px;
+            padding-bottom: 120px;
 
             h2 {
 
             }
             .intro{
                 //float: right;
+                padding-top: 100px;
             }
 
             img{
-                position: absolute;
-                right: 0px;
-                top:50%;
-                transform:translate(0%, -50%);
+                float: right;
+                padding-top:120px;
             }
         }
 
@@ -309,9 +350,9 @@ html,body{
             min-height: 365px;
             //position: relative;
             background: #2A333E;
-            padding-bottom: 77px;
+            padding-bottom: 120px;
             .intro {
-                padding-top: 77px;
+                padding-top: 100px;
                 color:#fff;
                 width: 100%;
                 div > p{

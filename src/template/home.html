@@ -10,10 +10,10 @@
             <div class="intro">
                 <h2>Reuseable & Nestable</h2>
                 <p>
-                    Fermi-UI is a set of components that implements with AngularJS. The main purpose of this project is to make people are able to build a Angular based application quickly and conveniently.
+                    Fermi-UI is a set of components that implements with AngularJS. The main purpose of this project is to make developers are able to build a Angular based application quickly and conveniently.
                 </p>
                 <p>
-                    Thus, Fermi-UI encapsulated some typical components. Each component can be used or combined flexibly and may help people to get a much stronger UI function.
+                    Thus, Fermi-UI encapsulated some typical components. Each component can be used or combined flexibly and may help developers to get a much stronger UI function.
                 </p>
             </div>
             <img src="../img/buildingUI.jpg" width="520px"/>
@@ -30,7 +30,7 @@
                             Most of components in the library was packaged as a custom markup element (directive).
                         </p>
                         <p>
-                            With this approach, People will have the ability to apply them to application in a dedclarative way.
+                            With this approach, Developers will have the ability to apply them to the application in a dedclarative way.
                         </p>
                     </div>
                     <div id="popover">
@@ -56,7 +56,7 @@
                                     <div></div>
                                 </div>
                                 <div id="row2">
-                                    <Fermi:buttons class="sample-button"  type="primary" size="small"></Fermi:buttons>
+                                    <Fermi:buttons class="sample-button" type="primary" size="small"></Fermi:buttons>
                                 </div>
                             </div>
                         </Fermi:Popover>
@@ -65,17 +65,29 @@
 
                 <div class="ui-sample">
                     <div id="progress">
-
+                        <div id="progress-tag">Element</div>
+                        <div id="progress-code">
+                            &lt;
+                            <span class="component-namespace">Fermi</span>
+                            :
+                            <span class="component-element">Line</span>
+                              ....
+                            &gt;&lt;/
+                            <span class="component-namespace">Fermi</span>
+                            :
+                            <span class="component-element">Line</span>
+                            &gt;
+                        </div>
+                        <div id="progress-ui">
+                            <Fermi:Line value="Home.lineSample" default="0"></Fermi:Line>
+                        </div>
                     </div>
                     <div>
                         <p>
-                            In general, A Fermi component can be declared in HTML template with one line code. But we also designed some parameters and ensuring it's flexible enough to evolve with people's needs.
+                            Follow the guide, Just declare them in the view template like built-in html element. Also, we designed different parameters to ensure they're flexible enough to evolve with people's needs.
                         </p>
                         <p>
-                            Progress, Popover, Notification, Button and much more were provided. Please find document for detailed API reference.
-                        </p>
-                        <p>
-
+                            Progress, Popover, Steps, Button and much more components were provided in the lib. Please find document for detailed API reference.
                         </p>
                     </div>
                 </div>
@@ -104,11 +116,9 @@
                     import 'Fermi-UI/index.css'
                 </code></pre>
             </div>
-<<<<<<< HEAD
+
             <img src="../img/tech.png" width="600px"/>
-=======
-            <!--<img src="../img/circle.png" width="600px"/>-->
->>>>>>> origin/doc
+
         </div>
     </div>
 

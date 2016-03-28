@@ -9,6 +9,7 @@ import './Fermi-UI/Menu'
 import './Fermi-UI/Progress'
 import './Fermi-UI/Button'
 import './Fermi-UI/Popover'
+import './Fermi-UI/core'
 
 
 
@@ -27,7 +28,8 @@ let app = angular.module('Fermi', [
     'Fermi.menu',
     'Fermi.progress',
     'Fermi.buttons',
-    'Fermi.popover'
+    'Fermi.popover',
+    'Fermi.core'
 ])
 
 
