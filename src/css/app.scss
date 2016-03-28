@@ -66,18 +66,25 @@ html,body{
         position: relative;
 
         > div {
-            min-height:500px;
-            position: relative;
+            //min-height:500px;
+            //position: relative;
             > .detail{
                 width: 1020px;
                 margin: auto;
-                position: relative;
-                top: 50%;
-                left:0px;
-                transform: translate(0%, -50%);
+                //position: relative;
+                //top: 50%;
+                //left:0px;
+                //transform: translate(0%, -50%);
                 //width: 400px;
+                > img{
+                    display: inline-block;
+                    vertical-align: top;
+                }
                 > .intro{
-                    position:relative;
+                    //position:relative;
+                    display: inline-block;
+                    vertical-align: top;
+                    width: 400px;
                     > p{
                         margin-bottom: 8px;
                         font-family:'TitilliumWeb' !important;
@@ -120,22 +127,161 @@ html,body{
                 color:#617686;
                 font-size: 2.5rem;
                 font-weight: 400;
+                margin: 0px;
+            }
+        }
+
+        .decorator{
+            height: 5px;
+            width: 77px;
+            background: #227ACF;
+            margin-bottom: 30px;
+        }
+
+        #popover{
+            margin-top: -45px;
+        }
+
+        #popover-code{
+            height: 50px;
+            background: #fff;
+            width: 350px;
+            border-radius: 3px;
+            color: #495b6d;
+            box-shadow: 0 1px 2px rgba(37, 40, 43, 0.1);
+
+            #popover-tag{
+                background: #2DBCA4;
+                color: #fff;
+                border-radius: 3px;
+                padding: 3px 5px;
+            }
+
+            #popover-tag+div{
+                width: 230px;
+                text-align: center;
+                > span{
+                    font-family:'TitilliumWeb' !important;
+                }
+            }
+
+            > div{
+                margin: 13px 10px;
+                padding: 3px;
+                display: inline-block;
+                vertical-align: top;
+                font-family:'TitilliumWeb' !important;
+            }
+        }
+
+        #popover-ui{
+            background:#fbfbfb;
+            width:350px;
+            padding: 0px;
+
+            > div{
+                width:100%;
+                height:45px;
+            }
+
+            >#row1{
+                height: 70px;
+                background: #fff;
+                padding: 30px 15px;
+                box-shadow: 0px 1px 4px rgba(204, 204, 204, 0.4);
+                div{
+                    width: 70%;
+                    background-color: #d9d9d9;
+                    height: 15px;
+                    border-radius: 2px;
+                    margin-bottom: 5px;
+                    display: inline-block;
+                    vertical-align: top;
+
+                    &:nth-child(2){
+                        width: 25%;
+                        margin-left: 10px;
+                        background-color:#ebebeb;
+                    }
+                }
+            }
+            >#row2{
+                .sample-button{
+                    margin-top: 10px;
+                    margin-right: 15px;
+                    width: 50px;
+                    border:none;
+                    float: right;
+                }
+            }
+        }
+
+        .ui-sample{
+            margin-bottom: 80px;
+            &:last-child{
+                margin-bottom: 0px;
+            }
+
+            > div{
+                display: inline-block;
+                vertical-align: top;
+                > p{
+                    margin-bottom: 10px;
+                }
+            }
+
+            &:nth-child(odd){
+                > div {
+                    &:first-child{
+                        width: 400px;
+                    }
+
+                    &:nth-child(2){
+                        float: right;
+                        margin-right: 100px;
+                        opacity: .95;
+                    }
+                }
+            }
+
+            &:nth-child(even){
+                > div{
+                    &:first-child{
+
+                        opacity: .95;
+                    }
+
+                    &:nth-child(2){
+                        float: right;
+                        width: 400px;
+                        margin-right: 100px;
+                    }
+                }
             }
         }
 
         > #feature1{
             //background:url('../img/reuseable.jpg') no-repeat;
-            height: 316px;
+            //height: 316px;
             background-color: #fff;
             background-position: center;
             width: 100%;
             position: relative;
+            padding-bottom: 77px;
 
-            img{
+            /*img{
                 position: absolute;
                 right: 0px;
                 top:50%;
                 transform:translate(0%, -50%);
+            }*/
+
+            img{
+                float: right;
+            }
+
+            .intro {
+                padding-top: 77px;
             }
         }
 
@@ -160,10 +306,19 @@ html,body{
         }
 
         >#feature3{
-            height: 365px;
-            position: relative;
+            min-height: 365px;
+            //position: relative;
             background: #2A333E;
-
+            padding-bottom: 77px;
+            .intro {
+                padding-top: 77px;
+                color:#fff;
+                width: 100%;
+                div > p{
+                    font-family:'TitilliumWeb' !important;
+                    font-size: 16px;
+                }
+            }
 
             div {
                 h2{
@@ -172,10 +327,7 @@ html,body{
             }
 
             img{
-                position: absolute;
-                right: 0px;
-                top:50%;
-                transform:translate(0%, -50%);
+
             }
 
         }
@@ -307,4 +459,13 @@ html,body{
 
 ::-webkit-scrollbar-thumb{
     background:#bbb;
+}
+
+
+.component-namespace{
+    color:#8959a8;
+}
+
+.component-element{
+    color:#718c00;
 }
