@@ -40,7 +40,6 @@ app.run(['$rootScope', 'Fermi.Loading', '$window', ($root, Loading) => {
 
     $root.$on('$viewContentLoaded', (e, toState) => {
         setTimeout(() => Loading.inc(.9).done(), 100)
-        //hljs.initHighlightingOnLoad()
     })
 }])
 
