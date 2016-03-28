@@ -1,17 +1,19 @@
 import angular from 'angular'
 import uiRouter from 'angular-ui-router'
 import { home } from './controller'
-import template from './template'
-import './directive/ng-highlight'
+import * as template from './template'
+
 
 import './Fermi-UI/fermi.scss'
 import './Fermi-UI/Menu'
 import './Fermi-UI/Progress'
 import './Fermi-UI/Button'
+import './Fermi-UI/Popover'
 
 
 
 import './css/app.scss'
+import './directive/ng-highlight'
 import './css/tomorrow.scss'
 import './font/fonts.scss'
 
@@ -24,7 +26,8 @@ let app = angular.module('Fermi', [
     'ui.router',
     'Fermi.menu',
     'Fermi.progress',
-    'Fermi.buttons'
+    'Fermi.buttons',
+    'Fermi.popover'
 ])
 
 
