@@ -193,6 +193,10 @@ html,body{
                 color: #fff;
                 border-radius: 3px;
                 padding: 3px 5px;
+                user-select:none;
+                &:hover{
+                    cursor:pointer;
+                }
             }
 
             #popover-tag+div{
