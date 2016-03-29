@@ -1,6 +1,6 @@
 import angular from 'angular'
 import uiRouter from 'angular-ui-router'
-import { home } from './controller'
+import { home, documentation } from './controller'
 import * as template from './template'
 
 
@@ -21,7 +21,6 @@ import './font/fonts.scss'
 
 
 const body = document.body
-
 let app = angular.module('Fermi', [
     'HighlightGrammer',
     'ui.router',
@@ -32,7 +31,8 @@ let app = angular.module('Fermi', [
     'Fermi.core'
 ])
 
-
+app.controller('home', home)
+app.controller('documentation', documentation)
 app.run(['$rootScope', 'Fermi.Loading', '$window', ($root, Loading) => {
     $root.$on('$stateChangeStart',(e, toState) => {
         if(toState.external){
@@ -48,8 +48,6 @@ app.run(['$rootScope', 'Fermi.Loading', '$window', ($root, Loading) => {
     })
 }])
 
-app.controller('home', home)
-
 app.config(['$locationProvider', $location => $location.html5Mode(true)])
 app.config([
     '$stateProvider',
@@ -57,20 +55,30 @@ app.config([
     ($stateProvider, $urlRouter) => {
         $urlRouter.otherwise('/404')
 
+        //Router::L1
         $stateProvider
             .state('home', {
                 url:'/',
                 template:template.home,
                 controller:'home',
-                controllerAs:'Home'
+                controllerAs:'Home',
+                onEnter:() => body.classList.add('home'),
+                onExit:() => body.classList.remove('home')
             })
             .state('documentation', {
                 url:'/documentation',
-                template:template.documentation
+                controller:'documentation',
+                controllerAs:'Document',
+                template:template.documentation,
+                onEnter:() => {
+                    body.classList.add('documentation')
+
+                },
+                onExit:() => body.classList.remove('documentation')
             })
             .state('404', {
                 url:'/404',
-                template:template.page404,
+                template: template.page404,
                 onEnter:() => body.classList.add('page-not-found'),
                 onExit:() => body.classList.remove('page-not-found')
             })
@@ -78,6 +86,21 @@ app.config([
                 url:'/github',
                 external: true,
                 redirectTo:'https://github.com/saviio/Fermi.UI'
+            })
+
+        //Router::L2
+        let {
+            introduction
+        } = template.level2
+
+        $stateProvider
+            .state('documentation.introduction', {
+                url:'/introduction',
+                template: introduction
+            })
+            .state('documentation.installation', {
+                url:'/installation',
+                template:'<div>test</div>'
             })
 
         $urlRouter.when('/home', '/')

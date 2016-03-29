@@ -1,0 +1,90 @@
+<div id="introduction">
+    <h3>
+        Fermi-UI #
+    </h3>
+    <div id="abstract">
+        <p>
+            For developers building Angular based application, this project provides a set of reuseable UI components (AngularJS directive and CSS). It will be easy to use and integrate with webpack workflow.
+        </p>
+         <p>
+             Please find the document which described detail component design on the left. Thank you for your reading.
+         </p>
+    </div>
+
+     <h3>
+         Installation
+     </h3>
+     <div ng-highlight id="installation">
+         <pre><code class="bash">
+             npm install Fermi-UI --save
+         </code></pre>
+     </div>
+     <h3>
+         Usage
+     </h3>
+     <div ng-highlight id="usage">
+         <p>
+             import single component:
+         </p>
+         <pre><code class="javascript">
+             import 'Fermi-UI/Menu'
+             let app = angular.module('app', ['Fermi.menu'])
+         </code></pre>
+         <p>
+             import styles:
+         </p>
+         <pre><code>
+             import 'Fermi-UI/index.css'
+         </code></pre>
+     </div>
+     <h3>
+         Compatibility
+     </h3>
+     <div id="compatibility">
+         <p>
+             IE9+
+         </p>
+
+         <img src="../../img/browsers.png" alt="" width="240px">
+     </div>
+     <h3>
+         Customization
+     </h3>
+     <div id="customization" ng-highlight>
+         <p>Although the styles of compoents are defined in the source code of component, there're some way to customize the component.</p>
+         <h4>Via Component Property</h4>
+         <div>
+             <p>I designed some property for a little foreseeable scenarios. For example, the color of progress bar.</p>
+             <p>So, developer can just pass a customized property into component, then it will be apply to the result markup.</p>
+         </div>
+         <h4>Via override CSS in the runtime</h4>
+         <div>
+             <p>
+                Since style overriding is a excellent feature which is supported by browser, Developers can apply a different style in the application css file with a more specific element selector.
+             </p>
+             <p>
+                 Example:
+             </p>
+             <pre><code class="CSS">
+                 #container > button.#button{
+                     background:#3683c6;
+                     border:none;
+                 }
+             </code></pre>
+         </div>
+         <h4>Via Webpack Loader?</h4>
+         <div>
+             <p>
+                 Sorry, I'm still consider about the best way of customizing component, Maybe I will refactor the structure of CSS files and add this part support in the future.
+             </p>
+         </div>
+     </div>
+     <h3>
+         Project stage
+     </h3>
+     <div>
+         <p>
+             This project is still in preview stage. PR is always welcome.
+         </p>
+     </div>
+</div>
