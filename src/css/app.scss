@@ -70,6 +70,7 @@ body.home{
                 > .detail{
                     width: 1020px;
                     margin: auto;
+
                     > img{
                         display: inline-block;
                         vertical-align: top;
@@ -443,7 +444,7 @@ body.documentation {
                 width: 750px;
                 min-height: 300px;
                 float: right;
-                padding: 20px;
+                padding: 20px 30px;
                 > #introduction {
                     div,p{
                         font-family: 'TitilliumWeb' !important;
