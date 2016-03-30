@@ -1,7 +1,7 @@
 import angular from 'angular'
 import uiRouter from 'angular-ui-router'
 import { home, documentation } from './controller'
-import * as template from './template'
+import * as view from './view'
 
 
 import './Fermi-UI/fermi.scss'
@@ -15,6 +15,8 @@ import './Fermi-UI/core'
 
 import './css/app.scss'
 import './directive/ng-highlight'
+import './directive/ng-escape'
+import './directive/componentbox'
 import './css/tomorrow.scss'
 import './font/fonts.scss'
 
@@ -23,6 +25,8 @@ import './font/fonts.scss'
 const body = document.body
 let app = angular.module('Fermi', [
     'HighlightGrammer',
+    'ComponentBox',
+    'EscapeHTML',
     'ui.router',
     'Fermi.menu',
     'Fermi.progress',
@@ -59,7 +63,7 @@ app.config([
         $stateProvider
             .state('home', {
                 url:'/',
-                template:template.home,
+                template:view.home,
                 controller:'home',
                 controllerAs:'Home',
                 onEnter:() => body.classList.add('home'),
@@ -69,7 +73,7 @@ app.config([
                 url:'/documentation',
                 controller:'documentation',
                 controllerAs:'Document',
-                template:template.documentation,
+                template:view.documentation,
                 onEnter:() => {
                     body.classList.add('documentation')
 
@@ -78,7 +82,7 @@ app.config([
             })
             .state('404', {
                 url:'/404',
-                template: template.page404,
+                template: view.page404,
                 onEnter:() => body.classList.add('page-not-found'),
                 onExit:() => body.classList.remove('page-not-found')
             })
@@ -90,8 +94,9 @@ app.config([
 
         //Router::L2
         let {
-            introduction
-        } = template.level2
+            introduction,
+            button
+        } = view.level2
 
         $stateProvider
             .state('documentation.introduction', {
@@ -101,6 +106,10 @@ app.config([
             .state('documentation.installation', {
                 url:'/installation',
                 template:'<div>test</div>'
+            })
+            .state('documentation.button', {
+                url:'/button',
+                template: button
             })
 
         $urlRouter.when('/home', '/')

@@ -1,0 +1,33 @@
+<div id="button" class="api">
+    <div class="component-abstract">
+        <h3>
+            <p>Button</p>
+        </h3>
+        <p>A button which will replace the native element, it is used for responding user's action.</p>
+    </div>
+    <div class="componentbox-usage">
+        <h4>
+            <p>
+                Usage
+            </p>
+        </h4>
+        <componentbox>
+            <demo>
+                <Fermi:Buttons content="Primary" type="primary"></Fermi:Buttons>
+                <Fermi:Buttons content="Default" ></Fermi:Buttons>
+                <Fermi:Buttons content="Danger" type="danger"></Fermi:Buttons>
+            </demo>
+            <description>
+                <p>按钮有三种类型：主按钮、次按钮、幽灵按钮。</p>
+                <p>通过设置 type 为 primary ghost 可分别创建主按钮、幽灵按钮，若不设置 type 值则为次按钮。不同的样式可以用来区别其重要程度。</p>
+                <p>主按钮和次按钮可独立使用，需要强引导用主按钮。幽灵按钮用于和主按钮组合。主按钮在同一个操作区域最多出现一次。</p>
+            </description>
+            <markup>
+                <Fermi:Buttons content="Primary" type="primary" ng-escape></Fermi:Buttons>
+                <Fermi:Buttons content="Default" ng-escape></Fermi:Buttons>
+                <Fermi:Buttons content="Danger" type="danger" ng-escape></Fermi:Buttons>
+            </markup>
+        </componentbox>
+    </div>
+
+</div>

@@ -27,6 +27,13 @@ html,body{
     z-index:999;
 }
 
+a.anchor{
+    color:#fff;
+    opacity: 0;
+    transition: color 300ms ease, opacity 300ms ease;
+    text-decoration: none;
+}
+
 body.home{
     > #wrapper > #view{
         padding-bottom: 90px;
@@ -460,6 +467,12 @@ body.documentation {
                         font-family: 'TitilliumWeb' !important;
                         font-weight: 700;
                         font-size: 22px;
+                        &:hover{
+                            .anchor{
+                                opacity: 1;
+                                color:#9AC0E0;
+                            }
+                        }
                     }
 
 
@@ -497,6 +510,34 @@ body.documentation {
                     #customization{
                         h4{
                             font-family: 'TitilliumWeb' !important;
+                        }
+                    }
+                }
+
+                .api{
+                    font-size: 14px;
+                    >.component-abstract{
+                        margin-bottom: 20px;
+                        > h3{
+                            font-size: 24px;
+                            font-weight: 700;
+                            > p{
+                                font-family: 'TitilliumWeb' !important;
+                                margin-bottom: 10px;
+                            }
+                        }
+                        > p{
+                            font-family: 'TitilliumWeb' !important;
+                        }
+                    }
+                    >.componentbox-usage{
+                        h4{
+                            font-size: 22px;
+                            font-weight: 700;
+                            > p{
+                                font-family: 'TitilliumWeb' !important;
+                                margin-bottom: 10px;
+                            }
                         }
                     }
                 }
