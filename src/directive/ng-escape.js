@@ -38,7 +38,7 @@ class escapeHTML{
         let innerHTML = domRef.innerHTML
 
         for(let i of specialAttribute){
-            let reAttr = new RegExp(`${i}=""\\s?|${i}="true"\\s?`, 'ig')
+            let reAttr = new RegExp(`${i}=""|${i}="true"`, 'ig')
             outerHTML = outerHTML.replace(reAttr, () => i)
         }
 
