@@ -1,5 +1,5 @@
 <div id="button" class="api">
-    <div class="component-abstract">
+    <div class="componentbox-abstract">
         <h3>
             <p>Button</p>
         </h3>
@@ -14,7 +14,7 @@
         <componentbox>
             <demo>
                 <Fermi:Buttons content="Primary" type="primary"></Fermi:Buttons>
-                <Fermi:Buttons content="Default" ></Fermi:Buttons>
+                <Fermi:Buttons content="Default"></Fermi:Buttons>
                 <Fermi:Buttons content="Danger" type="danger"></Fermi:Buttons>
             </demo>
             <description>
@@ -23,11 +23,84 @@
                 <p>主按钮和次按钮可独立使用，需要强引导用主按钮。幽灵按钮用于和主按钮组合。主按钮在同一个操作区域最多出现一次。</p>
             </description>
             <markup>
-                <Fermi:Buttons content="Primary" type="primary" ng-escape></Fermi:Buttons>
-                <Fermi:Buttons content="Default" ng-escape></Fermi:Buttons>
-                <Fermi:Buttons content="Danger" type="danger" ng-escape></Fermi:Buttons>
+<Fermi:Buttons content="Primary" type="primary" ng-escape></Fermi:Buttons>
+<Fermi:Buttons content="Default" ng-escape></Fermi:Buttons>
+<Fermi:Buttons content="Danger" type="danger" ng-escape></Fermi:Buttons>
             </markup>
         </componentbox>
+        <componentbox>
+            <demo>
+                <Fermi:Buttons content="Primary" type="primary" size="large"></Fermi:Buttons>
+                <Fermi:Buttons content="Primary" type="primary" ></Fermi:Buttons>
+                <Fermi:Buttons content="Primary" type="primary" size="small"></Fermi:Buttons>
+            </demo>
+            <description>
+                <p>按钮有三种类型：主按钮、次按钮、幽灵按钮。</p>
+                <p>通过设置 type 为 primary ghost 可分别创建主按钮、幽灵按钮，若不设置 type 值则为次按钮。不同的样式可以用来区别其重要程度。</p>
+                <p>主按钮和次按钮可独立使用，需要强引导用主按钮。幽灵按钮用于和主按钮组合。主按钮在同一个操作区域最多出现一次。</p>
+            </description>
+            <markup>
+<Fermi:Buttons content="Primary" type="primary" size="large" ng-escape></Fermi:Buttons>
+<Fermi:Buttons content="Primary" type="primary" ng-escape></Fermi:Buttons>
+<Fermi:Buttons content="Primary" type="primary" size="small" ng-escape></Fermi:Buttons>
+            </markup>
+        </componentbox>
+        <componentbox>
+            <demo>
+                <Fermi:Buttons content="Primary" type="primary" size="large" loading></Fermi:Buttons>
+                <Fermi:Buttons content="Primary" type="primary" loading></Fermi:Buttons>
+                <Fermi:Buttons content="Primary" type="primary" size="small" loading></Fermi:Buttons>
+            </demo>
+            <description>
+                <p>按钮有三种类型：主按钮、次按钮、幽灵按钮。</p>
+                <p>通过设置 type 为 primary ghost 可分别创建主按钮、幽灵按钮，若不设置 type 值则为次按钮。不同的样式可以用来区别其重要程度。</p>
+                <p>主按钮和次按钮可独立使用，需要强引导用主按钮。幽灵按钮用于和主按钮组合。主按钮在同一个操作区域最多出现一次。</p>
+            </description>
+            <markup>
+<Fermi:Buttons content="Primary" type="primary" size="large" ng-escape loading></Fermi:Buttons>
+<Fermi:Buttons content="Primary" type="primary" ng-escape loading></Fermi:Buttons>
+<Fermi:Buttons content="Primary" type="primary" size="small" ng-escape loading></Fermi:Buttons>
+            </markup>
+        </componentbox>
+        <componentbox>
+            <demo>
+                <Fermi:Buttons content="Primary" type="primary"></Fermi:Buttons>
+                <Fermi:Buttons content="Primary" type="primary" disabled></Fermi:Buttons>
+                <br />
+                <br />
+                <Fermi:Buttons content="Default"></Fermi:Buttons>
+                <Fermi:Buttons content="Default" disabled></Fermi:Buttons>
+                <br />
+                <br />
+                <Fermi:Buttons content="Danger" type="danger"></Fermi:Buttons>
+                <Fermi:Buttons content="Danger" type="danger" disabled></Fermi:Buttons>
+            </demo>
+            <description>
+                <p>按钮有三种类型：主按钮、次按钮、幽灵按钮。</p>
+                <p>通过设置 type 为 primary ghost 可分别创建主按钮、幽灵按钮，若不设置 type 值则为次按钮。不同的样式可以用来区别其重要程度。</p>
+                <p>主按钮和次按钮可独立使用，需要强引导用主按钮。幽灵按钮用于和主按钮组合。主按钮在同一个操作区域最多出现一次。</p>
+            </description>
+            <markup>
+<Fermi:Buttons content="Primary" type="primary" ng-escape></Fermi:Buttons>
+<Fermi:Buttons content="Primary" type="primary" disabled ng-escape></Fermi:Buttons>
+<br ng-escape/>
+<br ng-escape/>
+<Fermi:Buttons content="Default" ng-escape></Fermi:Buttons>
+<Fermi:Buttons content="Default" disabled ng-escape></Fermi:Buttons>
+<br ng-escape/>
+<br ng-escape/>
+<Fermi:Buttons content="Danger" type="danger" ng-escape></Fermi:Buttons>
+<Fermi:Buttons content="Danger" type="danger" disabled ng-escape></Fermi:Buttons>
+            </markup>
+        </componentbox>
+    </div>
+
+    <div class="componentbox-api">
+        <h4>
+            <p>
+                API
+            </p>
+        </h4>
     </div>
 
 </div>

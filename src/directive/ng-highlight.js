@@ -13,10 +13,10 @@ class highlight{
         let rootDOM = $elem[0]
         let codeBlock = Array.from(rootDOM.querySelectorAll('pre code'))
         codeBlock.forEach(block => {
-            block.innerHTML = block.innerHTML
+            block.innerHTML = block.innerHTML.trim()
                 .split(/\n/ig)
                 .filter(p => !(/^\s*$/.test(p)))
-                .map(p => p.trim() + '\r\n')
+                .map(p => p + '\r\n')
                 .join('')
             hljs.highlightBlock(block)
         })
