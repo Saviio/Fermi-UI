@@ -5,13 +5,11 @@ class markup{
         this.scope = {}
         this.restrict = 'EA'
         this.transclude = true
-        this.require = '^componentbox'
+        this.require = '^codegroup'
         this.template = template
         this.replace = true
     }
 }
 
-export default angular.module('componentbox-markup',[
-        'HighlightGrammer'
-    ])
+export default angular.module('componentbox-markup', [])
     .directive('markup', () => new markup())

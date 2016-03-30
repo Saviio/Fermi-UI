@@ -1,6 +1,7 @@
 import './es'
 import './demo'
 import './markup'
+import './codegroup'
 import './description'
 import template from './template/componentbox.html'
 
@@ -20,6 +21,7 @@ export default angular.module('ComponentBox', [
         'componentbox-es',
         'componentbox-demo',
         'componentbox-markup',
+        'componentbox-codegroup',
         'componentbox-description'
     ])
     .directive('componentbox', () => new componentBox())
