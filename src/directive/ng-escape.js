@@ -1,37 +1,11 @@
-const re = /(fermi)\:(\w*[^\s])/ig
-const re2 = /\>(\B)\</
-const capitalize = str => str.charAt(0).toUpperCase() + str.slice(1)
-const transform = html =>
-    html.replace(re, ($0, $1, $2) =>
-        `${capitalize($1)}:${capitalize($2)}`)
-const escapeFn = str =>
-    str .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&#34;")
-        .replace(/'/g,"&#39;")
+import {
+    escape,
+    transform,
+    capitalize,
+    removeClass,
+    reChildElem,
+} from '../utils'
 
-const removeClass = (el, cls) => {
-    let clsList = cls.split(' ')
-    while(cls = clsList.pop()){
-        if (el.classList) {
-            el.classList.remove(cls)
-        } else {
-            let cur = ' ' + (el.getAttribute('class') || '') + ' '
-            let tar = ' ' + cls + ' '
-            while (cur.indexOf(tar) >= 0) {
-                cur = cur.replace(tar, ' ')
-            }
-
-            el.setAttribute('class', cur.trim())
-        }
-
-        if (!el.className) {
-            el.removeAttribute('class')
-        }
-    }
-    return el
-}
 
 const specialAttribute = [
     'close',
@@ -64,13 +38,13 @@ class escapeHTML{
         let innerHTML = domRef.innerHTML
 
         for(let i of specialAttribute){
-            let reAttr = new RegExp(`${i}=""\\s?`, 'ig')
+            let reAttr = new RegExp(`${i}=""\\s?|${i}="true"\\s?`, 'ig')
             outerHTML = outerHTML.replace(reAttr, () => i)
         }
 
-        let escapedHTML = escapeFn(transform(outerHTML))
+        let escapedHTML = escape(transform(outerHTML))
         if(innerHTML !== ""){
-            escapedHTML = escapedHTML.replace(re2, ($0, $1) => innerHTML)
+            escapedHTML = escapedHTML.replace(reChildElem, ($0, $1) => innerHTML)
         }
         $elem.replaceWith(escapedHTML)
     }

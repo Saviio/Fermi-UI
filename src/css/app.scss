@@ -482,6 +482,12 @@ body.documentation {
 
                     p{
                         margin-bottom: 10px;
+                        a{
+                            color:#2db7f5;
+                            &:visited{
+                                color:#2db7f5;
+                            }
+                        }
                     }
 
 

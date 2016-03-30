@@ -9,6 +9,7 @@ import './Fermi-UI/Menu'
 import './Fermi-UI/Progress'
 import './Fermi-UI/Button'
 import './Fermi-UI/Popover'
+import './Fermi-UI/tooltips'
 import './Fermi-UI/core'
 
 
@@ -32,6 +33,7 @@ let app = angular.module('Fermi', [
     'Fermi.progress',
     'Fermi.buttons',
     'Fermi.popover',
+    'Fermi.tooltip',
     'Fermi.core'
 ])
 
@@ -91,6 +93,11 @@ app.config([
                 external: true,
                 redirectTo:'https://github.com/saviio/Fermi.UI'
             })
+            .state('antd', {
+                url:'/antd',
+                external: true,
+                redirectTo:'http://ant.design/'
+            })
 
         //Router::L2
         let {
@@ -102,10 +109,6 @@ app.config([
             .state('documentation.introduction', {
                 url:'/introduction',
                 template: introduction
-            })
-            .state('documentation.installation', {
-                url:'/installation',
-                template:'<div>test</div>'
             })
             .state('documentation.button', {
                 url:'/button',
