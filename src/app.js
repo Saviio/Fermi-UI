@@ -1,6 +1,6 @@
 import angular from 'angular'
 import uiRouter from 'angular-ui-router'
-import { home, documentation } from './controller'
+import { home, documentation, level2 } from './controller'
 import * as view from './view'
 
 
@@ -39,6 +39,7 @@ let app = angular.module('Fermi', [
 
 app.controller('home', home)
 app.controller('documentation', documentation)
+app.controller('button', level2.button)
 app.run(['$rootScope', 'Fermi.Loading', '$window', ($root, Loading) => {
     $root.$on('$stateChangeStart',(e, toState) => {
         if(toState.external){
@@ -105,6 +106,7 @@ app.config([
             button
         } = view.level2
 
+
         $stateProvider
             .state('documentation.introduction', {
                 url:'/introduction',
@@ -112,7 +114,9 @@ app.config([
             })
             .state('documentation.button', {
                 url:'/button',
-                template: button
+                template: button,
+                controller:'button',
+                controllerAs:'Button'
             })
 
         $urlRouter.when('/home', '/')
