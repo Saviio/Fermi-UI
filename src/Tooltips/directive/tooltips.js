@@ -16,9 +16,9 @@ import {
 
  import { transition } from '../../utils/transition'
 
-@dependencies('$compile')
+
 export default class Tooltips{
-    constructor($compile){
+    constructor(){
         this.restrict = "EA"
         this.transclude = true
         this.scope = {
@@ -29,7 +29,12 @@ export default class Tooltips{
         this.template = template
         this.replace = true
     }
-
+    
+    @dependencies('$scope')
+    controller(scope){
+        scope.content = (scope.content || '').trim()
+    }
+    
     link(scope, $elem, attr, ctrl){
         let actived = $elem::props('actived')
         let rootDOM = $elem[0]
