@@ -58,6 +58,7 @@ app.run(['$rootScope', 'Fermi.Loading', '$window', ($root, Loading) => {
     })
 }])
 
+app.config(['$compileProvider', $compileProvider => $compileProvider.debugInfoEnabled(false)])
 app.config(['$locationProvider', $location => $location.html5Mode(true)])
 app.config([
     '$stateProvider',
