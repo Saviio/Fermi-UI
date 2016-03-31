@@ -108,7 +108,7 @@ module.exports = function makeWebpackConfig (options) {
       // Reference: https://github.com/webpack/raw-loader
       // Allow loading html through js
       test: /\.html$/,
-      loader: 'html'
+      loader: 'html?minimize=false'
     },{
         test: /\.scss$/,
         loader: ExtractTextPlugin.extract(

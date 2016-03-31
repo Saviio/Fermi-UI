@@ -550,6 +550,69 @@ body.documentation {
                             }
                         }
                         margin-bottom:20px;
+                        font-size:12px;
+
+                        h5{
+                            font-size: 18px;
+                            p{
+                                font-family: 'TitilliumWeb' !important;
+                            }
+                            margin-bottom:10px;
+                        }
+                    }
+
+                    .api-description{
+                        border-collapse:collapse;
+                        border-spacing:0;
+                        empty-cells:show;
+                        border:#e9e9e9 1px solid;
+                        width: 100%;
+                        font-size: 12px;
+                        border-radius: 3px;
+                        margin-bottom: 10px;
+                        code{
+                            background: #f7f7f7;
+                            padding: 1px 6px;
+                            border-radius: 3px;
+                            color: #888;
+                            border: 1px solid #e9e9e9
+                        }
+                        * {
+                            font-family: 'TitilliumWeb' !important;
+                        }
+                        th{
+                            color:#5C6B77;
+                            padding:8px 16px;
+                            background:#f7f7f7;
+                            border-right: #e9e9e9 1px solid;
+                            text-align: left;
+
+                            &:nth-child(1){
+                                width:87px;
+                            }
+
+                            &:nth-child(2){
+                                width:413px;
+                            }
+
+                            &:nth-child(3){
+                                width:75px;
+                            }
+
+                            &:nth-child(4){
+                                width:114px;
+                            }
+
+                        }
+
+                        tr{
+                            border-bottom:#e9e9e9 1px solid;
+                            height: 40px;
+                            td{
+                                padding:8px 16px;
+                                border-right: #e9e9e9 1px solid;
+                            }
+                        }
                     }
                 }
             }

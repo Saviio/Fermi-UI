@@ -10,6 +10,7 @@ import './Fermi-UI/Progress'
 import './Fermi-UI/Button'
 import './Fermi-UI/Popover'
 import './Fermi-UI/tooltips'
+import './Fermi-UI/breadcrumb'
 import './Fermi-UI/core'
 
 
@@ -34,12 +35,14 @@ let app = angular.module('Fermi', [
     'Fermi.buttons',
     'Fermi.popover',
     'Fermi.tooltip',
+    'Fermi.breadcrumb',
     'Fermi.core'
 ])
 
 app.controller('home', home)
 app.controller('documentation', documentation)
 app.controller('button', level2.button)
+app.controller('breadcrumb', level2.breadcrumb)
 app.run(['$rootScope', 'Fermi.Loading', '$window', ($root, Loading) => {
     $root.$on('$stateChangeStart',(e, toState) => {
         if(toState.external){
@@ -103,7 +106,9 @@ app.config([
         //Router::L2
         let {
             introduction,
-            button
+            button,
+            breadcrumb,
+            menu
         } = view.level2
 
 
@@ -118,6 +123,17 @@ app.config([
                 controller:'button',
                 controllerAs:'Button'
             })
+            .state('documentation.breadcrumb', {
+                url:'/breadcrumb',
+                template: breadcrumb,
+                controller:'breadcrumb',
+                controllerAs:'Breadcrumb'
+            })
+            .state('documentation.menu', {
+                url:'/menu',
+                template: menu
+            })
+
 
         $urlRouter.when('/home', '/')
         $urlRouter.when('/index', '/')

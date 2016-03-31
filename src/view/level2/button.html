@@ -18,9 +18,7 @@
                 <Fermi:Buttons content="Danger" type="danger"></Fermi:Buttons>
             </demo>
             <description>
-                <p>按钮有三种类型：主按钮、次按钮、幽灵按钮。</p>
-                <p>通过设置 type 为 primary ghost 可分别创建主按钮、幽灵按钮，若不设置 type 值则为次按钮。不同的样式可以用来区别其重要程度。</p>
-                <p>主按钮和次按钮可独立使用，需要强引导用主按钮。幽灵按钮用于和主按钮组合。主按钮在同一个操作区域最多出现一次。</p>
+                ...
             </description>
             <codegroup>
                 <markup>
@@ -37,9 +35,7 @@
                 <Fermi:Buttons content="Primary" type="primary" size="small"></Fermi:Buttons>
             </demo>
             <description>
-                <p>按钮有三种类型：主按钮、次按钮、幽灵按钮。</p>
-                <p>通过设置 type 为 primary ghost 可分别创建主按钮、幽灵按钮，若不设置 type 值则为次按钮。不同的样式可以用来区别其重要程度。</p>
-                <p>主按钮和次按钮可独立使用，需要强引导用主按钮。幽灵按钮用于和主按钮组合。主按钮在同一个操作区域最多出现一次。</p>
+                ...
             </description>
             <codegroup>
                 <markup>
@@ -60,9 +56,7 @@
                 <Fermi:Buttons content="Click to change" control="Button.btnIns1" ng-click="Button.changeState()"></Fermi:Buttons>
             </demo>
             <description>
-                <p>按钮有三种类型：主按钮、次按钮、幽灵按钮。</p>
-                <p>通过设置 type 为 primary ghost 可分别创建主按钮、幽灵按钮，若不设置 type 值则为次按钮。不同的样式可以用来区别其重要程度。</p>
-                <p>主按钮和次按钮可独立使用，需要强引导用主按钮。幽灵按钮用于和主按钮组合。主按钮在同一个操作区域最多出现一次。</p>
+                ...
             </description>
             <codegroup>
                 <markup>
@@ -89,9 +83,7 @@
                 <Fermi:Buttons content="Danger" type="danger" disabled></Fermi:Buttons>
             </demo>
             <description>
-                <p>按钮有三种类型：主按钮、次按钮、幽灵按钮。</p>
-                <p>通过设置 type 为 primary ghost 可分别创建主按钮、幽灵按钮，若不设置 type 值则为次按钮。不同的样式可以用来区别其重要程度。</p>
-                <p>主按钮和次按钮可独立使用，需要强引导用主按钮。幽灵按钮用于和主按钮组合。主按钮在同一个操作区域最多出现一次。</p>
+                ...
             </description>
             <codegroup>
                 <markup>
@@ -117,6 +109,100 @@
                 API
             </p>
         </h4>
+        <div>
+            <table class="api-description">
+                <thead>
+                    <tr>
+                        <th>Props</th>
+                        <th>Description</th>
+                        <th>Type</th>
+                        <th>Default Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        type
+                    </td>
+                    <td>
+                        Setting the type of buttion. Option list: <code>primary</code> <code>default</code> <code>danger</code>
+                    </td>
+                    <td>
+                        string
+                    </td>
+                    <td>
+                        <code>
+                            default
+                        </code>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        size
+                    </td>
+                    <td>
+                        Setting the size of button. Option list: <code>small</code> <code>normal</code> <code>large</code>
+                    </td>
+                    <td>
+                        string
+                    </td>
+                    <td>
+                        <code>
+                            normal
+                        </code>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        loading
+                    </td>
+                    <td>
+                        Change the state from normal to loading
+                    </td>
+                    <td>
+                        boolean
+                    </td>
+                    <td>
+                        <code>
+                            false
+                        </code>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        control
+                    </td>
+                    <td>
+                        Binding of the button instance. It can be access from controller scope.
+                    </td>
+                    <td>
+                        identifier
+                    </td>
+                    <td>
+                        <code>
+                            undefined
+                        </code>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        disabled
+                    </td>
+                    <td>
+                        A attribute which was identified if the element will be disabled after initialization.
+                    </td>
+                    <td>
+                        boolean
+                    </td>
+                    <td>
+                        <code>
+                            false
+                        </code>
+                    </td>
+                </tr>
+                </tbody>
+                </table>
+        </div>
     </div>
 
 </div>
