@@ -81,10 +81,7 @@ app.config([
                 controller:'documentation',
                 controllerAs:'Document',
                 template:view.documentation,
-                onEnter:() => {
-                    body.classList.add('documentation')
-
-                },
+                onEnter:() => body.classList.add('documentation'),
                 onExit:() => body.classList.remove('documentation')
             })
             .state('404', {
