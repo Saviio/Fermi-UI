@@ -90,6 +90,7 @@ let compile = null
 let rootScope = null
 let controllerGetter = null
 
+
 /*
   props::=
      id,
@@ -177,26 +178,44 @@ export default class Modal{
         let passInScope = (options.scope || rootScope)
         passInScope = passInScope.__NEW__ ? passInScope : passInScope.$new()
         let modalScope = passInScope
-        if(options.controller::getType() === 'String' || options.controller::getType() === 'Array'){
-            let alias =
-                options.controllerAs::getType() === 'String'
-                ? options.controllerAs
-                : null
+        let type = options.controller::getType()
+        if(type === 'String' || type === 'Array' || type === 'Function'){
+            let alias = options.controllerAs || null
 
-            let controller = controllerGetter(
-                options.controller,
-                {
-                    $scope: modalScope,
-                    $element: $template
-                },
-                false,
-                alias
-            )
+            let controller
 
-            if(alias !== null) modalScope[alias] = controller
+            if(type === 'String' || type === 'Function'){
+                controller = controllerGetter(
+                    options.controller,
+                    {
+                        $scope: modalScope,
+                        $element: $template
+                    },
+                    false,
+                    alias
+                )
+            } else if(type === 'Array') {
+                let f = options.controller.pop()
+                if(f::getType() !== 'Function') throw Error('Controller should be a Function type.')
+                f.$inject = options.controller
+
+                controller = controllerGetter(
+                    f,
+                    {
+                        $scope: modalScope,
+                        $element: $template
+                    },
+                    false,
+                    alias
+                )
+            }
+
             controller.$scope = modalScope
+            if(alias !== null){
+                if(type === 'String') modalScope[alias] = controller
+                else if(type === 'Array' || type === 'Function') modalScope[alias] = controller.$scope
+            }
         }
-
 
         let templateDOM = compile($template)(modalScope)[0]
         if(!/\$apply|\$digest/.test(modalScope.$root.$$phase)) modalScope.$apply()

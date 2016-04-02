@@ -155,7 +155,7 @@ app.controller(
                     template:'#modalTemplate2',
                     scope:$scope,
                     name:'TEST Modal',
-                    controller:'test',
+                    controller: 'test',
                     controllerAs:'check'
                 })
             }
