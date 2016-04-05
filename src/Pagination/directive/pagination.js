@@ -97,15 +97,17 @@ export default class Pagination {
     }
 
     link(scope, $elem, attrs, ctrl){
+        let elem = $elem[0]
+        let jumperInput =  elem::query('.fm-pagination-jumper-input')
         if(this.hasJumper){
-            this.jumperInput::on('keydown', e => {
-                if(e.keyCode !== 13 || !/^\d*$/.test(this.jumperInput.value)) return
+            jumperInput::on('keydown', e => {
+                if(e.keyCode !== 13 || !/^\d*$/.test(jumperInput.value)) return
                 e.preventDefault()
-                let value = this.jumperInput.value
+                let value = jumperInput.value
                 if(value <= scope.size && value > 0){
-                    scope.choose(~~this.jumperInput.value)
+                    scope.choose(~~jumperInput.value)
                     scope.$apply()
-                    this.jumperInput.value = ''
+                    jumperInput.value = ''
                 }
             })
         }

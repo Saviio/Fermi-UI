@@ -1,6 +1,7 @@
 import { dependencies } from '../../external/dependencies'
 import steps from '../template/steps.html'
 import step from '../template/step.html'
+import { props } from '../../utils'
 
 
 
@@ -21,7 +22,7 @@ export class Steps {
     @dependencies('$scope')
     controller(scope){
         scope.steps = []
-        scope.mode = (scope.mode && scope.mode.match(/v|h/ig)[0] || 'H').toUpperCase() 
+        scope.mode = (scope.mode && scope.mode.match(/v|h/ig)[0] || 'H').toUpperCase()
         scope.size = scope.size || 'small'
         scope.next = () => {
             let unChecked = scope.steps.filter(item => item.status() === false)
@@ -34,7 +35,7 @@ export class Steps {
             scope.steps[0] && scope.steps[0].inProgress()
         }
 
-        scope.isDone = () => scope.steps.filter(item => item.status()) === scope.steps.length
+        scope.isDone = () => scope.steps.filter(item => item.status()).length === scope.steps.length
 
         scope.control = {
             next:scope.next,
@@ -68,15 +69,14 @@ export class Step{
         this.template = step
         this.transclude = true
         this.scope = {
-            title:'@',
-            checked:'=?'
+            title:'@'
         }
     }
 
-    @dependencies('$scope')
-    controller(scope){
+    @dependencies('$scope', '$element')
+    controller(scope, $elem){
         scope.title = scope.title || ' '
-        scope.checked = scope.checked || false
+        scope.checked = $elem::props('checked')
         scope.state = scope.checked ? 'checked' : 'waiting'
         scope.check = () => {
             scope.checked = true
