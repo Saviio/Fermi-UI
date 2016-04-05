@@ -9,8 +9,11 @@ import './Fermi-UI/Menu'
 import './Fermi-UI/Progress'
 import './Fermi-UI/Button'
 import './Fermi-UI/Popover'
-import './Fermi-UI/tooltips'
-import './Fermi-UI/breadcrumb'
+import './Fermi-UI/Tooltips'
+import './Fermi-UI/Breadcrumb'
+import './Fermi-UI/Step'
+import './Fermi-UI/Tab'
+import './Fermi-UI/Pagination'
 import './Fermi-UI/core'
 
 
@@ -36,6 +39,9 @@ let app = angular.module('Fermi', [
     'Fermi.popover',
     'Fermi.tooltip',
     'Fermi.breadcrumb',
+    'Fermi.step',
+    'Fermi.tab',
+    'Fermi.pagination',
     'Fermi.core'
 ])
 
@@ -43,6 +49,8 @@ app.controller('home', home)
 app.controller('documentation', documentation)
 app.controller('button', level2.button)
 app.controller('breadcrumb', level2.breadcrumb)
+app.controller('step', level2.step)
+app.controller('pagination', level2.pagination)
 app.run(['$rootScope', 'Fermi.Loading', '$window', ($root, Loading) => {
     $root.$on('$stateChangeStart',(e, toState) => {
         if(toState.external){
@@ -106,7 +114,10 @@ app.config([
             introduction,
             button,
             breadcrumb,
-            menu
+            menu,
+            step,
+            tab,
+            pagination
         } = view.level2
 
 
@@ -130,6 +141,22 @@ app.config([
             .state('documentation.menu', {
                 url:'/menu',
                 template: menu
+            })
+            .state('documentation.step', {
+                url:'/step',
+                template:step,
+                controller:'step',
+                controllerAs:'Step'
+            })
+            .state('documentation.tab', {
+                url:'/tab',
+                template:tab
+            })
+            .state('documentation.pagination', {
+                url:'/pagination',
+                template:pagination,
+                controller:'pagination',
+                controllerAs:'Pagination'
             })
 
 
