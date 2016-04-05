@@ -37,7 +37,7 @@ export default class Pagination {
                 <span>页</span>
             </div>`
             //debugger
-            this.jumperInput = elem::last(jumper)::query('.fm-pagination-jumper-input')
+            elem::last(jumper)
         }
         return this.link
     }
