@@ -1,6 +1,6 @@
 import { dependencies } from '../external/dependencies'
 
-export default class FermiDisableDirective{
+export class disabled{
     constructor(){
         this.restrict = 'A'
         this.priority = 9000
@@ -15,7 +15,7 @@ export default class FermiDisableDirective{
     }
 }
 
-export default class FermiCheckedDirective{
+export class checked{
     constructor(){
         this.restrict = 'A'
         this.priority = 9000
@@ -26,6 +26,8 @@ export default class FermiCheckedDirective{
     controller($elem, $attrs){
         if($attrs.checked === ""){
             $elem[0].setAttribute('checked', true)
+        } else if(/false/i.test($attr.checked)){
+            $elem[0].removeAttribute('checked')
         }
     }
 }
