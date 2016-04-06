@@ -10,6 +10,8 @@ import radio from './level2/radio.html'
 import switcher from './level2/switcher.html'
 import notification from './level2/notification.html'
 import modal from './level2/modal.html'
+import progress from './level2/progress.html'
+import popover from './level2/popover.html'
 
 
 export home from './home.html'
@@ -28,5 +30,7 @@ export const level2 = {
     radio,
     switcher,
     notification,
-    modal
+    modal,
+    progress,
+    popover
 }
