@@ -44,6 +44,7 @@ export class Radio{
         this.radioElem = this.rootDOM::query('.fm-radio')
         this.input = this.rootDOM::query('[type=radio]')
         this.input.disabled = this.disabled = !!(this.rootDOM::props('disabled') || false)
+        let value = this.input.value
 
         let disable = () => {
             this.disabled = this.input.disabled = true
@@ -67,6 +68,14 @@ export class Radio{
         Object.defineProperty(scope.control, 'checked', {
             set:(value) => !!value ? this.input.click() : this.unCheck(),
             get:() => this.input.checked
+        })
+
+        Object.defineProperty(scope.control, 'value', {
+            set:(newValue) => {
+                value = newValue
+                this.input.setAttribute('value', newValue)
+            }
+            get:() => value
         })
 
         scope.$on('destory', () => this.scope = null)

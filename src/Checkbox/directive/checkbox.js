@@ -32,7 +32,7 @@ export class Checkbox{
         this.checkboxElem = this.rootDOM::query('.fm-checkbox')
         this.input = this.rootDOM::query('input[type=checkbox]')
         this.input.disabled = this.disabled = !!(this.rootDOM::props('disabled') || false)
-        this.input.checked = this.rootDOM::props('checked') || false
+        this.input.checked = !!(this.rootDOM::props('checked') || false)
 
         let disable = () => {
             this.disabled = this.input.disabled = true
