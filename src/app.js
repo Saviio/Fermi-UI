@@ -14,6 +14,11 @@ import './Fermi-UI/Breadcrumb'
 import './Fermi-UI/Step'
 import './Fermi-UI/Tab'
 import './Fermi-UI/Pagination'
+import './Fermi-UI/Checkbox'
+import './Fermi-UI/Radio'
+import './Fermi-UI/Switch'
+import './Fermi-UI/Notification'
+import './Fermi-UI/Modal'
 import './Fermi-UI/core'
 
 
@@ -42,6 +47,11 @@ let app = angular.module('Fermi', [
     'Fermi.step',
     'Fermi.tab',
     'Fermi.pagination',
+    'Fermi.checkbox',
+    'Fermi.radio',
+    'Fermi.switch',
+    'Fermi.notification',
+    'Fermi.modal',
     'Fermi.core'
 ])
 
@@ -51,6 +61,10 @@ app.controller('button', level2.button)
 app.controller('breadcrumb', level2.breadcrumb)
 app.controller('step', level2.step)
 app.controller('pagination', level2.pagination)
+app.controller('checkbox', level2.checkbox)
+app.controller('radio', level2.radio)
+app.controller('notification', level2.notification)
+app.controller('modal', level2.modal)
 app.run(['$rootScope', 'Fermi.Loading', '$window', ($root, Loading) => {
     $root.$on('$stateChangeStart',(e, toState) => {
         if(toState.external){
@@ -117,7 +131,12 @@ app.config([
             menu,
             step,
             tab,
-            pagination
+            pagination,
+            checkbox,
+            radio,
+            switcher,
+            notification,
+            modal
         } = view.level2
 
 
@@ -158,7 +177,34 @@ app.config([
                 controller:'pagination',
                 controllerAs:'Pagination'
             })
-
+            .state('documentation.checkbox', {
+                url:'/checkbox',
+                template:checkbox,
+                controller:'checkbox',
+                controllerAs:'Checkbox'
+            })
+            .state('documentation.radio', {
+                url:'/radio',
+                template:radio,
+                controller:'radio',
+                controllerAs:'Radio'
+            })
+            .state('documentation.switch', {
+                url:'/switch',
+                template:switcher
+            })
+            .state('documentation.notification', {
+                url:'/notification',
+                template:notification,
+                controller:'notification',
+                controllerAs:'Notification'
+            })
+            .state('documentation.modal', {
+                url:'/modal',
+                template:modal,
+                controller:'modal',
+                controllerAs:'Modal'
+            })
 
         $urlRouter.when('/home', '/')
         $urlRouter.when('/index', '/')

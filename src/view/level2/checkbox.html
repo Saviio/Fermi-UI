@@ -1,0 +1,79 @@
+<div id="checkbox" class="api">
+    <div class="componentbox-abstract">
+        <h3>
+            <p>Checkbox</p>
+        </h3>
+        <p>A control element used as a navigational aid in interface.</p>
+    </div>
+    <div class="componentbox-usage">
+        <h4>
+            <p>
+                Usage
+            </p>
+        </h4>
+        <componentbox>
+            <demo>
+                <Fermi:checkbox label="Option1" checked></Fermi:checkbox>
+            </demo>
+            <description>
+                ...
+            </description>
+            <codegroup>
+                <markup>
+<Fermi:checkbox label="Option1" checked ng-escape></Fermi:checkbox>
+                </markup>
+            </codegroup>
+        </componentbox>
+        <componentbox>
+            <demo>
+                <Fermi:checkbox label="Option2" checked="false" change="Checkbox.output" control="Checkbox.checkbox"></Fermi:checkbox>
+            </demo>
+            <description>
+                Current Status: [ {{Checkbox.checkbox.checked}} ]
+            </description>
+            <codegroup>
+                <markup>
+<Fermi:checkbox label="Option2" checked="false" change="Checkbox.output" control="Checkbox.checkbox" ng-escape></Fermi:checkbox>
+                </markup>
+            </codegroup>
+        </componentbox>
+    </div>
+
+    <div class="componentbox-api">
+        <h4>
+            <p>
+                API
+            </p>
+        </h4>
+        <div>
+            <table class="api-description">
+                <thead>
+                    <tr>
+                        <th>Props</th>
+                        <th>Description</th>
+                        <th>Type</th>
+                        <th>Default Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            items
+                        </td>
+                        <td>
+                            Specifies the path of navigator.
+                        </td>
+                        <td>
+                            Array&lt;string&gt;
+                        </td>
+                        <td>
+                            <code>
+                                []
+                            </code>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

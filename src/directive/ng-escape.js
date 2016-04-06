@@ -25,7 +25,7 @@ class escapeHTML{
     constructor(){
         this.restrict = 'A'
         this.scope = false
-        this.priority = 9000
+        this.priority = 10000
         this.terminal = true
     }
 

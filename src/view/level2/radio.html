@@ -1,0 +1,98 @@
+<div id="radio" class="api">
+    <div class="componentbox-abstract">
+        <h3>
+            <p>Radio</p>
+        </h3>
+        <p>A control element used as a navigational aid in interface.</p>
+    </div>
+    <div class="componentbox-usage">
+        <h4>
+            <p>
+                Usage
+            </p>
+        </h4>
+        <componentbox>
+            <demo>
+                <Fermi:radio label="Radio1" value="李白" checked></Fermi:radio>
+            </demo>
+            <description>
+                ...
+            </description>
+            <codegroup>
+                <markup>
+<Fermi:radio label="Radio1" value="李白" ng-escape></Fermi:radio>
+                </markup>
+            </codegroup>
+        </componentbox>
+        <componentbox>
+            <demo>
+                <Fermi:radio label="Radio2" value="杜甫" control="Radio.radio" change="Radio.output"></Fermi:radio>
+            </demo>
+            <description>
+                Current Status: [{{Radio.radio.checked}}], Value: [{{Radio.radio.value}}]
+            </description>
+            <codegroup>
+                <markup>
+<Fermi:radio label="Radio2" value="杜甫" control="Radio.radio" change="Radio.output" ng-escape></Fermi:radio>
+                </markup>
+            </codegroup>
+        </componentbox>
+        <componentbox>
+            <demo>
+                <Fermi:radioGroup control="Radio.group">
+                    <Fermi:radio label="Radio in Group 1" value="李商隐" checked></Fermi:radio>
+                    <Fermi:radio label="Radio in Group 2" value="杜牧"></Fermi:radio>
+                </Fermi:radioGroup>
+            </demo>
+            <description>
+                Current Value: [{{Radio.group.value}}]
+            </description>
+            <codegroup>
+                <markup>
+<Fermi:radioGroup control="Radio.group" ng-escape>
+    <Fermi:radio label="Radio in Group 1" value="李商隐" checked></Fermi:radio>
+    <Fermi:radio label="Radio in Group 2" value="杜牧"></Fermi:radio>
+</Fermi:radioGroup>
+                </markup>
+            </codegroup>
+        </componentbox>
+    </div>
+
+    <div class="componentbox-api">
+        <h4>
+            <p>
+                API
+            </p>
+        </h4>
+        <div>
+            <table class="api-description">
+                <thead>
+                    <tr>
+                        <th>Props</th>
+                        <th>Description</th>
+                        <th>Type</th>
+                        <th>Default Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            items
+                        </td>
+                        <td>
+                            Specifies the path of navigator.
+                        </td>
+                        <td>
+                            Array&lt;string&gt;
+                        </td>
+                        <td>
+                            <code>
+                                []
+                            </code>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
