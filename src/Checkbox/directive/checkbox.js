@@ -61,9 +61,9 @@ export class Checkbox{
 
     link(scope, $elem, attrs, ctrl){
         if(this.input.checked) this.check()
-        this.input::on('change', () => {
-            this.handle()
-            if(!/\$apply|\$digest/.test(scope.$root.$$phase)) scope.$digest()
+        this.input::on('change', (...args) => {
+            this.handle.apply(this, args)
+            if(!/\$apply|\$digest/.test(scope.$root.$$phase)) scope.$apply()
         })
     }
 

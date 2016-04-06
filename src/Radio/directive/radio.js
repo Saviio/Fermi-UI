@@ -77,7 +77,10 @@ export class Radio{
         this.scope = scope
         this.input.value = this.rootDOM::props('value')
         this.mode = (ctrl && ctrl.mode) || SEPARATED
-        this.input::on('click', ::this.handle)
+        this.input::on('click', (...args) => {
+            this.handle.apply(this, args)
+            if(!/\$apply|\$digest/.test(scope.$root.$$phase)) scope.$apply()
+        })
         if(this.mode === GROUP && typeof ctrl.callback === 'function'){
             //如果radio被group元素包裹，并且父元素中声明了change函数则忽略radio元素上的change函数
             this.callback = ctrl.callback
@@ -101,7 +104,6 @@ export class Radio{
     }
 
     handle(e){
-        //e.stopPropagation()
         if(this.disabled) return
 
         this.check()

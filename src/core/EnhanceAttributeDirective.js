@@ -26,7 +26,7 @@ export class checked{
     controller($elem, $attrs){
         if($attrs.checked === ""){
             $elem[0].setAttribute('checked', true)
-        } else if(/false/i.test($attr.checked)){
+        } else if(/false/i.test($attrs.checked)){
             $elem[0].removeAttribute('checked')
         }
     }
