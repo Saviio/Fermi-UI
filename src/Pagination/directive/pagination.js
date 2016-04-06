@@ -25,9 +25,6 @@ export default class Pagination {
     }
 
     compile($tElement, tAttrs, transclude){
-        let elem = $tElement[0]
-        this.prevLabel = elem::query('.fm-pagination-prev')
-        this.nextLabal = elem::query('.fm-pagination-next')
         this.hasJumper = elem::props('jumper')
         if(this.hasJumper){
             let jumper =
@@ -36,14 +33,16 @@ export default class Pagination {
                 <input class="fm-pagination-jumper-input" />
                 <span>页</span>
             </div>`
-            //debugger
             elem::last(jumper)
         }
         return this.link
     }
 
-    @dependencies('$scope')
-    controller(scope){
+    @dependencies('$scope', '$element')
+    controller(scope, $elem){
+        let elem = $elem[0]
+        let prevLabel = elem::query('.fm-pagination-prev')
+        let nextLabel = elem::query('.fm-pagination-next')
         scope.pages = []
         scope.items = range(scope.size > 0 ? scope.size : 0, 1)
         scope.current = (scope.cursor <= scope.size && scope.cursor) || 1
@@ -91,8 +90,8 @@ export default class Pagination {
 
             scope.pages = arr
 
-            scope.current === scope.last() ? this.nextLabal::addClass('hide') : this.nextLabal::removeClass('hide')
-            scope.current === scope.first() ? this.prevLabel::addClass('hide') : this.prevLabel::removeClass('hide')
+            scope.current === scope.last() ? prevLabel::addClass('hide') : prevLabel::removeClass('hide')
+            scope.current === scope.first() ? prevLabel::addClass('hide') : prevLabel::removeClass('hide')
         }
     }
 

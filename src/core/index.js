@@ -1,5 +1,5 @@
 import factory from '../external/buildFactory'
-import disable from './DisableDirective'
+import { disable, checked } from './EnhanceAttributeDirective'
 import rangeFilter from './RangeFilter'
 import plainFilter from './PlainFilter'
 import cleanStyle from './CleanStyleDirective'
@@ -8,6 +8,7 @@ import cleanStyle from './CleanStyleDirective'
 
 export default angular.module('Fermi.core', [])
 	.directive('disabled', factory.directive(disable))
+	.directive('checked', factory.directive(checked))
 	.directive('cleanStyle', factory.directive(cleanStyle))
     .filter('range', rangeFilter)
 	.filter('plain', plainFilter)

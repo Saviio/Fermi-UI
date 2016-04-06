@@ -32,7 +32,7 @@ export class Checkbox{
         this.checkboxElem = this.rootDOM::query('.fm-checkbox')
         this.input = this.rootDOM::query('input[type=checkbox]')
         this.input.disabled = this.disabled = !!(this.rootDOM::props('disabled') || false)
-        this.input.checked = this.rootDOM::props('default') || false
+        this.input.checked = this.rootDOM::props('checked') || false
 
         let disable = () => {
             this.disabled = this.input.disabled = true
@@ -49,7 +49,7 @@ export class Checkbox{
             allow
         }
 
-        Object.defineProperty(scope.control,'checked', {
+        Object.defineProperty(scope.control, 'checked', {
             get:() => this.input.checked,
             set:(value) => this.handle(new fakeEvent(value))
         })
@@ -61,7 +61,10 @@ export class Checkbox{
 
     link(scope, $elem, attrs, ctrl){
         if(this.input.checked) this.check()
-        this.input::on('change', ::this.handle)
+        this.input::on('change', () => {
+            this.handle()
+            if(!/\$apply|\$digest/.test(scope.$root.$$phase)) scope.$digest()
+        })
     }
 
     check(){

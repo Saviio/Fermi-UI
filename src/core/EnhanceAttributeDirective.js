@@ -14,3 +14,18 @@ export default class FermiDisableDirective{
         }
     }
 }
+
+export default class FermiCheckedDirective{
+    constructor(){
+        this.restrict = 'A'
+        this.priority = 9000
+        this.scope = false
+    }
+
+    @dependencies('$element', '$attrs')
+    controller($elem, $attrs){
+        if($attrs.checked === ""){
+            $elem[0].setAttribute('checked', true)
+        }
+    }
+}
