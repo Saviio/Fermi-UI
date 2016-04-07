@@ -44,7 +44,6 @@ export class Radio{
         this.radioElem = this.rootDOM::query('.fm-radio')
         this.input = this.rootDOM::query('[type=radio]')
         this.input.disabled = this.disabled = !!(this.rootDOM::props('disabled') || false)
-        let value = this.input.value
 
         let disable = () => {
             this.disabled = this.input.disabled = true
@@ -71,11 +70,8 @@ export class Radio{
         })
 
         Object.defineProperty(scope.control, 'value', {
-            set:(newValue) => {
-                value = newValue
-                this.input.setAttribute('value', newValue)
-            }
-            get:() => value
+            set:(newValue) => this.input.setAttribute('value', newValue),
+            get:() => this.input.value
         })
 
         scope.$on('destory', () => this.scope = null)
@@ -86,10 +82,7 @@ export class Radio{
         this.scope = scope
         this.input.value = this.rootDOM::props('value')
         this.mode = (ctrl && ctrl.mode) || SEPARATED
-        this.input::on('click', (...args) => {
-            this.handle.apply(this, args)
-            if(!/\$apply|\$digest/.test(scope.$root.$$phase)) scope.$apply()
-        })
+        this.input::on('click', ::this.handle)
         if(this.mode === GROUP && typeof ctrl.callback === 'function'){
             //如果radio被group元素包裹，并且父元素中声明了change函数则忽略radio元素上的change函数
             this.callback = ctrl.callback
@@ -104,12 +97,15 @@ export class Radio{
 
     check(){
         this.radioElem::addClass('fm-radio-checked')
+        this.input.checked = true
+        if(!/\$apply|\$digest/.test(this.scope.$root.$$phase)) this.scope.$apply()
     }
 
     unCheck(){
         this.radioElem::removeClass('fm-radio-checked')
         //change the state of native radio component manually.
         this.input.checked = false
+        if(!/\$apply|\$digest/.test(this.scope.$root.$$phase)) this.scope.$apply()
     }
 
     handle(e){
@@ -140,13 +136,9 @@ export class RadioGroup{
         this.template = radioGroup
     }
 
-    compile($tElement, tAttrs, transclude){
-        this.group = $tElement[0]
-        return this.link
-    }
-
-    @dependencies('$scope')
-    controller(scope){
+    @dependencies('$scope', '$element')
+    controller(scope, $elem){
+        this.group = $elem[0]
         let value = null
         let handle = (e, target) => {
             let radioItems = Array.from(this.group::queryAll('input[type=radio]'))
@@ -157,8 +149,10 @@ export class RadioGroup{
             })
 
             value = target.value
+            if(!/\$apply|\$digest/.test(scope.$root.$$phase)) scope.$apply()
             e.stopPropagation()
         }.bind(this)
+        scope.control = {}
 
         scope.$on('radio::selected', handle)
         Object.defineProperty(scope.control, 'value', {

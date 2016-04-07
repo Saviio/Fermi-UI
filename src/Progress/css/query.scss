@@ -11,6 +11,7 @@ $line-height:5px;
     display:inline-block;
     width:100%;
     background-color:rgba($primary-background, 0.3);
+    overflow: hidden;
 }
 
 .#{$prefixCls}-progress-query-padding{

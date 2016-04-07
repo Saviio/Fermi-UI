@@ -77,7 +77,7 @@
             </div>
         </div>
 
-        <div id="fermiProgress">
+        <div id="fermiProgress" style="margin-left:400px;">
             <p>Progress bar</p>
             <div style="width:500px">
                 <Fermi:Line value="entity1" default="100"></Fermi:Line>
@@ -173,6 +173,7 @@
                 <Fermi:Option ng-repeat="item in ::list track by $index" value="::item.name">{{::item.name}}</Fermi:Option>
                 <Fermi:Option value="Rose" selected>Rose</Fermi:Option>
             </Fermi:Select>
+            
             <Fermi:Select style="width:180px;" ng-model="selectEntity3" id="really">
                 <Fermi:Option ng-repeat="item in ::list track by $index" value="::item.name">{{::item.name}}</Fermi:Option>
                 <Fermi:Option value="Rose" disabled="true">Rose</Fermi:Option>
@@ -187,6 +188,7 @@
                 <Fermi:Option ng-repeat="item in ::list track by $index" value="::item.name">{{::item.name}}</Fermi:Option>
                 <Fermi:Option value="Rose" disabled>Rose</Fermi:Option>
             </Fermi:Select>
+
         </div>
 
         <div id="fermiNotification" style="padding:30px;">

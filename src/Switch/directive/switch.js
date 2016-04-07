@@ -21,6 +21,7 @@ export default class Switch {
             .find('span')
             .bind('click',() => {
                 scope.value = !scope.value
+                if(!/\$apply|\$digest/.test(scope.$root.$$phase)) scope.$apply()
             })
     }
 }

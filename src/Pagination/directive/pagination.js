@@ -25,7 +25,7 @@ export default class Pagination {
     }
 
     compile($tElement, tAttrs, transclude){
-        this.hasJumper = elem::props('jumper')
+        this.hasJumper = $tElement[0]::props('jumper')
         if(this.hasJumper){
             let jumper =
             `<div class="fm-pagination-jumper">
@@ -33,7 +33,7 @@ export default class Pagination {
                 <input class="fm-pagination-jumper-input" />
                 <span>页</span>
             </div>`
-            elem::last(jumper)
+            $tElement[0]::last(jumper)
         }
         return this.link
     }
@@ -89,7 +89,6 @@ export default class Pagination {
             }
 
             scope.pages = arr
-
             scope.current === scope.last() ? prevLabel::addClass('hide') : prevLabel::removeClass('hide')
             scope.current === scope.first() ? prevLabel::addClass('hide') : prevLabel::removeClass('hide')
         }

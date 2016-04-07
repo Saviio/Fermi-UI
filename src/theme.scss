@@ -52,7 +52,7 @@ $green:#5CC000;
     @keyframes #{$name}{
         0% {
             opacity:1;
-            transform:translateX(-50%) scale(.3,1)
+            transform:translateX(-20%) scale(.3,1)
         }
         100% {
             opacity:0;

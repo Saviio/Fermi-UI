@@ -160,7 +160,7 @@ export default class Modal{
     }
 
     open(options){
-        if(options === undefined) throw new Error('No parameters passed in when call Fermi.Modal.open.')
+        if(options === undefined) throw new Error('No parameters passed in when call Function: Fermi.Modal.open.')
         if(options.template === undefined) throw new Error(emptyTemplateError)
         this.__tryRender__()
 

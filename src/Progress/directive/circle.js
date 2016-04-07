@@ -47,6 +47,7 @@ export default class circle{
 
         let moveTo = size / 2
         scope.radius = radius = moveTo - (strokeWidth / 2)
+        scope.value = scope.value || defaultValue
         let paths = $elem.find('path')
 
         for(let i = 0;i < paths.length; i++){
