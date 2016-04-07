@@ -1,7 +1,7 @@
 import { dependencies } from '../../external/dependencies'
 import steps from '../template/steps.html'
 import step from '../template/step.html'
-import { props } from '../../utils'
+import { props, getStyle, setStyle } from '../../utils'
 
 
 
@@ -52,11 +52,28 @@ export class Steps {
     }
 
     link(scope, $element, attrs, ctrl){
+        let rootDOM = $element[0]
         let unit = 96 / scope.steps.length
         let style = scope.mode === 'H' ? 'width' : 'height'
         let unChecked = scope.steps.filter(item => item.status() === false)
         unChecked.length > 0 && unChecked[0].inProgress()
-        scope.steps.forEach(item => item.$elem.attr('style', `${style}:${unit.toFixed(0)}%;`))
+        if(scope.steps.length >= 2){
+            let rootUnit = rootDOM::getStyle(style, 'px')
+            setTimeout(() => {
+                let stepStyle = scope.steps.map(item => item.elem::getStyle(style, 'px'))
+                debugger
+                console.log(stepStyle)
+                let avg = (rootUnit - stepStyle.reduce((pre, cur) => pre + cur)) / (scope.steps.length - 1)
+                for(let i = 0; i < scope.steps.length - 1; i++ ){
+                    let option = {}, elem = scope.steps[i].elem
+                    option[style] = `${avg + stepStyle[i]}px`
+                    elem::setStyle(option)
+                }
+            }, 0)
+
+        }
+
+        //item.$elem.attr('style', `${style}:${unit.toFixed(0)}%;`
     }
 
 }
@@ -98,7 +115,7 @@ export class Step{
             check:scope.check,
             cancel:scope.cancel,
             inProgress:scope.inProgress,
-            $elem:$element
+            elem:$element[0]
         })
     }
 }

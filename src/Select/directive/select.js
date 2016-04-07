@@ -31,9 +31,9 @@ export class Select {
         this.restrict = 'EA'
         this.replace = true
         this.template = select
-        this.require = "^ngModel"
+        //this.require = "^ngModel"
         this.scope = {
-            ngModel:'='
+            value:'='
         }
         this.transclude = true
     }
@@ -83,7 +83,7 @@ export class Select {
         let optionList = rootDOM::query('.fm-select-optionList')
 
         if(this.mode === 'multi' || this.mode ==='tags'){
-            scope.ngModel = []
+            scope.value = []
             scope.tagsRef = []
         } else {
             scope.$on('option::selected', (e, target) => {
@@ -97,7 +97,7 @@ export class Select {
         }
 
         scope.remove = (index, e) => {
-            scope.ngModel.splice(index, 1).pop()
+            scope.value.splice(index, 1).pop()
             if(this.mode !== 'tags'){
                 let elem = scope.tagsRef.splice(index, 1).pop()
                 elem::removeClass('tagged').removeAttribute('selected')
@@ -106,15 +106,15 @@ export class Select {
         }
 
         let selected = () => {
-            if(scope.ngModel::getType() !== 'Array') {
+            if(scope.value::getType() !== 'Array') {
                 return {
-                    item: scope.ngModel.item,
-                    data: scope.ngModel.data
+                    item: scope.value.item,
+                    data: scope.value.data
                 }
             } else {
                 let list = []
-                for(var i = 0; i< scope.ngModel.length; i++){
-                    let model = scope.ngModel[i]
+                for(var i = 0; i< scope.value.length; i++){
+                    let model = scope.value[i]
                     list.push({
                         item: model.item,
                         data: model.data
@@ -170,7 +170,7 @@ export class Select {
             let tagInput = this.rootDOM::query('.fm-tag-input > span')
 
             let renderTag = value => {
-                scope.ngModel.push({ item: value, data: { value }, $elem: null })
+                scope.value.push({ item: value, data: { value }, $elem: null })
                 tagInput.innerHTML = '&nbsp;'
                 scope.$apply()
             }
@@ -181,7 +181,7 @@ export class Select {
                 if(e.keyCode !== 13) return
                 e.preventDefault()
                 if(value !== ''){
-                    if(scope.ngModel.every(existOption => existOption.item !== value)){
+                    if(scope.value.every(existOption => existOption.item !== value)){
                         renderTag(value)
                     } else {
                         tagInput.innerHTML = '&nbsp;'
@@ -200,12 +200,12 @@ export class Select {
     passing(exports, scope){
         exports.select = (option, elem) => {
             if(this.mode === 'multi' || this.mode === 'tags' ){
-                if(scope.ngModel.every(existOption => existOption !== option)){
-                    scope.ngModel.push(option)
+                if(scope.value.every(existOption => existOption !== option)){
+                    scope.value.push(option)
                     scope.tagsRef.push(elem)
                 }
             } else {
-                scope.ngModel = option
+                scope.value = option
             }
 
             if(!/\$apply|\$digest/.test(scope.$root.$$phase)){

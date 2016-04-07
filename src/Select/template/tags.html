@@ -1,5 +1,5 @@
 <ul class="fm-tags-selection">
-    <li ng-repeat="model in ngModel track by $index" ng-click="remove($index, $event)">
+    <li ng-repeat="model in value track by $index" ng-click="remove($index, $event)">
         <span>{{model.item}}</span>
         <span class="fm-tag-remove">×</span>
     </li>
