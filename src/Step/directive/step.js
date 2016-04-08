@@ -61,9 +61,7 @@ export class Steps {
             let rootUnit = rootDOM::getStyle(style, 'px')
             setTimeout(() => {
                 let stepStyle = scope.steps.map(item => item.elem::getStyle(style, 'px'))
-                debugger
-                console.log(stepStyle)
-                let avg = (rootUnit - stepStyle.reduce((pre, cur) => pre + cur)) / (scope.steps.length - 1)
+                let avg = (rootUnit - stepStyle.reduce((pre, cur) => pre + cur) - 3 * stepStyle.length) / (scope.steps.length - 1)
                 for(let i = 0; i < scope.steps.length - 1; i++ ){
                     let option = {}, elem = scope.steps[i].elem
                     option[style] = `${avg + stepStyle[i]}px`

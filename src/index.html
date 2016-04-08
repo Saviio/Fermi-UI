@@ -35,6 +35,25 @@
         border-bottom-left-radius:0;
     }
 
+
+    .ts{
+        width: 960px;
+    }
+
+    .ts > div{
+        display: inline-block;
+        vertical-align: top;
+        width: 480px;
+        background: yellow;
+        height: 300px;
+    }
+
+
+    .ts > div:first-child{
+        background: #ccc;
+    }
+
+
   </style>
 </head>
 <body>
@@ -319,6 +338,10 @@
         <div>
             lalala:{{::secCtrl.test3}}
         </div>
+    </div>
+
+    <div class="ts">
+        <div></div><div></div>
     </div>
     <script id="modalTemplate" type="text/fm-template">
         <div style="width:500px;">
