@@ -12,6 +12,8 @@ import notification from './level2/notification.html'
 import modal from './level2/modal.html'
 import progress from './level2/progress.html'
 import popover from './level2/popover.html'
+import tooltip from './level2/tooltip.html'
+import select from './level2/select.html'
 
 
 export home from './home.html'
@@ -32,5 +34,7 @@ export const level2 = {
     notification,
     modal,
     progress,
-    popover
+    popover,
+    tooltip,
+    select
 }

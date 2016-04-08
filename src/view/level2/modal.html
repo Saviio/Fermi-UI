@@ -44,7 +44,7 @@
             </description>
             <codegroup>
                 <es>
-let modalIns = this.modal.confirm({
+let modalIns = modal.confirm({
     content:'Please click ok to show another modal.',
     width:300
 })
@@ -54,7 +54,7 @@ modalIns.ok.then((ok, dismiss) => {
     ok.loading()
     return new Promise(resolve => {
         setTimeout(() => {
-            this.modal.normal({
+            modal.normal({
                 content: 'Sorry to have kept you waiting.',
                 width:240
             })
@@ -79,8 +79,12 @@ modalIns.dismiss.then(() => modalIns.close())
             </description>
             <codegroup>
                 <es>
-let option = { template: '#modalTemplate' }
-this.modal.open(option)
+let option = {
+    template: '#modalTemplate',
+    controller:'demoModal',
+    controllerAs:'Demo'
+}
+modal.open(option)
                 </es>
             </codegroup>
         </componentbox>
@@ -126,6 +130,7 @@ this.modal.open(option)
 </div>
 <script id="modalTemplate" type="text/fm-template">
     <div>
+        <h4>{{::Demo.title}}</h4>
         <Fermi:Tabs>
             <Fermi:Tab header="Orignal">
                 <div class="modalDemo">

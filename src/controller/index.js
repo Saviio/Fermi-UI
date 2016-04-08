@@ -5,7 +5,9 @@ import pagination from './level2/pagination'
 import checkbox from './level2/checkbox'
 import radio from './level2/radio'
 import notification from './level2/notification'
-import modal from './level2/modal'
+import { Modal as modal, demoModal } from './level2/modal'
+import progress from './level2/progress'
+import select from './level2/select'
 
 export home from './home'
 export documentation from './documentation'
@@ -17,5 +19,8 @@ export const level2 = {
     checkbox,
     radio,
     notification,
-    modal
+    modal,
+    demoModal,
+    progress,
+    select
 }

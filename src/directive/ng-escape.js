@@ -18,7 +18,8 @@ const specialAttribute = [
     'checked',
     'disabled',
     'progress',
-    'cascading'
+    'cascading',
+    'selected'
 ]
 
 class escapeHTML{

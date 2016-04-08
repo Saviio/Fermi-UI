@@ -19,6 +19,7 @@ import './Fermi-UI/Radio'
 import './Fermi-UI/Switch'
 import './Fermi-UI/Notification'
 import './Fermi-UI/Modal'
+import './Fermi-UI/Select'
 import './Fermi-UI/core'
 
 
@@ -52,6 +53,7 @@ let app = angular.module('Fermi', [
     'Fermi.switch',
     'Fermi.notification',
     'Fermi.modal',
+    'Fermi.select',
     'Fermi.core'
 ])
 
@@ -65,6 +67,10 @@ app.controller('checkbox', level2.checkbox)
 app.controller('radio', level2.radio)
 app.controller('notification', level2.notification)
 app.controller('modal', level2.modal)
+app.controller('demoModal', level2.demoModal)
+app.controller('progress', level2.progress)
+app.controller('select', level2.select)
+
 app.run(['$rootScope', 'Fermi.Loading', '$window', ($root, Loading) => {
     $root.$on('$stateChangeStart',(e, toState) => {
         if(toState.external){
@@ -136,7 +142,11 @@ app.config([
             radio,
             switcher,
             notification,
-            modal
+            modal,
+            popover,
+            progress,
+            tooltip,
+            select
         } = view.level2
 
 
@@ -204,6 +214,26 @@ app.config([
                 template:modal,
                 controller:'modal',
                 controllerAs:'Modal'
+            })
+            .state('documentation.progress', {
+                url:'/progress',
+                template:progress,
+                controller:'progress',
+                controllerAs:'Progress'
+            })
+            .state('documentation.popover', {
+                url:'/popover',
+                template:popover
+            })
+            .state('documentation.tooltip', {
+                url:'/tooltip',
+                template:tooltip
+            })
+            .state('documentation.select', {
+                url:'/select',
+                template:select,
+                controller:'select',
+                controllerAs:'Select'
             })
 
         $urlRouter.when('/home', '/')

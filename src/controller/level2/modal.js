@@ -1,7 +1,7 @@
 import { dependencies } from '../../external/dependencies'
 
 @dependencies('Fermi.Modal')
-export default class Modal{
+export class Modal{
     constructor(modal){
         this.modal = modal
     }
@@ -49,8 +49,17 @@ export default class Modal{
 
     showCustomized(){
         let option = {
-            template: '#modalTemplate'
+            template: '#modalTemplate',
+            controller:'demoModal',
+            controllerAs:'Demo'
         }
+
         this.modal.open(option)
+    }
+}
+
+export class demoModal{
+    constructor(){
+        this.title = "Demo Modal"
     }
 }
