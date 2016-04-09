@@ -131,6 +131,7 @@
     .#{$prefixCls}-steps-item{
         display: block;
         margin-bottom: 10px;
+        min-height:60px;
         > .#{$prefixCls}-steps-line{
             height: 100%;
             width: $size;
