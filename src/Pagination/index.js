@@ -5,7 +5,7 @@ import './css/pagination.scss'
 const component = {
     namespace:'Fermi.pagination',
     name:'fermiPagination',
-    inject:[]
+    inject:['Fermi.core']
 }
 
 export default angular.module(component.namespace, component.inject)

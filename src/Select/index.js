@@ -5,7 +5,7 @@ import './css/select.scss'
 const component = {
     namespace:'Fermi.select',
     name:'fermiSelect',
-    inject:[]
+    inject:['Fermi.core']
 }
 
 export default angular.module(component.namespace, component.inject)

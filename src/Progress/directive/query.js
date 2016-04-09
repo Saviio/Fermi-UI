@@ -17,8 +17,8 @@ export default class Query{
         this.restrict = 'EA'
         this.template = template
         this.scope = {
-            control: '=',
-            callback: '='
+            control: '=?',
+            callback: '=?'
         }
     }
 
@@ -39,7 +39,7 @@ export default class Query{
         let rootDOM = $element[0]
         let actived = rootDOM::props('actived')
         let showCls = 'fm-progress-query-show'
-        
+
         scope.show = () => {
             rootDOM::removeClass('hide')
             setTimeout(() =>

@@ -36,12 +36,13 @@ $line-height:5px;
 
 .#{$prefixCls}-progress-line-text{
     text-align:left;
-    width:35px;
+    width:40px;
     margin-left:10px;
     font-size:1em;
     position:absolute;
     bottom:0;
     right:0;
+    text-align:right;
 }
 
 .#{$prefixCls}-progress-line-wrapper{

@@ -29,16 +29,16 @@ export default class Tooltips{
         this.template = template
         this.replace = true
     }
-    
+
     @dependencies('$scope')
     controller(scope){
         scope.content = (scope.content || '').trim()
     }
-    
+
     link(scope, $elem, attr, ctrl){
         let actived = $elem::props('actived')
         let rootDOM = $elem[0]
-        let placement = attr.placement.toLowerCase()
+        let placement = ($elem::props('placement') || 'top').toLowerCase()
         let offset = attr.offset || 0
 
         let tooltipBody = rootDOM::query('.fm-tooltip-wrapper')

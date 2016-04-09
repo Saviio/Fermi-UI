@@ -1,6 +1,5 @@
 import { dependencies } from '../external/dependencies'
 
-
 export default class FermiDefaultDirective{
     constructor(){
         this.restrict='A'

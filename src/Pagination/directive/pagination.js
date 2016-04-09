@@ -29,9 +29,9 @@ export default class Pagination {
         if(this.hasJumper){
             let jumper =
             `<div class="fm-pagination-jumper">
-                <span>跳至</span>
+                <span>{{::('Go' | translate)}}</span>
                 <input class="fm-pagination-jumper-input" />
-                <span>页</span>
+                <span>{{::('page' | translate)}}</span>
             </div>`
             $tElement[0]::last(jumper)
         }

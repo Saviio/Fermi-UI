@@ -41,8 +41,11 @@ var app = angular.module('app', [
     'Fermi.menu',
     'Fermi.modal',
     'Fermi.checkbox',
-    'Fermi.radio'
+    'Fermi.radio',
+    'Fermi.core'
 ])
+
+app.config(['FMi18nProvider', i18n => i18n.locale('enUS')])
 
 app.controller(
     'main',['$scope','$timeout','Fermi.Loading','Fermi.Notification','Fermi.Modal',

@@ -50,7 +50,7 @@ export class Select {
         this.size = ($tElement::props('size') || 'default').toLowerCase()
 
         if(!(isMulti || isTags) && isSearch){
-            let searchTmpl = '<div><input placeholder="输入"/></div>'
+            let searchTmpl = `<div><input placeholder="{{::('pleaseInput' | translate)}}"/></div>`
             optionList::prepend(searchTmpl)
             this.isSearch = true
         }

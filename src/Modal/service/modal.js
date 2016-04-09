@@ -20,9 +20,11 @@ import {
     createElem,
     removeClass
 } from '../../utils'
+import i18n from '../../Core/i18n'
 import container from '../template/template.html'
 import confirm from '../template/confirm.html'
 import normal from '../template/normal.html'
+
 
 
 /*
@@ -58,10 +60,10 @@ private:
 
 const defaultConfirmModal = {
     width:400,
-    title:'请确认',
+    title:'PleaseConfirm',
     content:'',
-    okText:'确认',
-    dismissText:'取消',
+    okText:'ok',
+    dismissText:'dismiss',
     onOk:noop,
     onDismiss:noop,
     plain:false
@@ -71,7 +73,7 @@ const defaultNormalModal = {
     width:400,
     title:'',
     content:'',
-    okText:'确认',
+    okText:'ok',
     onOk:noop,
     plain:false
 }
@@ -166,7 +168,7 @@ export default class Modal{
 
         let className = options.className || 'fm-modal'
         //let modalName = options.name || null
-        let title = (options.title || '').toString()
+        let title = i18n.transform()((options.title || '').toString())
 
         let template = reSelector.test(options.template)
         ? dom::query(options.template).innerHTML
