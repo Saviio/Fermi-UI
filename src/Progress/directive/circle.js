@@ -15,7 +15,7 @@ export default class circle{
         this.restrict = 'EA'
         this.template = template
         this.scope = {
-            value:'=',
+            value:'=?',
             label:'@'
         }
 

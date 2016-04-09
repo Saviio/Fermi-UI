@@ -1,6 +1,7 @@
 import factory from '../external/buildFactory'
 import modal from './service/modal'
 import './css/modal.scss'
+import '../core'
 
 const component = {
     namespace:'Fermi.modal',

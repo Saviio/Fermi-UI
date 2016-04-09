@@ -136,10 +136,4 @@ export default class Factory {
 	static directive(Directive){
 		return (...args) => new Directive(...args)
 	}
-
-	static provider(pd){
-		return function(){
-			this.$get = pd
-		}
-	}
 }

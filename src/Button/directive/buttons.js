@@ -1,6 +1,5 @@
 import { dependencies } from '../../external/dependencies'
 import template from '../template/template.html'
-import loader from '../template/loader.svg'
 import {
     on,
     props,

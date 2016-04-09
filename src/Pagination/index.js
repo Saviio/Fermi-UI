@@ -1,6 +1,7 @@
 import factory from '../external/buildFactory'
 import directive from './directive/pagination'
 import './css/pagination.scss'
+import '../core'
 
 const component = {
     namespace:'Fermi.pagination',

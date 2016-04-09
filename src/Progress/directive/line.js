@@ -14,7 +14,7 @@ export default class Line{
         this.restrict = 'EA'
         this.scope = {
             success:'=?',
-            value:'=',
+            value:'=?',
             label:'@'
         }
         this.template = template
@@ -34,7 +34,7 @@ export default class Line{
     link(scope, $elem, attrs, ctrl){
         let defaultValue = ~~($elem::props('default')  || 0)
 
-        scope.value = defaultValue
+        scope.value = scope.value || defaultValue
 
         let valueCheck = function(){
             if(scope.value > 100) scope.value = 100

@@ -68,7 +68,7 @@
 
         <div id="fermischedule">
             <p>日程表</p>
-            <Fermi:schedule control="schedule" events="tmp" ></Fermi:schedule>
+            <!--<Fermi:schedule control="schedule" events="tmp" ></Fermi:schedule>-->
         </div>
 
 
@@ -99,10 +99,10 @@
         <div id="fermiProgress" style="margin-left:400px;">
             <p>Progress bar</p>
             <div style="width:500px">
-                <Fermi:Line value="entity1" default="100"></Fermi:Line>
+                <Fermi:Line default="30"></Fermi:Line>
                 <Fermi:Query control="entity2" actived></Fermi:Query>
                 <div style="width:132px;height:132px;display:inline-block">
-                    <Fermi:Circle value="entity1" size="100" stroke-width="6"  showInfo=true progress></Fermi:Circle>
+                    <Fermi:Circle size="100" stroke-width="6"  showInfo=true progress default="50"></Fermi:Circle>
                 </div>
                 <div style="width:132px;height:132px;display:inline-block">
                     <Fermi:Circle value="entity3" size="100"  stroke-width="6" shape="rect" outer="#ccc"></Fermi:Circle>
@@ -338,10 +338,6 @@
         <div>
             lalala:{{::secCtrl.test3}}
         </div>
-    </div>
-
-    <div class="ts">
-        <div></div><div></div>
     </div>
     <script id="modalTemplate" type="text/fm-template">
         <div style="width:500px;">
