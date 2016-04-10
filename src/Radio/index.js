@@ -1,6 +1,6 @@
 import factory from '../external/buildFactory'
 import { Radio, RadioGroup } from './directive/radio'
-import './css/radio.scss'
+//import './css/radio.scss'
 
 const component = {
     namespace:'Fermi.radio',

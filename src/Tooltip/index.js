@@ -1,6 +1,5 @@
 import factory from '../external/buildFactory'
-import directive from './directive/tooltips'
-import './css/tooltips.scss'
+import directive from './directive/tooltip'
 import '../core'
 
 const component = {

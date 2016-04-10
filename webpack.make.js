@@ -32,7 +32,8 @@ module.exports = function makeWebpackConfig (options) {
     config.entry = {}
   } else {
     config.entry = {
-      app: './src/app.js'
+      index: './src/index.js',
+      breadcrumb: ['./src/Breadcrumb/index.js']
     }
   }
 
@@ -47,7 +48,7 @@ module.exports = function makeWebpackConfig (options) {
   } else {
     config.output = {
       // Absolute output directory
-      path: __dirname + '/dist',
+      path: __dirname + '/Fermi-UI/src',
 
       // Output path from the view of the page
       // Uses webpack-dev-server in development
@@ -55,11 +56,11 @@ module.exports = function makeWebpackConfig (options) {
 
       // Filename for entry points
       // Only adds hash in build mode
-      filename: BUILD ? '[name].[hash].js' : '[name].bundle.js',
+      filename: BUILD ? '[name].js' : '[name].bundle.js',
 
       // Filename for non-entry points
       // Only adds hash in build mode
-      chunkFilename: BUILD ? '[name].[hash].js' : '[name].bundle.js'
+      chunkFilename: BUILD ? '[name].js' : '[name].bundle.js'
     }
   }
 
@@ -71,7 +72,7 @@ module.exports = function makeWebpackConfig (options) {
   if (TEST) {
     config.devtool = 'inline-source-map';
   } else if (BUILD) {
-    config.devtool = 'source-map';
+    //config.devtool = 'source-map';
   } else {
     config.devtool = 'eval';
   }
@@ -113,7 +114,7 @@ module.exports = function makeWebpackConfig (options) {
         test: /\.scss$/,
         loader: ExtractTextPlugin.extract(
           "style",
-          "css?sourceMap!postcss!sass?sourceMap&sourceMapContents")
+          "css!postcss!sass")
     },{
         test:/\.json$/,
         loader:'json'
@@ -148,7 +149,7 @@ module.exports = function makeWebpackConfig (options) {
     //
     // Reference: https://github.com/webpack/style-loader
     // Use style-loader in development for hot-loading
-    loader: ExtractTextPlugin.extract('style', 'css?sourceMap!postcss')
+    loader: ExtractTextPlugin.extract('style', 'css!postcss')
   };
 
 
@@ -182,27 +183,15 @@ module.exports = function makeWebpackConfig (options) {
     // Reference: https://github.com/webpack/extract-text-webpack-plugin
     // Extract css files
     // Disabled when in test mode or not in build mode
-    new ExtractTextPlugin('[name].[hash].css', {
+    new ExtractTextPlugin('[name].css', {
       disable: !BUILD || TEST
     })
   ];
 
-  // Skip rendering index.html in test mode
-  if (!TEST) {
-    // Reference: https://github.com/ampedandwired/html-webpack-plugin
-    // Render index.html
-    config.plugins.push(
-      new HtmlWebpackPlugin({
-        template: './src/index.html',
-        inject: 'body',
-        minify: {}
-      })
-    )
-  }
 
   // Add build specific plugins
   if (BUILD) {
-    config.plugins.push(
+    /*config.plugins.push(
       // Reference: http://webpack.github.io/docs/list-of-plugins.html#noerrorsplugin
       // Only emit files when there are no errors
       new webpack.NoErrorsPlugin(),
@@ -214,7 +203,7 @@ module.exports = function makeWebpackConfig (options) {
       // Reference: http://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin
       // Minify all javascript, switch loaders to minimizing mode
       new webpack.optimize.UglifyJsPlugin()
-    )
+  )*/
   }
 
   /**

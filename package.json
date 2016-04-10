@@ -4,9 +4,10 @@
   "description": "A simple UI library implementation using AngularJS.",
   "main": "src/index.js",
   "scripts": {
-    "build": "webpack --config webpack.build.js --bail -p",
+    "build": "webpack --config webpack.build.js --bail",
     "dev": "webpack-dev-server --history-api-fallback --inline --progress",
-    "prod": "http-server -p 9090"
+    "prod": "http-server -p 9090",
+    "release": "node node_modules/babel-cli/bin/babel.js src --out-dir lib"
   },
   "repository": {
     "type": "git",
@@ -36,6 +37,7 @@
   "devDependencies": {
     "angular-mocks": "^1.4.1",
     "autoprefixer": "^6.0.2",
+    "babel-cli": "^6.0.0",
     "babel-core": "~5.5.8",
     "babel-loader": "~5.1.4",
     "babel-runtime": "~5.5.8",
@@ -45,17 +47,17 @@
     "html-webpack-plugin": "^1.5.2",
     "isparta-instrumenter-loader": "^0.2.1",
     "jasmine-core": "^2.3.4",
+    "json-loader": "^0.5.3",
     "node-libs-browser": "^0.5.2",
     "node-sass": "^3.3.3",
     "null-loader": "^0.1.1",
     "object-assign": "^4.0.1",
+    "phantomjs": "^1.9.17",
     "postcss-loader": "^0.6.0",
     "raw-loader": "^0.5.1",
     "sass-loader": "^3.0.0",
     "style-loader": "^0.12.3",
     "webpack": "~1.9.11",
-    "webpack-dev-server": "~1.9.0",
-    "phantomjs": "^1.9.17",
-    "json-loader": "^0.5.3"
+    "webpack-dev-server": "~1.9.0"
   }
 }

@@ -1,6 +1,6 @@
 import factory from '../external/buildFactory'
 import directive from './directive/schedule'
-import './css/schedule.scss'
+//import './css/schedule.scss'
 import '../core'
 
 const component = {

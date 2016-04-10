@@ -1,5 +1,5 @@
 import notification from './service/notification'
-import './css/notification.scss'
+//import './css/notification.scss'
 
 const service = {
     namespace:'Fermi.notification',
