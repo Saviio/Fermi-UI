@@ -12,9 +12,9 @@ gulp.task('default', () => {
             presets: ["stage-0", 'es2015'],
             plugins: ["transform-decorators-legacy"]
         }))
-        .pipe(gulp.dest('libs'))
+        .pipe(gulp.dest('lib'))
 
     gulp.src('src/index.scss', buildOption)
         .pipe(sass().on('error', sass.logError))
-        .pipe(gulp.dest('libs'))
+        .pipe(gulp.dest('lib'))
 })

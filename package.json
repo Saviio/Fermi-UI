@@ -1,8 +1,8 @@
 {
   "name": "Fermi-UI",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "A simple UI library implementation using AngularJS.",
-  "main": "libs/index.js",
+  "main": "lib/index.js",
   "scripts": {
     "release": "gulp"
   },
@@ -19,6 +19,10 @@
   "author": "Saviio",
   "license": "MIT",
   "files": [
+    "src"
+  ],
+  "files": [
+    "lib",
     "src"
   ],
   "bugs": {
