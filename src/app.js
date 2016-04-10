@@ -7,8 +7,6 @@ import * as view from './view'
 import 'Fermi-UI'
 
 
-
-
 import './css/app.scss'
 import './directive/ng-highlight'
 import './directive/ng-escape'
