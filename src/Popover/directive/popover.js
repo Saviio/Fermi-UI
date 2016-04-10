@@ -26,8 +26,8 @@ const reAutoHide = /auto|true/i
 const reDirection = /top|bottom|left|right/
 const reOffset =  /^\d{1,}$/
 
-const unSupportDirection = 'Popover direction is not in announced list [top,bottom,left,right].'
-const unSupportEvent = 'Event is not supported, it should one of the following values: [click, hover, focus, manual].'
+const unSupportedDirection = 'Popover direction is not in announced list [top,bottom,left,right].'
+const unSupportedEvent = 'Event is not supported, it should one of the following values: [click, hover, focus, manual].'
 const noTriggerSpecified = 'No trigger element was binded for popover component.'
 const noTriggerFound = 'Trigger element cannot be found in component scope.'
 
@@ -46,7 +46,7 @@ export default class Popover{
 
     compile($tElement, tAttrs, transclude){
         let dire = (tAttrs.placement || "top").toLowerCase()
-        if(!reDirection.test(dire)) throw Error(unSupportDirection)
+        if(!reDirection.test(dire)) throw Error(unSupportedDirection)
 
         let tmpl = popoverTmpl.replace(/#{dire}/, dire)::toDOM()
         if($tElement::props('close')){
@@ -82,7 +82,7 @@ export default class Popover{
         let event = attr.action || 'click'
 
         if(!reEvent.test(event)){
-            throw new Error(unSupportEvent)
+            throw new Error(unSupportedEvent)
         } else if(event === 'hover'){
             event = 'mouseenter'
         } else if(event === 'manual'){
