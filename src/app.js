@@ -4,23 +4,8 @@ import { home, documentation, level2 } from './controller'
 import * as view from './view'
 
 
-import './Fermi-UI/fermi.scss'
-import './Fermi-UI/Menu'
-import './Fermi-UI/Progress'
-import './Fermi-UI/Button'
-import './Fermi-UI/Popover'
-import './Fermi-UI/Tooltips'
-import './Fermi-UI/Breadcrumb'
-import './Fermi-UI/Step'
-import './Fermi-UI/Tab'
-import './Fermi-UI/Pagination'
-import './Fermi-UI/Checkbox'
-import './Fermi-UI/Radio'
-import './Fermi-UI/Switch'
-import './Fermi-UI/Notification'
-import './Fermi-UI/Modal'
-import './Fermi-UI/Select'
-import './Fermi-UI/core'
+import 'Fermi-UI'
+
 
 
 
