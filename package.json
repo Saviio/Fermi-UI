@@ -39,6 +39,6 @@
     "node-libs-browser": "^0.5.2",
     "node-sass": "^3.3.3",
     "object-assign": "^4.0.1",
-    "phantomjs": "^1.9.17",
+    "phantomjs": "^1.9.17"
   }
 }
