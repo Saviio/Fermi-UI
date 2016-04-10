@@ -151,7 +151,8 @@ export class RadioGroup{
             value = target.value
             if(!/\$apply|\$digest/.test(scope.$root.$$phase)) scope.$apply()
             e.stopPropagation()
-        }.bind(this)
+        }
+        handle = handle.bind(this)
         scope.control = {}
 
         scope.$on('radio::selected', handle)
