@@ -1,0 +1,8 @@
+<div class="fm-modal-normal">
+    <div class="fm-modal-normal-content" clean-style="width:' + width + '%;'" #plain-directive#>
+        {{::content}}
+    </div>
+    <div class="fm-modal-normal-operation">
+        <Fermi:buttons content="{{::okText}}"  type="primary" ng-click="onOk()" control="okBtn"></Fermi:buttons>
+    </div>
+</div>

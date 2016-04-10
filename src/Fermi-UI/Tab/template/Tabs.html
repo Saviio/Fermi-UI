@@ -1,0 +1,11 @@
+<div>
+    <ul class="fm-nav">
+        <li ng-repeat="header in items track by $index" ng-attr-class="{{header.actived ? 'fm-nav-active' : header.disabled ? 'fm-disabled' : ''}}">
+            <a href="javascript:;" data-index="{{::$index}}">
+                {{::header.display}}
+            </a>
+        </li>
+    </ul>
+    <div ng-transclude class="fm-tab-container">
+    </div>
+</div>

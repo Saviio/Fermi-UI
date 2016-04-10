@@ -1,0 +1,168 @@
+@import '../../theme.scss';
+
+$offset: 8px;
+
+@function unary-direction($dire){
+    @if $dire=="top" {
+        @return "bottom";
+    } @else if $dire=="bottom" {
+        @return "top";
+    } @else if $dire=="left"{
+        @return "right";
+    } @else if $dire=="right"{
+        @return "left";
+    }
+}
+
+@mixin arrow-pseudo-block{
+    content:'';
+    display:block;
+    width:0;
+    height:0;
+    border-color:rgba(204,204,204,0);
+}
+
+
+@mixin arrow-direction($dire:"top",$ftBg:#f6f6f6,$bkBg:#CDCDCD){
+    &:before,&:after{
+        @include arrow-pseudo-block;
+    }
+
+    @if $dire=="top" or $dire=="bottom"{
+        border:none;
+        left:50%;
+        #{unary-direction($dire)}:0px;
+
+        &:before,&:after{
+            border-left:$offset+(-0.5px) solid transparent;
+            border-right:$offset+(-0.5px) solid transparent;
+            border-#{$dire}:$offset solid;
+            margin-left:-$offset;
+            position: absolute;
+            z-index:1100;
+        }
+
+        &:before{
+            border-#{$dire}-color:$bkBg;
+            #{unary-direction($dire)}:-$offset;
+        }
+
+        &:after{
+            border-#{$dire}-color:$ftBg;
+            #{unary-direction($dire)}:-$offset+1px;
+        }
+    }
+    @else if $dire=="left" or $dire=="right"{
+        border:none;
+        top:50%;
+        #{unary-direction($dire)}:0px;
+
+        &:before,&:after{
+            border-top:$offset+(-0.5px) solid transparent;
+            border-bottom:$offset+(-0.5px) solid transparent;
+            border-#{$dire}:$offset solid;
+            top:0px;
+            margin-top:-($offset + 1)/2;
+            position: absolute;
+        }
+
+        &:before{
+            border-#{$dire}-color:$bkBg;
+            #{unary-direction($dire)}:-$offset;
+        }
+
+        &:after{
+            border-#{$dire}-color:$ftBg;
+            #{unary-direction($dire)}:-$offset+1px;
+        }
+    }
+}
+
+.#{$prefixCls}-popover{
+    max-width: 500px;
+    min-width: 150px;
+    position: absolute;
+    z-index: 1000;
+    border: 1px solid rgba(37,40,43,0.1);
+    border-radius: 3px;
+    box-shadow: 0 1px 2px rgba(37,40,43,0.1);
+    box-sizing: border-box;
+    transition:transform 300ms cubic-bezier(0.08, 0.8, 0.17, 1),opacity 300ms ease-out;
+    opacity:0;
+    visibility:visible;
+    display: none;
+    transform: scale(0.1) translateZ(0);
+    background-color: white;
+    background-clip: padding-box;
+
+    .#{$prefixCls}-popover-title{
+        padding:5px 10px;
+        background-color:#F6F6F6;
+        font-size: 12px;
+        border-top-right-radius: 3px;
+        border-top-left-radius: 3px;
+    }
+
+    .#{$prefixCls}-popover-content > *{
+        padding:10px 10px;
+    }
+
+    .#{$prefixCls}-popover-content{
+        overflow-x: hidden;
+        border-radius: 3px;
+    }
+    .#{$prefixCls}-popover-title + .#{$prefixCls}-popover-content{
+        border-top-right-radius: none;
+        border-top-left-radius: none;
+    }
+
+    button.#{$prefixCls}-close{
+        margin-right: 3px;
+        outline: none;
+        position: absolute;
+        right: 2px;
+    }
+}
+
+
+
+.#{$prefixCls}-popover-element{
+    position:relative;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.#{$prefixCls}-popover-arrow{
+    position:absolute;
+}
+
+.#{$prefixCls}-popover-top > .#{$prefixCls}-popover-arrow{
+    @include arrow-direction("top")
+}
+
+.#{$prefixCls}-popover-bottom > .#{$prefixCls}-popover-arrow{
+    @include arrow-direction("bottom")
+}
+
+.#{$prefixCls}-popover-left > .#{$prefixCls}-popover-arrow{
+    @include arrow-direction("left")
+}
+
+.#{$prefixCls}-popover-right > .#{$prefixCls}-popover-arrow{
+    @include arrow-direction("right")
+}
+
+.#{$prefixCls}-popover-effect-enter,
+.#{$prefixCls}-popover-effect-entered{
+    display: block !important;
+}
+
+.#{$prefixCls}-popover-effect-enter-active,
+.#{$prefixCls}-popover-effect-entered{
+    opacity: 1 !important;
+    transform: scale(1) !important;
+}
+
+.#{$prefixCls}-popover-effect-leave{
+    display: block !important;
+}

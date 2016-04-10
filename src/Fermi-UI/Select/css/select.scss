@@ -1,0 +1,187 @@
+@import '../../theme.scss';
+
+
+@mixin select-wrapper-base($height:30px){
+    display:inline-block;
+    min-width:130px;
+    cursor:pointer;
+    position:relative;
+    vertical-align:top;
+
+    .#{$prefixCls}-select-tags{
+        padding-right: 10px !important;
+        padding-bottom: 4px;
+    }
+
+    .#{$prefixCls}-select-inner{
+        min-height:$height+(-2px);
+        line-height:$height+(-2px);
+        padding-left:10px;
+        padding-right:24px;
+        width:100%;
+        border:$form-border 1px solid;
+        border-radius:3px;
+        position:relative;
+        transition:border-color 0.5s ease;
+
+        &:hover{
+            border-color:lighten($primary-background, 25%);;
+        }
+
+        .#{$prefixCls}-select-icon{
+            position:absolute;
+            right:0px;
+            transition: transform 300ms ease;
+            top:0px;
+            height: 100%;
+        }
+
+        .#{$prefixCls}-icon-actived{
+            @include trans-rotate180;
+        }
+
+        .#{$prefixCls}-tags-selection{
+            list-style: none;
+            height: 100%;
+            min-height: $height+(-6px);
+            li{
+                display: inline-block;
+                margin-right: 4px;
+                padding:0 4px;
+                vertical-align: top;
+                background:#f7f9fa;
+                border:1px solid rgba(37,40,43,0.1);
+                height: 20px;
+                border-radius:3px;
+                float: left;
+                line-height: 20px;
+                margin-top: 4px;
+                box-sizing: content-box;
+                cursor:pointer;
+                //color:$primary-btn-background;
+                .#{$prefixCls}-tag-remove{
+                    cursor:pointer;
+                    opacity: 0.7;
+                    cursor: pointer;
+                    font-family: "Open Sans", sans-serif;
+                    color:#777;
+                    &:hover{
+                        color: #404040;
+                    }
+                }
+            }
+            .#{$prefixCls}-tag-input{
+                background: none;
+                border: none;
+                >span{
+                    outline: none;
+                    border:none;
+                    height:100%;
+                }
+            }
+        }
+    }
+
+    .#{$prefixCls}-select-selection{
+        width:100%;
+        .select-selection-current{
+            width:100%;
+            overflow:hidden;
+            text-overflow:ellipsis;
+        }
+    }
+
+    span {
+        display:inline-block;
+        vertical-align:top;
+    }
+
+    .#{$prefixCls}-select-optionList{
+        width:100%;
+        background-color:#fff;
+        position:absolute;
+        margin-top: 5px;
+        border:$form-border solid 1px;
+        opacity:0;
+        z-index:9999;
+        padding-top:5px;
+        padding-bottom:5px;
+        border-radius:3px;
+        display: none;
+
+        ul{
+            list-style:none;
+
+            li{
+                padding-left:10px;
+                padding-right:10px;
+                height:26px;
+                line-height:26px;
+                cursor:pointer;
+                user-select:none;
+                &:hover{
+                    background-color:$hover-color !important;
+                }
+            }
+
+            li[disabled="disabled"]{
+                cursor: not-allowed;
+                color:#ccc;
+                &:hover{
+                    background-color:inherit !important;
+                }
+            }
+
+            .tagged{
+                background: $hover-color !important;
+            }
+        }
+
+        div{
+            text-align:center;
+            margin-bottom:8px;
+            input {
+                outline:none;
+                width:95%;
+                height:28px;
+                line-height:28px;
+                padding:4px 7px;
+                border:1px solid $grey;
+                border-radius:3px;
+                color:#777;
+            }
+        }
+    }
+}
+
+
+.#{$prefixCls}-select-list-enter{
+    display: block !important;
+    animation:fadeInDown 0.3s 0s ease both;
+}
+.#{$prefixCls}-select-list-entered{
+    opacity: 1 !important;
+    display: block !important;
+}
+.#{$prefixCls}-select-list-leave{
+    display: block !important;
+    animation:fadeOutUp 0.3s 0s ease both;
+}
+
+.#{$prefixCls}-select-wrapper-default{
+    @include select-wrapper-base(36px)
+}
+
+.#{$prefixCls}-select-wrapper-small{
+    @include select-wrapper-base(28px)
+}
+
+.#{$prefixCls}-select-wrapper-large{
+    @include select-wrapper-base(46px)
+}
+
+.#{$prefixCls}-select-wrapper-normal[tags],
+.#{$prefixCls}-select-wrapper-large[tags],
+.#{$prefixCls}-select-wrapper-small[tags]{
+    cursor:text;
+}

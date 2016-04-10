@@ -1,0 +1,9 @@
+<div class="fm-modal-confirm">
+    <div class="fm-modal-confirm-content" clean-style="'width:' + width + 'px'" #plain-directive#>
+        {{::content}}
+    </div>
+    <div class="fm-modal-confirm-operation">
+        <Fermi:buttons content="{{::dismissText}}"  type="default" ng-click="onDismiss()" control="dismissBtn"></Fermi:buttons>
+        <Fermi:buttons content="{{::okText}}"  type="primary" ng-click="onOk()" control="okBtn"></Fermi:buttons>
+    </div>
+</div>

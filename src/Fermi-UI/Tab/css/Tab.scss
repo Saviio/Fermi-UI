@@ -1,0 +1,67 @@
+@import '../../theme.scss';
+
+.#{$prefixCls}-nav{
+    border-bottom:1px solid #ddd;
+    &:before{
+        display:table;
+        content: " "
+    }
+
+    &:after{
+        clear:both;
+    }
+
+    li{
+        a{
+            color:#337ab7;
+            text-decoration:none;
+            padding:10px 15px;
+            margin-right:2px;
+            //border:1px solid transparent;
+            display: block;
+            border-radius: 4px 4px 0 0;
+            transition: background 0.2s ease-out;
+            &:hover{
+                //background-color: #eee;
+            }
+        }
+
+        display:inline-block;
+        margin-bottom:-1.5px;
+        position:relative;
+    }
+
+    list-style:none;
+    padding-left:0;
+    margin-bottom:15px;
+
+    li.#{$prefixCls}-disabled{
+        a{
+            &:hover,&:focus{
+                cursor: not-allowed;
+                /*border-top:1px solid #ddd;
+                border-left:1px solid #ddd;
+                border-right:1px solid #ddd;
+                background-color: transparent;*/
+            }
+        }
+    }
+
+    > li.#{$prefixCls}-nav-active {
+        > a{
+            cursor: default;
+            //background-color: #fff;
+            //border:1px solid #ddd;
+            //border-bottom-color: transparent;
+            border-bottom: 2px solid $primary-background;
+            color:#555;
+        }
+    }
+}
+
+
+.#{$prefixCls}-tab-container{
+    > .#{$prefixCls}-tab-panel{
+        display: none;
+    }
+}

@@ -1,0 +1,247 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files\\nodejs\\node.exe',
+1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'version',
+1 verbose cli   'patch' ]
+2 info using npm@3.6.0
+3 info using node@v5.7.0
+4 info git [ 'status', '--porcelain' ]
+5 verbose stack Error: Git working directory not clean.
+5 verbose stack M lib/Breadcrumb/directive/breadcrumb.js
+5 verbose stack M lib/Breadcrumb/index.js
+5 verbose stack M lib/Button/directive/buttons.js
+5 verbose stack M lib/Button/index.js
+5 verbose stack M lib/Checkbox/directive/checkbox.js
+5 verbose stack M lib/Checkbox/index.js
+5 verbose stack M lib/Core/CleanStyleDirective.js
+5 verbose stack M lib/Core/EnhanceAttributeDirective.js
+5 verbose stack M lib/Core/FermiDefault.js
+5 verbose stack M lib/Core/PlainFilter.js
+5 verbose stack M lib/Core/RangeFilter.js
+5 verbose stack M lib/Core/Utils.js
+5 verbose stack M lib/Core/i18n.js
+5 verbose stack M lib/Core/index.js
+5 verbose stack M lib/Dropdown/directive/dropdown.js
+5 verbose stack M lib/Dropdown/index.js
+5 verbose stack M lib/Fermi-UI/Breadcrumb/directive/breadcrumb.js
+5 verbose stack M lib/Fermi-UI/Breadcrumb/index.js
+5 verbose stack M lib/Fermi-UI/Button/directive/buttons.js
+5 verbose stack M lib/Fermi-UI/Button/index.js
+5 verbose stack M lib/Fermi-UI/Checkbox/directive/checkbox.js
+5 verbose stack M lib/Fermi-UI/Checkbox/index.js
+5 verbose stack M lib/Fermi-UI/Dropdown/directive/dropdown.js
+5 verbose stack M lib/Fermi-UI/Dropdown/index.js
+5 verbose stack M lib/Fermi-UI/Menu/directive/menu.js
+5 verbose stack M lib/Fermi-UI/Menu/index.js
+5 verbose stack M lib/Fermi-UI/Modal/index.js
+5 verbose stack M lib/Fermi-UI/Modal/service/modal.js
+5 verbose stack M lib/Fermi-UI/Notification/index.js
+5 verbose stack M lib/Fermi-UI/Notification/service/notification.js
+5 verbose stack M lib/Fermi-UI/Pagination/directive/pagination.js
+5 verbose stack M lib/Fermi-UI/Pagination/index.js
+5 verbose stack M lib/Fermi-UI/Popover/directive/popover.js
+5 verbose stack M lib/Fermi-UI/Popover/index.js
+5 verbose stack M lib/Fermi-UI/Progress/directive/circle.js
+5 verbose stack M lib/Fermi-UI/Progress/directive/line.js
+5 verbose stack M lib/Fermi-UI/Progress/directive/query.js
+5 verbose stack M lib/Fermi-UI/Progress/index.js
+5 verbose stack M lib/Fermi-UI/Progress/service/loading.js
+5 verbose stack M lib/Fermi-UI/Radio/directive/radio.js
+5 verbose stack M lib/Fermi-UI/Radio/index.js
+5 verbose stack M lib/Fermi-UI/Schedule/directive/schedule.js
+5 verbose stack M lib/Fermi-UI/Schedule/index.js
+5 verbose stack M lib/Fermi-UI/Select/directive/select.js
+5 verbose stack M lib/Fermi-UI/Select/index.js
+5 verbose stack M lib/Fermi-UI/Step/directive/step.js
+5 verbose stack M lib/Fermi-UI/Step/index.js
+5 verbose stack M lib/Fermi-UI/Switch/directive/switch.js
+5 verbose stack M lib/Fermi-UI/Switch/index.js
+5 verbose stack M lib/Fermi-UI/Tab/directive/Tab.js
+5 verbose stack M lib/Fermi-UI/Tab/index.js
+5 verbose stack M lib/Fermi-UI/Tooltips/directive/tooltips.js
+5 verbose stack M lib/Fermi-UI/Tooltips/index.js
+5 verbose stack M lib/Fermi-UI/core/CleanStyleDirective.js
+5 verbose stack M lib/Fermi-UI/core/DisableDirective.js
+5 verbose stack M lib/Fermi-UI/core/FermiDefault.js
+5 verbose stack M lib/Fermi-UI/core/PlainFilter.js
+5 verbose stack M lib/Fermi-UI/core/RangeFilter.js
+5 verbose stack M lib/Fermi-UI/core/Utils.js
+5 verbose stack M lib/Fermi-UI/core/index.js
+5 verbose stack M lib/Fermi-UI/external/buildFactory.js
+5 verbose stack M lib/Fermi-UI/external/dependencies.js
+5 verbose stack M lib/Fermi-UI/external/fakeEvent.js
+5 verbose stack M lib/Fermi-UI/utils/browser.js
+5 verbose stack M lib/Fermi-UI/utils/dom.js
+5 verbose stack M lib/Fermi-UI/utils/index.js
+5 verbose stack M lib/Fermi-UI/utils/lang.js
+5 verbose stack M lib/Fermi-UI/utils/transition.js
+5 verbose stack M lib/Fermi-UI/utils/transitionEvents.js
+5 verbose stack M lib/Menu/directive/menu.js
+5 verbose stack M lib/Menu/index.js
+5 verbose stack M lib/Modal/index.js
+5 verbose stack M lib/Modal/service/modal.js
+5 verbose stack M lib/Notification/index.js
+5 verbose stack M lib/Notification/service/notification.js
+5 verbose stack M lib/Pagination/directive/pagination.js
+5 verbose stack M lib/Pagination/index.js
+5 verbose stack M lib/Popover/directive/popover.js
+5 verbose stack M lib/Popover/index.js
+5 verbose stack M lib/Progress/directive/circle.js
+5 verbose stack M lib/Progress/directive/line.js
+5 verbose stack M lib/Progress/directive/query.js
+5 verbose stack M lib/Progress/index.js
+5 verbose stack M lib/Progress/service/loading.js
+5 verbose stack M lib/Radio/directive/radio.js
+5 verbose stack M lib/Radio/index.js
+5 verbose stack M lib/Schedule/directive/schedule.js
+5 verbose stack M lib/Schedule/index.js
+5 verbose stack M lib/Select/directive/select.js
+5 verbose stack M lib/Select/index.js
+5 verbose stack M lib/Step/directive/step.js
+5 verbose stack M lib/Step/index.js
+5 verbose stack M lib/Switch/directive/switch.js
+5 verbose stack M lib/Switch/index.js
+5 verbose stack M lib/Tab/directive/Tab.js
+5 verbose stack M lib/Tab/index.js
+5 verbose stack M lib/Tooltip/directive/tooltip.js
+5 verbose stack M lib/Tooltip/index.js
+5 verbose stack M lib/external/buildFactory.js
+5 verbose stack M lib/external/dependencies.js
+5 verbose stack M lib/external/fakeEvent.js
+5 verbose stack M lib/index.css
+5 verbose stack M lib/index.js
+5 verbose stack M lib/utils/browser.js
+5 verbose stack M lib/utils/dom.js
+5 verbose stack M lib/utils/index.js
+5 verbose stack M lib/utils/lang.js
+5 verbose stack M lib/utils/transition.js
+5 verbose stack M lib/utils/transitionEvents.js
+5 verbose stack M package.json
+5 verbose stack     at C:\Program Files\nodejs\node_modules\npm\lib\version.js:246:19
+5 verbose stack     at ChildProcess.exithandler (child_process.js:193:7)
+5 verbose stack     at emitTwo (events.js:100:13)
+5 verbose stack     at ChildProcess.emit (events.js:185:7)
+5 verbose stack     at maybeClose (internal/child_process.js:827:16)
+5 verbose stack     at Socket.<anonymous> (internal/child_process.js:319:11)
+5 verbose stack     at emitOne (events.js:90:13)
+5 verbose stack     at Socket.emit (events.js:182:7)
+5 verbose stack     at Pipe._onclose (net.js:475:12)
+6 verbose cwd H:\GitHub\Fermi.UI
+7 error Windows_NT 10.0.10586
+8 error argv "C:\\Program Files\\nodejs\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "version" "patch"
+9 error node v5.7.0
+10 error npm  v3.6.0
+11 error Git working directory not clean.
+11 error M lib/Breadcrumb/directive/breadcrumb.js
+11 error M lib/Breadcrumb/index.js
+11 error M lib/Button/directive/buttons.js
+11 error M lib/Button/index.js
+11 error M lib/Checkbox/directive/checkbox.js
+11 error M lib/Checkbox/index.js
+11 error M lib/Core/CleanStyleDirective.js
+11 error M lib/Core/EnhanceAttributeDirective.js
+11 error M lib/Core/FermiDefault.js
+11 error M lib/Core/PlainFilter.js
+11 error M lib/Core/RangeFilter.js
+11 error M lib/Core/Utils.js
+11 error M lib/Core/i18n.js
+11 error M lib/Core/index.js
+11 error M lib/Dropdown/directive/dropdown.js
+11 error M lib/Dropdown/index.js
+11 error M lib/Fermi-UI/Breadcrumb/directive/breadcrumb.js
+11 error M lib/Fermi-UI/Breadcrumb/index.js
+11 error M lib/Fermi-UI/Button/directive/buttons.js
+11 error M lib/Fermi-UI/Button/index.js
+11 error M lib/Fermi-UI/Checkbox/directive/checkbox.js
+11 error M lib/Fermi-UI/Checkbox/index.js
+11 error M lib/Fermi-UI/Dropdown/directive/dropdown.js
+11 error M lib/Fermi-UI/Dropdown/index.js
+11 error M lib/Fermi-UI/Menu/directive/menu.js
+11 error M lib/Fermi-UI/Menu/index.js
+11 error M lib/Fermi-UI/Modal/index.js
+11 error M lib/Fermi-UI/Modal/service/modal.js
+11 error M lib/Fermi-UI/Notification/index.js
+11 error M lib/Fermi-UI/Notification/service/notification.js
+11 error M lib/Fermi-UI/Pagination/directive/pagination.js
+11 error M lib/Fermi-UI/Pagination/index.js
+11 error M lib/Fermi-UI/Popover/directive/popover.js
+11 error M lib/Fermi-UI/Popover/index.js
+11 error M lib/Fermi-UI/Progress/directive/circle.js
+11 error M lib/Fermi-UI/Progress/directive/line.js
+11 error M lib/Fermi-UI/Progress/directive/query.js
+11 error M lib/Fermi-UI/Progress/index.js
+11 error M lib/Fermi-UI/Progress/service/loading.js
+11 error M lib/Fermi-UI/Radio/directive/radio.js
+11 error M lib/Fermi-UI/Radio/index.js
+11 error M lib/Fermi-UI/Schedule/directive/schedule.js
+11 error M lib/Fermi-UI/Schedule/index.js
+11 error M lib/Fermi-UI/Select/directive/select.js
+11 error M lib/Fermi-UI/Select/index.js
+11 error M lib/Fermi-UI/Step/directive/step.js
+11 error M lib/Fermi-UI/Step/index.js
+11 error M lib/Fermi-UI/Switch/directive/switch.js
+11 error M lib/Fermi-UI/Switch/index.js
+11 error M lib/Fermi-UI/Tab/directive/Tab.js
+11 error M lib/Fermi-UI/Tab/index.js
+11 error M lib/Fermi-UI/Tooltips/directive/tooltips.js
+11 error M lib/Fermi-UI/Tooltips/index.js
+11 error M lib/Fermi-UI/core/CleanStyleDirective.js
+11 error M lib/Fermi-UI/core/DisableDirective.js
+11 error M lib/Fermi-UI/core/FermiDefault.js
+11 error M lib/Fermi-UI/core/PlainFilter.js
+11 error M lib/Fermi-UI/core/RangeFilter.js
+11 error M lib/Fermi-UI/core/Utils.js
+11 error M lib/Fermi-UI/core/index.js
+11 error M lib/Fermi-UI/external/buildFactory.js
+11 error M lib/Fermi-UI/external/dependencies.js
+11 error M lib/Fermi-UI/external/fakeEvent.js
+11 error M lib/Fermi-UI/utils/browser.js
+11 error M lib/Fermi-UI/utils/dom.js
+11 error M lib/Fermi-UI/utils/index.js
+11 error M lib/Fermi-UI/utils/lang.js
+11 error M lib/Fermi-UI/utils/transition.js
+11 error M lib/Fermi-UI/utils/transitionEvents.js
+11 error M lib/Menu/directive/menu.js
+11 error M lib/Menu/index.js
+11 error M lib/Modal/index.js
+11 error M lib/Modal/service/modal.js
+11 error M lib/Notification/index.js
+11 error M lib/Notification/service/notification.js
+11 error M lib/Pagination/directive/pagination.js
+11 error M lib/Pagination/index.js
+11 error M lib/Popover/directive/popover.js
+11 error M lib/Popover/index.js
+11 error M lib/Progress/directive/circle.js
+11 error M lib/Progress/directive/line.js
+11 error M lib/Progress/directive/query.js
+11 error M lib/Progress/index.js
+11 error M lib/Progress/service/loading.js
+11 error M lib/Radio/directive/radio.js
+11 error M lib/Radio/index.js
+11 error M lib/Schedule/directive/schedule.js
+11 error M lib/Schedule/index.js
+11 error M lib/Select/directive/select.js
+11 error M lib/Select/index.js
+11 error M lib/Step/directive/step.js
+11 error M lib/Step/index.js
+11 error M lib/Switch/directive/switch.js
+11 error M lib/Switch/index.js
+11 error M lib/Tab/directive/Tab.js
+11 error M lib/Tab/index.js
+11 error M lib/Tooltip/directive/tooltip.js
+11 error M lib/Tooltip/index.js
+11 error M lib/external/buildFactory.js
+11 error M lib/external/dependencies.js
+11 error M lib/external/fakeEvent.js
+11 error M lib/index.css
+11 error M lib/index.js
+11 error M lib/utils/browser.js
+11 error M lib/utils/dom.js
+11 error M lib/utils/index.js
+11 error M lib/utils/lang.js
+11 error M lib/utils/transition.js
+11 error M lib/utils/transitionEvents.js
+11 error M package.json
+12 error If you need help, you may report this error at:
+12 error     <https://github.com/npm/npm/issues>
+13 verbose exit [ 1, true ]
