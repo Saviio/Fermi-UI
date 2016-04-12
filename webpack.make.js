@@ -11,7 +11,7 @@ var concat = require('webpack-core/lib/ConcatSource')
 
 
 function autoLinkChunk(options){
-    this.exclude = (options && options.exclude)
+    this.chunk = (options && options.chunk)
 }
 
 autoLinkChunk.prototype.apply = function(compiler){
@@ -21,6 +21,7 @@ autoLinkChunk.prototype.apply = function(compiler){
             chunks.forEach(chunk => {
                 chunk.files.forEach(file => {
                     if(/.js$/.test(file)){
+                        console.log(compilation.assets[file])
                         compilation.assets[file] = new concat(`require('./common.js')`, '\n\n', compilation.assets[file])
                     }
                 })
@@ -97,10 +98,10 @@ module.exports = function makeWebpackConfig (options) {
 
       // Filename for non-entry points
       // Only adds hash in build mode
-      chunkFilename: BUILD ? '[name].js' : '[name].bundle.js'
-      //libraryTarget : 'commonjs2'
+      chunkFilename: BUILD ? '[name].js' : '[name].bundle.js',
+      libraryTarget : 'commonjs2'
     }
-    config.target = 'node'
+    //config.target = 'node'
   }
 
   /**
