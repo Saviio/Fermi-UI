@@ -16,6 +16,7 @@ function autoLinkChunk(options){
 
 autoLinkChunk.prototype.apply = function(compiler){
     let self = this
+    let css = ''
     compiler.plugin('compilation', function(compilation, callback){
         compilation.plugin('optimize-chunk-assets', function(chunks, callback){
             chunks.forEach(chunk => {
@@ -27,6 +28,17 @@ autoLinkChunk.prototype.apply = function(compiler){
                 })
             })
             callback()
+        })
+
+        compilation.plugin('optimize-tree', function(chunks, modules) {
+            //debugger
+        })
+
+        compilation.plugin('normal-module-loader', function(loaderContext, module) {
+            //debugger
+            if(/js$/.test(module.resource)){
+                module.webpack = false
+            }
         })
     })
 }
