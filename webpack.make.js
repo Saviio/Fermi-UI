@@ -5,6 +5,31 @@ var webpack = require('webpack');
 var autoprefixer = require('autoprefixer');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var path = require('path')
+var concat = require('webpack-core/lib/ConcatSource')
+
+
+
+function autoLinkChunk(options){
+    this.exclude = (options && options.exclude)
+}
+
+autoLinkChunk.prototype.apply = function(compiler){
+    let self = this
+    compiler.plugin('compilation', function(compilation, callback){
+        compilation.plugin('optimize-chunk-assets', function(chunks, callback){
+            chunks.forEach(chunk => {
+                chunk.files.forEach(file => {
+                    if(/.js$/.test(file)){
+                        compilation.assets[file] = new concat(`require('./common.js')`, '\n\n', compilation.assets[file])
+                    }
+                })
+            })
+            callback()
+        })
+    })
+}
+
 
 module.exports = function makeWebpackConfig (options) {
   /**
@@ -29,7 +54,8 @@ module.exports = function makeWebpackConfig (options) {
    * Karma will set this when it's a test build
    */
 
-  var common = [
+
+  var commonModule = [
       './src/Core',
       './src/utils',
       './src/utils/transition',
@@ -44,7 +70,7 @@ module.exports = function makeWebpackConfig (options) {
     config.entry = {
       'Switch': ['./src/Switch'],
       'Tooltip':['./src/Tooltip'],
-      'common':common
+      'common':commonModule
     }
   }
 
@@ -71,8 +97,10 @@ module.exports = function makeWebpackConfig (options) {
 
       // Filename for non-entry points
       // Only adds hash in build mode
-      chunkFilename: BUILD ? '[name].[hash].js' : '[name].bundle.js'
+      chunkFilename: BUILD ? '[name].js' : '[name].bundle.js'
+      //libraryTarget : 'commonjs2'
     }
+    config.target = 'node'
   }
 
   /**
@@ -99,26 +127,13 @@ module.exports = function makeWebpackConfig (options) {
   config.module = {
     preLoaders: [],
     loaders: [{
-      // JS LOADER
-      // Reference: https://github.com/babel/babel-loader
-      // Transpile .js files using babel-loader
-      // Compiles ES6 and ES7 into ES5 code
       test: /\.js$/,
       loader: 'babel?optional[]=runtime',
       exclude: /node_modules/
     }, {
-      // ASSET LOADER
-      // Reference: https://github.com/webpack/file-loader
-      // Copy png, jpg, jpeg, gif, svg, woff, woff2, ttf, eot files to output
-      // Rename the file using the asset hash
-      // Pass along the updated reference to your code
-      // You can add here any file extension you want to get copied to your output
       test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)$/,
       loader: 'file'
     }, {
-      // HTML LOADER
-      // Reference: https://github.com/webpack/raw-loader
-      // Allow loading html through js
       test: /\.html$/,
       loader: 'raw'
     },{
@@ -194,7 +209,7 @@ module.exports = function makeWebpackConfig (options) {
     // Reference: https://github.com/webpack/extract-text-webpack-plugin
     // Extract css files
     // Disabled when in test mode or not in build mode
-    new ExtractTextPlugin('[name].[hash].css', {
+    new ExtractTextPlugin('[name].css', {
       disable: !BUILD || TEST
     })
   ];
@@ -211,23 +226,15 @@ module.exports = function makeWebpackConfig (options) {
         minify: {}
       })
   )*/
-  }
+}
 
-  // Add build specific plugins
   if (BUILD) {
     config.plugins.push(
-      // Reference: http://webpack.github.io/docs/list-of-plugins.html#noerrorsplugin
-      // Only emit files when there are no errors
       new webpack.NoErrorsPlugin(),
-
-      // Reference: http://webpack.github.io/docs/list-of-plugins.html#dedupeplugin
-      // Dedupe modules in the output
       new webpack.optimize.DedupePlugin(),
-
-      // Reference: http://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin
-      // Minify all javascript, switch loaders to minimizing mode
-      //new webpack.optimize.UglifyJsPlugin(),
-      new webpack.optimize.CommonsChunkPlugin('common', 'common.chunk.js')
+      new webpack.optimize.CommonsChunkPlugin('common', 'common.js'),
+      //new webpack.BannerPlugin('require("./common.js")', { entryOnly:true, raw:true })
+      new autoLinkChunk()
     )
   }
 
