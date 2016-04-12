@@ -141,7 +141,7 @@ module.exports = function makeWebpackConfig (options) {
     preLoaders: [],
     loaders: [{
       test: /\.js$/,
-      loader: 'babel?optional[]=runtime',
+      loader: 'Fermi!babel?optional[]=runtime',
       exclude: /node_modules/
     }, {
       test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)$/,
@@ -265,6 +265,12 @@ module.exports = function makeWebpackConfig (options) {
       chunk: false
     }
   };
+
+  config.resolveLoader = {
+      alias: {
+          "Fermi": path.join(__dirname, "./FermiLoader.js")
+      }
+  }
 
   return config;
 };
