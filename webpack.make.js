@@ -141,7 +141,7 @@ module.exports = function makeWebpackConfig (options) {
     preLoaders: [],
     loaders: [{
       test: /\.js$/,
-      loader: 'Fermi!babel?optional[]=runtime',
+      loader: './tools/release_loader?out=lib!babel?optional[]=runtime',
       exclude: /node_modules/
     }, {
       test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)$/,
@@ -245,9 +245,9 @@ module.exports = function makeWebpackConfig (options) {
     config.plugins.push(
       new webpack.NoErrorsPlugin(),
       new webpack.optimize.DedupePlugin(),
-      new webpack.optimize.CommonsChunkPlugin('common', 'common.js'),
+      new webpack.optimize.CommonsChunkPlugin('common', 'common.js')//,
       //new webpack.BannerPlugin('require("./common.js")', { entryOnly:true, raw:true })
-      new autoLinkChunk()
+      //new autoLinkChunk()
     )
   }
 
@@ -268,7 +268,7 @@ module.exports = function makeWebpackConfig (options) {
 
   config.resolveLoader = {
       alias: {
-          "Fermi": path.join(__dirname, "./FermiLoader.js")
+          "release": path.join(__dirname, "./tools/release_loader.js")
       }
   }
 

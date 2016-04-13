@@ -5,7 +5,8 @@
   "main": "lib/index.js",
   "scripts": {
     "release": "gulp",
-    "build": "webpack --config webpack.build.js "
+    "build": "webpack --config webpack.build.js ",
+    "debug":"node-debug -p 9399 node_modules/webpack/bin/webpack.js --config webpack.build.js"
   },
   "repository": {
     "type": "git",
@@ -22,9 +23,6 @@
   ],
   "author": "Saviio",
   "license": "MIT",
-  "files": [
-    "src"
-  ],
   "files": [
     "lib",
     "src"
@@ -49,6 +47,7 @@
     "isparta-instrumenter-loader": "^0.2.1",
     "jasmine-core": "^2.3.4",
     "json-loader": "^0.5.3",
+    "mkdirp": "^0.5.1",
     "node-libs-browser": "^0.5.2",
     "node-sass": "^3.3.3",
     "null-loader": "^0.1.1",
