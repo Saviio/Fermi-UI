@@ -5,7 +5,7 @@ import * as view from './view'
 
 
 import 'Fermi-UI'
-
+import 'Fermi-UI/lib/index.css'
 
 import './css/app.scss'
 import './directive/ng-highlight'
@@ -69,6 +69,7 @@ app.run(['$rootScope', 'Fermi.Loading', '$window', ($root, Loading) => {
     })
 }])
 
+//app.config(['$FMi18nProvider', i18n => i18n.locale('enUS')])
 app.config(['$compileProvider', $compileProvider => $compileProvider.debugInfoEnabled(false)])
 app.config(['$locationProvider', $location => $location.html5Mode(true)])
 app.config([
