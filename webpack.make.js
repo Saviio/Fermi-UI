@@ -10,40 +10,6 @@ var concat = require('webpack-core/lib/ConcatSource')
 
 
 
-function autoLinkChunk(options){
-    this.chunk = (options && options.chunk)
-}
-
-autoLinkChunk.prototype.apply = function(compiler){
-    let self = this
-    let css = ''
-    compiler.plugin('compilation', function(compilation, callback){
-        compilation.plugin('optimize-chunk-assets', function(chunks, callback){
-            chunks.forEach(chunk => {
-                chunk.files.forEach(file => {
-                    if(/.js$/.test(file)){
-                        console.log(compilation.assets[file])
-                        compilation.assets[file] = new concat(`require('./common.js')`, '\n\n', compilation.assets[file])
-                    }
-                })
-            })
-            callback()
-        })
-
-        compilation.plugin('optimize-tree', function(chunks, modules) {
-            //debugger
-        })
-
-        compilation.plugin('normal-module-loader', function(loaderContext, module) {
-            //debugger
-            if(/js$/.test(module.resource)){
-                module.webpack = false
-            }
-        })
-    })
-}
-
-
 module.exports = function makeWebpackConfig (options) {
   /**
    * Environment type
