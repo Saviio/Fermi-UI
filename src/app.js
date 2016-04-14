@@ -69,7 +69,7 @@ app.run(['$rootScope', 'Fermi.Loading', '$window', ($root, Loading) => {
     })
 }])
 
-//app.config(['$FMi18nProvider', i18n => i18n.locale('enUS')])
+app.config(['FMi18nProvider', i18n => i18n.locale('enUS')])
 app.config(['$compileProvider', $compileProvider => $compileProvider.debugInfoEnabled(false)])
 app.config(['$locationProvider', $location => $location.html5Mode(true)])
 app.config([
