@@ -1,8 +1,8 @@
 {
   "name": "Fermi-UI",
-  "version": "0.1.11",
+  "version": "0.1.13",
   "description": "A simple UI library implementation using AngularJS.",
-  "main": "lib/index.js",
+  "main": "./lib",
   "scripts": {
     "release": "gulp",
     "build": "webpack --config webpack.build.js ",

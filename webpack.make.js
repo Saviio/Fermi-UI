@@ -133,7 +133,7 @@ module.exports = function makeWebpackConfig (options) {
     loaders: [{
       test: /\.js$/,
       //loader: './tools/release_loader?out=lib!babel?optional[]=runtime',
-      loader: 'release!babel?optional[]=runtime',
+      loader: (BUILD ? 'release!' : '' ) + 'babel?optional[]=runtime',
       exclude: /node_modules/
     }, {
       test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)$/,
