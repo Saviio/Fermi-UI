@@ -1,7 +1,7 @@
 import './Core'
 import './Switch'
 import './Tooltip'
-/*
+
 import './Breadcrumb'
 import './Progress'
 import './Tab'
@@ -15,5 +15,5 @@ import './Menu'
 import './Modal'
 import './Checkbox'
 import './Radio'
-*/
+
 import './index.scss'
