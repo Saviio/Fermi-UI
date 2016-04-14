@@ -59,7 +59,7 @@ module.exports = function makeWebpackConfig (options) {
 
       // Output path from the view of the page
       // Uses webpack-dev-server in development
-      publicPath: BUILD ? '/' : 'http://localhost:8080/',
+      publicPath: BUILD ? './' : 'http://localhost:8080/',
 
       // Filename for entry points
       // Only adds hash in build mode
@@ -94,12 +94,13 @@ module.exports = function makeWebpackConfig (options) {
    */
 
   // Initialize module
+
   config.module = {
     preLoaders: [],
     loaders: [{
       test: /\.js$/,
       //loader: './tools/release_loader?out=lib!babel?optional[]=runtime',
-      loader: (BUILD ? 'release!' : '' ) + 'babel?optional[]=runtime',
+      loader: (BUILD ? 'release!' : '') + 'babel?optional[]=runtime',
       exclude: /node_modules/
     }, {
       test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)$/,

@@ -12,8 +12,9 @@ let directory = function(path){
     try{
         fs.ensureDirSync(path)
     } catch(e) {
-        throw new Error('Create directory failed:' + path + ', Error:' e)
+        throw new Error('Create directory failed:' + path + ', Error:' + e)
     }
+
     this.base = path
 }
 
@@ -66,6 +67,7 @@ let createContext = function(module, outDir, base){
 module.exports = function(source, map) {
     //entry file index.js will be overrided.
     this.cacheable && this.cacheable()
+
     let context = createContext(this)
     let _source = removeSCSS(source)
     let dep = null
@@ -77,6 +79,6 @@ module.exports = function(source, map) {
 
     let outputDir = new directory(context.output)
     outputDir.write(context.file, _source)
-
+    
     this.callback(null, source, map)
 }
