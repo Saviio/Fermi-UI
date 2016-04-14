@@ -68,22 +68,13 @@ module.exports = function makeWebpackConfig (options) {
    */
 
 
-  var commonModule = [
-      './src/Core',
-      './src/utils',
-      './src/utils/transition',
-      './src/external/dependencies',
-      './src/external/fakeEvent',
-      './src/external/buildFactory'
-  ]
-
   if (TEST) {
     config.entry = {}
   } else {
     config.entry = {
-      'Switch': ['./src/Switch'],
-      'Tooltip':['./src/Tooltip'],
-      'common':commonModule
+      'index': ['./src/index']/*,
+      //'Tooltip':['./src/Tooltip'],
+      'common':commonModule*/
     }
   }
 
@@ -106,14 +97,14 @@ module.exports = function makeWebpackConfig (options) {
 
       // Filename for entry points
       // Only adds hash in build mode
-      filename: BUILD ? '[name]/[name].js' : '[name].bundle.js',
+      filename: BUILD ? '[name].js' : '[name].bundle.js',
 
       // Filename for non-entry points
       // Only adds hash in build mode
       chunkFilename: BUILD ? '[name].js' : '[name].bundle.js',
       libraryTarget : 'commonjs2'
     }
-    //config.target = 'node'
+    config.target = 'node'
   }
 
   /**
@@ -141,11 +132,12 @@ module.exports = function makeWebpackConfig (options) {
     preLoaders: [],
     loaders: [{
       test: /\.js$/,
-      loader: './tools/release_loader?out=lib!babel?optional[]=runtime',
+      //loader: './tools/release_loader?out=lib!babel?optional[]=runtime',
+      loader: 'release!babel?optional[]=runtime',
       exclude: /node_modules/
     }, {
       test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)$/,
-      loader: 'file'
+      loader: 'file?name=[name].[ext]'
     }, {
       test: /\.html$/,
       loader: 'raw'
@@ -244,8 +236,8 @@ module.exports = function makeWebpackConfig (options) {
   if (BUILD) {
     config.plugins.push(
       new webpack.NoErrorsPlugin(),
-      new webpack.optimize.DedupePlugin(),
-      new webpack.optimize.CommonsChunkPlugin('common', 'common.js')//,
+      new webpack.optimize.DedupePlugin()//,
+      //new webpack.optimize.CommonsChunkPlugin('common', 'common.js')//,
       //new webpack.BannerPlugin('require("./common.js")', { entryOnly:true, raw:true })
       //new autoLinkChunk()
     )

@@ -1,7 +1,7 @@
 import factory from '../external/buildFactory'
 import { Select, Option } from './directive/select'
 import './css/select.scss'
-import '../core'
+import '../Core'
 
 const component = {
     namespace:'Fermi.select',
