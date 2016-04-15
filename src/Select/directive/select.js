@@ -240,8 +240,8 @@ export class Option {
             item:scope.value,
             data:scope.data || {value: scope.value}
         }
-
-        rootDOM::on('click', e => {
+        
+        let selected = e => {
             let disabled = rootDOM::props('disabled')
             if(disabled) return
 
@@ -254,10 +254,12 @@ export class Option {
 
             rootDOM.setAttribute('selected', true)
             parentCtrl.select(option, rootDOM)
-        })
+        }
+
+        rootDOM::on('click', selected)
 
         if(isSelected){
-            parentCtrl.select(option, rootDOM)
+            selected(null)
         }
     }
 }
