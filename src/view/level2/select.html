@@ -3,7 +3,7 @@
         <h3>
             <p>Select</p>
         </h3>
-        <p>A control element used as a navigational aid in interface.</p>
+        <p>An element which is used to create a drop-down option list.</p>
     </div>
     <div class="componentbox-usage">
         <h4>
@@ -13,7 +13,7 @@
         </h4>
         <componentbox>
             <demo>
-                <Fermi:select ng-model="Select.select1" style="width:240px;">
+                <Fermi:select value="Select.select1" style="width:240px;">
                     <Fermi:Option ng-repeat = "item in ::Select.list track by $index" value="::item.name">
                         {{::item.name}}
                     </Fermi:Option>
@@ -24,7 +24,7 @@
             </description>
             <codegroup>
                 <markup>
-<Fermi:select ng-model="Select.select1"  style="width:240px;" ng-escape>
+<Fermi:select value="Select.select1"  style="width:240px;" ng-escape>
     <Fermi:Option ng-repeat = "item in ::Select.list track by $index" value="::item.name">
         {{::item.name}}
     </Fermi:Option>
@@ -35,7 +35,7 @@
 
         <componentbox>
             <demo>
-                <Fermi:select ng-model="Select.select2" search style="width:240px;">
+                <Fermi:select value="Select.select2" search style="width:240px;">
                     <Fermi:Option ng-repeat = "item in ::Select.list track by $index" value="::item.name">
                         {{::item.name}}
                     </Fermi:Option>
@@ -46,7 +46,7 @@
             </description>
             <codegroup>
                 <markup>
-<Fermi:select ng-model="Select.select2" style="width:240px;" ng-escape>
+<Fermi:select value="Select.select2" style="width:240px;" ng-escape>
     <Fermi:Option ng-repeat = "item in ::Select.list track by $index" value="::item.name">
         {{::item.name}}
     </Fermi:Option>
@@ -57,7 +57,7 @@
 
         <componentbox>
             <demo>
-                <Fermi:select ng-model="Select.select3" multi style="width:240px;">
+                <Fermi:select value="Select.select3" multi style="width:240px;">
                     <Fermi:Option ng-repeat = "item in ::Select.list track by $index" value="::item.name" selected>
                         {{::item.name}}
                     </Fermi:Option>
@@ -71,7 +71,7 @@
             </description>
             <codegroup>
                 <markup>
-<Fermi:select ng-model="Select.select3" multi style="width:240px;" ng-escape>
+<Fermi:select value="Select.select3" multi style="width:240px;" ng-escape>
     <Fermi:Option ng-repeat = "item in ::Select.list track by $index" value="::item.name" selected>
         {{::item.name}}
     </Fermi:Option>
@@ -85,7 +85,7 @@
 
         <componentbox>
             <demo>
-                <Fermi:select ng-model="Select.select4" tags style="width:240px;">
+                <Fermi:select value="Select.select4" tags style="width:240px;">
                     <Fermi:Option ng-repeat = "item in ::Select.list track by $index" value="::item.name" selected>
                         {{::item.name}}
                     </Fermi:Option>
@@ -99,7 +99,7 @@
             </description>
             <codegroup>
                 <markup>
-<Fermi:select ng-model="Select.select4" tags style="width:240px;" ng-escape>
+<Fermi:select value="Select.select4" tags style="width:240px;" ng-escape>
     <Fermi:Option ng-repeat = "item in ::Select.list track by $index" value="::item.name" selected>
         {{::item.name}}
     </Fermi:Option>

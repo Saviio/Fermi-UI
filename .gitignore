@@ -8,4 +8,8 @@ diff.py
 diff.async.py
 cllchh
 src/Fermi-UI
+<<<<<<< HEAD
 lib
+=======
+lib/*
+>>>>>>> origin/doc
