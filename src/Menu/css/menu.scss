@@ -161,6 +161,7 @@
     > .#{$prefixCls}-submenu-container{ //一级菜单
         position: static;
         display:inline-block;
+        max-width: 110px;
         > .#{$prefixCls}-submenu-items{
             position:relative;
             margin-left: auto;
@@ -179,7 +180,7 @@
         display:inline-block;
         vertical-align:top;
         width: auto;
-        min-width: 120px;
+        min-width: 110px;
         padding:0px 0px;
 
         &:hover{
