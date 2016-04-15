@@ -119,6 +119,11 @@
             </p>
         </h4>
         <div>
+            <h5>
+                <p>
+                    Select
+                </p>
+            </h5>
             <table class="api-description">
                 <thead>
                     <tr>
@@ -131,17 +136,130 @@
                 <tbody>
                     <tr>
                         <td>
-                            items
+                            value
                         </td>
                         <td>
-                            Specifies the path of navigator.
+                            Binding of the value for the select.
                         </td>
                         <td>
-                            Array&lt;string&gt;
+                            identifier
                         </td>
                         <td>
                             <code>
-                                []
+                                undefined
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            multi
+                        </td>
+                        <td>
+                            Multi option for the select.
+                        </td>
+                        <td>
+                            boolean
+                        </td>
+                        <td>
+                            <code>
+                                true
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            tags
+                        </td>
+                        <td>
+                            Multi option for the select and allow user customize the option.
+                        </td>
+                        <td>
+                            boolean
+                        </td>
+                        <td>
+                            <code>
+                                true
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            search
+                        </td>
+                        <td>
+                            Support for searching.
+                        </td>
+                        <td>
+                            boolean
+                        </td>
+                        <td>
+                            <code>
+                                true
+                            </code>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <h5>
+                <p>
+                    Option
+                </p>
+            </h5>
+            <table class="api-description">
+                <thead>
+                    <tr>
+                        <th>Props</th>
+                        <th>Description</th>
+                        <th>Type</th>
+                        <th>Default Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            value
+                        </td>
+                        <td>
+                            Specifies the value for the option.
+                        </td>
+                        <td>
+                            string | identifier
+                        </td>
+                        <td>
+                            <code>
+                                ''
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            selected
+                        </td>
+                        <td>
+                            Specifies that the option should be selected.
+                        </td>
+                        <td>
+                            boolean
+                        </td>
+                        <td>
+                            <code>
+                                true
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            disabled
+                        </td>
+                        <td>
+                            Specifies that the option should be disabled.
+                        </td>
+                        <td>
+                            boolean
+                        </td>
+                        <td>
+                            <code>
+                                true
                             </code>
                         </td>
                     </tr>

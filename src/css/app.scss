@@ -6,6 +6,11 @@ html,body{
     //font:100%/1.5 'TitilliumWeb';
 }
 
+body{
+    width:100%;
+    overflow-x:hidden;
+}
+
 #wrapper{
     min-height: 100%;
     position: relative;
@@ -356,6 +361,11 @@ body.home{
 
                 .intro{
                     padding-top: 100px;
+                    pre{
+                        code{
+                            padding:20px 15px;
+                        }
+                    }
                 }
 
                 img{
@@ -598,15 +608,15 @@ body.documentation {
                             }
 
                             &:nth-child(2){
-                                width:413px;
+                                width:370px;
                             }
 
                             &:nth-child(3){
-                                width:75px;
+                                width:120px;
                             }
 
                             &:nth-child(4){
-                                width:114px;
+                                width:112px;
                             }
 
                         }
@@ -740,6 +750,7 @@ body.documentation {
 
 ::-webkit-scrollbar{
     width:4px;
+    height:4px;
 }
 
 ::-webkit-scrollbar-track{

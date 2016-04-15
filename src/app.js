@@ -8,13 +8,14 @@ import 'Fermi-UI'
 import 'Fermi-UI/lib/index.css'
 
 
-import './css/app.scss'
+
+import './css/tomorrow.scss'
+import './font/fonts.scss'
 import './directive/ng-highlight'
 import './directive/ng-escape'
 import './directive/componentbox'
-import './css/tomorrow.scss'
-import './font/fonts.scss'
 
+import './css/app.scss'
 
 
 const body = document.body

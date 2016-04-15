@@ -65,6 +65,11 @@
             </p>
         </h4>
         <div>
+            <h5>
+                <p>
+                    Radio
+                </p>
+            </h5>
             <table class="api-description">
                 <thead>
                     <tr>
@@ -77,17 +82,130 @@
                 <tbody>
                     <tr>
                         <td>
-                            items
+                            label
                         </td>
                         <td>
-                            Specifies the path of navigator.
+                            Specifies the label for the radio.
                         </td>
                         <td>
-                            Array&lt;string&gt;
+                            string
                         </td>
                         <td>
                             <code>
-                                []
+                                ''
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            value
+                        </td>
+                        <td>
+                            Specifies the value for the radio.
+                        </td>
+                        <td>
+                            string
+                        </td>
+                        <td>
+                            <code>
+                                ''
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            checked
+                        </td>
+                        <td>
+                            Specifies that the radio should be checked.
+                        </td>
+                        <td>
+                            boolean
+                        </td>
+                        <td>
+                            <code>
+                                true
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            disabled
+                        </td>
+                        <td>
+                            Specifies that the radio should be disabled.
+                        </td>
+                        <td>
+                            boolean
+                        </td>
+                        <td>
+                            <code>
+                                true
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            change
+                        </td>
+                        <td>
+                            Specifies the callback for value change event.
+                        </td>
+                        <td>
+                            function
+                        </td>
+                        <td>
+                            <code>
+                                null
+                            </code>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <h5>
+                <p>
+                    Radio Group
+                </p>
+            </h5>
+            <table class="api-description">
+                <thead>
+                    <tr>
+                        <th>Props</th>
+                        <th>Description</th>
+                        <th>Type</th>
+                        <th>Default Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            change
+                        </td>
+                        <td>
+                            Specifies the callback for value change event. if user declared this propery then the "change callback" which is declared on radio propery will be ignored.
+                        </td>
+                        <td>
+                            function
+                        </td>
+                        <td>
+                            <code>
+                                null
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            control
+                        </td>
+                        <td>
+                            Binding of the radioGroup instance. It can be accessed from controller scope.
+                        </td>
+                        <td>
+                            identifier
+                        </td>
+                        <td>
+                            <code>
+                                undefined
                             </code>
                         </td>
                     </tr>

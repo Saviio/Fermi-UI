@@ -19,7 +19,8 @@ const specialAttribute = [
     'disabled',
     'progress',
     'cascading',
-    'selected'
+    'selected',
+    'tags'
 ]
 
 class escapeHTML{
