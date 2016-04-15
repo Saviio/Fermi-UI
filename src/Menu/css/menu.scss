@@ -112,7 +112,7 @@
     > .#{$prefixCls}-submenu-container{
         left:1px;
         .#{$prefixCls}-menu-item{
-            border-right:none;
+            right:0px;
         }
     }
     @include SubMenu;
@@ -272,6 +272,8 @@
 .#{$prefixCls}-menu-item-selected{
     color:$primary-background;
     border-right:$primary-background 2px solid;
+    position: relative;
+    right: -1px;
 }
 
 //@include SubMenu;
