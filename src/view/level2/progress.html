@@ -84,6 +84,11 @@ loading.done()
             </p>
         </h4>
         <div>
+            <h5>
+                <p>
+                    Line
+                </p>
+            </h5>
             <table class="api-description">
                 <thead>
                     <tr>
@@ -96,17 +101,342 @@ loading.done()
                 <tbody>
                     <tr>
                         <td>
-                            items
+                            value
                         </td>
                         <td>
-                            Specifies the path of navigator.
+                            Specifies the value for the linear bar.
                         </td>
                         <td>
-                            Array&lt;string&gt;
+                            identifier
                         </td>
                         <td>
                             <code>
-                                []
+                                undefined
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            default
+                        </td>
+                        <td>
+                            Specifies the default value for the linear bar.
+                        </td>
+                        <td>
+                            number
+                        </td>
+                        <td>
+                            <code>
+                                0
+                            </code>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <h5>
+                <p>
+                    Circle
+                </p>
+            </h5>
+            <table class="api-description">
+                <thead>
+                    <tr>
+                        <th>Props</th>
+                        <th>Description</th>
+                        <th>Type</th>
+                        <th>Default Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            value
+                        </td>
+                        <td>
+                            Specifies the value for the circle bar.
+                        </td>
+                        <td>
+                            identifier
+                        </td>
+                        <td>
+                            <code>
+                                undefined
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            default
+                        </td>
+                        <td>
+                            Specifies the default value for the circle bar.
+                        </td>
+                        <td>
+                            number
+                        </td>
+                        <td>
+                            <code>
+                                0
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            shape
+                        </td>
+                        <td>
+                            Specifies the shape for the circle bar.
+                            option list: <code>rect</code> <code>round</code>
+                        </td>
+                        <td>
+                            string
+                        </td>
+                        <td>
+                            <code>
+                                round
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            inner
+                        </td>
+                        <td>
+                            Specifies the inner color for the circle bar.
+                        </td>
+                        <td>
+                            string
+                        </td>
+                        <td>
+                            <code>
+                                #e9e9e9
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            outer
+                        </td>
+                        <td>
+                            Specifies the outer color for the circle bar.
+                        </td>
+                        <td>
+                            string
+                        </td>
+                        <td>
+                            <code>
+                                #488fcd
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            progress
+                        </td>
+                        <td>
+                            Specifies that the circle bar should be effect after its value changed.
+                        </td>
+                        <td>
+                            string
+                        </td>
+                        <td>
+                            <code>
+                                not-specified
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            unit
+                        </td>
+                        <td>
+                            Specifies the unit character for circle bar info.
+                        </td>
+                        <td>
+                            string
+                        </td>
+                        <td>
+                            <code>
+                                %
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            showinfo
+                        </td>
+                        <td>
+                            Specifies the value number will be shown in component.
+                            option list: <code>true</code> <code>false</code>
+                        </td>
+                        <td>
+                            string
+                        </td>
+                        <td>
+                            <code>
+                                false
+                            </code>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <h5>
+                <p>
+                    Query
+                </p>
+            </h5>
+            <table class="api-description">
+                <thead>
+                    <tr>
+                        <th>Props</th>
+                        <th>Description</th>
+                        <th>Type</th>
+                        <th>Default Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            actived
+                        </td>
+                        <td>
+                            Specifies that the query bar should be displayed.
+                        </td>
+                        <td>
+                            boolean
+                        </td>
+                        <td>
+                            <code>
+                                not-specified
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            control
+                        </td>
+                        <td>
+                            Binding of the query bar instance. It can be accessed from controller scope.
+                        </td>
+                        <td>
+                            identifier
+                        </td>
+                        <td>
+                            <code>
+                                undefined
+                            </code>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <h6>
+                <p>
+                    Query - control
+                </p>
+            </h6>
+            <table class="api-description">
+                <thead>
+                    <tr>
+                        <th>Method</th>
+                        <th>Description</th>
+                        <th>Signature</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            show
+                        </td>
+                        <td>
+                            Calling the method to display the query bar.
+                        </td>
+                        <td>
+
+                            <code>
+                                () => void
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            hide
+                        </td>
+                        <td>
+                            Calling the method to hide the query bar.
+                        </td>
+                        <td>
+
+                            <code>
+                                () => void
+                            </code>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <h5>
+                <p>
+                    LoadingBar Service
+                </p>
+            </h5>
+            <p class="note">
+                * Note: Please inject Fermi.Loading as service in your controller first.
+            </p>
+            <table class="api-description">
+                <thead>
+                    <tr>
+                        <th>Method</th>
+                        <th>Description</th>
+                        <th>Signature</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            start
+                        </td>
+                        <td>
+                            Calling the service to start the loading animation.
+                        </td>
+                        <td>
+
+                            <code>
+                                () => void
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>done</td>
+                        <td>
+                            Calling the service to finish the loading animation.
+                        </td>
+                        <td>
+
+                            <code>
+                                () => void
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>inc</td>
+                        <td>
+                            Increasing the loading bar percentage value.
+                        </td>
+                        <td>
+
+                            <code>
+                                number => void
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>set</td>
+                        <td>
+                            Setting the loading bar percentage value.
+                        </td>
+                        <td>
+
+                            <code>
+                                number => void
                             </code>
                         </td>
                     </tr>
