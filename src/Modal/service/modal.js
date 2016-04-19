@@ -155,7 +155,7 @@ export default class Modal{
             }
         }
 
-        if(modal){
+        if(index != undefined){
             openedModals.splice(index, 1)
             this.__tryDispose__()
         }
