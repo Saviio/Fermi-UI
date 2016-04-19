@@ -51,7 +51,7 @@ module.exports = function makeWebpackConfig (options) {
 
       // Output path from the view of the page
       // Uses webpack-dev-server in development
-      publicPath: BUILD ? '/' : 'http://127.0.0.1:8080/',
+      publicPath: BUILD ? 'http://saviio.github.io/Fermi-UI/' : 'http://127.0.0.1:8080/',
 
       // Filename for entry points
       // Only adds hash in build mode
@@ -200,6 +200,13 @@ module.exports = function makeWebpackConfig (options) {
     )
   }
 
+  if(JSON.parse(process.env.GITHUB)){
+      console.log('Release to Github page.')
+  }
+  var releaseDefine = new webpack.DefinePlugin({
+      __GITHUB__:JSON.parse(process.env.GITHUB || 'false')
+  })
+
   // Add build specific plugins
   if (BUILD) {
     config.plugins.push(
@@ -213,7 +220,8 @@ module.exports = function makeWebpackConfig (options) {
 
       // Reference: http://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin
       // Minify all javascript, switch loaders to minimizing mode
-      new webpack.optimize.UglifyJsPlugin()
+      new webpack.optimize.UglifyJsPlugin(),
+      releaseDefine
     )
   }
 
