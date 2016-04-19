@@ -276,7 +276,7 @@
 
 .#{$prefixCls}-menu-item-selected{
     color:$primary-background;
-    border-right:$primary-background 2px solid;
+    border-right:$primary-background 2px solid !important;
 }
 
 //@include SubMenu;
