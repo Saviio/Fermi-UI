@@ -105,12 +105,6 @@ app.config([
                 onEnter:() => body.classList.add('documentation'),
                 onExit:() => body.classList.remove('documentation')
             })
-            .state('404', {
-                url:domain + '/404',
-                template: view.page404,
-                onEnter:() => body.classList.add('page-not-found'),
-                onExit:() => body.classList.remove('page-not-found')
-            })
             .state('github', {
                 url:domain + '/github',
                 external: true,
@@ -238,12 +232,19 @@ app.config([
                 onExit:() => i18nProvider.locale('enUS')
             })
 
-        $urlRouter.when('/home', '/')
-        $urlRouter.when('/index', '/')
-        $urlRouter.when('', '/')
+        $urlRouter.when(domain + '/home', '/')
+        $urlRouter.when(domain + '/index', '/')
+        $urlRouter.when(domain + '', '/')
 
         if(__GITHUB__){
             $urlRouter.when(domain + '/index.html', '/')
+        } else {
+            $stateProvider.state('404', {
+                url:domain + '/404',
+                template: view.page404,
+                onEnter:() => body.classList.add('page-not-found'),
+                onExit:() => body.classList.remove('page-not-found')
+            })
         }
     }
 ])
