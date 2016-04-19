@@ -72,18 +72,19 @@ app.run(['$rootScope', 'Fermi.Loading', '$window', ($root, Loading) => {
     })
 }])
 
+if(!__HASH__){
+    app.config(['$locationProvider', $location => $location.html5Mode(true)])
+}
+
 app.config(['FMi18nProvider', i18n => i18n.locale('enUS')])
 app.config(['$compileProvider', $compileProvider => $compileProvider.debugInfoEnabled(false)])
-app.config(['$locationProvider', $location => $location.html5Mode(true)])
 app.config([
     '$stateProvider',
     '$urlRouterProvider',
     'FMi18nProvider',
     ($stateProvider, $urlRouter, i18nProvider) => {
-        $urlRouter.otherwise('/404')
-
         let domain = ''
-        if(__GITHUB__){
+        if(__GITHUB__ && !__HASH__){
             domain = '/Fermi-UI'
         }
 
@@ -140,91 +141,91 @@ app.config([
 
         $stateProvider
             .state('documentation.introduction', {
-                url:domain + '/introduction',
+                url:'/introduction',
                 template: introduction
             })
             .state('documentation.button', {
-                url:domain + '/button',
+                url:'/button',
                 template: button,
                 controller:'button',
                 controllerAs:'Button'
             })
             .state('documentation.breadcrumb', {
-                url:domain + '/breadcrumb',
+                url:'/breadcrumb',
                 template: breadcrumb,
                 controller:'breadcrumb',
                 controllerAs:'Breadcrumb'
             })
             .state('documentation.menu', {
-                url:domain + '/menu',
+                url:'/menu',
                 template: menu
             })
             .state('documentation.step', {
-                url:domain + '/step',
+                url:'/step',
                 template:step,
                 controller:'step',
                 controllerAs:'Step'
             })
             .state('documentation.tab', {
-                url:domain + '/tab',
+                url:'/tab',
                 template:tab
             })
             .state('documentation.pagination', {
-                url:domain + '/pagination',
+                url:'/pagination',
                 template:pagination,
                 controller:'pagination',
                 controllerAs:'Pagination'
             })
             .state('documentation.checkbox', {
-                url:domain + '/checkbox',
+                url:'/checkbox',
                 template:checkbox,
                 controller:'checkbox',
                 controllerAs:'Checkbox'
             })
             .state('documentation.radio', {
-                url:domain + '/radio',
+                url:'/radio',
                 template:radio,
                 controller:'radio',
                 controllerAs:'Radio'
             })
             .state('documentation.switch', {
-                url:domain + '/switch',
+                url:'/switch',
                 template:switcher
             })
             .state('documentation.notification', {
-                url:domain + '/notification',
+                url:'/notification',
                 template:notification,
                 controller:'notification',
                 controllerAs:'Notification'
             })
             .state('documentation.modal', {
-                url:domain + '/modal',
+                url:'/modal',
                 template:modal,
                 controller:'modal',
                 controllerAs:'Modal'
             })
             .state('documentation.progress', {
-                url:domain + '/progress',
+                url:'/progress',
                 template:progress,
                 controller:'progress',
                 controllerAs:'Progress'
             })
             .state('documentation.popover', {
-                url:domain + '/popover',
+                url:'/popover',
                 template:popover
             })
             .state('documentation.tooltip', {
-                url:domain + '/tooltip',
+                url:'/tooltip',
                 template:tooltip
             })
             .state('documentation.select', {
-                url:domain + '/select',
+                url:'/select',
                 template:select,
                 controller:'select',
                 controllerAs:'Select'
             })
             .state('documentation.i18n', {
-                url:domain + '/i18n',
+                url:'/i18n',
                 template:i18n,
                 controller:'i18n',
                 controllerAs:'i18n',
@@ -237,7 +238,8 @@ app.config([
         $urlRouter.when(domain + '', '/')
 
         if(__GITHUB__){
-            $urlRouter.when(domain + '/index.html', '/')
+            $urlRouter.when(domain + '/index', '/')
+            $urlRouter.otherwise(domain + '/')
         } else {
             $stateProvider.state('404', {
                 url:domain + '/404',
@@ -245,6 +247,7 @@ app.config([
                 onEnter:() => body.classList.add('page-not-found'),
                 onExit:() => body.classList.remove('page-not-found')
             })
+            $urlRouter.otherwise('/404')
         }
     }
 ])

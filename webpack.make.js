@@ -15,6 +15,10 @@ module.exports = function makeWebpackConfig (options) {
   var BUILD = !!options.BUILD;
   var TEST = !!options.TEST;
   var GITHUB_PAGES = JSON.parse(process.env.GITHUB || 'false')
+  var HASHROUTER = JSON.parse(process.env.HASH || 'false')
+
+  console.log(HASHROUTER)
+
   /**
    * Config
    * Reference: http://webpack.github.io/docs/configuration.html
@@ -206,7 +210,8 @@ module.exports = function makeWebpackConfig (options) {
   }
 
   var releaseDefine = new webpack.DefinePlugin({
-      __GITHUB__: GITHUB_PAGES
+      __GITHUB__: GITHUB_PAGES,
+      __HASH__: HASHROUTER
   })
 
   config.plugins.push(releaseDefine)
