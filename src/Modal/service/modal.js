@@ -168,7 +168,7 @@ export default class Modal{
 
         let className = options.className || 'fm-modal'
         //let modalName = options.name || null
-        let title = i18n.transform()((options.title || '').toString())
+        let title = (options.title || '').toString()
 
         let template = reSelector.test(options.template)
         ? dom::query(options.template).innerHTML
@@ -323,6 +323,10 @@ export default class Modal{
 
         options.scope = scope
         options.template = replacePlainTag(confirm, options.plain)
+
+        if(options.title === 'PleaseConfirm'){
+            options.title = i18n.transform()(options.title)
+        }
 
         modal = this.open(options)
         modal.dismiss = new Promise(resolve => dismiss = resolve)
