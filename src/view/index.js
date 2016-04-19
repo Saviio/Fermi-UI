@@ -14,6 +14,7 @@ import progress from './level2/progress.html'
 import popover from './level2/popover.html'
 import tooltip from './level2/tooltip.html'
 import select from './level2/select.html'
+import i18n from './level2/i18n.html'
 
 
 export home from './home.html'
@@ -36,5 +37,6 @@ export const level2 = {
     progress,
     popover,
     tooltip,
-    select
+    select,
+    i18n
 }

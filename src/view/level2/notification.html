@@ -16,7 +16,7 @@
                 <Fermi:Buttons content="Default notification" type="primary" ng-click="Notification.showDefault()"></Fermi:Buttons>
             </demo>
             <description>
-                ...
+                Make a default notification on the right.
             </description>
             <codegroup>
                 <es>
@@ -33,11 +33,11 @@ notification.default('Normal', "Here's a normal message."")
                 <Fermi:Buttons content="Warning" ng-click="Notification.showWarning()"></Fermi:Buttons>
             </demo>
             <description>
-                ...
+                Notification with different type.
             </description>
             <codegroup>
                 <es>
-notification.default('Normal', "Here's a normal message.")
+notification.normal('Normal', "Here's a normal message.")
 notification.success('Success', "Here's a successful message.")
 notification.warn('Warning', "Here's a warning message.")
 notification.error('Error', "Here's a error.")
@@ -49,7 +49,7 @@ notification.error('Error', "Here's a error.")
                 <Fermi:Buttons content="Customized" type="primary" ng-click="Notification.showCustomized()"></Fermi:Buttons>
             </demo>
             <description>
-                ...
+                A customized notification. Once notification is removed, a message will be printed in console(F12).
             </description>
             <codegroup>
                 <es>
@@ -75,31 +75,165 @@ notification.send(option)
         </h4>
         <div>
             <p class="note">
-                * Note: Please inject Fermi.Notification as service in your controller first.
+                * Note: Please inject Fermi.Notification as a service in your controller first.
             </p>
-            <table class="api-description">
+            <table class="api-description method">
                 <thead>
                     <tr>
-                        <th>Props</th>
+                        <th>Method</th>
                         <th>Description</th>
-                        <th>Type</th>
-                        <th>Default Value</th>
+                        <th>Signature</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>
-                            items
+                            default
                         </td>
                         <td>
-                            Specifies the path of navigator.
+                            Makes a default notification.
                         </td>
                         <td>
-                            Array&lt;string&gt;
+
+                            <code>
+                                (topic: String, message: String) => void
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            normal
+                        </td>
+                        <td>
+                            Makes a normal notification.
+                        </td>
+                        <td>
+
+                            <code>
+                                (topic: String, message: String) => void
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            success
+                        </td>
+                        <td>
+                            Makes a successful notification.
+                        </td>
+                        <td>
+
+                            <code>
+                                (topic: String, message: String) => void
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            warn
+                        </td>
+                        <td>
+                            Makes a warning.
+                        </td>
+                        <td>
+
+                            <code>
+                                (topic: String, message: String) => void
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            error
+                        </td>
+                        <td>
+                            Makes a error.
+                        </td>
+                        <td>
+
+                            <code>
+                                (topic: String, message: String) => void
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            send
+                        </td>
+                        <td>
+                            The underlying method of notification service.
                         </td>
                         <td>
                             <code>
-                                []
+                                (option: object) => void
+                            </code>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <h6>
+                <p>
+                    Notification - send option object
+                </p>
+            </h6>
+            <table class="api-description">
+                <thead>
+                    <tr>
+                        <th>Prop</th>
+                        <th>Type</th>
+                        <th>Required</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            topic
+                        </td>
+                        <td>
+                            String
+                        </td>
+                        <td>
+                            <code>
+                                Optional
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            message
+                        </td>
+                        <td>
+                            String
+                        </td>
+                        <td>
+                            <code>
+                                Optional
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            type
+                        </td>
+                        <td>
+                            message template type
+                        </td>
+                        <td>
+                            <code>
+                                Requ
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            callback
+                        </td>
+                        <td>
+                            Function
+                        </td>
+                        <td>
+                            <code>
+                                Optional
                             </code>
                         </td>
                     </tr>

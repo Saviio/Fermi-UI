@@ -16,7 +16,7 @@
                 <Fermi:radio label="Radio1" value="李白" checked></Fermi:radio>
             </demo>
             <description>
-                ...
+                Radio example.
             </description>
             <codegroup>
                 <markup>
@@ -29,7 +29,7 @@
                 <Fermi:radio label="Radio2" value="杜甫" control="Radio.radio" change="Radio.output"></Fermi:radio>
             </demo>
             <description>
-                Current Status: [{{Radio.radio.checked}}], Value: [{{Radio.radio.value}}]
+                Current Status: [{{Radio.radio.checked}}], Value: [{{Radio.radio.value}}],  Once the value of radio changed, it will be outputed in console(F12).
             </description>
             <codegroup>
                 <markup>
@@ -45,7 +45,7 @@
                 </Fermi:radioGroup>
             </demo>
             <description>
-                Current Value: [{{Radio.group.value}}]
+                Mutually exclusive radios, Current Value: [{{Radio.group.value}}].
             </description>
             <codegroup>
                 <markup>
@@ -73,7 +73,7 @@
             <table class="api-description">
                 <thead>
                     <tr>
-                        <th>Props</th>
+                        <th>Prop</th>
                         <th>Description</th>
                         <th>Type</th>
                         <th>Default Value</th>
@@ -88,7 +88,7 @@
                             Specifies the label for the radio.
                         </td>
                         <td>
-                            string
+                            String
                         </td>
                         <td>
                             <code>
@@ -104,7 +104,7 @@
                             Specifies the value for the radio.
                         </td>
                         <td>
-                            string
+                            String
                         </td>
                         <td>
                             <code>
@@ -152,11 +152,95 @@
                             Specifies the callback for value change event.
                         </td>
                         <td>
-                            function
+                            Function
                         </td>
                         <td>
                             <code>
                                 not-specified
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            control
+                        </td>
+                        <td>
+                            Binding of the radio instance. It can be accessed from controller scope.
+                        </td>
+                        <td>
+                            identifier
+                        </td>
+                        <td>
+                            <code>
+                                undefined
+                            </code>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <h6>
+                <p>
+                    Radio - control
+                </p>
+            </h6>
+            <table class="api-description method">
+                <thead>
+                    <tr>
+                        <th>Prop</th>
+                        <th>Description</th>
+                        <th>Signature</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            allow
+                        </td>
+                        <td>
+                            Switches the state from <code>disable</code> to <code>enable</code>.
+                        </td>
+                        <td>
+                            <code>
+                                () => void
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            disable
+                        </td>
+                        <td>
+                            Switches the state from <code>enable</code> to <code>disable</code>.
+                        </td>
+                        <td>
+                            <code>
+                                () => void
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            checked
+                        </td>
+                        <td>
+                            Sets or retreves the state of the radio box
+                        </td>
+                        <td>
+                            <code>
+                                not a function
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            value
+                        </td>
+                        <td>
+                            Sets or retrieves the displayed value for the object.
+                        </td>
+                        <td>
+                            <code>
+                                not a function
                             </code>
                         </td>
                     </tr>
@@ -170,7 +254,7 @@
             <table class="api-description">
                 <thead>
                     <tr>
-                        <th>Props</th>
+                        <th>Prop</th>
                         <th>Description</th>
                         <th>Type</th>
                         <th>Default Value</th>
@@ -185,7 +269,7 @@
                             Specifies the callback for value change event. if user declared this propery then the "change callback" which is declared on radio propery will be ignored.
                         </td>
                         <td>
-                            function
+                            Function
                         </td>
                         <td>
                             <code>
@@ -206,6 +290,35 @@
                         <td>
                             <code>
                                 undefined
+                            </code>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <h6>
+                <p>
+                    RadioGroup - control
+                </p>
+            </h6>
+            <table class="api-description method">
+                <thead>
+                    <tr>
+                        <th>Prop</th>
+                        <th>Description</th>
+                        <th>Signature</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            value
+                        </td>
+                        <td>
+                            Gets the value from choosed radio box.
+                        </td>
+                        <td>
+                            <code>
+                                not a function
                             </code>
                         </td>
                     </tr>

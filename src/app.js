@@ -55,6 +55,7 @@ app.controller('modal', level2.modal)
 app.controller('demoModal', level2.demoModal)
 app.controller('progress', level2.progress)
 app.controller('select', level2.select)
+app.controller('i18n', level2.i18n)
 
 app.run(['$rootScope', 'Fermi.Loading', '$window', ($root, Loading) => {
     $root.$on('$stateChangeStart',(e, toState) => {
@@ -77,7 +78,8 @@ app.config(['$locationProvider', $location => $location.html5Mode(true)])
 app.config([
     '$stateProvider',
     '$urlRouterProvider',
-    ($stateProvider, $urlRouter) => {
+    'FMi18nProvider',
+    ($stateProvider, $urlRouter, i18nProvider) => {
         $urlRouter.otherwise('/404')
 
         //Router::L1
@@ -132,7 +134,8 @@ app.config([
             popover,
             progress,
             tooltip,
-            select
+            select,
+            i18n
         } = view.level2
 
 
@@ -220,6 +223,14 @@ app.config([
                 template:select,
                 controller:'select',
                 controllerAs:'Select'
+            })
+            .state('documentation.i18n', {
+                url:'/i18n',
+                template:i18n,
+                controller:'i18n',
+                controllerAs:'i18n',
+                onEnter:() => i18nProvider.locale('zhCN'),
+                onExit:() => i18nProvider.locale('enUS')
             })
 
         $urlRouter.when('/home', '/')

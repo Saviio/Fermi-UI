@@ -8,6 +8,7 @@ import notification from './level2/notification'
 import { Modal as modal, demoModal } from './level2/modal'
 import progress from './level2/progress'
 import select from './level2/select'
+import i18n from './level2/i18n'
 
 export home from './home'
 export documentation from './documentation'
@@ -22,5 +23,6 @@ export const level2 = {
     modal,
     demoModal,
     progress,
-    select
+    select,
+    i18n
 }

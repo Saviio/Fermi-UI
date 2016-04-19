@@ -60,6 +60,6 @@ export class Modal{
 
 export class demoModal{
     constructor(){
-        this.title = "Demo Modal"
+        this.title = "Demo"
     }
 }

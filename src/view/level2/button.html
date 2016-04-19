@@ -18,7 +18,7 @@
                 <Fermi:Buttons content="Danger" type="danger"></Fermi:Buttons>
             </demo>
             <description>
-                ...
+                Use the type propery to quickly create a styled button.
             </description>
             <codegroup>
                 <markup>
@@ -35,7 +35,7 @@
                 <Fermi:Buttons content="Primary" type="primary" size="small"></Fermi:Buttons>
             </demo>
             <description>
-                ...
+                Button group with different size.
             </description>
             <codegroup>
                 <markup>
@@ -56,7 +56,7 @@
                 <Fermi:Buttons content="Click to change" control="Button.btnIns1" ng-click="Button.changeState()"></Fermi:Buttons>
             </demo>
             <description>
-                ...
+                Each button instance own a loading status.
             </description>
             <codegroup>
                 <markup>
@@ -83,7 +83,7 @@
                 <Fermi:Buttons content="Danger" type="danger" disabled></Fermi:Buttons>
             </demo>
             <description>
-                ...
+                Disabled Button
             </description>
             <codegroup>
                 <markup>
@@ -113,7 +113,7 @@
             <table class="api-description">
                 <thead>
                     <tr>
-                        <th>Props</th>
+                        <th>Prop</th>
                         <th>Description</th>
                         <th>Type</th>
                         <th>Default Value</th>
@@ -128,7 +128,7 @@
                         Specifies the type for the buttion. Option list: <code>primary</code> <code>default</code> <code>danger</code>
                     </td>
                     <td>
-                        string
+                        String
                     </td>
                     <td>
                         <code>
@@ -144,7 +144,7 @@
                         Specifies the size for the button. Option list: <code>small</code> <code>normal</code> <code>large</code>
                     </td>
                     <td>
-                        string
+                        String
                     </td>
                     <td>
                         <code>
@@ -160,7 +160,7 @@
                         Specifies the content for the button.
                     </td>
                     <td>
-                        string
+                        String
                     </td>
                     <td>
                         <code>
@@ -217,7 +217,77 @@
                     </td>
                 </tr>
                 </tbody>
-                </table>
+            </table>
+            <h6>
+                <p>
+                    Button - control
+                </p>
+            </h6>
+            <table class="api-description method">
+                <thead>
+                    <tr>
+                        <th>Method</th>
+                        <th>Description</th>
+                        <th>Signature</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            done
+                        </td>
+                        <td>
+                            Switches the state from <code>loading</code> to <code>done</code>.
+                        </td>
+                        <td>
+                            <code>
+                                () => void
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            loading
+                        </td>
+                        <td>
+                            Switches the state from <code>done</code> to <code>loading</code>.
+                        </td>
+                        <td>
+                            <code>
+                                () => void
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            allow
+                        </td>
+                        <td>
+                            Switches the state from <code>disable</code> to <code>enable</code>.
+                        </td>
+                        <td>
+
+                            <code>
+                                () => void
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            disable
+                        </td>
+                        <td>
+                            Switches the state from <code>enable</code> to <code>disable</code>.
+                        </td>
+                        <td>
+
+                            <code>
+                                () => void
+                            </code>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 

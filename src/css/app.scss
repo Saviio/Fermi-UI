@@ -802,4 +802,30 @@ body.documentation {
     font-style:italic;
     color:#A2A2A2;
     margin-bottom:5px;
+    code{
+        background: #f7f7f7;
+        padding: 1px 6px;
+        border-radius: 3px;
+        color: #888;
+        border: 1px solid #e9e9e9;
+        font-style:normal;
+    }
+}
+
+.method{
+    th,td{
+        &:nth-child(1){
+            width:87px;
+        }
+
+        &:nth-child(2){
+            width:350px;
+        }
+
+        &:nth-child(3){
+            width:252px;
+        }
+    }
+
+
 }

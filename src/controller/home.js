@@ -9,10 +9,6 @@ export default class Home{
         timeout(::this.showLineProgress, 2000)
     }
 
-    test(){
-        console.log(1)
-    }
-
 
     showLineProgress(){
         if(this.lineSample >= 100){

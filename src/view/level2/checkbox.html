@@ -16,7 +16,7 @@
                 <Fermi:checkbox label="Option1" checked></Fermi:checkbox>
             </demo>
             <description>
-                ...
+                Checkbox example.
             </description>
             <codegroup>
                 <markup>
@@ -29,7 +29,7 @@
                 <Fermi:checkbox label="Option2" checked="false" change="Checkbox.output" control="Checkbox.checkbox"></Fermi:checkbox>
             </demo>
             <description>
-                Current Status: [ {{Checkbox.checkbox.checked}} ]
+                Current Status: [ {{Checkbox.checkbox.checked}} ], Once the value of checkbox changed, it will be outputed in console(F12). 
             </description>
             <codegroup>
                 <markup>
@@ -49,7 +49,7 @@
             <table class="api-description">
                 <thead>
                     <tr>
-                        <th>Props</th>
+                        <th>Prop</th>
                         <th>Description</th>
                         <th>Type</th>
                         <th>Default Value</th>
@@ -64,7 +64,7 @@
                             Specifies the label for the checkbox.
                         </td>
                         <td>
-                            string
+                            String
                         </td>
                         <td>
                             <code>
@@ -112,11 +112,82 @@
                             Specifies the callback for value change event.
                         </td>
                         <td>
-                            function
+                            Function
                         </td>
                         <td>
                             <code>
                                 null
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            control
+                        </td>
+                        <td>
+                            Binding of the checkbox instance. It can be accessed from controller scope.
+                        </td>
+                        <td>
+                            identifier
+                        </td>
+                        <td>
+                            <code>
+                                undefined
+                            </code>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <h6>
+                <p>
+                    Checkbox - control
+                </p>
+            </h6>
+            <table class="api-description method">
+                <thead>
+                    <tr>
+                        <th>Prop</th>
+                        <th>Description</th>
+                        <th>Signature</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            allow
+                        </td>
+                        <td>
+                            Switches the state from <code>disable</code> to <code>enable</code>.
+                        </td>
+                        <td>
+                            <code>
+                                () => void
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            disable
+                        </td>
+                        <td>
+                            Switches the state from <code>enable</code> to <code>disable</code>.
+                        </td>
+                        <td>
+                            <code>
+                                () => void
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            checked
+                        </td>
+                        <td>
+                            Sets or retreves the state of the check box
+                        </td>
+                        <td>
+                            <code>
+                                not a function
                             </code>
                         </td>
                     </tr>
