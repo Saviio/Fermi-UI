@@ -243,7 +243,7 @@ app.config([
         $urlRouter.when('', '/')
 
         if(__GITHUB__){
-            $urlRouter.when('/Fermi-UI/index.html', '/')
+            $urlRouter.when(domain + '/index.html', '/')
         }
     }
 ])

@@ -14,7 +14,7 @@ module.exports = function makeWebpackConfig (options) {
    */
   var BUILD = !!options.BUILD;
   var TEST = !!options.TEST;
-
+  var GITHUB_PAGES = JSON.parse(process.env.GITHUB || 'false')
   /**
    * Config
    * Reference: http://webpack.github.io/docs/configuration.html
@@ -200,12 +200,16 @@ module.exports = function makeWebpackConfig (options) {
     )
   }
 
-  if(JSON.parse(process.env.GITHUB)){
+
+  if(GITHUB_PAGES){
       console.log('Release to Github page.')
   }
+
   var releaseDefine = new webpack.DefinePlugin({
-      __GITHUB__:JSON.parse(process.env.GITHUB || 'false')
+      __GITHUB__: GITHUB_PAGES
   })
+
+  config.plugins.push(releaseDefine)
 
   // Add build specific plugins
   if (BUILD) {
@@ -220,8 +224,7 @@ module.exports = function makeWebpackConfig (options) {
 
       // Reference: http://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin
       // Minify all javascript, switch loaders to minimizing mode
-      new webpack.optimize.UglifyJsPlugin(),
-      releaseDefine
+      new webpack.optimize.UglifyJsPlugin()
     )
   }
 
