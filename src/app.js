@@ -5,25 +5,21 @@ import * as view from './view'
 
 
 import 'Fermi-UI'
-import 'Fermi-UI/lib/index.css'
-
-
-
-import './css/tomorrow.scss'
-import './font/fonts.scss'
 import './directive/ng-highlight'
 import './directive/ng-escape'
 import './directive/componentbox'
 
 import './css/app.scss'
-
+import 'Fermi-UI/lib/index.css'
+import './css/tomorrow.scss'
+import './font/fonts.scss'
 
 const body = document.body
 let app = angular.module('Fermi', [
+    'ui.router',
     'HighlightGrammer',
     'ComponentBox',
     'EscapeHTML',
-    'ui.router',
     'Fermi.menu',
     'Fermi.progress',
     'Fermi.buttons',
@@ -58,7 +54,12 @@ app.controller('select', level2.select)
 app.controller('i18n', level2.i18n)
 
 app.run(['$rootScope', 'Fermi.Loading', '$window', ($root, Loading) => {
-    $root.$on('$stateChangeStart',(e, toState) => {
+    $root.$on('$stateChangeStart',(e, toState, toParms, fromState) => {
+        if(toState.name === 'documentation' && /documentation\./.test(fromState.name)){
+            e.preventDefault()
+            return
+        }
+
         if(toState.external){
             e.preventDefault()
             window.open(toState.redirectTo, '_blank')

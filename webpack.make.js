@@ -16,8 +16,20 @@ module.exports = function makeWebpackConfig (options) {
   var TEST = !!options.TEST;
   var GITHUB_PAGES = JSON.parse(process.env.GITHUB || 'false')
   var HASHROUTER = JSON.parse(process.env.HASH || 'false')
+  var PS = JSON.parse(process.env.PS || 'false')
 
-  console.log(HASHROUTER)
+
+  if(GITHUB_PAGES){
+    console.log('Release: Github page.')
+  }
+
+  if(HASHROUTER){
+      console.log('Router: Using Hashbang mode.')
+  } else {
+      console.log('Router: Using HTML5 mode.')
+  }
+
+
 
   /**
    * Config
@@ -46,6 +58,14 @@ module.exports = function makeWebpackConfig (options) {
    * Should be an empty object if it's generating a test build
    * Karma will handle setting it up for you when it's a test build
    */
+  var publicPath = '/'
+
+  if(GITHUB_PAGES){
+      publicPath = 'http://saviio.github.io/Fermi-UI/'
+  } else if(PS){
+      publicPath = '/static/'
+  }
+
   if (TEST) {
     config.output = {}
   } else {
@@ -55,7 +75,7 @@ module.exports = function makeWebpackConfig (options) {
 
       // Output path from the view of the page
       // Uses webpack-dev-server in development
-      publicPath: BUILD ? '/static/' : 'http://127.0.0.1:8080/',
+      publicPath: BUILD ? publicPath : 'http://127.0.0.1:8080/',
 
       // Filename for entry points
       // Only adds hash in build mode
@@ -205,9 +225,6 @@ module.exports = function makeWebpackConfig (options) {
   }
 
 
-  if(GITHUB_PAGES){
-      console.log('Release to Github page.')
-  }
 
   var releaseDefine = new webpack.DefinePlugin({
       __GITHUB__: GITHUB_PAGES,
