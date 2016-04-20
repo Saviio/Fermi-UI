@@ -116,6 +116,11 @@
             right:0px;
         }
     }
+    .#{$prefixCls}-menu-item{
+        position:relative;
+        right:-1px;
+        border-right: none;
+    }
     @include SubMenu;
 }
 
@@ -272,7 +277,7 @@
 
 .#{$prefixCls}-menu-item-selected{
     color:$primary-background;
-    border-right:$primary-background 2px solid;
+    border-right:$primary-background 2px solid !important;
 }
 
 //@include SubMenu;

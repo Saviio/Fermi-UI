@@ -90,7 +90,7 @@ export class Tab{
     link(scope, $element, attrs, parentCtrl){
         //debugger
         let item = {
-            display : attrs.header,
+            display : attrs.header || '',
             disabled: $element::props('disabled'),
             actived : $element::props('actived') || false
         }
