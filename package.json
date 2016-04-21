@@ -12,7 +12,8 @@
     "dev": "webpack-dev-server --history-api-fallback --inline --progress",
     "test": "karma start",
     "test:live": "karma start --auto-watch --no-single-run",
-    "prod": "http-server -p 9090"
+    "prod": "http-server -p 9090",
+    "leak": "LEAK=true GITHUB='true' HASH='false' webpack --config webpack.build.js --bail -p"
   },
   "repository": {
     "type": "git",

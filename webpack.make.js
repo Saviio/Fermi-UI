@@ -16,6 +16,7 @@ module.exports = function makeWebpackConfig (options) {
   var TEST = !!options.TEST;
   var GITHUB_PAGES = JSON.parse(process.env.GITHUB || 'false')
   var HASHROUTER = JSON.parse(process.env.HASH || 'false')
+  var LEAK = JSON.parse(process.env.LEAK || 'false')
 
   console.log(HASHROUTER)
 
@@ -211,7 +212,8 @@ module.exports = function makeWebpackConfig (options) {
 
   var releaseDefine = new webpack.DefinePlugin({
       __GITHUB__: GITHUB_PAGES,
-      __HASH__: HASHROUTER
+      __HASH__: HASHROUTER,
+      __LEAK__: LEAK
   })
 
   config.plugins.push(releaseDefine)
