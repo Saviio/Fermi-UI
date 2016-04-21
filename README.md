@@ -20,7 +20,7 @@ https://saviio.github.io/Fermi-UI
 
 ###Features
 1. Reuseable & Nestable
-2. Dedclarative
+2. Dedclarative Element
 3. Easy to integrate with webpack
 
 ###Installation
