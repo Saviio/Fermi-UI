@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --config webpack.build.js --bail -p",
-    "github": "GITHUB='true' HASH='true' webpack --config webpack.build.js --bail -p",
-    "github_hash": "GITHUB='true' HASH='false' webpack --config webpack.build.js --bail -p",
+    "github": "GITHUB='true' HASH='false' webpack --config webpack.build.js --bail -p",
+    "github_hash": "GITHUB='true' HASH='true' webpack --config webpack.build.js --bail -p",
     "github_win": "SET GITHUB=\"true\"&&SET HASH=\"false\"&&webpack --config webpack.build.js --bail -p",
     "github_win_hash": "SET GITHUB=\"true\"&&SET HASH=\"true\"&&webpack --config webpack.build.js --bail -p",
     "dev": "webpack-dev-server --history-api-fallback --inline --progress",
