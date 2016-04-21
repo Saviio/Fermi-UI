@@ -1,4 +1,4 @@
-# Fermi.UI
+# Fermi - UI
 
 A simple UI library implementation using AngularJS.
 
