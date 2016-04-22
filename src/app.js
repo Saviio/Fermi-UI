@@ -54,7 +54,7 @@ app.controller('select', level2.select)
 app.controller('i18n', level2.i18n)
 
 app.run(['$rootScope', 'Fermi.Loading', '$window', ($root, Loading) => {
-    $root.$on('$stateChangeStart',(e, toState, toParms, fromState) => {
+    $root.$on('$stateChangeStart',(e, toState, toParams, fromState) => {
         if(toState.name === 'documentation' && /documentation\./.test(fromState.name)){
             e.preventDefault()
             return

@@ -1,5 +1,8 @@
 import { dependencies } from '../external/dependencies'
 
+
+
+
 @dependencies('$timeout')
 export default class Home{
     constructor(timeout){

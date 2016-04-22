@@ -17,7 +17,7 @@ module.exports = function makeWebpackConfig (options) {
   var GITHUB_PAGES = JSON.parse(process.env.GITHUB || 'false')
   var HASHROUTER = JSON.parse(process.env.HASH || 'false')
   var PS = JSON.parse(process.env.PS || 'false')
-
+  var LEAK = JSON.parse(process.env.LEAK || 'false')
 
   if(GITHUB_PAGES){
     console.log('Release: Github page.')
@@ -28,7 +28,6 @@ module.exports = function makeWebpackConfig (options) {
   } else {
       console.log('Router: Using HTML5 mode.')
   }
-
 
 
   /**
@@ -228,7 +227,8 @@ module.exports = function makeWebpackConfig (options) {
 
   var releaseDefine = new webpack.DefinePlugin({
       __GITHUB__: GITHUB_PAGES,
-      __HASH__: HASHROUTER
+      __HASH__: HASHROUTER,
+      __LEAK__: LEAK
   })
 
   config.plugins.push(releaseDefine)
