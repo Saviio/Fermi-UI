@@ -10,7 +10,7 @@ A simple UI library implementation using AngularJS.
 
 > The reason of "Fermi" is that when I create this library, NASA just found the kepler-452b. That reminded me the famous paradox which was raised by Fermi.
 
-> We're afraid to be alone, but we're hoping for peace as well.
+> We're afraid to be alone in the universe, but we're hoping for peace as well.
 
 -------------------
 
