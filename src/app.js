@@ -254,7 +254,9 @@ app.config([
         if(__DEV__){
             $stateProvider.state('dev', {
                 url: domain + '/dev',
-                template: view.dev
+                template: view.dev,
+                onEnter:() => body.classList.add('dev'),
+                onExit:() => body.classList.remove('dev')
             })
         }
     }

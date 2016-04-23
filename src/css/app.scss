@@ -738,6 +738,38 @@ body.documentation {
     }
 }
 
+body.dev {
+    background-color: #f6f7f9;
+    > #wrapper > #view{
+        padding-bottom: 90px;
+        #title{
+            height: 260px;
+            background: url('../img/learning.png');
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+            > h1{
+                color:rgba(255, 255, 255, 0.9);
+                font-size:2rem;
+                padding-top: 130px;
+                font-family:'TitilliumWeb-Bold' !important;
+                text-shadow: 2px 2px 2px #424a54;
+            }
+        }
+
+        .panel{
+            width:80%;
+            margin:auto;
+            background:#fff;
+            min-height:800px;
+            margin-bottom:20px;
+            margin-top:20px;
+            box-shadow:0 1px 2px rgba(37, 40, 43, 0.1);
+            border-radius:2px;
+        }
+    }
+}
+
 
 
 #circle404{
@@ -823,6 +855,4 @@ body.documentation {
             width:252px;
         }
     }
-
-
 }
