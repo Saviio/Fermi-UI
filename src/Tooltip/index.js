@@ -3,6 +3,7 @@ import directive from './directive/tooltip'
 import './css/tooltip.scss'
 import '../Core'
 
+
 const component = {
     namespace:'Fermi.tooltip',
     name:'fermiTooltip',

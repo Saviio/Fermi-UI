@@ -155,7 +155,7 @@ export default class Modal{
             }
         }
 
-        if(index != null){
+        if(index != undefined){
             openedModals.splice(index, 1)
             this.__tryDispose__()
         }
@@ -320,6 +320,10 @@ export default class Modal{
                 ok(scope.okBtn, scope.dismissBtn)
             }
         })
+        
+        if(options.title === 'PleaseConfirm'){
+             options.title = i18n.transform()(options.title)
+        }
 
         options.scope = scope
         options.template = replacePlainTag(confirm, options.plain)
