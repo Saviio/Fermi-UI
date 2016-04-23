@@ -4,7 +4,6 @@
   "description": "A simple UI library implementation using AngularJS.",
   "main": "./lib",
   "scripts": {
-    "release": "gulp",
     "build": "webpack --config webpack.build.js ",
     "debug": "node-debug -p 9399 node_modules/webpack/bin/webpack.js --config webpack.build.js"
   },
@@ -60,6 +59,8 @@
     "style-loader": "^0.12.3",
     "webpack": "^1.9.11",
     "webpack-core": "^0.6.8",
-    "webpack-dev-server": "^1.9.0"
+    "webpack-dev-server": "^1.9.0",
+    "angular-ui-router": "^0.2.18",
+    "highlight.js": "^9.2.0"
   }
 }

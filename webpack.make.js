@@ -38,9 +38,7 @@ module.exports = function makeWebpackConfig (options) {
     config.entry = {}
   } else {
     config.entry = {
-      'index': ['./src/index']/*,
-      //'Tooltip':['./src/Tooltip'],
-      'common':commonModule*/
+      'index': ['./src/index']
     }
   }
 
@@ -203,18 +201,11 @@ module.exports = function makeWebpackConfig (options) {
   if (BUILD) {
     config.plugins.push(
       new webpack.NoErrorsPlugin(),
-      new webpack.optimize.DedupePlugin()//,
-      //new webpack.optimize.CommonsChunkPlugin('common', 'common.js')//,
-      //new webpack.BannerPlugin('require("./common.js")', { entryOnly:true, raw:true })
-      //new autoLinkChunk()
+      new webpack.optimize.DedupePlugin()
     )
   }
 
-  /**
-   * Dev server configuration
-   * Reference: http://webpack.github.io/docs/configuration.html#devserver
-   * Reference: http://webpack.github.io/docs/webpack-dev-server.html
-   */
+
   config.devServer = {
     contentBase: './public',
     stats: {
