@@ -1,0 +1,266 @@
+<div id="menu" class="api">
+    <div class="componentbox-abstract">
+        <h3>
+            <p>Menu</p>
+        </h3>
+        <p>An element displays grouped navigation actions.</p>
+    </div>
+    <div class="componentbox-usage">
+        <h4>
+            <p>
+                Usage
+            </p>
+        </h4>
+        <componentbox>
+            <demo>
+                <Fermi:Menu style="width:225px;">
+                    <Fermi:Submenu title="Sub Menu1">
+                        <Fermi:Menuitem>Child Item</Fermi:Menuitem>
+                        <Fermi:Submenu title="Nested Sub Menu">
+                            <Fermi:Menuitem>Child Item</Fermi:Menuitem>
+                            <Fermi:Menuitem>Child Item</Fermi:Menuitem>
+                        </Fermi:Submenu>
+                    </Fermi:Submenu>
+                    <Fermi:Submenu title="Sub Menu2" >
+                        <Fermi:Menuitem>Child Item</Fermi:Menuitem>
+                        <Fermi:Menuitem>Child Item</Fermi:Menuitem>
+                        <Fermi:Menuitem>Child Item</Fermi:Menuitem>
+                    </Fermi:Submenu>
+                    <Fermi:Menuitem>Menu Item</Fermi:Menuitem>
+                    <Fermi:Menuitem>Menu Item</Fermi:Menuitem>
+                </Fermi:Menu>
+            </demo>
+            <description>
+                Vertical Menu
+            </description>
+            <codegroup>
+                <markup>
+<Fermi:Menu style="width:225px;" ng-escape>
+    <Fermi:Submenu title="Sub Menu1">
+        <Fermi:Menuitem>Child Item</Fermi:Menuitem>
+        <Fermi:Submenu title="Nested Sub Menu">
+            <Fermi:Menuitem>Child Item</Fermi:Menuitem>
+            <Fermi:Menuitem>Child Item</Fermi:Menuitem>
+        </Fermi:Submenu>
+    </Fermi:Submenu>
+    <Fermi:Submenu title="Sub Menu2" >
+        <Fermi:Menuitem>Child Item</Fermi:Menuitem>
+        <Fermi:Menuitem>Child Item</Fermi:Menuitem>
+        <Fermi:Menuitem>Child Item</Fermi:Menuitem>
+    </Fermi:Submenu>
+    <Fermi:Menuitem>Menu Item</Fermi:Menuitem>
+    <Fermi:Menuitem>Menu Item</Fermi:Menuitem>
+</Fermi:Menu>
+                </markup>
+            </codegroup>
+        </componentbox>
+        <componentbox>
+            <demo>
+                <Fermi:Menu mode="H">
+                    <Fermi:Submenu title="Sub Menu1">
+                        <Fermi:Menuitem>Child Item</Fermi:Menuitem>
+                        <Fermi:Submenu title="Nested Sub Menu">
+                            <Fermi:Menuitem>Child Item</Fermi:Menuitem>
+                            <Fermi:Menuitem>Child Item</Fermi:Menuitem>
+                        </Fermi:Submenu>
+                    </Fermi:Submenu>
+                    <Fermi:Submenu title="Sub Menu2" >
+                        <Fermi:Menuitem>Child Item</Fermi:Menuitem>
+                        <Fermi:Menuitem>Child Item</Fermi:Menuitem>
+                        <Fermi:Menuitem>Child Item</Fermi:Menuitem>
+                    </Fermi:Submenu>
+                    <Fermi:Menuitem>Menu Item</Fermi:Menuitem>
+                    <Fermi:Menuitem>Menu Item</Fermi:Menuitem>
+                </Fermi:Menu>
+            </demo>
+            <description>
+                Horizontal Menu
+            </description>
+            <codegroup>
+                <markup>
+<Fermi:Menu mode="H" ng-escape>
+    <Fermi:Submenu title="Sub Menu1">
+        <Fermi:Menuitem>Child Item</Fermi:Menuitem>
+        <Fermi:Submenu title="Nested Sub Menu">
+            <Fermi:Menuitem>Child Item</Fermi:Menuitem>
+            <Fermi:Menuitem>Child Item</Fermi:Menuitem>
+        </Fermi:Submenu>
+    </Fermi:Submenu>
+    <Fermi:Submenu title="Sub Menu2" >
+        <Fermi:Menuitem>Child Item</Fermi:Menuitem>
+        <Fermi:Menuitem>Child Item</Fermi:Menuitem>
+        <Fermi:Menuitem>Child Item</Fermi:Menuitem>
+    </Fermi:Submenu>
+    <Fermi:Menuitem>Menu Item</Fermi:Menuitem>
+    <Fermi:Menuitem>Menu Item</Fermi:Menuitem>
+</Fermi:Menu>
+                </markup>
+            </codegroup>
+        </componentbox>
+        <componentbox>
+            <demo>
+                <Fermi:Menu style="width:225px;">
+                    <Fermi:Submenu title="Sub Menu1" >
+                        <Fermi:Menuitem>Child Item</Fermi:Menuitem>
+                        <Fermi:Menuitem>Child Item</Fermi:Menuitem>
+                    </Fermi:Submenu>
+                    <Fermi:Submenu title="Sub Menu2" actived>
+                        <Fermi:Menuitem>Child Item</Fermi:Menuitem>
+                        <Fermi:Menuitem>Child Item</Fermi:Menuitem>
+                        <Fermi:Menuitem>Child Item</Fermi:Menuitem>
+                    </Fermi:Submenu>
+                    <Fermi:Menuitem>Menu Item</Fermi:Menuitem>
+                    <Fermi:Menuitem>Menu Item</Fermi:Menuitem>
+                    <Fermi:Menuitem disabled>Disabled Item</Fermi:Menuitem>
+                </Fermi:Menu>
+            </demo>
+            <description>
+                Menu component can be combine flexibly with different status.
+            </description>
+            <codegroup>
+                <markup>
+<Fermi:Menu style="width:225px;" ng-escape>
+    <Fermi:Submenu title="Sub Menu1" >
+        <Fermi:Menuitem>Child Item</Fermi:Menuitem>
+        <Fermi:Menuitem>Child Item</Fermi:Menuitem>
+    </Fermi:Submenu>
+    <Fermi:Submenu title="Sub Menu2" actived>
+        <Fermi:Menuitem>Child Item</Fermi:Menuitem>
+        <Fermi:Menuitem>Child Item</Fermi:Menuitem>
+        <Fermi:Menuitem>Child Item</Fermi:Menuitem>
+    </Fermi:Submenu>
+    <Fermi:Menuitem>Menu Item1</Fermi:Menuitem>
+    <Fermi:Menuitem>Menu Item2</Fermi:Menuitem>
+    <Fermi:Menuitem disabled>Disabled Item</Fermi:Menuitem>
+</Fermi:Menu>
+                </markup>
+            </codegroup>
+        </componentbox>
+    </div>
+
+    <div class="componentbox-api">
+        <h4>
+            <p>
+                API
+            </p>
+        </h4>
+        <div>
+            <h5>
+                <p>
+                    Menu
+                </p>
+            </h5>
+            <table class="api-description">
+                <thead>
+                    <tr>
+                        <th>Prop</th>
+                        <th>Description</th>
+                        <th>Type</th>
+                        <th>Default Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            mode
+                        </td>
+                        <td>
+                            Specifies that the menu mode is "horizontal" or "vertical". Option list: <code>H</code> <code>V</code>
+                        </td>
+                        <td>
+                            String
+                        </td>
+                        <td>
+                            <code>
+                                V
+                            </code>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <h5>
+                <p>
+                    SubMenu
+                </p>
+            </h5>
+            <table class="api-description">
+                <thead>
+                    <tr>
+                        <th>Prop</th>
+                        <th>Description</th>
+                        <th>Type</th>
+                        <th>Default Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            title
+                        </td>
+                        <td>
+                            Specifies the title of submenu.
+                        </td>
+                        <td>
+                            String
+                        </td>
+                        <td>
+                            <code>
+                                ''
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            actived
+                        </td>
+                        <td>
+                            Specifies that the menu item should be expaned.
+                            It will only be effective when the mode is vertical(V).
+                        </td>
+                        <td>
+                            boolean
+                        </td>
+                        <td>
+                            <code>
+                                not-specified
+                            </code>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <h5>
+                <p>
+                    MenuItem
+                </p>
+            </h5>
+            <table class="api-description">
+                <thead>
+                    <tr>
+                        <th>Prop</th>
+                        <th>Description</th>
+                        <th>Type</th>
+                        <th>Default Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            disabled
+                        </td>
+                        <td>
+                            Specifies that the menu item should be disabled.
+                        </td>
+                        <td>
+                            boolean
+                        </td>
+                        <td>
+                            <code>
+                                not-specified
+                            </code>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

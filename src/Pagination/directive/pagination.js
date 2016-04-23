@@ -89,7 +89,7 @@ export default class Pagination {
             }
 
             scope.pages = arr
-            scope.current === scope.last() ? prevLabel::addClass('hide') : prevLabel::removeClass('hide')
+            scope.current === scope.last() ? nextLabel::addClass('hide') : nextLabel::removeClass('hide')
             scope.current === scope.first() ? prevLabel::addClass('hide') : prevLabel::removeClass('hide')
         }
     }

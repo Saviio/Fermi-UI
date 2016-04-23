@@ -1,10 +1,4 @@
 node_modules
-npm-debug.log
-build
-animated.css
 dist
-diff.js
-diff.py
-diff.async.py
-cllchh
-/src/Fermi-UI
+lib
+dist_bak

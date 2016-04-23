@@ -1,0 +1,101 @@
+<div id="introduction">
+    <h3>
+        Fermi-UI
+        <a href="javascript:void(0)" class="anchor">#</a>
+    </h3>
+    <div id="abstract">
+        <p>
+            For developers building Angular based application, this project provides a set of reuseable UI components (AngularJS directive and CSS) which will help developers creating application eaiser.
+        </p>
+         <p>
+             Please find the document which described detail component design on the left. If you have any issue, you can report it on the github.
+         </p>
+         <p>
+             This library was inspired by another awesome React Project: <a ui-sref="antd">Ant.Design</a>. If you're a fan of React, it will be one of your best ui-component solutions.
+         </p>
+         <p>
+             Thank you for your reading.
+         </p>
+    </div>
+     <h3>
+         Installation
+         <a href="javascript:void(0)" class="anchor">#</a>
+     </h3>
+     <div ng-highlight id="installation">
+         <pre><code class="bash">
+             npm install Fermi-UI --save
+         </code></pre>
+     </div>
+     <h3>
+         Usage
+         <a href="javascript:void(0)" class="anchor">#</a>
+     </h3>
+     <div ng-highlight id="usage">
+         <p>
+             import single component:
+         </p>
+         <pre><code class="javascript">
+import 'Fermi-UI/lib/Menu'
+let app = angular.module('app', ['Fermi.menu'])
+         </code></pre>
+         <p>
+             import styles:
+         </p>
+         <pre><code>
+import 'Fermi-UI/lib/index.css'
+         </code></pre>
+     </div>
+     <h3>
+         Compatibility
+         <a href="javascript:void(0)" class="anchor">#</a>
+     </h3>
+     <div id="compatibility">
+         <p>
+             IE9+
+         </p>
+
+         <img src="../../img/browsers.png" alt="" width="240px">
+     </div>
+     <h3>
+         Customization
+         <a href="javascript:void(0)" class="anchor">#</a>
+     </h3>
+     <div id="customization" ng-highlight>
+         <p>Although the styles of compoents are defined in the source code of component, there're some way to customize the component.</p>
+         <h4>Via Component Property</h4>
+         <div>
+             <p>I designed some property for a little foreseeable scenarios. For example, the color of progress bar.</p>
+             <p>So, developer can just pass a customized property into component, then it will be apply to the result markup.</p>
+         </div>
+         <h4>Via override CSS in the runtime</h4>
+         <div>
+             <p>
+                Since style overriding is an excellent feature which is supported by browser, Developers can apply a different style in the application css file with a more specific element selector.
+             </p>
+             <p>
+                 Example:
+             </p>
+             <pre><code class="CSS">
+#container > button.#button{
+    background:#3683c6;
+    border:none;
+}
+             </code></pre>
+         </div>
+         <h4>Via Webpack Loader? (not supported yet)</h4>
+         <div>
+             <p>
+                 Sorry, I'm still consider about the best way of customizing component, Maybe I will refactor the structure of CSS and add this part in the future.
+             </p>
+         </div>
+     </div>
+     <h3>
+         Project stage
+         <a href="javascript:void(0)" class="anchor">#</a>
+     </h3>
+     <div>
+         <p>
+             This project is still in preview stage. PR is always welcome.
+         </p>
+     </div>
+</div>

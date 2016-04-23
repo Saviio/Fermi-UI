@@ -1,7 +1,7 @@
 import factory from '../external/buildFactory'
 import { breadcrumb, breadcrumbItem } from './directive/breadcrumb'
 
-import './css/breadcrumb.scss'
+//import './css/breadcrumb.scss'
 
 const component = {
     namespace:'Fermi.breadcrumb',

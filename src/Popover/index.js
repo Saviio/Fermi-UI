@@ -1,7 +1,7 @@
 import factory from '../external/buildFactory'
 import directive from './directive/popover'
 
-import './css/popover.scss'
+//import './css/popover.scss'
 
 const component = {
     namespace:'Fermi.popover',

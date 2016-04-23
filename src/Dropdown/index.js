@@ -3,7 +3,7 @@ import { Menu, SubMenu, MenuItem } from './directive/dropdown'
 import './css/dropdown.scss'
 
 const component = {
-    namespace:'Fermi.Dropdown'
+    namespace:'Fermi.Dropdown',
     inject:['Fermi.Menu']
 }
 

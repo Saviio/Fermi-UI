@@ -5,6 +5,10 @@ var webpack = require('webpack');
 var autoprefixer = require('autoprefixer');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var path = require('path')
+var concat = require('webpack-core/lib/ConcatSource')
+
+
 
 module.exports = function makeWebpackConfig (options) {
   /**
@@ -14,27 +18,21 @@ module.exports = function makeWebpackConfig (options) {
    */
   var BUILD = !!options.BUILD;
   var TEST = !!options.TEST;
+  var DEV = !TEST && !BUILD
 
-  /**
-   * Config
-   * Reference: http://webpack.github.io/docs/configuration.html
-   * This is the object where all configuration gets set
-   */
   var config = {};
 
-  /**
-   * Entry
-   * Reference: http://webpack.github.io/docs/configuration.html#entry
-   * Should be an empty object if it's generating a test build
-   * Karma will set this when it's a test build
-   */
-  if (TEST) {
-    config.entry = {}
-  } else {
-    config.entry = {
-      app: './src/app.js'
+    if (TEST) {
+        config.entry = {}
+    } else if(DEV) {
+        config.entry = {
+            'index': ['./dev/app.js']
+        }
+    } else {
+        config.entry = {
+            'index': ['./src/index']
+        }
     }
-  }
 
   /**
    * Output
@@ -47,19 +45,24 @@ module.exports = function makeWebpackConfig (options) {
   } else {
     config.output = {
       // Absolute output directory
-      path: __dirname + '/dist',
+      path: __dirname + '/lib',
 
       // Output path from the view of the page
       // Uses webpack-dev-server in development
-      publicPath: BUILD ? '/' : 'http://localhost:8080/',
+      publicPath: BUILD ? './' : 'http://localhost:8080/',
 
       // Filename for entry points
       // Only adds hash in build mode
-      filename: BUILD ? '[name].[hash].js' : '[name].bundle.js',
+      filename: BUILD ? '[name].js' : '[name].bundle.js',
 
       // Filename for non-entry points
       // Only adds hash in build mode
-      chunkFilename: BUILD ? '[name].[hash].js' : '[name].bundle.js'
+      chunkFilename: BUILD ? '[name].js' : '[name].bundle.js'
+    }
+
+    if(BUILD){
+        config.output.libraryTarget = 'commonjs2'
+        config.target = 'node'
     }
   }
 
@@ -71,44 +74,26 @@ module.exports = function makeWebpackConfig (options) {
   if (TEST) {
     config.devtool = 'inline-source-map';
   } else if (BUILD) {
-    config.devtool = 'source-map';
+    //config.devtool = 'source-map';
   } else {
     config.devtool = 'eval';
   }
 
-  /**
-   * Loaders
-   * Reference: http://webpack.github.io/docs/configuration.html#module-loaders
-   * List: http://webpack.github.io/docs/list-of-loaders.html
-   * This handles most of the magic responsible for converting modules
-   */
 
-  // Initialize module
+
   config.module = {
     preLoaders: [],
     loaders: [{
-      // JS LOADER
-      // Reference: https://github.com/babel/babel-loader
-      // Transpile .js files using babel-loader
-      // Compiles ES6 and ES7 into ES5 code
       test: /\.js$/,
-      loader: 'babel?optional[]=runtime',
+      //loader: './tools/release_loader?out=lib!babel?optional[]=runtime',
+      loader: (BUILD ? 'release!' : '') + 'babel?optional[]=runtime',
       exclude: /node_modules/
     }, {
-      // ASSET LOADER
-      // Reference: https://github.com/webpack/file-loader
-      // Copy png, jpg, jpeg, gif, svg, woff, woff2, ttf, eot files to output
-      // Rename the file using the asset hash
-      // Pass along the updated reference to your code
-      // You can add here any file extension you want to get copied to your output
       test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)$/,
-      loader: 'file'
+      loader: 'file?name=[name].[ext]'
     }, {
-      // HTML LOADER
-      // Reference: https://github.com/webpack/raw-loader
-      // Allow loading html through js
       test: /\.html$/,
-      loader: 'raw'
+      loader: 'html'
     },{
         test: /\.scss$/,
         loader: ExtractTextPlugin.extract(
@@ -120,10 +105,6 @@ module.exports = function makeWebpackConfig (options) {
     }]
   };
 
-  // ISPARTA LOADER
-  // Reference: https://github.com/ColCh/isparta-instrumenter-loader
-  // Instrument JS files with Isparta for subsequent code coverage reporting
-  // Skips node_modules and files that end with .test.js
   if (TEST) {
     config.module.preLoaders.push({
       test: /\.js$/,
@@ -135,31 +116,16 @@ module.exports = function makeWebpackConfig (options) {
     })
   }
 
-  // CSS LOADER
-  // Reference: https://github.com/webpack/css-loader
-  // Allow loading css through js
-  //
-  // Reference: https://github.com/postcss/postcss-loader
-  // Postprocess your css with PostCSS plugins
   var cssLoader = {
     test: /\.css$/,
-    // Reference: https://github.com/webpack/extract-text-webpack-plugin
-    // Extract css files in production builds
-    //
-    // Reference: https://github.com/webpack/style-loader
-    // Use style-loader in development for hot-loading
     loader: ExtractTextPlugin.extract('style', 'css?sourceMap!postcss')
   };
 
 
   // Skip loading css in test mode
   if (TEST) {
-    // Reference: https://github.com/webpack/null-loader
-    // Return an empty module
     cssLoader.loader = 'null'
   }
-
-  // Add cssLoader to the loader list
   config.module.loaders.push(cssLoader);
 
   /**
@@ -173,55 +139,41 @@ module.exports = function makeWebpackConfig (options) {
     })
   ];
 
-  /**
-   * Plugins
-   * Reference: http://webpack.github.io/docs/configuration.html#plugins
-   * List: http://webpack.github.io/docs/list-of-plugins.html
-   */
+
   config.plugins = [
-    // Reference: https://github.com/webpack/extract-text-webpack-plugin
-    // Extract css files
-    // Disabled when in test mode or not in build mode
-    new ExtractTextPlugin('[name].[hash].css', {
+    new ExtractTextPlugin('[name].css', {
       disable: !BUILD || TEST
     })
   ];
 
-  // Skip rendering index.html in test mode
-  if (!TEST) {
-    // Reference: https://github.com/ampedandwired/html-webpack-plugin
-    // Render index.html
+
+  if (DEV) {
     config.plugins.push(
       new HtmlWebpackPlugin({
-        template: './src/index.html',
+        template: './dev/index.html',
         inject: 'body',
         minify: {}
       })
-    )
-  }
+  )
+}
 
-  // Add build specific plugins
+var define = new webpack.DefinePlugin({
+     __DEV__: DEV,
+     __LEAK__: false
+ })
+
+ if(DEV){
+     config.plugins.push(define)
+ }
+
   if (BUILD) {
     config.plugins.push(
-      // Reference: http://webpack.github.io/docs/list-of-plugins.html#noerrorsplugin
-      // Only emit files when there are no errors
       new webpack.NoErrorsPlugin(),
-
-      // Reference: http://webpack.github.io/docs/list-of-plugins.html#dedupeplugin
-      // Dedupe modules in the output
-      new webpack.optimize.DedupePlugin(),
-
-      // Reference: http://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin
-      // Minify all javascript, switch loaders to minimizing mode
-      new webpack.optimize.UglifyJsPlugin()
+      new webpack.optimize.DedupePlugin()
     )
   }
 
-  /**
-   * Dev server configuration
-   * Reference: http://webpack.github.io/docs/configuration.html#devserver
-   * Reference: http://webpack.github.io/docs/webpack-dev-server.html
-   */
+
   config.devServer = {
     contentBase: './public',
     stats: {
@@ -231,6 +183,12 @@ module.exports = function makeWebpackConfig (options) {
       chunk: false
     }
   };
+
+  config.resolveLoader = {
+      alias: {
+          "release": path.join(__dirname, "./tools/release_loader.js")
+      }
+  }
 
   return config;
 };

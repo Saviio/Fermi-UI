@@ -1,0 +1,125 @@
+<div id="title" ng-init="Home.test()">
+    <div id="container">
+        <h1>Fermi.UI - Yet another Angular UI library</h1>
+        <Fermi:buttons id="start" content="npm install Fermi-UI --save" type="primary" size="large"></Fermi:buttons>
+    </div>
+</div>
+<div id="content">
+    <div id="feature1">
+        <div class="detail">
+            <div class="intro">
+                <h2>Reuseable & Nestable</h2>
+                <p>
+                    Fermi-UI is a set of components that implements with AngularJS. The main purpose of this project is to make developers are able to build a Angular based application quickly and conveniently.
+                </p>
+                <p>
+                    Thus, Fermi-UI encapsulated some typical components. Each component can be used or combined flexibly and may help developers to get a much stronger UI function.
+                </p>
+            </div>
+            <img src="../img/buildingUI.jpg" width="520px"/>
+        </div>
+    </div>
+    <div id="feature2">
+        <div class="detail">
+            <div class="intro">
+                <h2>Dedclarative</h2>
+                <div class="decorator"></div>
+                <div class="ui-sample">
+                    <div >
+                        <p>
+                            Most of components in the library was packaged as a custom markup element (directive).
+                        </p>
+                        <p>
+                            With this approach, Developers will have the ability to apply them to the application in a dedclarative way.
+                        </p>
+                    </div>
+                    <div id="popover">
+                        <Fermi:Popover trigger="#popover-code" placement="bottom" actived action="manual" manual="Home.popoverSample">
+                            <div id="popover-code">
+                                <div id="popover-tag" ng-click="Home.togglePopover()">Element</div>
+                                <div>
+                                    &lt;
+                                    <span class="component-namespace">Fermi</span>
+                                    :
+                                    <span class="component-element">Popover</span>
+                                      ....
+                                    &gt;&lt;/
+                                    <span class="component-namespace">Fermi</span>
+                                    :
+                                    <span class="component-element">Popover</span>
+                                    &gt;
+                                </div>
+                            </div>
+                            <div id="popover-ui">
+                                <div id="row1">
+                                    <div></div>
+                                    <div></div>
+                                </div>
+                                <div id="row2">
+                                    <Fermi:buttons class="sample-button" type="primary" size="small"></Fermi:buttons>
+                                </div>
+                            </div>
+                        </Fermi:Popover>
+                    </div>
+                </div>
+
+                <div class="ui-sample">
+                    <div id="progress">
+                        <div id="progress-tag">Element</div>
+                        <div id="progress-code">
+                            &lt;
+                            <span class="component-namespace">Fermi</span>
+                            :
+                            <span class="component-element">Line</span>
+                              ....
+                            &gt;&lt;/
+                            <span class="component-namespace">Fermi</span>
+                            :
+                            <span class="component-element">Line</span>
+                            &gt;
+                        </div>
+                        <div id="progress-ui">
+                            <Fermi:Line value="Home.lineSample" default="0" ></Fermi:Line>
+                        </div>
+                    </div>
+                    <div>
+                        <p>
+                            Follow the guide, Just declare them in the view template like built-in html element. Also, we designed different parameters to ensure they're flexible enough to evolve with people's needs.
+                        </p>
+                        <p>
+                            Progress, Popover, Steps, Button and much more components were provided in the lib. Please find document for detailed design.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!--<img src="../img/declarative.png" width="600px"/>-->
+        </div>
+    </div>
+    <div id="feature3">
+        <div class="detail">
+            <div class="intro" ng-highlight>
+                <h2>Workflow</h2>
+                <p>
+                    Fermi-UI was built on top of some the trendiest web development stack like Webpack, ES6 & part of ES7 features, Babel, SASS.
+                </p>
+                <p>
+                    It will be easy to integrate with your Webpack project:
+                </p>
+                <pre><code class="javascript">
+import 'Fermi-UI'
+let app = angular.module('app', ['Fermi.menu'])
+                </code></pre>
+                <p>
+                    import styles:
+                </p>
+                <pre><code>
+import 'Fermi-UI/lib/index.css'
+                </code></pre>
+            </div>
+
+            <img src="../img/tech.png" width="600px"/>
+
+        </div>
+    </div>
+
+</div>

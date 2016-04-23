@@ -178,7 +178,7 @@ export function replace(target, el){
 }
 
 export function isDOM(el){
-    if (el.nodeType && el.nodeName) return true
+    if (el && el.nodeType && el.nodeName) return true
     return false
 }
 

@@ -1,6 +1,6 @@
 import factory from '../external/buildFactory'
 import { Menu, SubMenu, MenuItem } from './directive/menu'
-import './css/menu.scss'
+//import './css/menu.scss'
 
 const component = {
     namespace:'Fermi.menu',

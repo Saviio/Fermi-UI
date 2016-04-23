@@ -1,6 +1,6 @@
 import factory from '../external/buildFactory'
 import { Checkbox } from './directive/checkbox'
-import './css/checkbox.scss'
+//import './css/checkbox.scss'
 
 const component = {
     namespace:'Fermi.checkbox',

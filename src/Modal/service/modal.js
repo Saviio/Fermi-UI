@@ -328,6 +328,10 @@ export default class Modal{
         options.scope = scope
         options.template = replacePlainTag(confirm, options.plain)
 
+        if(options.title === 'PleaseConfirm'){
+            options.title = i18n.transform()(options.title)
+        }
+
         modal = this.open(options)
         modal.dismiss = new Promise(resolve => dismiss = resolve)
         modal.ok = new Promise(resolve => ok = resolve)

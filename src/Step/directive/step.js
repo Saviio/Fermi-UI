@@ -58,8 +58,8 @@ export class Steps {
         let unChecked = scope.steps.filter(item => item.status() === false)
         unChecked.length > 0 && unChecked[0].inProgress()
         if(scope.steps.length >= 2){
-            let rootUnit = rootDOM::getStyle(style, 'px')
             setTimeout(() => {
+                let rootUnit = rootDOM::getStyle(style, 'px')
                 let stepStyle = scope.steps.map(item => item.elem::getStyle(style, 'px'))
                 let avg = (rootUnit - stepStyle.reduce((pre, cur) => pre + cur) - 3 * stepStyle.length) / (scope.steps.length - 1)
                 for(let i = 0; i < scope.steps.length - 1; i++ ){
