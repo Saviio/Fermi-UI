@@ -37,7 +37,7 @@ https://saviio.github.io/Fermi-UI
 
 
 ##Documentation:
-To start the documentation site locally, you'll need to checkout the branche and install the dpendencies.
+To start the documentation site locally, you'll need to checkout the branch and install the dpendencies.
 ```
     git clone git@github.com:Saviio/Fermi.UI.git
     git checkout origin/doc
