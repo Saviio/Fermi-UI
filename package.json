@@ -5,7 +5,8 @@
   "main": "./lib",
   "scripts": {
     "build": "webpack --config webpack.build.js ",
-    "debug": "node-debug -p 9399 node_modules/webpack/bin/webpack.js --config webpack.build.js"
+    "debug": "node-debug -p 9399 node_modules/webpack/bin/webpack.js --config webpack.build.js",
+    "dev": "webpack-dev-server --history-api-fallback --inline --progress"
   },
   "repository": {
     "type": "git",

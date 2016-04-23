@@ -18,29 +18,21 @@ module.exports = function makeWebpackConfig (options) {
    */
   var BUILD = !!options.BUILD;
   var TEST = !!options.TEST;
+  var DEV = !TEST && !BUILD
 
-  /**
-   * Config
-   * Reference: http://webpack.github.io/docs/configuration.html
-   * This is the object where all configuration gets set
-   */
   var config = {};
 
-  /**
-   * Entry
-   * Reference: http://webpack.github.io/docs/configuration.html#entry
-   * Should be an empty object if it's generating a test build
-   * Karma will set this when it's a test build
-   */
-
-
-  if (TEST) {
-    config.entry = {}
-  } else {
-    config.entry = {
-      'index': ['./src/index']
+    if (TEST) {
+        config.entry = {}
+    } else if(DEV) {
+        config.entry = {
+            'index': ['./dev/app.js']
+        }
+    } else {
+        config.entry = {
+            'index': ['./src/index']
+        }
     }
-  }
 
   /**
    * Output
@@ -65,10 +57,13 @@ module.exports = function makeWebpackConfig (options) {
 
       // Filename for non-entry points
       // Only adds hash in build mode
-      chunkFilename: BUILD ? '[name].js' : '[name].bundle.js',
-      libraryTarget : 'commonjs2'
+      chunkFilename: BUILD ? '[name].js' : '[name].bundle.js'
     }
-    config.target = 'node'
+
+    if(BUILD){
+        config.output.libraryTarget = 'commonjs2'
+        config.target = 'node'
+    }
   }
 
   /**
@@ -84,14 +79,7 @@ module.exports = function makeWebpackConfig (options) {
     config.devtool = 'eval';
   }
 
-  /**
-   * Loaders
-   * Reference: http://webpack.github.io/docs/configuration.html#module-loaders
-   * List: http://webpack.github.io/docs/list-of-loaders.html
-   * This handles most of the magic responsible for converting modules
-   */
 
-  // Initialize module
 
   config.module = {
     preLoaders: [],
@@ -105,7 +93,7 @@ module.exports = function makeWebpackConfig (options) {
       loader: 'file?name=[name].[ext]'
     }, {
       test: /\.html$/,
-      loader: 'raw'
+      loader: 'html'
     },{
         test: /\.scss$/,
         loader: ExtractTextPlugin.extract(
@@ -117,10 +105,6 @@ module.exports = function makeWebpackConfig (options) {
     }]
   };
 
-  // ISPARTA LOADER
-  // Reference: https://github.com/ColCh/isparta-instrumenter-loader
-  // Instrument JS files with Isparta for subsequent code coverage reporting
-  // Skips node_modules and files that end with .test.js
   if (TEST) {
     config.module.preLoaders.push({
       test: /\.js$/,
@@ -132,31 +116,16 @@ module.exports = function makeWebpackConfig (options) {
     })
   }
 
-  // CSS LOADER
-  // Reference: https://github.com/webpack/css-loader
-  // Allow loading css through js
-  //
-  // Reference: https://github.com/postcss/postcss-loader
-  // Postprocess your css with PostCSS plugins
   var cssLoader = {
     test: /\.css$/,
-    // Reference: https://github.com/webpack/extract-text-webpack-plugin
-    // Extract css files in production builds
-    //
-    // Reference: https://github.com/webpack/style-loader
-    // Use style-loader in development for hot-loading
     loader: ExtractTextPlugin.extract('style', 'css?sourceMap!postcss')
   };
 
 
   // Skip loading css in test mode
   if (TEST) {
-    // Reference: https://github.com/webpack/null-loader
-    // Return an empty module
     cssLoader.loader = 'null'
   }
-
-  // Add cssLoader to the loader list
   config.module.loaders.push(cssLoader);
 
   /**
@@ -170,33 +139,32 @@ module.exports = function makeWebpackConfig (options) {
     })
   ];
 
-  /**
-   * Plugins
-   * Reference: http://webpack.github.io/docs/configuration.html#plugins
-   * List: http://webpack.github.io/docs/list-of-plugins.html
-   */
+
   config.plugins = [
-    // Reference: https://github.com/webpack/extract-text-webpack-plugin
-    // Extract css files
-    // Disabled when in test mode or not in build mode
     new ExtractTextPlugin('[name].css', {
       disable: !BUILD || TEST
     })
   ];
 
-  // Skip rendering index.html in test mode
-  if (!TEST) {
-    // Reference: https://github.com/ampedandwired/html-webpack-plugin
-    // Render index.html
-    /*
+
+  if (DEV) {
     config.plugins.push(
       new HtmlWebpackPlugin({
-        template: './src/index.html',
+        template: './dev/index.html',
         inject: 'body',
         minify: {}
       })
-  )*/
+  )
 }
+
+var define = new webpack.DefinePlugin({
+     __DEV__: DEV,
+     __LEAK__: false
+ })
+
+ if(DEV){
+     config.plugins.push(define)
+ }
 
   if (BUILD) {
     config.plugins.push(

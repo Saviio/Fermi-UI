@@ -1,0 +1,539 @@
+<div id="modal" class="api">
+    <div class="componentbox-abstract">
+        <h3>
+            <p>Modal</p>
+        </h3>
+        <p>An element displays content that temporarily blocks interactions with the main view of a site.</p>
+    </div>
+    <div class="componentbox-usage">
+        <h4>
+            <p>
+                Usage
+            </p>
+        </h4>
+        <componentbox>
+            <demo>
+                <Fermi:Buttons content="Normal Modal" type="primary" ng-click="Modal.showNormal()"></Fermi:Buttons>
+            </demo>
+            <description>
+                A normal modal example.
+            </description>
+            <codegroup>
+                <es>
+modal.normal({
+    content:'Normal Modal',
+    width:240
+})
+                </es>
+            </codegroup>
+        </componentbox>
+        <componentbox>
+            <demo>
+                <Fermi:Buttons content="Confirm Modal" ng-click="Modal.showConfirm()"></Fermi:Buttons>
+            </demo>
+            <description>
+                A confirm modal example.
+            </description>
+            <codegroup>
+                <es>
+modal.confirm({
+    content:'Confirm Modal',
+    width:300
+})
+                </es>
+            </codegroup>
+        </componentbox>
+        <componentbox>
+            <demo>
+                <Fermi:Buttons content="Async Modal" type="primary" ng-click="Modal.showAsync()"></Fermi:Buttons>
+            </demo>
+            <description>
+                Another modal example with async event. A normal modal will be open after user click the "ok" button.
+            </description>
+            <codegroup>
+                <es>
+let modalIns = modal.confirm({
+    content:'Please click ok to show another modal.',
+    width:300
+})
+
+modalIns.prevent = true // prevent preset action
+modalIns.ok.then((ok, dismiss) => {
+    ok.loading()
+    return new Promise(resolve => {
+        setTimeout(() => { // simulate a async event
+            modal.normal({
+                content: 'Sorry to have kept you waiting.',
+                width:240
+            })
+            resolve()
+        }, 3000)
+    }).then(() => {
+        ok.done()
+        modalIns.close()
+    })
+})
+
+modalIns.dismiss.then(() => modalIns.close())
+                </es>
+            </codegroup>
+        </componentbox>
+        <componentbox>
+            <demo>
+                <Fermi:Buttons content="Customized Modal"  ng-click="Modal.showCustomized()"></Fermi:Buttons>
+            </demo>
+            <description>
+                A customized modal.
+            </description>
+            <codegroup>
+                <es>
+let option = {
+    template: '#modalTemplate',
+    controller:'demoModal',
+    controllerAs:'Demo'
+}
+modal.open(option)
+                </es>
+            </codegroup>
+        </componentbox>
+    </div>
+
+    <div class="componentbox-api">
+        <h4>
+            <p>
+                API
+            </p>
+        </h4>
+        <div>
+            <p class="note">
+                * Note: Please inject Fermi.Modal as a service in your controller first.
+            </p>
+            <table class="api-description method">
+                <thead>
+                    <tr>
+                        <th>Method</th>
+                        <th>Description</th>
+                        <th>Signature</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            normal
+                        </td>
+                        <td>
+                            Makes a normal modal. In general, it can be used as "alert some message".
+                        </td>
+                        <td>
+
+                            <code>
+                                (option: object) => modal instance
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            confirm
+                        </td>
+                        <td>
+                            Makes a confirm modal. In general, it can be used as "confirm some action".
+                        </td>
+                        <td>
+
+                            <code>
+                                (option: object) => modal instance
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            open
+                        </td>
+                        <td>
+                            The underlying method of modal service.
+                        </td>
+                        <td>
+
+                            <code>
+                                (option: object) => modal instance
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            closeAll
+                        </td>
+                        <td>
+                            Closes all existing modal.
+                        </td>
+                        <td>
+
+                            <code>
+                                () => void
+                            </code>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <h6>
+                <p>
+                    Modal - normal option object
+                </p>
+            </h6>
+            <table class="api-description">
+                <thead>
+                    <tr>
+                        <th>Prop</th>
+                        <th>Type</th>
+                        <th>Required</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            content
+                        </td>
+                        <td>
+                            String
+                        </td>
+                        <td>
+                            <code>
+                                Optional
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            width
+                        </td>
+                        <td>
+                            Number
+                        </td>
+                        <td>
+                            <code>
+                                Optional
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            okText
+                        </td>
+                        <td>
+                            String
+                        </td>
+                        <td>
+                            <code>
+                                Optional
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            plain
+                        </td>
+                        <td>
+                            boolean
+                        </td>
+                        <td>
+                            <code>
+                                Optional
+                            </code>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <h6>
+                <p>
+                    Modal - confirm option object
+                </p>
+            </h6>
+            <table class="api-description">
+                <thead>
+                    <tr>
+                        <th>Prop</th>
+                        <th>Type</th>
+                        <th>Required</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            content
+                        </td>
+                        <td>
+                            String
+                        </td>
+                        <td>
+                            <code>
+                                Optional
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            width
+                        </td>
+                        <td>
+                            Number
+                        </td>
+                        <td>
+                            <code>
+                                Optional
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            okText
+                        </td>
+                        <td>
+                            String
+                        </td>
+                        <td>
+                            <code>
+                                Optional
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            dismissText
+                        </td>
+                        <td>
+                            String
+                        </td>
+                        <td>
+                            <code>
+                                Optional
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            title
+                        </td>
+                        <td>
+                            String
+                        </td>
+                        <td>
+                            <code>
+                                Optional
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            plain
+                        </td>
+                        <td>
+                            boolean
+                        </td>
+                        <td>
+                            <code>
+                                Optional
+                            </code>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <h6>
+                <p>
+                    Modal - open option object
+                </p>
+            </h6>
+            <table class="api-description">
+                <thead>
+                    <tr>
+                        <th>Prop</th>
+                        <th>Type</th>
+                        <th>Required</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            template
+                        </td>
+                        <td>
+                            String (DOM&lt;class&nbsp;|&nbsp;id&gt;)
+                        </td>
+                        <td>
+                            <code>
+                                Required
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            className
+                        </td>
+                        <td>
+                            String
+                        </td>
+                        <td>
+                            <code>
+                                Optional
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            title
+                        </td>
+                        <td>
+                            String
+                        </td>
+                        <td>
+                            <code>
+                                Optional
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            scope
+                        </td>
+                        <td>
+                            AngularScope
+                        </td>
+                        <td>
+                            <code>
+                                Optional
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            controller
+                        </td>
+                        <td>
+                            String | Function
+                        </td>
+                        <td>
+                            <code>
+                                Optional
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            controllerAs
+                        </td>
+                        <td>
+                            String
+                        </td>
+                        <td>
+                            <code>
+                                Optional
+                            </code>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <h6>
+                <p>
+                    Modal - Modal Instance
+                </p>
+            </h6>
+            <p class="note">
+                * Note: If you're using Modal.normal or Modal.confirm as a shortcut to open a modal, the binding of button will be passed in callback. e.g.
+                <code> Instance.opened.then((ok, dismiss) => FunctionBlock) </code>, you can find the detail in "Async modal" example.
+            </p>
+            <table class="api-description method">
+                <thead>
+                    <tr>
+                        <th>Prop</th>
+                        <th>Description</th>
+                        <th>Signature</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            opened
+                        </td>
+                        <td>
+                            Sets the callback for the open event. (Promise type object)
+                        </td>
+                        <td>
+                            <code>
+                                Instance.opened.then(callback)
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            closed
+                        </td>
+                        <td>
+                            Sets the callback for the close event. (Promise type object)
+                        </td>
+                        <td>
+                            <code>
+                                Instance.closed.then(callback)
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            close
+                        </td>
+                        <td>
+                            Closes the modal.
+                        </td>
+                        <td>
+                            <code>
+                                () => void
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            isClosed
+                        </td>
+                        <td>
+                            To check if the modal is closed.
+                        </td>
+                        <td>
+                            <code>
+                                () => void
+                            </code>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script id="modalTemplate" type="text/fm-template">
+    <div>
+        <h4>{{::Demo.title}}</h4>
+        <Fermi:Tabs>
+            <Fermi:Tab header="Orignal">
+                <div class="modalDemo">
+                    <p>Others because you did not keep</p>
+                    <p>That deep-sworn vow have been friends of mine;</p>
+                    <p>Yet always when I look death in the face,</p>
+                    <p>When I clamber to the heights of sleep,</p>
+                    <br>
+                    <p>Or when I grow excited with wine,</p>
+                    <p>Suddenly I meet your face.</p>
+                </div>
+            </Fermi:Tab>
+            <Fermi:Tab header="Translation">
+                <div class="modalDemo">
+                    <p>因你未守</p>
+                    <p>你我之间深沉的誓言</p>
+                    <p>我已与他人相恋</p>
+                    <p>但每当我与死神直面</p>
+                    <p>甜梦中步上山巅</p>
+                    <p>或酣然于醉乡流连</p>
+                    <br>
+                    <p>忽然间</p>
+                    <p>我又看见你的脸</p>
+                </div>
+            </Fermi:Tab>
+        </Fermi:Tabs>
+    </div>
+</script>

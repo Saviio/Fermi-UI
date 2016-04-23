@@ -1,0 +1,329 @@
+<div id="radio" class="api">
+    <div class="componentbox-abstract">
+        <h3>
+            <p>Radio</p>
+        </h3>
+        <p>An element represents a selection of one item from a list of items.</p>
+    </div>
+    <div class="componentbox-usage">
+        <h4>
+            <p>
+                Usage
+            </p>
+        </h4>
+        <componentbox>
+            <demo>
+                <Fermi:radio label="Radio1" value="李白" checked></Fermi:radio>
+            </demo>
+            <description>
+                Radio example.
+            </description>
+            <codegroup>
+                <markup>
+<Fermi:radio label="Radio1" value="李白" ng-escape></Fermi:radio>
+                </markup>
+            </codegroup>
+        </componentbox>
+        <componentbox>
+            <demo>
+                <Fermi:radio label="Radio2" value="杜甫" control="Radio.radio" change="Radio.output"></Fermi:radio>
+            </demo>
+            <description>
+                Current Status: [{{Radio.radio.checked}}], Value: [{{Radio.radio.value}}],  Once the value of radio changed, it will be outputed in console(F12).
+            </description>
+            <codegroup>
+                <markup>
+<Fermi:radio label="Radio2" value="杜甫" control="Radio.radio" change="Radio.output" ng-escape></Fermi:radio>
+                </markup>
+            </codegroup>
+        </componentbox>
+        <componentbox>
+            <demo>
+                <Fermi:radioGroup control="Radio.group">
+                    <Fermi:radio label="Radio in Group 1" value="李商隐" checked></Fermi:radio>
+                    <Fermi:radio label="Radio in Group 2" value="杜牧"></Fermi:radio>
+                </Fermi:radioGroup>
+            </demo>
+            <description>
+                Mutually exclusive radios, Current Value: [{{Radio.group.value}}].
+            </description>
+            <codegroup>
+                <markup>
+<Fermi:radioGroup control="Radio.group" ng-escape>
+    <Fermi:radio label="Radio in Group 1" value="李商隐" checked></Fermi:radio>
+    <Fermi:radio label="Radio in Group 2" value="杜牧"></Fermi:radio>
+</Fermi:radioGroup>
+                </markup>
+            </codegroup>
+        </componentbox>
+    </div>
+
+    <div class="componentbox-api">
+        <h4>
+            <p>
+                API
+            </p>
+        </h4>
+        <div>
+            <h5>
+                <p>
+                    Radio
+                </p>
+            </h5>
+            <table class="api-description">
+                <thead>
+                    <tr>
+                        <th>Prop</th>
+                        <th>Description</th>
+                        <th>Type</th>
+                        <th>Default Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            label
+                        </td>
+                        <td>
+                            Specifies the label for the radio.
+                        </td>
+                        <td>
+                            String
+                        </td>
+                        <td>
+                            <code>
+                                ''
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            value
+                        </td>
+                        <td>
+                            Specifies the value for the radio.
+                        </td>
+                        <td>
+                            String
+                        </td>
+                        <td>
+                            <code>
+                                ''
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            checked
+                        </td>
+                        <td>
+                            Specifies that the radio should be checked.
+                        </td>
+                        <td>
+                            boolean
+                        </td>
+                        <td>
+                            <code>
+                                not-specified
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            disabled
+                        </td>
+                        <td>
+                            Specifies that the radio should be disabled.
+                        </td>
+                        <td>
+                            boolean
+                        </td>
+                        <td>
+                            <code>
+                                not-specified
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            change
+                        </td>
+                        <td>
+                            Specifies the callback for value change event.
+                        </td>
+                        <td>
+                            Function
+                        </td>
+                        <td>
+                            <code>
+                                not-specified
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            control
+                        </td>
+                        <td>
+                            Binding of the radio instance. It can be accessed from controller scope.
+                        </td>
+                        <td>
+                            identifier
+                        </td>
+                        <td>
+                            <code>
+                                undefined
+                            </code>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <h6>
+                <p>
+                    Radio - control
+                </p>
+            </h6>
+            <table class="api-description method">
+                <thead>
+                    <tr>
+                        <th>Prop</th>
+                        <th>Description</th>
+                        <th>Signature</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            allow
+                        </td>
+                        <td>
+                            Switches the state from <code>disable</code> to <code>enable</code>.
+                        </td>
+                        <td>
+                            <code>
+                                () => void
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            disable
+                        </td>
+                        <td>
+                            Switches the state from <code>enable</code> to <code>disable</code>.
+                        </td>
+                        <td>
+                            <code>
+                                () => void
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            checked
+                        </td>
+                        <td>
+                            Sets or retreves the state of the radio box
+                        </td>
+                        <td>
+                            <code>
+                                not a function
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            value
+                        </td>
+                        <td>
+                            Sets or retrieves the displayed value for the object.
+                        </td>
+                        <td>
+                            <code>
+                                not a function
+                            </code>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <h5>
+                <p>
+                    Radio Group
+                </p>
+            </h5>
+            <table class="api-description">
+                <thead>
+                    <tr>
+                        <th>Prop</th>
+                        <th>Description</th>
+                        <th>Type</th>
+                        <th>Default Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            change
+                        </td>
+                        <td>
+                            Specifies the callback for value change event. if user declared this propery then the "change callback" which is declared on radio propery will be ignored.
+                        </td>
+                        <td>
+                            Function
+                        </td>
+                        <td>
+                            <code>
+                                null
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            control
+                        </td>
+                        <td>
+                            Binding of the radioGroup instance. It can be accessed from controller scope.
+                        </td>
+                        <td>
+                            identifier
+                        </td>
+                        <td>
+                            <code>
+                                undefined
+                            </code>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <h6>
+                <p>
+                    RadioGroup - control
+                </p>
+            </h6>
+            <table class="api-description method">
+                <thead>
+                    <tr>
+                        <th>Prop</th>
+                        <th>Description</th>
+                        <th>Signature</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            value
+                        </td>
+                        <td>
+                            Gets the value from choosed radio box.
+                        </td>
+                        <td>
+                            <code>
+                                not a function
+                            </code>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
