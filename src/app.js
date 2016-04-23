@@ -250,5 +250,12 @@ app.config([
             })
             $urlRouter.otherwise('/404')
         }
+
+        if(__DEV__){
+            $stateProvider.state('dev', {
+                url: domain + '/dev',
+                template: view.dev
+            })
+        }
     }
 ])

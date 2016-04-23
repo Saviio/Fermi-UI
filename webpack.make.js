@@ -228,7 +228,8 @@ module.exports = function makeWebpackConfig (options) {
   var releaseDefine = new webpack.DefinePlugin({
       __GITHUB__: GITHUB_PAGES,
       __HASH__: HASHROUTER,
-      __LEAK__: LEAK
+      __LEAK__: LEAK,
+      __DEV__: !TEST && !BUILD
   })
 
   config.plugins.push(releaseDefine)
